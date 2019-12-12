@@ -1,3 +1,7 @@
+*/DROP DATABASE IF EXISTS StudentServices;*/
+
+CREATE DATABASE IF NOT EXISTS StudentServices;
+USE StudentServices;
 DROP TABLE IF EXISTS PROFIEL;
 DROP TABLE IF EXISTS FEEDBACK;
 DROP TABLE IF EXISTS VRAAGAANBOD;
@@ -6,26 +10,22 @@ DROP TABLE IF EXISTS SELECTIEOPLEIDING;
 DROP TABLE IF EXISTS BESCHIKBAARHEID;
 DROP TABLE IF EXISTS PERSOON;
 
-
 CREATE TABLE PERSOON(
-PersoonsID int NOT NULL PRIMARY KEY ,
+PersoonsID int NOT NULL PRIMARY KEY  AUTO_INCREMENT,
 Achternaam varchar(25) NOT NULL,
 Voornaam varchar(15) NOT NULL,
 Tussenvoegsel varchar(10) NOT NULL,
-Prefix1 varchar(8) NOT NULL,
+Prefix varchar(8) NULL,
 Straat varchar(25) NOT NULL,
 Huisnummer varchar(4) NOT NULL,
 Extentie varchar(1) NULL,
 Postcode varchar(6) NOT NULL,
-Geboortedatum date DEFAULT NULL,
-Email varchar(35) DEFAULT NULL,
-Telefoonnummer varchar(10) DEFAULT NULL 
+Geboortedatum date NULL,
+Email varchar(35) NOT NULL,
+Telefoonnummer varchar(10) NULL
 );
 
-ALTER TABLE PERSOON AUTO_INCREMENT = 1000;
-
 CREATE TABLE PROFIEL (
-foto LONGBLOB DEFAULT NULL, 
 PersoonsID int NOT NULL AUTO_INCREMENT,
 Opleiding varchar(25) NOT NULL,
 Gebruikersnaam varchar(20) NOT NULL,
@@ -33,8 +33,11 @@ Wachtwoord varchar(80) NOT NULL,
 School varchar(45) NOT NULL,
 Startdatumopleiding date NOT NULL,
 Privelege INT NOT NULL,
+Foto LONGBLOB DEFAULT NULL, 
 FOREIGN KEY(PersoonsID) REFERENCES PERSOON(PersoonsID)  ON UPDATE CASCADE
 );
+
+ALTER TABLE PROFIEL AUTO_INCREMENT = 1000;
 
 CREATE TABLE SELECTIEOPLEIDING (
 OpleidingID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -44,7 +47,7 @@ Voltijd_deeltijd varchar(15) NOT NULL
 );
 
 ALTER TABLE  SELECTIEOPLEIDING AUTO_INCREMENT = 1000;
-
+ 
 CREATE TABLE SELECTIECATEGORIE (
 Categorienaam varchar(30) NOT NULL PRIMARY KEY,
 School varchar(30) NOT NULL,
@@ -53,14 +56,13 @@ OpleidingID int NOT NULL AUTO_INCREMENT,
 FOREIGN KEY(OpleidingID) REFERENCES SELECTIEOPLEIDING(OpleidingID)  ON UPDATE CASCADE
 );
 
-
 CREATE TABLE VRAAGAANBOD (
 ProjectID int NOT NULL PRIMARY KEY,
 PersoonsID int NOT NULL,
 Categorie varchar(15) NOT NULL,
-Type1 varchar(15) NOT NULL,
-Titel varchar(15) NOT NULL,
-Inhoud varchar(50) NOT NULL,
+Type varchar(15) NOT NULL,
+Titel varchar(70) NOT NULL,
+Inhoud varchar(300) NOT NULL,
 Datumaangemaakt TIMESTAMP NOT NULL,
 Deadline date NOT NULL,
 Status varchar(15) NOT NULL,
@@ -81,7 +83,10 @@ FOREIGN KEY(PersoonsID) REFERENCES PERSOON(PersoonsID)  ON UPDATE CASCADE
 
 CREATE TABLE BESCHIKBAARHEID (
 ProjectID int NOT NULL,
+PersoonsID int NOT NULL,
 Dagenbeschikbaar date DEFAULT NULL,
 Tijden time DEFAULT NULL,
-Duur time DEFAULT NULL
+Duur time DEFAULT NULL,
+FOREIGN KEY(ProjectID) REFERENCES VRAAGAANBOD(ProjectID)  ON UPDATE CASCADE,
+FOREIGN KEY(PersoonsID) REFERENCES PROFIEL(PersoonsID) ON UPDATE CASCADE
 );
