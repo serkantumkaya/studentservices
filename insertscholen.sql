@@ -1,4 +1,4 @@
-INSERT INTO SCHOOL ('Avans Hogeschool'),
+INSERT INTO SCHOOL (schoolnaam) values('Avans Hogeschool'),
 ('Aeres Hogeschool'),
 ('Amsterdamse Hogeschool voor de Kunsten'),
 ('ArtEZ Hogeschool voor de Kunsten'),
