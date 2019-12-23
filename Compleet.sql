@@ -162,7 +162,8 @@ Insert into selectieCategorie (Categorienaam) Values
 ('Networking'),
 ('Hardware'),
 ('Sofware'),
-('Verslagen');
+('Verslagen'),
+('Eten en drinken');
 
 Delete from gebruiker;
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats) 
@@ -196,6 +197,11 @@ INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email,
 VALUES ('Randy','FCooijman','','Cooijman@gmail.com','Cooijman@gmail.com','Welkom123!',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Jullaan',23, '2343RD', 'Oosterhout', '1997-08-28');
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
 VALUES ('Peter','Mosselaar','van den','Peter@gmail.com','peter@gmail.com','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1),
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
+'2019-08-31', 'Jullaan',23, '2343RD', 'Oosterhout','1997-04-11');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Johan','grave','van den','mezelf123','johan.vd.grave@gmail.com','Welkom123!',
 (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1),
 (SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
 '2019-08-31', 'Jullaan',23, '2343RD', 'Oosterhout','1997-04-11');
