@@ -296,7 +296,7 @@ VALUES ('Jolanda','Hooijdonk','van','JolandavanHooijdonk@gmail.com','JolandavanH
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
 VALUES ('Joost','Iperen','van','JoostvanIperen@gmail.com','JoostvanIperen@gmail.com','Welkom123!',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Brabanderlaan',100, '4534RD', 'Breda', '1988-10-30');
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
-VALUES ('Pieter','Smets',null,'psmets@gmail.com','psmets@gmail.com','Welkom123!',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Ing.Metz hof', 67,'1344IJ', 'Rsaamsdonksveer', '1999-05-01');
+VALUES ('Pieter','Smets',null,'psmets@gmail.com','psmets@gmail.com','Welkom123!',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Ing.Metz hof', 67,'1344IJ', 'Raamsdonksveer', '1999-05-01');
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
 VALUES ('Marriane','Jylha',null,'M.Jylha@gmail.com','M.Jylha@gmail.com','Welkom123!',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Olijflaan',123, '2222PL', 'Oosterhout', '1966-11-06');
 INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
@@ -321,13 +321,38 @@ VALUES ('Johan','grave','van den','mezelf123','johan.vd.grave@gmail.com','Welkom
 (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1),
 (SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
 '2019-08-31', 'Jullaan',23, '2343RD', 'Oosterhout','1997-04-11');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Bart','Boer','de','BartDeBoer@gmail.com','BartDeBoer@gmail.com','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Creative Business' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-24', 
+'Julia Dildorlaan',13, '3344UJ', 'Rotterdam','1997-08-28');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Dirk','Jumbo','van de','dirkvandejumbo@gmail.com','dirkvandejumbo@gmail.com','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Biotechnologie' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-24', 
+'Feyenoord',17, '3345FY', 'Rotterdam','1998-03-09');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Lucas','Harten','den','ldh@ziggo.nl','ldh@ziggo.nl','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-24', 
+'Admiraal de Ruyterlaan',800, '3345FB', 'Rotterdam','1997-09-09');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Teunis','Ruijter','de','teunis@gmail.com','teunis@gmail.com','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Tuinbouw & Agribusiness' and Voltijd_deeltijd = 'Deeltijd' LIMIT 1),'2019-09-01', 
+'Den hoge laan',10, '3345FB', 'Ridderkerk','1997-12-23');
+INSERT INTO gebruiker(Voornaam, Achternaam, Tussenvoegsel,Gebruikersnaam, Email, Wachtwoord, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum) 
+VALUES ('Diana','Alashraf','','dalashraf@gmail.com','dalashraf@gmail.com','Welkom123!',
+(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,
+(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Creative Business' and Voltijd_deeltijd = 'Deeltijd' LIMIT 1),'2019-09-01', 
+'Drijversschuit',12, '3372GH', 'Boven-Hardinxveld','1997-11-19');
 
 INSERT INTO project 
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='ruudderooi@gmail.com' Limit 1), '1', 'Hulp nodig bij fotografie', 
 'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Fotograferen' Limit 1)
-, '2019-12-19', '2020-06-24', 'Nog niet klaar', 
+, '2019-12-19', '2020-06-24', 0, 
 'Bij mij thuis in Breda', 'false') ;
 
 INSERT INTO project 
@@ -335,7 +360,7 @@ INSERT INTO project
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='MariskaRaamsdonk@gmail.com' Limit 1), '1', 'Rapporteren lessen gemist', 
 'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Rapporteren' Limit 1)
-, '2019-12-19', '2020-02-12', 'Nog niet klaar', 
+, '2019-12-19', '2020-02-12', 0, 
 'Op school lovensedijk?', 'false') ;
 
 INSERT INTO project 
@@ -343,7 +368,7 @@ INSERT INTO project
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='LindaVanHeijst@gmail.com' Limit 1), '2', 'Bied hulp aan bij Kleien', 
 'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Kleien' Limit 1)
-, '2019-12-19', '2020-06-24', 'Klaar om te helpen', 
+, '2019-12-19', '2020-06-24', 1, 
 'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false'); 
 
 
@@ -352,7 +377,7 @@ INSERT INTO project
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Peter@gmail.com' Limit 1), '2', 'Hulp aangeboden bij Sofware schrijven.', 
 'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Sofware' Limit 1)
-, '2019-12-19', '2020-06-24', 'Nog niet klaar', 
+, '2019-12-19', '2020-06-24', 1, 
 'Waar jij wil.', 'false') ;
 
 INSERT INTO project 
@@ -360,7 +385,7 @@ INSERT INTO project
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='NicoDeJong@gmail.com' Limit 1), '1', 'Brabants afleren.', 
 'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Luisteren' Limit 1)
-, '2019-12-19', '2020-06-24', 'Nog niet klaar', 
+, '2019-12-19', '2020-06-24', 0, 
 'Het hart van Breda', 'false'); 
 
 INSERT INTO project 
@@ -368,7 +393,7 @@ INSERT INTO project
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='MikdeBeer@gmail.com' Limit 1), '2', 'Wie kan mij helpen met designpatterns', 
 'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?', 
 (Select CategorieID from selectiecategorie where Categorienaam ='Sofware' Limit 1)
-, '2019-12-19', '2020-06-24', 'Nog niet klaar', 
+, '2019-12-19', '2020-06-24', 1, 
 'Waar jij wil.', 'false') ;
 
 INSERT INTO reactie (GebruikerID,ProjectID,Reactie) Values(
