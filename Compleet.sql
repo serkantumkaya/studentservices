@@ -1,3 +1,119 @@
+CREATE DATABASE IF NOT EXISTS StudentServices;
+USE StudentServices;
+
+DROP TABLE IF EXISTS FEEDBACK;
+DROP TABLE IF EXISTS REACTIE;
+DROP TABLE IF EXISTS BESCHIKBAARHEID;
+DROP TABLE IF EXISTS PROJECT;
+DROP TABLE IF EXISTS GEBRUIKER;
+DROP TABLE IF EXISTS SELECTIECATEGORIE;
+DROP TABLE IF EXISTS SELECTIEOPLEIDING;
+DROP TABLE IF EXISTS SCHOOL;
+
+CREATE TABLE SCHOOL(
+	SchoolID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	Locatie varchar(40) NOT NULL,
+	Postcode varchar(8) NOT NULL,
+	Schoolnaam varchar(100) NOT NULL
+);
+
+ALTER TABLE SCHOOL AUTO_INCREMENT = 1000;
+
+CREATE TABLE SELECTIEOPLEIDING (
+OpleidingID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+Naamopleiding varchar(100) NOT NULL,
+Voltijd_deeltijd ENUM('Voltijd', 'Duaal', 'Deeltijd') NOT NULL
+);
+
+ALTER TABLE SELECTIEOPLEIDING MODIFY Naamopleiding varchar(100) NOT NULL;
+
+ALTER TABLE  SELECTIEOPLEIDING AUTO_INCREMENT = 1000;
+
+CREATE TABLE SELECTIECATEGORIE (
+CategorieID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+Categorienaam varchar(30) NOT NULL
+);
+
+CREATE TABLE GEBRUIKER(
+GebruikerID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+Gebruikersnaam varchar(50) NOT NULL UNIQUE,
+Wachtwoord varchar(80) NOT NULL,
+Email varchar(50) NOT NULL,
+School int NULL ,
+Opleiding int NULL,
+Startdatumopleiding date NULL,
+Foto BLOB DEFAULT NULL,
+Status ENUM('actief', 'non actief', 'verwijderd') DEFAULT 'actief',
+Achternaam varchar(60) NOT NULL,
+Voornaam varchar(50) NOT NULL,
+Tussenvoegsel varchar(10) NULL,
+Prefix1 varchar(8) NULL,
+Straat varchar(50) NOT NULL,
+Huisnummer int NOT NULL,
+Extentie varchar(3) NULL,
+Postcode varchar(6) NOT NULL,
+Woonplaats varchar(60) NOT NULL,
+Geboortedatum date NULL, 
+Telefoonnummer varchar(15) NULL,
+FOREIGN KEY(School) REFERENCES School(SchoolID) ON UPDATE CASCADE,
+FOREIGN KEY(Opleiding) REFERENCES SELECTIEOPLEIDING(OpleidingID) ON UPDATE CASCADE   
+);
+
+ALTER TABLE GEBRUIKER CHANGE Tussenvoegsel Tussenvoegsel varchar(10) NULL;
+ALTER TABLE GEBRUIKER AUTO_INCREMENT = 1000;
+
+CREATE TABLE PROJECT (
+ProjectID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+GebruikerID int NOT NULL,
+Type1 varchar(15) NOT NULL,
+Titel varchar(70) NOT NULL,
+Beschrijving varchar(500) NOT NULL,
+CategorieID int NOT NULL,
+Datumaangemaakt TIMESTAMP NOT NULL,
+Deadline datetime NULL,
+Status BOOLEAN DEFAULT TRUE,
+Locatie varchar(40) REFERENCES SCHOOL(Locatie),
+Verwijderd BOOLEAN NOT NULL DEFAULT 0,
+FOREIGN KEY(CategorieID) REFERENCES SELECTIECATEGORIE(CategorieID) ON UPDATE CASCADE,
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
+);
+
+ALTER TABLE project Change Type1 Type varchar(15) NOT NULL;
+ALTER TABLE project Change Type Type ENUM('Vragen','Aanbieden','Onbekend') DEFAULT 'Onbekend';
+
+CREATE TABLE REACTIE (
+ReactieID INT PRIMARY KEY AUTO_INCREMENT,
+GebruikerID INT,
+ProjectID INT,
+Reactie varchar(500) DEFAULT NULL,
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE,
+FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE
+);
+
+CREATE TABLE BESCHIKBAARHEID (
+ProjectID int NOT NULL,
+GebruikerID int NOT NULL,
+Dagbeschikbaar DATE NOT NULL,
+starttijd TIME NOT NULL,
+Eindtijd TIME NOT NULL,
+FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE,
+PRIMARY KEY (ProjectID, GebruikerID, Dagbeschikbaar,starttijd,Eindtijd)
+);
+
+CREATE TABLE FEEDBACK(
+FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
+GebruikerID INT NOT NULL,
+ProjectID INT NOT NULL,
+Cijfer INT NOT NULL,
+Review varchar(500) NOT NULL,
+FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
+);
+
+
+
+
 INSERT INTO SCHOOL (schoolnaam) values('Avans Hogeschool'),
 ('Aeres Hogeschool'),
 ('Amsterdamse Hogeschool voor de Kunsten'),
@@ -305,4 +421,20 @@ Values (
 (Select ProjectID from project where Titel = 'Wie kan mij helpen met designpatterns' Limit 1),
 10, 'Zo als gewoonlijk heb ik het weer zo weten op te lossen. Mik was tevreden,');
 
+CREATE VIEW `Leeftijden` as SELECT SUM(IF(Leeftijd < 20,1,0)) as 'Onder 20',
+SUM(IF(Leeftijd BETWEEN 20 and 29,1,0)) as '20-29',
+SUM(IF(Leeftijd BETWEEN 30 and 39,1,0)) as '30-39',
+SUM(IF(Leeftijd BETWEEN 40 and 49,1,0)) as '40-49',
+SUM(IF(Leeftijd >50,1,0)) as 'Ouder dan 50',
+SUM(IF(Leeftijd IS NULL,1,0)) as 'Niet bekend'
+FROM (select (TIMESTAMPDIFF(YEAR, Geboortedatum, CURDATE())) as Leeftijd FROM gebruiker) AS derived;
+
+CREATE VIEW `Projecten_leeftijdcategorie` as
+SELECT SUM(IF(Leeftijd <20,1,0)) as 'onder 20', 
+SUM(IF(Leeftijd BETWEEN 20 AND 29 ,1,0)) as '20-29', 
+SUM(IF(Leeftijd BETWEEN 30 AND 39,1,0)) as '30-39', 
+SUM(IF(Leeftijd BETWEEN 40 AND 49,1,0)) as '40-49', 
+SUM(IF(Leeftijd >50,1,0)) as 'Ouder dan 50', 
+SUM(IF(Leeftijd IS NULL,1,0)) as 'Niet Bekend'  
+FROM (SELECT project.projectID, project.GebruikerID, (SELECT (TIMESTAMPDIFF(YEAR,gebruiker.Geboortedatum,CURDATE()))) AS Leeftijd FROM project LEFT JOIN gebruiker ON project.GebruikerID = gebruiker.GebruikerID) AS derived;
 
