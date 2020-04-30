@@ -62,7 +62,7 @@ if (isset($_POST["delete"]))
 {
     $schoolcontroller= new SchoolController();
     if ($schoolcontroller->delete($_SESSION["CurrentSchoolid"])) {
-        header("Location: /StudentServices/View/School/Index.php");
+        header("Location: View.php");
         //echo "Record verwijderd";
         //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
     }
@@ -81,7 +81,7 @@ else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESS
         $_SESSION["CurrentSchool"] = $school;
         $_SESSION["CurrentNaam"] = $school->getSchoolnaam();
         $_SESSION["CurrentSchoolid"] = $school->getSchoolID();
-        header("Location: /StudentServices/View/School/Index.php");
+        header("Location: View.php");
         //echo "Record opgeslagen.";
         //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
     }
@@ -91,7 +91,7 @@ else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESS
     }
 }
 else{
-    echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
+    echo "<button onclick=\"window.location.href = 'View.php';\">Terug</button>";
 
 }
 ?>

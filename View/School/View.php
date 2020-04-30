@@ -6,9 +6,21 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolContr
 session_start();
 ?>
 
-    <script>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Student Services</title>
+    <meta name="description" content="index">
+    <meta name="author" content="The big 5">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--The viewport is the user's visible area of a web page.-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/StudentServices/css/style.css">
+
+    <script type="text/javascript" src="/StudentServices/JS/script.js">
         <?php
-            //nu i
+        //nu i
         $focus = "";
         if (isset($_SESSION["CurrentNaam"])) {
             $focus = trim($_SESSION["CurrentNaam"]);
@@ -16,21 +28,24 @@ session_start();
         ?>
 
     </script>
+</head>
 
-<form  method="post" action="./StudentServices/View/School/Add.php">
-    <input type="submit" value="Voeg een nieuwe toe" >
+</head>
+
+<body>
+
+<form  method="post" action="Add.php">
+    <input type="submit" value="Nieuw"  class="ssbutton">
+    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
 </form>
-<form  method="post" action="./StudentServices/View/School/Edit.php">
+<form  method="post" action="Edit.php">
 <table> <tr> <th>School</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
 
-
-        //GEEN grote if. Afvragen of er iets gepost is zo nee dan eruit springen. Anders gewoon
-        //de code uitvoeren zonder slecht leesbare if {}
+        //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
         {
-            echo "geen actie gevonden";
             LoadList();
             return;
         }
@@ -64,11 +79,8 @@ session_start();
             {
                 $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
 
-                //persoonlijk vindt ik dit niet mooi. Ben meer voor row select en dan op een knop edit of delete klikken.
-                //Misschien weet iemand anders hoe dit moet.
-                echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo " <td> <input type=\"submit\" value=\"Edit\" formaction='./View/School/Edit.php?ID=".$school->getSchoolID()."' > </td>";//want je haalt hier de data op? Of school in zijn geheel doorgeven?
-                //echo "// <td> <a href=\"index.php?actie=delete?id=".$school->getSchoolID()."\">delete</a></td ></tr>";
+                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
+                echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"selectionrow\"> </td></tr>";
             }
         }
 
@@ -77,4 +89,6 @@ session_start();
 </tr>
 </table>
 </form>
+</body>
+</html>
 

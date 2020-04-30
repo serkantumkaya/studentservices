@@ -14,7 +14,7 @@ require 'Includes/DB.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--The viewport is the user's visible area of a web page.-->
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="/StudentServices/css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
         <script type="text/javascript" src="/StudentServices/JS/script.js">
         </script>
@@ -33,10 +33,30 @@ require 'Includes/DB.php';
             <input type="checkbox" id="hamburger"/>
 
             <!-- [MENU ITEMS] -->
+
             <ul>
                 <?php
-                // echo "<li><a href=\"index.php?GebrID=$GebrID\">Home</a></li>";
-                echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">School</a></li>";
+                $GebrID = 0;//created a temp. dummy. Put Jelle's code back for login later to make this work again.
+                //echo "<li><a href=\"index.php?GebrID=$GebrID\">Home</a></li>";
+                //switch role
+                //{
+                //case unknown //not logged in
+                //{
+                //echo "<li><a href=\"index.php?GebrID=$GebrID\">Inloggen</a></li>";
+                //}
+                //case gebruiker
+                //{
+                //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Projecten</a></li>";
+                //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Profiel</a></li>";
+                //break;
+                //}
+                //case admin
+                //{
+                echo "<li><a href=\"\./StudentServices/View/School/View.php\"\">School</a></li>";
+                echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Categorie</a></li>";
+                echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Opleiding</a></li>";
+                //break;
+                //}
                 ?>
             </ul>
         </nav>
@@ -63,12 +83,7 @@ require 'Includes/DB.php';
     <div class="info">
 
     <?php
-    //include ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Header.php");
-    //if inloggen bla bla
 
-    //if school bla bla
-    include ($_SERVER['DOCUMENT_ROOT']."/StudentServices/View/School/View.php");
-    //if projecten enz enz
     ?>
     </div>
     <div class="footer">
