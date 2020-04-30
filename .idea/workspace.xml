@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="ProjectId" id="1aaRFs7BvFFDF8fCCucQnjGtvwL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mvcblog-master" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\OefenenDB\View\School" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\OefenenDB\View\School" />
+      <recent name="C:\xampp\htdocs\OefenenDB\POCO" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="" />
+      <created>1586971617171</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1586971617171</updated>
+      <workItem from="1586971618407" duration="3259000" />
+      <workItem from="1587050445946" duration="2283000" />
+      <workItem from="1587057788826" duration="2424000" />
+      <workItem from="1587223253815" duration="8765000" />
+      <workItem from="1587232459425" duration="882000" />
+      <workItem from="1587308209884" duration="12365000" />
+      <workItem from="1587399186806" duration="10442000" />
+      <workItem from="1587474719519" duration="88000" />
+      <workItem from="1587477066211" duration="15694000" />
+      <workItem from="1587494311296" duration="1019000" />
+      <workItem from="1587574373961" duration="4841000" />
+      <workItem from="1587750927932" duration="4875000" />
+      <workItem from="1587887792972" duration="4006000" />
+      <workItem from="1588088116528" duration="9283000" />
+      <workItem from="1588172870481" duration="8529000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Inspections" timestamp="1587226844361">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Inspections/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587226844361" />
+    <state x="714" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587053415443">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="714" y="323" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587053415443" />
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1586973595710">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586973595710" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588177336312">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587402074317" />
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588177336312" />
+    <state x="784" y="334" key="NewPhpClassDialog" timestamp="1587053386492">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="784" y="334" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586973871420" />
+    <state x="784" y="334" key="NewPhpClassDialog/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587053386492" />
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1587399401592">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587399401592" />
+    <state x="794" y="443" key="NewPhpFileDialog/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587052675660" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1587402102440">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1587402102440" />
+    <state x="648" y="366" width="707" height="307" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1587402101389">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="648" y="366" width="707" height="307" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587402101389" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587404883798">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587404883798" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/View/School/View.php</url>
+          <line>25</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

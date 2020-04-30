@@ -1,0 +1,692 @@
+
+p {
+    font-size: 12px;  /*12px font grootte*/
+	font-family:verdana;
+}
+
+body {
+    height:100%;
+    padding:0px;
+    margin:0px;
+}
+
+/*form
+{
+    text-align: left;
+    overflow:auto;
+    width:100%;
+}*/
+
+.formrow
+{
+    width:100%;
+    margin-bottom: 10px;
+}
+
+
+.formcol1
+{
+    width:200px;
+    float:left;
+}
+
+.formcol2
+{
+    width:300px;
+    float:left;
+}
+
+.formouter{
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    position:relative;
+    text-align:right;
+    height:440px;
+    width:500px;
+    margin-top:20px;
+    padding-top:20px;
+    padding-left:20px;
+    margin-left:20px;
+    margin-bottom:20px;
+}
+
+#validation
+{
+    width:100%;
+    float:left;
+}
+
+textarea {
+    resize: none;
+}
+
+#logo{
+    position: fixed; /*Logo altijd in de hoek*/
+    right : 0px;
+    top :0px;
+    height: 100px;
+    width:100px;
+}
+
+.sliderimage {
+    width:100%;
+    height:100px;
+    position:fixed;
+    top:40px;
+}
+
+/* Hide Hamburger */
+#page-nav label, #hamburger {
+    display: none;
+}
+
+#page-nav{
+    width: 100%;
+    position: fixed;
+    border-bottom: 1px solid #00008B;
+    background-color: #ffffff;
+}
+
+.info {
+    grid-area: info;
+    /*top:150px;/*
+    height: auto;
+    /*position:fixed;*/
+    width:100%;
+    overflow: auto;
+    /*auto scrollbars bij een grotere wordende tekst*/
+
+}
+
+ dt {
+    font-weight: bold;
+ }
+
+ .active{
+    background-color: #00008B;
+    color: #FFB31A;
+ }
+
+#rcorners2 {
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 20px; 
+    width: auto;
+    height: auto;  
+    margin: 10px;
+    margin-bottom: auto;
+    text-align: center;
+    z-index:0;
+  }
+
+#rcornersContact {
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 20px; 
+    width: 71%;
+    height: auto;  
+    margin: 10px;
+    margin-bottom: auto;
+    text-align: center;
+    margin-bottom:20px;
+    z-index:0;
+  }
+
+#rcornersContactform {
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 20px;
+    width: 82%;
+    height: auto;
+    margin: 10px;
+    margin-bottom: auto;
+    text-align: center;
+    maring-bottom:20px;
+    z-index:0;
+}
+
+#rcornersMaps {
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 10px; 
+	margin: 20px;
+    text-align: center;
+    z-index:0;
+}
+
+ul {
+    list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
+    overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
+    width:350px;
+    height:40px;
+    margin:auto;
+    background-color: #FFFFFF;
+    border-color: #00008B;
+}
+
+li {
+    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive asl er meer knoppen komen*/
+}
+
+li a {
+    text-decoration: none;
+    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive als er meer knoppen komen*/
+    background-color: #FFFFFF;
+    color: #00008B;
+    border-left: 1px solid #00008B; /*De knop beginnen met een blauwe lijn aan de linkerkant*/
+    margin-left:0px;
+    margin-top:0px;
+    padding-top: 5px;
+    height:40px;
+    width:110px;
+    font-size: 30px;
+    text-align: center; /*De tekst in het midden*/
+}
+
+ul li a:hover {
+    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+    color: #FFB31A;
+}
+
+li:last-child {
+    border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
+}
+
+.header {
+    grid-area: header;
+    height:40px;
+    border-bottom: 1px solid #00008B; /*blauwe lijn onderaan om de header af te sluiten*/
+    z-index:1;/*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
+    background-color: #FFFFFF;
+}
+
+.row:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* stukje voor de mag binnen de contactpagina*/
+.mapouter{
+	position:relative;
+	text-align:right;
+	height:600px;
+	width:75%;
+    z-index:0;
+}
+
+.gmap_canvas {
+	overflow:hidden;
+	background:none;
+	height:600px;
+	width:99%;
+    z-index:0;
+}
+
+iframe{
+	height:600px;
+	width:99%;
+    z-index:0;
+}
+
+.footer {
+    grid-area: footer;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    overflow: hidden;/*hier geen scrollbars*/
+    height:20px;
+    padding:5px;
+    width : 99%;
+    /*border-top-color: #FFB31A;*/
+    text-align: center;/*text (alleen) in het midden zetten*/
+    border-top: 1px solid #00008B;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #00008B;
+    margin-left:0px;
+    margin-top:0px;
+    padding-top: 25px;
+
+    text-align: center; /*De tekst in het midden*/
+}
+
+.itemslider {
+    grid-area: slider;
+    overflow: hidden;/*hier geen scrollbars*/
+    background-color: transparent;
+    width:100%;
+    /*height:350px;*/
+    padding:auto;
+    border-bottom: 1px solid #00008B;
+}
+
+.grid-container {
+    grid-template-areas: 'header' 'slider' 'info' 'footer';/* hier geef je dus je grid componenten op*/
+    grid-gap: 0px;
+    background-color: #FFFFFF;
+    display: grid;
+    padding:0px;/*geen witte randen*/
+    margin:0px;/*geen witte randen*/
+    height: 100vh;
+    grid-template-rows: 40px 100px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+   
+}
+
+.grid-containersubs {
+    display: grid;
+    grid-template-areas: 'header' 'info' 'footer';/* hier geef je dus je grid componenten op*/
+    grid-gap: 0px;
+    background-color: #FFFFFF;
+    padding:0px;/*geen witte randen*/
+    margin:0px;/*geen witte randen*/
+    height: 100vh;
+    grid-template-rows: 102px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+    
+}
+
+.contactcel
+{
+    width: 48%;
+    float:left;
+	padding-left:12px;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+.contacttekst
+{
+    float:left;
+}
+
+.contacttekst img{
+	margin-right:5px;
+    width:50%;
+    border-radius: 25px;
+    border: 1px solid #00008B;
+}
+
+a.button {
+  border-radius: 25px;
+  background-color: #00008B; /* Oranje */
+  border: none;
+  color: #FFB31A;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width:60%;
+}
+
+#submit{
+    border-radius: 25px;
+    background-color: #00008B; /* Oranje */
+    border: none;
+    color: #FFB31A;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:200px;
+    margin-bottom : 5px;
+}
+
+.formbutton{
+    border-radius: 25px;
+    background-color: #00008B; /* Oranje */
+    border: none;
+    color: #FFB31A;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:140px;
+}
+/*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
+
+@media only screen and (max-width: 820px)
+{
+    #page-nav{
+        border:none;
+        width:99%;
+    }
+
+    #page-nav label {
+        position:fixed;
+        display: inline-block;
+        color: #000000;
+        background: #ffffff;
+        font-style: normal;
+        font-size: 1.2em;
+        padding: 10px;
+        z-index:999;
+        width:100%;
+    }
+
+    ul {
+        list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
+        overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
+        width:100%;
+        height:100%;
+        position:fixed;
+        margin:0px;
+        top:45px;
+        background-color: #FFFFFF;
+        border:none;
+        z-index:999;
+    }
+
+    li:first-child {
+        border-top: 1px solid #00008B;
+    }
+
+    li
+    {
+        float: none;
+        text-decoration: none;
+        display: block;
+        z-index:999;
+        height:50px;
+        width:100%;
+        border-left:none;
+        border-bottom: 1px solid #00008B;
+    }
+
+    li a {
+        float: none;
+        display: block;
+        z-index:999;
+        text-decoration: none;
+        background-color: #FFFFFF;
+        color: #00008B;
+        border-left:none;
+        margin-left:0px;
+        margin-top:0px;
+        padding-top: 0px;
+        height:50px;
+        width:100%;
+        font-size: 30px;
+        text-align: center; /*De tekst in het midden*/
+    }
+
+    /* Toggle show/hide menu on checkbox click */
+    #page-nav ul
+    {
+        display: none;
+        border:none;
+    }
+    #page-nav input:checked ~ ul
+    {
+        display: block;
+        height:99%;
+        width:100%;
+        z-index: 999;
+        background-color: #ffffff;
+        border: none;
+    }
+
+    ul {
+        width:100%;
+        height:50px;
+        margin:0;
+        padding:0;
+    }
+    .grid-container {
+        grid-template-rows: 50px 105px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+    }
+
+    .grid-container2 {
+        display: block;
+        width:100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .header{
+        height:50px;
+    }
+
+
+	.mapouter{
+		position:relative;
+		text-align:right;
+		height:250px;
+		width:74%;
+        z-index:0;
+	}
+
+	.gmap_canvas {
+		overflow:hidden;
+		background:none;
+		height:250px;
+		width:100%;
+	}
+
+	iframe{
+		height:250px;
+		width:100%;
+
+	}
+
+    #logo{
+        height: 50px;
+        width:50px;
+        position: absolute;
+    }
+
+    /*let op een mobiel device heeft GEEN hover*/
+
+    .sliderimage {
+        height:50px;
+        position:fixed;
+        top:0px;
+    }
+
+    .slider{
+        height:50px;
+    }
+
+    .contactcel
+    {
+        float: none;
+        width:100%;
+        padding-left:10px;
+        height:250px;
+    }
+
+    .contacttekst{
+        width:50%;
+    }
+
+    .contacttekstform{
+        width:100%;
+    }
+    .contacttekst img
+    {
+        width:100px;
+    }
+
+    .formouter{
+        height:800px;
+        width:300px;
+    }
+
+    .form
+    {
+        width:100%;
+        float:none;
+        maring-bottom:10px;
+    }
+
+    .formrow
+    {
+        width:300px;
+        float:none;
+
+   }
+
+
+    .formcol1
+    {
+        float:none;
+    }
+
+    .formcol2
+    {
+        margin-top: 10px;
+        width:300px;
+        float:none;
+    }
+
+
+}
+
+/*goed gejatte slideshow*/
+
+.fade {
+    -webkit-animation-name: fade; /*we laten de foto's weg faden*/
+    -webkit-animation-duration: 2s; /*voor 2 sec*/
+    animation-name: fade;
+    animation-duration: 2s;
+    padding:auto;
+}
+
+@media only screen and (max-height: 375px) /* om landscape responsive leesbaar te maken*/
+{
+    .grid-container {
+        grid-template-rows: 50px 0px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+    }
+    .itemslider{
+        display:none;
+    }
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fadessliderimage{
+                from {
+                    opacity: .4
+                }
+
+to {
+    opacity: 1
+}
+}
+
+.mySlides {
+    display: none;
+}
+
+input[type=text], select, textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+ textarea {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+     width:90%;
+}
+.container {
+    grid-area: invulform;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    margin: 20px;
+    padding: 20px;
+    border: 5px #00008B;
+
+
+}
+
+.gridcontainer {
+    grid-template-areas: 'header' 'invulform' 'terug';
+    background-color: white;
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 100px auto 60px;
+}
+
+#header h3{
+    left: 1px;
+    top: 1px;
+    grid-area: header;
+    text-align: center;
+    font-size: 20px;
+}
+
+/*dit is mooi. Maar het vinkje is niet in het vak zelf. Ziet er daarom niet uit.*/
+/*.tel {position: relative; margin: 20px; display: inline-block;}
+.tel input{display: none; max-width:200px;}
+.tel label{float: left; line-height: 1.4}
+.tel label::before{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #2196F3;
+    content: '';
+    border-radius: 10px;
+    float: left;
+    margin:0 10px;
+    cursor: pointer;
+}
+.tel input[type=checkbox]:checked + label::after{display: block;max-width:300px;}
+.tel label::after{
+    display: none;
+    top: 6px;
+    left: 16px;
+    content: '';
+    color: #2196F3;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #2196F3;
+    border-radius: 5px;F
+    cursor: pointer;
+}
+
+.E-mail{position: relative; width:calc(100% - 40px); margin: 20px; display: inline-block;}
+.E-mail input{display: none;}
+.E-mail label{float: left; line-height: 1.4}
+.E-mail label::before{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #2196F3;
+    content: '';
+    border-radius: 10px;
+    float: left;
+    margin:0 10px;
+    cursor: pointer;
+}
+.E-mail input[type=checkbox]:checked + label::after{display: block;}
+.E-mail label::after{
+    display: none;
+    top: 6px;
+    left: 16px;
+    content: '';
+    color: #2196F3;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #2196F3;
+    border-radius: 5px;
+    cursor: pointer;
+}*/
+.error{
+    color: red;
+    visibility: visible;
+    margin: 0;
+}
