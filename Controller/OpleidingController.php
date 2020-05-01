@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/OpleidingModel.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Opleiding.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumVoltijdDeeltijd.php");
 
 //controller for crud operations for Opleiding
 class OpleidingController
@@ -20,8 +21,9 @@ class OpleidingController
     }
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Opleidingnaam) {
-        return $this->Opleidingmodel->Add($Opleidingnaam);
+    function add(string $Opleidingnaam, string $VoltijdDeeltijd) {
+        echo("Komt bij stap 3");
+        return $this->Opleidingmodel->Add($Opleidingnaam,$VoltijdDeeltijd);
     }
 
     function delete(int $Id)
@@ -38,7 +40,6 @@ class OpleidingController
     {
         $Opleiding = $this->Opleidingmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
 
-        return $Opleiding[0];
-
+        return new Opleiding($Opleiding[0]['OpleidingID'],$Opleiding[0]['Naamopleiding'], $Opleiding[0]['Voltijd_deeltijd']);//kijk dit bedoel ik dit is OO bitches!
     }
 }

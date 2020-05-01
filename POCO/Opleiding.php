@@ -1,15 +1,15 @@
 <?php
-require_once "EnumVoltijdDeeltijd.php";
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumVoltijdDeeltijd.php");
 
-class SelectieOpleiding
+class Opleiding
 {
     private int $OpleidingID;
     private string $Naamopleiding;
-    private EnumVoltijdDeeltijd $VoltijdDeeltijd;//Yes an enum. Don't you dare hardcode this. Or get it from the database each time.
+    private string $VoltijdDeeltijd;
 
-    public function __construct(int $OpleidingID, string $Naamopleiding,EnumVoltijdDeeltijd $VoltijdDeeltijd)
+    public function __construct(int $OpleidingID ,string $Naamopleiding,string $VoltijdDeeltijd)
     {
-        $this->CategorieID= $CategorieID;
+        $this->OpleidingID= $OpleidingID;
         $this->Naamopleiding = $Naamopleiding;
         $this->VoltijdDeeltijd = $VoltijdDeeltijd;
     }
@@ -47,17 +47,17 @@ class SelectieOpleiding
     }
 
     /**
-     * @return EnumVoltijdDeeltijd
+     * @return string
      */
-    public function getVoltijdDeeltijd(): EnumVoltijdDeeltijd
+    public function getVoltijdDeeltijd(): string
     {
         return $this->VoltijdDeeltijd;
     }
 
     /**
-     * @param EnumVoltijdDeeltijd $VoltijdDeeltijd
+     * @param string $VoltijdDeeltijd
      */
-    public function setVoltijdDeeltijd(EnumVoltijdDeeltijd $VoltijdDeeltijd): void
+    public function setVoltijdDeeltijd(string $VoltijdDeeltijd): void
     {
         $this->VoltijdDeeltijd = $VoltijdDeeltijd;
     }

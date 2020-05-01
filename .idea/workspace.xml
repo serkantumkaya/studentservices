@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Controller/CategorieController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/CategorieModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Model/OpleidingModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/POCO/Categorie.php" afterDir="false" />
+    <list default="true" id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/OpleidingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/OpleidingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Includes/Enum/EnumVoltijdDeeltijd.php" beforeDir="false" afterPath="$PROJECT_DIR$/Includes/Enum/EnumVoltijdDeeltijd.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Includes/gebruiker.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/Includes/gebruiker.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/OpleidingModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/OpleidingModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/POCO/Categorie.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Categorie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/POCO/Gebruiker.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Gebruiker.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/POCO/Opleiding.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Opleiding.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Categorie/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Categorie/View.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Opleiding/Add.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/Add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Opleiding/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/Edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Opleiding/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/View.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/Add.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/Add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/Edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/View.php" afterDir="false" />
@@ -42,7 +46,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/POCO" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mvcblog-master" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -83,37 +87,66 @@
       <workItem from="1588088116528" duration="9283000" />
       <workItem from="1588172870481" duration="8529000" />
       <workItem from="1588265225058" duration="1117000" />
-      <workItem from="1588266360182" duration="5206000" />
+      <workItem from="1588266360182" duration="5592000" />
+      <workItem from="1588343231821" duration="12564000" />
     </task>
+    <task id="LOCAL-00001" summary="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
+      <created>1588271611790</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588271611790</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Opleidingen controller">
+      <created>1588348382908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1588348382908</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object." />
+    <MESSAGE value="Opleidingen controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Opleidingen controller" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="178" key="#Inspections" timestamp="1587226844361">
+    <state x="552" y="178" key="#Inspections" timestamp="1588353559784">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="178" key="#Inspections/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587226844361" />
+    <state x="552" y="178" key="#Inspections/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588353559784" />
     <state x="714" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587053415443">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="714" y="323" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587053415443" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1588271323639">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser" timestamp="1588348679991">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1586973595710" />
-    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588271323639" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588177336312">
+    <state x="765" y="236" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588348679991" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1588355873428">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588355873428" />
+    <state x="585" y="114" key="CommitChangelistDialog2" timestamp="1588348382461">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="114" key="CommitChangelistDialog2/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588348382461" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1588353927658">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587402074317" />
-    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588177336312" />
-    <state x="784" y="334" key="NewPhpClassDialog" timestamp="1587053386492">
+    <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588353927658" />
+    <state x="784" y="334" key="NewPhpClassDialog" timestamp="1588354096484">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="784" y="334" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586973871420" />
-    <state x="784" y="334" key="NewPhpClassDialog/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1587053386492" />
+    <state x="784" y="334" key="NewPhpClassDialog/1920.0.1920.1040/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1588354096484" />
     <state x="794" y="443" key="NewPhpFileDialog" timestamp="1587399401592">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -131,16 +164,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587404883798" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/View/School/View.php</url>
-          <line>43</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

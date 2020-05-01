@@ -1,7 +1,7 @@
 <?php
 require_once "EnumVoltijdDeeltijd.php";
 
-class Opleiding
+class Categorie
 {
     private int $CategorieID;
     private string $Categorienaam;

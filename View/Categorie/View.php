@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CategorieController.php");
 session_start();
 ?>
 
@@ -39,7 +39,7 @@ session_start();
     <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
 </form>
 <form  method="post" action="Edit.php">
-<table> <tr> <th>School</th> <th></th> <th></th></tr>
+<table> <tr> <th>Categorie</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
 
@@ -61,8 +61,8 @@ session_start();
             //}
              case "delete":
              {
-                 echo "De te verwijderen ID = ".$_Post("SchoolId");
-                 $this->delete($_Post["SchoolId"]);
+                 echo "De te verwijderen ID = ".$_Post("CategorieId");
+                 $this->delete($_Post["CategorieId"]);
                 break;
              }
              default:
@@ -73,14 +73,14 @@ session_start();
 
         function LoadList()
         {
-            $schoolcontroller= new SchoolController();
+            $Categoriecontroller= new CategorieController();
 
-            foreach ($schoolcontroller->GetScholen() as $sg)
+            foreach ($Categoriecontroller->GetCategorieen() as $sg)
             {
-                $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
+                $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
 
-                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"selectionrow\"> </td></tr>";
+                //echo "<tr> <td > <div id='".$Categorie->getCategorienaam()."'> ".$Categorie->getCategorienaam()."</div></td>";
+                echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
             }
         }
 

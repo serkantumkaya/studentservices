@@ -10,7 +10,7 @@ body {
     margin:0px;
 }
 
-.selectionrow
+.table1col
 {
     display: inline-block;
     color: #666;
@@ -27,7 +27,6 @@ body {
     width:100%;
 
 }
-
 
 button
 {

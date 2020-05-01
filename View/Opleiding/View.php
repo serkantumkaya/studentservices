@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 session_start();
 ?>
 
@@ -34,12 +34,30 @@ session_start();
 
 <body>
 
-<form  method="post" action="Add.php">
-    <input type="submit" value="Nieuw"  class="ssbutton">
-    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
-</form>
+    <div class="header">
+        <nav id="page-nav">
+            <!-- [THE HAMBURGER] -->
+            <label for="hamburger">&#9776;</label>
+            <input type="checkbox" id="hamburger"/>
+
+            <!-- [MENU ITEMS] -->
+
+<ul>
+    <?php
+    echo "<li>
+            <a href=\"Add.php\">Nieuw</a>
+        </li>";
+    echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+    ?>
+</ul>
+        </nav>
+        <img id=
+             <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+    </div>
+
+<div class="info">
 <form  method="post" action="Edit.php">
-<table> <tr> <th>School</th> <th></th> <th></th></tr>
+<table> <tr> <th>Opleiding</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
 
@@ -61,8 +79,8 @@ session_start();
             //}
              case "delete":
              {
-                 echo "De te verwijderen ID = ".$_Post("SchoolId");
-                 $this->delete($_Post["SchoolId"]);
+                 echo "De te verwijderen ID = ".$_Post("OpleidingId");
+                 $this->delete($_Post["OpleidingId"]);
                 break;
              }
              default:
@@ -73,14 +91,17 @@ session_start();
 
         function LoadList()
         {
-            $schoolcontroller= new SchoolController();
+            $opleidingcontroller= new OpleidingController();
 
-            foreach ($schoolcontroller->GetScholen() as $sg)
+            foreach ($opleidingcontroller->GetOpleidingen() as $sg)
             {
-                $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
+                $opleiding = new Opleiding($sg['OpleidingID'],$sg['Naamopleiding'],$sg['Voltijd_deeltijd']);
 
-                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"selectionrow\"> </td></tr>";
+                echo "<tr> <td> 
+                    <input type=\"submit\" value=\"".$opleiding->getNaamopleiding()."\" formaction='Edit.php?ID=".$opleiding->getOpleidingID()."' class=\"table1col\"> 
+                    </td>
+                    <td><input type=\"submit\" value=\"".$opleiding->getVoltijdDeeltijd()."\" formaction='Edit.php?ID=".$opleiding->getOpleidingID()."' class=\"table1col\"</td>
+                    </tr>";
             }
         }
 
@@ -89,6 +110,16 @@ session_start();
 </tr>
 </table>
 </form>
+</div>
+<div class="footer">
+    <div>© Student Services, 2020
+        <?php
+        $GebrID = 1;
+        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
+
+        ?>
+    </div>
+</div>
 </body>
 </html>
 

@@ -6,7 +6,7 @@ require_once "Opleiding.php";
 
 class Gebruiker
 {
-    private int GebruikerID;
+    private int $GebruikerID;
     private string $Gebruikersnaam;
     private string $Wachtwoord;
     private string $Email;
@@ -15,19 +15,43 @@ class Gebruiker
     private DateTime $Startdatumopleiding;
     private imagejpeg $Foto;
     private GebruikerStatus $Status;
-    private $Achternaam varchar(60) NOT NULL,
-    private $Voornaam varchar(50) NOT NULL,
-    private $Tussenvoegsel varchar(10) NULL,
-    private $Prefix varchar(8) NULL,
-    private $Straat varchar(50) NOT NULL,
-    private $Huisnummer int NOT NULL,
-    private $Extentie varchar(3) NULL,
-    private $Postcode varchar(6) NOT NULL,
-    private $Woonplaats varchar(60) NOT NULL,
-    private $Geboortedatum date NULL,
-    private $Telefoonnummer varchar(15) NULL,
-    private $FOREIGN KEY(School) REFERENCES School(SchoolID) ON UPDATE CASCADE,
-    private $OREIGN KEY(Opleiding) REFERENCES SELECTIEOPLEIDING(OpleidingID) ON UPDATE CASCADE*/
+    private string $Achternaam;
+    private string $Voornaam;
+    private string $Tussenvoegsel;
+    private string $Prefix;
+    private string $Straat;
+    private int $Huisnummer;
+    private string $Extentie;
+    private string $Postcode;
+    private string $Woonplaats;
+    private DateTime $Geboortedatum;
+    private string $Telefoonnummer;
+
+    public function __construct(int $GebruikerID, string $Gebruikersnaam, string $Wachtwoord, string $Email, School $School, Opleiding $Opleidingg,
+                                DateTime $Startdatumopleiding, imagejpeg $Foto, GebruikerStatus $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
+                                string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode, string $Woonplaats, DateTime $Geboortedatum, string $Telefoonnummer)
+    {
+        $this->GebruikerID = $GebruikerID;
+        $this->Gebruikersnaam = $Gebruikersnaam;
+        $this->Wachtwoord = $Wachtwoord;
+        $this->Email = $Email;
+        $this->School = $School;
+        $this->Opleidingg = $Opleidingg;
+        $this->Startdatumopleiding = $Startdatumopleiding;
+        $this->Foto = $Foto;
+        $this->Status = $Status;
+        $this->Achternaam = $Achternaam;
+        $this->Voornaam = $Voornaam;
+        $this->Tussenvoegsel = $Tussenvoegsel;
+        $this->Prefix = $Prefix;
+        $this->Straat = $Straat;
+        $this->Huisnummer = $Huisnummer;
+        $this->Extentie = $Extentie;
+        $this->Postcode = $Postcode;
+        $this->Woonplaats = $Woonplaats;
+        $this->Geboortedatum = $Geboortedatum;
+        $this->Telefoonnummer = $Telefoonnummer;
+    }
 
     public function getGebruikersID () { $this->GebruikerID;}
 

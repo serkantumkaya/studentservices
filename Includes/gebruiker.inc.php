@@ -1,4 +1,9 @@
+
 <?php
+
+//**************************let op dit is nog oud ***********************************************
+//alleen nuttige functies overnemen en plaatsen in controller.
+
 class Gebruiker
 {
     private $GebrID;

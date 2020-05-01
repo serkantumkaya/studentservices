@@ -1,14 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/School.php");
+require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Opleiding.php");
 require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/includes/DB.php");
 
-class SchoolModel
+class OpleidingModel
 {
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
-    private School $school;
+    private Opleiding $opleiding;
 
     public function __construct()
     {
@@ -16,28 +16,25 @@ class SchoolModel
         $this->conn = $this->ConnectDb->GetConnection();
     }
 
-    public function GetScholen()
+    public function GetOpleidingen()
     {
-        $sql = "SELECT SchoolID,Schoolnaam FROM School";
+        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd FROM SelectieOpleiding";
         return $this->conn->query($sql);
 
-        $stmt = $db->prepare('SELECT price, quantity FROM stock');
-        $stmt->setFetchMode(PDO::FETCH_CLASS,'School');
+        $stmt->setFetchMode(PDO::FETCH_CLASS,'Opleiding');
         $result = $stmt->fetch();
 
     }
-    function add(string $schoolNaam)
+    function add(string $opleidingNaam,string $voltijddeeltijd)
     {
-        //deze functie kan nog veul mooier. ID terug geven.
-        //$this->conn->execute("INSERT INTO School (Naam) VALUES ('$schoolNaam')");
-
-        $statement = $this->conn->prepare("INSERT INTO School (SchoolNaam) VALUES (:Naam)");
+        $statement = $this->conn->prepare("INSERT INTO SelectieOpleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
         $statement->execute([
-            'Naam' => $schoolNaam
+            'Naam' => $opleidingNaam,
+            'VDD' => $voltijddeeltijd
         ]);
         return true;
         //i van integer. s voor string enz enz //bindparam kreeg ik niet aan de praat. Maar is wel beter
-       /// $sql->bind_param("s", $schoolNaam);//https://www.w3schools.com/php/php_mysql_prepared_statements.asp
+       /// $sql->bind_param("s", $opleidingNaam);//https://www.w3opleidings.com/php/php_mysql_prepared_statements.asp
         //{
         //    $last_id = $this->conn->insert_id;
         //    return get($last_id);//nieuwe object terugsturen met nieuwe ID
@@ -47,8 +44,8 @@ class SchoolModel
     }
 
     function delete(int $ID) {
-        //delete school
-        $sql = $this->conn->prepare("DELETE FROM School WHERE SCHOOLID  =:SID");
+        //delete opleiding
+        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID  =:SID");
 
         $parameters = [
             'SID' => $ID
@@ -65,15 +62,17 @@ class SchoolModel
 
     }
 
-    function update(School $school)
+    function update(Opleiding $opleiding)
     {
 
-        $sql = $this->conn->prepare("UPDATE SCHOOL SET Schoolnaam=:SN Where SchoolID =:SID");//let op id geen quotes
-        $schoolnaam = $school->getSchoolnaam();
-        $id = $school->getSchoolID();
+        $sql = $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:SN AND Voltijd_deeltijd = :VDD Where OpleidingID =:SID");//let op id geen quotes
+        $opleidingnaam = $opleiding->getOpleidingnaam();
+        $id = $opleiding->getOpleidingID();
+        $Voltijddeeltijd=$opleiding->getVoltijdDeeltijd();
         $parameters = [
-            'SN' => $schoolnaam,
-            'SID' => $id
+            'SID' => $id,
+            'SN' => $opleidingnaam,
+            'VDD' => $Voltijddeeltijd
         ];
 
         if ($sql->execute($parameters) == TRUE)
@@ -88,7 +87,7 @@ class SchoolModel
 
     function get(int $ID)
     {
-        $sql = "Select SchoolID,Schoolnaam from SCHOOL WHERE SCHOOLID =$ID";
+        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
         return $this->conn->query($sql);
     }
 }

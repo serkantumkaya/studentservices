@@ -53,8 +53,8 @@ require 'Includes/DB.php';
                 //case admin
                 //{
                 echo "<li><a href=\"\./StudentServices/View/School/View.php\"\">School</a></li>";
-                echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Categorie</a></li>";
-                echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Opleiding</a></li>";
+                echo "<li><a href=\"\./StudentServices/View/Categorie/View.php\"\">Categorie</a></li>";
+                echo "<li><a href=\"\./StudentServices/View/Opleiding/View.php\"\">Opleiding</a></li>";
                 //break;
                 //}
                 ?>
