@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
+      <change afterPath="$PROJECT_DIR$/Controller/GebruikerController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Model/GebruikerModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller/OpleidingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/OpleidingController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller/SchoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/SchoolController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/OpleidingModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/OpleidingModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Model/SchoolModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/SchoolModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/Opleiding/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/Edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/School/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/Edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/POCO/Gebruiker.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Gebruiker.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/Opleiding/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/View.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/View.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,19 +38,19 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../mvcblog-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Model" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\StudentServices\POCO" />
-      <recent name="C:\xampp\htdocs\StudentServices\Model" />
-      <recent name="C:\xampp\htdocs\StudentServices\Controller" />
-      <recent name="C:\xampp\htdocs\OefenenDB\View\School" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\OefenenDB\View\School" />
       <recent name="C:\xampp\htdocs\OefenenDB\POCO" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\StudentServices\Model" />
+      <recent name="C:\xampp\htdocs\StudentServices\Controller" />
+      <recent name="C:\xampp\htdocs\StudentServices\POCO" />
+      <recent name="C:\xampp\htdocs\OefenenDB\View\School" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -80,7 +81,7 @@
       <workItem from="1588265225058" duration="1117000" />
       <workItem from="1588266360182" duration="5592000" />
       <workItem from="1588343231821" duration="12564000" />
-      <workItem from="1588520019759" duration="4904000" />
+      <workItem from="1588520019759" duration="9690000" />
     </task>
     <task id="LOCAL-00001" summary="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
       <created>1588271611790</created>

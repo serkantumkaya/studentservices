@@ -21,8 +21,6 @@ class OpleidingModel
         $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd FROM SelectieOpleiding";
         return $this->conn->query($sql);
 
-        $stmt->setFetchMode(PDO::FETCH_CLASS,'Opleiding');
-        $result = $stmt->fetch();
 
     }
     function add(string $NaamOpleiding,string $VoltijdDeeltijd)
@@ -42,8 +40,7 @@ class OpleidingModel
         $parameters = [
             'SID' => $ID
         ];
-        var_dump($parameters);
-        var_dump($sql);
+
         return $sql->execute($parameters);
     }
 

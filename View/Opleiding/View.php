@@ -92,13 +92,10 @@ session_start();
         function LoadList()
         {
             $opleidingcontroller= new OpleidingController();
-
-            foreach ($opleidingcontroller->GetOpleidingen() as $sg)
+            foreach ($opleidingcontroller->GetOpleidingen() as $opleiding )
             {
-                $opleiding = new Opleiding($sg['OpleidingID'],$sg['Naamopleiding'],$sg['Voltijd_deeltijd']);
-
-                echo "<tr> <td> 
-                    <input type=\"submit\" value=\"".$opleiding->getNaamopleiding()."\" formaction='Edit.php?ID=".$opleiding->getOpleidingID()."' class=\"table1col\"> 
+                echo "<tr> <td>
+                    <input type=\"submit\" value=\"".$opleiding->getNaamopleiding()."\" formaction='Edit.php?ID=".$opleiding->getOpleidingID()."' class=\"table1col\">
                     </td>
                     <td><input type=\"submit\" value=\"".$opleiding->getVoltijdDeeltijd()."\" formaction='Edit.php?ID=".$opleiding->getOpleidingID()."' class=\"table1col\"</td>
                     </tr>";

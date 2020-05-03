@@ -72,9 +72,8 @@ session_start();
         {
             $schoolcontroller= new SchoolController();
 
-            foreach ($schoolcontroller->GetScholen() as $sg)
+            foreach ($schoolcontroller->GetScholen() as $school)
             {
-                $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
                 echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"table1col\"> </td></tr>";
             }
         }

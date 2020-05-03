@@ -1,6 +1,5 @@
 <?php
 
-require_once "EnumGebruikerStatus.php";
 require_once "School.php";
 require_once "Opleiding.php";
 
@@ -28,7 +27,7 @@ class Gebruiker
     private string $Telefoonnummer;
 
     public function __construct(int $GebruikerID, string $Gebruikersnaam, string $Wachtwoord, string $Email, School $School, Opleiding $Opleidingg,
-                                DateTime $Startdatumopleiding, imagejpeg $Foto, GebruikerStatus $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
+                                DateTime $Startdatumopleiding, GebruikerStatus $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
                                 string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode, string $Woonplaats, DateTime $Geboortedatum, string $Telefoonnummer)
     {
         $this->GebruikerID = $GebruikerID;

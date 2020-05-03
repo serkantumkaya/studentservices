@@ -15,7 +15,15 @@ class SchoolController
 
     public function GetScholen()
     {
-        return $this->schoolmodel->GetScholen()->fetchAll(PDO::FETCH_ASSOC);
+        //return $this->schoolmodel->GetScholen()->fetchAll(PDO::FETCH_ASSOC);
+
+        $SchoolArray = [];
+        foreach ($this->schoolmodel->GetScholen()->fetchAll(PDO::FETCH_ASSOC) as $school)
+        {
+            $school = new School($school['SchoolID'],$school['Schoolnaam']);
+            $SchoolArray [] = $school;
+        }
+        return $SchoolArray ;
     }
 
     //voor parameters bindparam gebruiken. Named parameters

@@ -17,7 +17,13 @@ class OpleidingController
 
     public function GetOpleidingen()
     {
-        return $this->Opleidingmodel->GetOpleidingen()->fetchAll(PDO::FETCH_ASSOC);
+        $OpleidigArray = [];
+        foreach ($this->Opleidingmodel->GetOpleidingen()->fetchAll(PDO::FETCH_ASSOC) as $sg)
+        {
+            $opleiding = new Opleiding($sg['OpleidingID'],$sg['Naamopleiding'],$sg['Voltijd_deeltijd']);
+            $OpleidigArray [] = $opleiding;
+        }
+        return $OpleidigArray ;
     }
 
     //voor parameters bindparam gebruiken. Named parameters
