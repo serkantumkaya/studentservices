@@ -28,18 +28,15 @@ class SchoolController
         return $this->schoolmodel->Delete($Id);
     }
 
-    //ja jullie hebben gelijk gekregen. Update ipv save.
     function update(School $School)
     {
         return $this->schoolmodel->Update($School);
     }
 
-    //ja jullie hebben gelijk gekregen. Update ipv save.
-    function getById(int $id)
+    function getById(int $id) : school
     {
-        $school = $this->schoolmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
-
-        return $school[0];
+        $School = $this->schoolmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
+        return new School($School[0]['SchoolID'],$School[0]['Schoolnaam']);
 
     }
 }

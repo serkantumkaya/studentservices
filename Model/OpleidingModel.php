@@ -25,64 +25,40 @@ class OpleidingModel
         $result = $stmt->fetch();
 
     }
-    function add(string $opleidingNaam,string $voltijddeeltijd)
+    function add(string $NaamOpleiding,string $VoltijdDeeltijd)
     {
         $statement = $this->conn->prepare("INSERT INTO SelectieOpleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
         $statement->execute([
-            'Naam' => $opleidingNaam,
-            'VDD' => $voltijddeeltijd
+            'Naam' => $NaamOpleiding,
+            'VDD' => $VoltijdDeeltijd
         ]);
         return true;
-        //i van integer. s voor string enz enz //bindparam kreeg ik niet aan de praat. Maar is wel beter
-       /// $sql->bind_param("s", $opleidingNaam);//https://www.w3opleidings.com/php/php_mysql_prepared_statements.asp
-        //{
-        //    $last_id = $this->conn->insert_id;
-        //    return get($last_id);//nieuwe object terugsturen met nieuwe ID
-        //} else {
-        //    echo "Error: " . $sql . "<br>" . $this->conn->error;
-       // }
     }
 
     function delete(int $ID) {
-        //delete opleiding
-        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID  =:SID");
+
+        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID=:SID");
 
         $parameters = [
             'SID' => $ID
         ];
-
-        if ($sql->execute($parameters) == TRUE)
-        {
-            return "Record verwijderd";
-        }
-        else
-        {
-            echo "Error: " . $sql . "<br>" . $this->conn->error;
-        }
-
+        var_dump($parameters);
+        var_dump($sql);
+        return $sql->execute($parameters);
     }
 
-    function update(Opleiding $opleiding)
+    function update(int $ID, string $Naamopleiding, string $VoltijdDeeltijd)
     {
 
-        $sql = $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:SN AND Voltijd_deeltijd = :VDD Where OpleidingID =:SID");//let op id geen quotes
-        $opleidingnaam = $opleiding->getOpleidingnaam();
-        $id = $opleiding->getOpleidingID();
-        $Voltijddeeltijd=$opleiding->getVoltijdDeeltijd();
+        $sql = $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
+
         $parameters = [
-            'SID' => $id,
-            'SN' => $opleidingnaam,
-            'VDD' => $Voltijddeeltijd
+            'Naam' => $Naamopleiding,
+            'VDD' => $VoltijdDeeltijd,
+            'SID' => $ID
         ];
 
-        if ($sql->execute($parameters) == TRUE)
-        {
-            return "Record gewijzigd";
-        }
-        else
-        {
-            echo "Error: " . $sql . "<br>" . $this->conn->error;
-        }
+        return $sql->execute($parameters);
     }
 
     function get(int $ID)

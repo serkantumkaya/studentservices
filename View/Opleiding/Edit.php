@@ -1,7 +1,7 @@
 
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors',1);
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 session_start();
 ?>
@@ -54,26 +54,18 @@ if (isset($_GET["ID"]))
 {
     $opleidingcontroller= new OpleidingController();
     $opleiding= $opleidingcontroller->getById($_GET["ID"]);
-
-    if ( isset($opleiding))
-    {
-        //$opleiding = new Opleiding($sg['OpleidingID'],$sg['Naamopleiding'], $sg['Voltijd_deeltijd']);
-        $_SESSION["CurrentOpleiding"] = $opleiding;
-        $_SESSION["CurrentOpleidingid"] = $opleiding->getOpleidingID();
-
-    }
+    $_SESSION["CurrentOpleiding"] = $opleiding;
 }
 
-if ( isset($_POST["OpleidingNaam"]) && isset($_POST["VoltijdDeeltijd"]))
+if (isset($_POST["NaamOpleiding"]) || isset($_POST["VoltijdDeeltijd"]))
 {
-    $_SESSION["CurrentNaam"] = $_POST["OpleidingNaam"];
+    $_SESSION["CurrentNaam"] = $_POST["NaamOpleiding"];
     $_SESSION["VoltijdDeeltijd"] = $_POST["VoltijdDeeltijd"];
 }
 
 if ( $_SESSION["CurrentOpleiding"] != null)
 {
     $opleiding = $_SESSION["CurrentOpleiding"];
-
 }
 
 ?>
@@ -91,7 +83,7 @@ else if (isset($_GET["ID"])) {
     $valueVD=   $opleiding->getVoltijdDeeltijd();
 }
 else {
-    $valueNaam = $_POST["OpleidingNaam"];
+    $valueNaam = $_POST["NaamOpleiding"];
     $valueVD=  $_POST["VoltijdDeeltijd"];
 }
 
@@ -99,9 +91,9 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 {
     //todo : object van maken?
     echo "<h1 > Wijzigen opleiding </h1 ><br>
-    <form action = \"Add.php\" method = \"post\" >
+    <form action = \"Edit.php\" method = \"post\" >
             Opleiding:
-        <input type = \"text\" name = \"OpleidingNaam\" value=\"" . $valueNaam . "\"/>
+        <input type = \"text\" name = \"NaamOpleiding\" value=\"" . $valueNaam . "\"/>
         <select name=\"VoltijdDeeltijd\">";
             $voldeel = new EnumVoltijdDeeltijd();
             foreach($voldeel->getConstants() as $vd)
@@ -119,28 +111,23 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 
 if (isset($_POST["delete"]))
 {
-    echo "Verwijderen";
     $opleidingcontroller= new OpleidingController();
-    if ($opleidingcontroller->delete($_SESSION["CurrentOpleidingid"])) {
-        echo "Het zou nu weg moeten zijn echter...";
-        //header("Location: View.php");
+    if ($opleidingcontroller->delete($_SESSION["CurrentOpleiding"]->getOpleidingID()))
+    {
+        header("Location: View.php");
     }
 
 }
-else if (!isset($_POST["Delete"]) && isset($_POST["OpleidingNaam"]) && isset($_POST["VoltijdDeeltijd"])&& isset($_SESSION["CurrentOpleidingid"]))
+else if (!isset($_POST["Delete"]) && isset($_POST["NaamOpleiding"]) && isset($_POST["VoltijdDeeltijd"]) && isset($_SESSION["CurrentOpleiding"]))
 {
     $opleidingcontroller= new OpleidingController();
-    if ($_SESSION["CurrentNaam"] && $_SESSION["VoltijdDeeltijd"])//???? waar was dit ook al weer voor
+    if ($_SESSION["CurrentNaam"] && $_SESSION["VoltijdDeeltijd"])
     {
-        $opleiding = new Opleiding( $_SESSION["CurrentOpleidingid"],$_SESSION["CurrentNaam"],$_SESSION["VoltijdDeeltijd"]);
+        $opleiding = new Opleiding($_SESSION["CurrentOpleiding"]->getOpleidingID(),$_SESSION["CurrentNaam"],$_SESSION["VoltijdDeeltijd"]);
     }
 
     if ($opleidingcontroller->update($opleiding))
     {
-        $_SESSION["CurrentOpleiding"] = $opleiding;
-        $_SESSION["CurrentNaam"] = $opleiding->getOpleidingnaam();
-        $_SESSION["VoltijdDeeltijd"] = $opleiding->getVoltijdDeeltijd();
-        $_SESSION["CurrentOpleidingid"] = $opleiding->getOpleidingID();
         header("Location: View.php");
     }
     else

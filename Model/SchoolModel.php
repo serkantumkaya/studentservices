@@ -76,20 +76,14 @@ class SchoolModel
             'SID' => $id
         ];
 
-        if ($sql->execute($parameters) == TRUE)
-        {
-            return "Record gewijzigd";
-        }
-        else
-        {
-            echo "Error: " . $sql . "<br>" . $this->conn->error;
-        }
+        return $sql->execute($parameters) ;
     }
 
     function get(int $ID)
     {
         $sql = "Select SchoolID,Schoolnaam from SCHOOL WHERE SCHOOLID =$ID";
         return $this->conn->query($sql);
+
     }
 }
 

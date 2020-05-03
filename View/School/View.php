@@ -68,27 +68,6 @@ session_start();
             return;
         }
 
-
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
-
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("SchoolId");
-                 $this->delete($_Post["SchoolId"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
         function LoadList()
         {
             $schoolcontroller= new SchoolController();
@@ -96,8 +75,6 @@ session_start();
             foreach ($schoolcontroller->GetScholen() as $sg)
             {
                 $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
-
-                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
                 echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"table1col\"> </td></tr>";
             }
         }

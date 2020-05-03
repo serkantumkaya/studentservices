@@ -1,7 +1,5 @@
 
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 session_start();
 ?>
@@ -54,18 +52,11 @@ session_start();
 if (isset($_GET["ID"]))
 {
     $schoolcontroller= new SchoolController();
-    $sg = $schoolcontroller->getById($_GET["ID"]);
-
-    if ( isset($sg))
-    {
-        $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
-        $_SESSION["CurrentSchool"] = $school;
-        $_SESSION["CurrentSchoolid"] = $school->getSchoolID();
-
-    }
+    $school = $schoolcontroller->getById($_GET["ID"]);
+    $_SESSION["CurrentSchool"] = $school;
 }
 
-if ( isset($_POST["SchoolNaam"]))
+if (isset($_POST["SchoolNaam"]))
 {
     $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
 }
@@ -73,7 +64,6 @@ if ( isset($_POST["SchoolNaam"]))
 if ( $_SESSION["CurrentSchool"] != null)
 {
     $school = $_SESSION["CurrentSchool"];
-
 }
 
 ?>
@@ -102,24 +92,21 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 if (isset($_POST["delete"]))
 {
     $schoolcontroller= new SchoolController();
-    if ($schoolcontroller->delete($_SESSION["CurrentSchoolid"])) {
+    if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())) {
         header("Location: View.php");
     }
 
 }
-else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchoolid"]))
+else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"]))
 {
     $schoolcontroller= new SchoolController();
     if ($_SESSION["CurrentNaam"])
     {
-        $school = new School( $_SESSION["CurrentSchoolid"],$_SESSION["CurrentNaam"]);
+        $school = new School( $_SESSION["CurrentSchool"]->getSchoolID(),$_SESSION["CurrentNaam"]);
     }
 
     if ($schoolcontroller->update($school))
     {
-        $_SESSION["CurrentSchool"] = $school;
-        $_SESSION["CurrentNaam"] = $school->getSchoolnaam();
-        $_SESSION["CurrentSchoolid"] = $school->getSchoolID();
         header("Location: View.php");
     }
     else

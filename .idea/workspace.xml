@@ -4,21 +4,12 @@
     <list default="true" id="e0418e69-305a-435c-bc54-954733996167" name="Default Changelist" comment="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller/OpleidingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/OpleidingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Includes/Enum/EnumVoltijdDeeltijd.php" beforeDir="false" afterPath="$PROJECT_DIR$/Includes/Enum/EnumVoltijdDeeltijd.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Includes/gebruiker.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/Includes/gebruiker.inc.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/SchoolController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/SchoolController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Model/OpleidingModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/OpleidingModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/POCO/Categorie.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Categorie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/POCO/Gebruiker.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Gebruiker.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/POCO/Opleiding.php" beforeDir="false" afterPath="$PROJECT_DIR$/POCO/Opleiding.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/Categorie/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Categorie/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/Opleiding/Add.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/Add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Model/SchoolModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/Model/SchoolModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/Opleiding/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/Edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/Opleiding/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/Opleiding/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/School/Add.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/Add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/Edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/Edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/View/School/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/School/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +80,7 @@
       <workItem from="1588265225058" duration="1117000" />
       <workItem from="1588266360182" duration="5592000" />
       <workItem from="1588343231821" duration="12564000" />
+      <workItem from="1588520019759" duration="4904000" />
     </task>
     <task id="LOCAL-00001" summary="Alles laden via index gaat bijna niet. Dus dan toch maar met 3 view per object.">
       <created>1588271611790</created>

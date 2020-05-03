@@ -33,7 +33,10 @@ class OpleidingController
 
     function update(Opleiding $Opleiding)
     {
-        return $this->Opleidingmodel->Update($Opleiding);
+        $naamopleiding = $Opleiding->getNaamopleiding();
+        $id = $Opleiding->getOpleidingID();
+        $voltijddeeltijd=$Opleiding->getVoltijdDeeltijd();
+        return $this->Opleidingmodel->Update($id,$naamopleiding,$voltijddeeltijd);
     }
 
     function getById(int $id)
