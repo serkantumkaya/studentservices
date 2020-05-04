@@ -1,8 +1,15 @@
 <?php
 
-abstract class EnumGebruikerStatus
+class EnumGebruikerStatus
 {
-    const actief = 0;
-    const nonactief = 1;
-    const verwijderd = 2;
+    const actief = "actief";
+    const nonactief = "nonactief";
+    const verwijderd = "verwijderd";
+    const onbekend = "onbekend";
+
+    public function getConstants()
+    {
+        $reflectionClass = new ReflectionClass($this);
+        return $reflectionClass->getConstants();
+    }
 }

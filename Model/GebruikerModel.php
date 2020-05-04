@@ -51,7 +51,7 @@ class GebruikerModel
         School $School,
         Opleiding $Opleiding,
         DateTime $Startdatumopleiding,
-        GebruikerStatus $Status,
+        string $Status,
         string $Achternaam,
         String $Voornaam,
         string $Tussenvoegsel,
@@ -64,64 +64,29 @@ class GebruikerModel
         DateTime $Geboortedatum,
         string $Telefoonnummer)
     {
-        $statement = $this->conn->prepare("INSERT INTO Gebruiker (GebruikerID ,
-            Gebruikersnaam ,
-            Wachtwoord,
-            Email,
-            School ,
-            Opleiding ,
-            Startdatumopleiding ,
-            Status,
-            Achternaam ,
-            Voornaam ,
-            Tussenvoegsel,
-            Prefix ,
-            Straat ,
-            Huisnummer,
-            Extentie ,
-            Postcode ,
-            Woonplaats ,
-            Geboortedatum , 
-            Telefoonnummer) 
-            VALUES (
-            :GebruikerID ,
-            :Gebruikersnaam ,
-            :Wachtwoord,
-            :Email,
-            :School ,
-            :Opleiding ,
-            :Startdatumopleiding ,
-            :Status,
-            :Achternaam ,
-            :Voornaam ,
-            :Tussenvoegsel,
-            :Prefix ,
-            :Straat ,
-            :Huisnummer,
-            :Extentie ,
-            :Postcode ,
-            :Woonplaats ,
-            :Geboortedatum , 
-            :Telefoonnummer)");
+        $statement = $this->conn->prepare("INSERT INTO Gebruiker (GebruikerID , Gebruikersnaam ,Wachtwoord,Email,School ,Opleiding ,Startdatumopleiding ,Status,
+            Achternaam ,Voornaam ,Tussenvoegsel,Prefix ,Straat ,Huisnummer,Extentie ,Postcode ,Woonplaats ,Geboortedatum ,Telefoonnummer) 
+            VALUES (:GebruikerID ,:Gebruikersnaam ,:Wachtwoord,:Email,:School ,:Opleiding ,:Startdatumopleiding ,:Status,
+:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,:Straat ,:Huisnummer,:Extentie ,:Postcode ,:Woonplaats ,:Geboortedatum ,:Telefoonnummer)");
         $statement->execute([
             'Gebruikersnaam'  => $Gebruikersnaam,
-            Wachtwoord,
-            Email,
-            School ,
-            Opleiding ,
-            Startdatumopleiding ,
-            Status,
-            Achternaam ,
-            Voornaam ,
-            Tussenvoegsel,
-            Prefix ,
-            Straat ,
-            Huisnummer,
-            Extentie ,
-            Postcode ,
-            Woonplaats ,
-            Geboortedatum ,
-            Telefoonnummer' => $VoltijdDeeltijd
+            'Wachtwoord'  => $Wachtwoord,
+            'Email'  => $Email,
+            'School'  => $School,
+            'Opleiding'  => $Opleiding,
+            'Startdatumopleiding'  => $Startdatumopleiding,
+            'Status'  => $Status,
+            'Achternaam'  => $Achternaam,
+            'Voornaam'  => $Voornaam,
+            'Tussenvoegsel'  => $Tussenvoegsel,
+            'Prefix'  => $Prefix,
+            'Straat'  => $Straat,
+            'Huisnummer'  => $Huisnummer,
+            'Extentie'  => $Extentie,
+            'Postcode'  => $Postcode,
+            'Woonplaats'  => $Woonplaats,
+            'Geboortedatum'  => $Geboortedatum,
+            'Telefoonnummer' => $Telefoonnummer
         ]);
         return true;
     }
@@ -155,6 +120,11 @@ class GebruikerModel
     {
         $sql = "SELECT OpleidingID,Naamgebruiker,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
         return $this->conn->query($sql);
+    }
+
+    public function getProjectenByGebruiker()
+    {
+        return $this->conn->query("SELECT * from Project where GebruikerID= '$this->GebrID'");
     }
 }
 

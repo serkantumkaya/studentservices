@@ -2,6 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require 'Includes/DB.php';
+if ($GebrID == 0)
+{
+    Header("Location: /StudentServices/inlogPag.php");
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -47,7 +51,7 @@ require 'Includes/DB.php';
                 //case gebruiker
                 //{
                 //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Projecten</a></li>";
-                //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Profiel</a></li>";
+                //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\Gebruiker\View.php\"\">Profiel</a></li>";
                 //break;
                 //}
                 //case admin
@@ -55,6 +59,7 @@ require 'Includes/DB.php';
                 echo "<li><a href=\"\./StudentServices/View/School/View.php\"\">School</a></li>";
                 echo "<li><a href=\"\./StudentServices/View/Categorie/View.php\"\">Categorie</a></li>";
                 echo "<li><a href=\"\./StudentServices/View/Opleiding/View.php\"\">Opleiding</a></li>";
+                echo "<li><a href=\"\./StudentServices/View/Gebruiker/View.php\"\">Gebruikers</a></li>";
                 //break;
                 //}
                 ?>

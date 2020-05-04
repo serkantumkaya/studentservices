@@ -3,6 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/GebruikerModel.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Gebruiker.php");
+//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Projecten.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 
 //hier doe je de crud afvangen vanuit de gebruiker.
 class GebruikerController
@@ -18,27 +21,30 @@ class GebruikerController
         $GebruikerArray = [];
         foreach ($this->gebruikermodel->GetGebruikers()->fetchAll(PDO::FETCH_ASSOC) as $gebruiker)
         {
+
+            $schoolc = new SchoolController();
+            $opleidingc = new OpleidingController();
+
             $gebruiker = new Gebruiker(
                 $gebruiker['GebruikerID'],
-                $gebruiker['Gebruikernaam'],
+                $gebruiker['Gebruikersnaam'],
                 $gebruiker['Wachtwoord'],
-                $gebruiker['Email'],
-                $gebruiker['School'],
-                $gebruiker['Opleiding'],
-                $gebruiker['Startdatumopleiding'],
-                $gebruiker['Foto'],
-                $gebruiker['Status'],
-                $gebruiker['Achternaam'],
-                $gebruiker['Voornaam'],
-                $gebruiker['Tussenvoegsel'],
-                $gebruiker['Prefix'],
-                $gebruiker['Straat'],
-                $gebruiker['Huisnummer'],
-                $gebruiker['Extentie'],
-                $gebruiker['Postcode'],
-                $gebruiker['Woonplaats'],
-                $gebruiker['Geboortedatum'],
-                $gebruiker['Telefoonnummer']);
+                $gebruiker['Email'] == null ? "" : $gebruiker['Email'],
+                $gebruiker['School'] == null ? null : $schoolc->getById($gebruiker['School']),
+                $gebruiker['Opleiding'] == null ? null : $opleidingc->getById($gebruiker['Opleiding']),
+                new DateTime($gebruiker['Startdatumopleiding']),
+                $gebruiker['Status'] = null ? "onbekend" : $gebruiker['Status'],
+                $gebruiker['Achternaam']?? "",
+                $gebruiker['Voornaam']?? "",
+                $gebruiker['Tussenvoegsel'] == null ? "" : $gebruiker['Tussenvoegsel'],
+                $gebruiker['Prefix']== null ? "" : $gebruiker['Prefix'],
+                $gebruiker['Straat'] ?? "",
+                $gebruiker['Huisnummer'] ?? 0,
+                $gebruiker['Extentie'] ?? "",
+                $gebruiker['Postcode']?? "",
+                $gebruiker['Woonplaats']?? "",
+                new DateTime($gebruiker['Geboortedatum']),
+                $gebruiker['Telefoonnummer'] == null ? "" :  $gebruiker['Telefoonnummer']);
             $GebruikerArray [] = $gebruiker;
         }
         return $GebruikerArray ;
@@ -120,4 +126,14 @@ class GebruikerController
             $Gebruiker[0]['Telefoonnummer']);
 
     }
+
+    //todo : maken als projecten af is
+    //public function getProjectenByGebruiker()
+    //{
+    //    $res = $this->gebruikermodel->getProjectenByGebruiker()->fetchAll(PDO::FETCH_ASSOC);
+    //    while($obj = mysqli_fetch_array($res)) {
+    //        $projecten[] = new Project($obj,$this);
+    //    }
+    //    return $projecten;
+    //}
 }
