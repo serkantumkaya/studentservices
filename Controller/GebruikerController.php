@@ -49,6 +49,13 @@ class GebruikerController
         }
         return $GebruikerArray ;
     }
+    function CreateNewUser(string $Gebruikersnaam,string $Wachtwoord,
+                           string $Email)
+    {
+        return $this->gebruikermodel->CreateNewUser($Gebruikersnaam,
+            $Wachtwoord,
+            $Email);
+    }
 
     //voor parameters bindparam gebruiken. Named parameters
     function add(string $Gebruikersnaam,

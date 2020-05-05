@@ -43,8 +43,26 @@ class GebruikerModel
 
     }
 
+    public static function makeSafe($password)
+    {
+        $salt = "mySalt";
+        return hash("sha256", "{$salt}.{$password}");
+    }
+
+    function CreateNewUser(string $Gebruikersnaam,string $Wachtwoord, string $Email)
+    {
+        $statement = $this->conn->prepare("INSERT INTO Gebruiker (:Gebruikersnaam ,:Wachtwoord,:Email)");
+        $statement->execute([
+            'Gebruikersnaam'  => $Gebruikersnaam,
+            'Wachtwoord'  => $this->makeSafe($Wachtwoord),
+            'Email'  => $Email
+        ]);
+        var_dump($statement);
+        return true;
+    }
+
     //FOTO toevoegen gaat anders niet via een constructor
-    function add( int $GebruikerID,
+    function add(
         string $Gebruikersnaam,
         string $Wachtwoord,
         string $Email,
