@@ -26,15 +26,13 @@ class GebruikerController
                 $gebruiker['GebruikerID'],
                 $gebruiker['Gebruikersnaam'],
                 $gebruiker['Wachtwoord'],
-                $gebruiker['WachtwoordCheck'],
-                $gebruiker['Email'] == null ? "" : $gebruiker['Email'],
+               $gebruiker['Email'] == null ? "" : $gebruiker['Email'],
                 );
             $GebruikerArray [] = $gebruiker;
         }
         return $GebruikerArray ;
     }
-    function Add(string $Gebruikersnaam,string $Wachtwoord,string $WachtwoordCheck,
-                           string $Email) : array
+    function Add(string $Gebruikersnaam,string $Wachtwoord,string $WachtwoordCheck,string $Email) : array
     {
         $Errorsfound = [
             "Gebruikersnaam" => "",
@@ -48,6 +46,16 @@ class GebruikerController
         {
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
         }
+
+        if ($this->gebruikermodel->getByGebruikersNaam($Gebruikersnaam ))
+        {
+            $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
+        }
+
+        if (preg_match('/[^a-zA-Z\d]/',$Gebruikersnaam))
+        {
+            $Errorsfound["Gebruikersnaam"] += "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
+        }
         if (empty($Email))
         {
             $Errorsfound["Email"] = "Email is verplicht.<br>";
@@ -56,8 +64,8 @@ class GebruikerController
         {
             return $Errorsfound;
         }
-
-        if ($this->gebruikermodel->CreateNewUser($Gebruikersnaam,
+        //This is what a controller does. You pass your 2nd password for validation. But is it not needed in the add of the model.
+        if ($this->gebruikermodel->Add($Gebruikersnaam,
             $Wachtwoord,
             $Email))
         {
@@ -82,10 +90,14 @@ class GebruikerController
             $Gebruiker['GebruikerID'],
             $Gebruiker['Gebruikernaam'],
             $Gebruiker['Wachtwoord'],
-            $Gebruiker['Email'];
+            $Gebruiker['Email']);
+    }
+    function CheckUserName(string $UserName) : bool
+    {
+        return !empty($this->gebruikermodel->GetByName($UserName));
     }
 
-    //todo : maken als projecten af is
+    //todo : maken als projecten af is. Met een koppeling heb je altijd een verzameling bij het gekoppelde object.
     //public function getProjectenByGebruiker()
     //{
     //    $res = $this->gebruikermodel->getProjectenByGebruiker()->fetchAll(PDO::FETCH_ASSOC);

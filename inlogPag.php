@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="images/studentservices.ico" />
     <meta charset="utf-8">
     <title>Student Services</title>
     <meta name="Toevoegen school" content="index">

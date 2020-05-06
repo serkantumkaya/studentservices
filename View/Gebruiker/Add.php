@@ -2,11 +2,12 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
-session_start();
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href=/images/StudentServices.ico" />
     <meta charset="utf-8">
     <title>Student Services</title>
     <meta name="Toevoegen gebruiker" content="index">
@@ -52,32 +53,6 @@ $WachtwoordCheckErr = "";
 
 //validatie client and serverside. https://stackoverflow.com/questions/8780436/user-input-validation-client-side-or-server-side-php-js?
 //dus de invoer checken met javascript maar ook in de controler controleren serverside.
-if (isset($_POST["WachtwoordCheck"]) && isset($_POST["Wachtwoord"]) && $_POST["WachtwoordCheck"] != isset($_POST["Wachtwoord"]))
-{
-    $WachtwoordErr = "Wachtwoorden zijn niet gelijk";
-    $WachtwoordCheckErr = "Wachtwoorden zijn niet gelijk";
-    $noerror = false;
-}
-if (!isset($_POST[""]) || isset($_POST["Gebruikersnaam"]) =="")
-{
-    $WachtwoordCheckErr = "Gebruikersnaam is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["Email"]) || isset($_POST["Email"]) =="")
-{
-    $WachtwoordCheckErr = "Email is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["WachtwoordCheck"]) || isset($_POST["WachtwoordCheck"]) =="")
-{
-    $WachtwoordCheckErr = "Wachtwoord check is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["Wachtwoord"]) || isset($_POST["Wachtwoord"]) =="")
-{
-    $WachtwoordCheckErr = "Wacthwoord is verplicht.";
-    $noerror = false;
-}
 
 echo "<h1 > Aanmaken login gegevens</h1 ><br>
 <form action = \"Add.php\" method = \"post\" >
@@ -105,25 +80,37 @@ echo "\" /></div>
 
        <input type=\"submit\" >  <br><br><br>
     </form >";
-if ($noerror)//No validation errors
+
+if (isset( $_POST["GebruikersNaam"]) && isset( $_POST["Wachtwoord"]) &&
+isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation errors
 {
     $gebruikercontroller= new GebruikerController();
 
-    if ($gebruikercontroller->Add(
-        $_POST["Gebruikersnaam"],
-        $_POST["Wachtwoord"],
-        $_POST["WachtwoordCheck"],
-        $_POST["Email"]
-        ))
+
+        $answers = $gebruikercontroller->Add(
+            $_POST["GebruikersNaam"],
+            $_POST["Wachtwoord"],
+            $_POST["WachtwoordCheck"],
+            $_POST["Email"]
+        );
+
+
+    var_dump($answers);
+    if (empty($answers[0]) && empty($answers[1]) && empty($answers[2]) && empty($answers[3]))
     {
-        echo "Record opgeslagen";
+
         //header("Location: /StudentServices/InlogPag.php");
     }
     else
     {
+        $NaamErr = $answers[0];
+        $EmailErr = $answers[1];
+        $WachtwoordErr = $answers[2];
+        $WachtwoordCheckErr = $answers[3];
         echo "Record niet opgeslagen";
     }
 }
+
 ?>
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </div>

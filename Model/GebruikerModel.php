@@ -22,69 +22,23 @@ class GebruikerModel
 
     public static function makeSafe($password)
     {
-        $salt = "mySalt";
+        $salt = "Gue\$This0192893847KGYTRT!";
         return hash("sha256", "{$salt}.{$password}");
     }
 
     function Add(string $Gebruikersnaam,string $Wachtwoord, string $Email)
     {
-        $statement = $this->conn->prepare("INSERT INTO Gebruiker (:Gebruikersnaam ,:Wachtwoord,:Email)");
-        $statement->execute([
+        $sql = $this->conn->prepare("INSERT INTO Gebruiker (Gebruikersnaam,Wachtwoord,Email) Values(:Gebruikersnaam ,:Wachtwoord,:Email)");
+        $sha256ww = $this->makeSafe($Wachtwoord);
+
+        $parameters =([
             'Gebruikersnaam'  => $Gebruikersnaam,
-            'Wachtwoord'  => $this->makeSafe($Wachtwoord),
+            'Wachtwoord'  => $sha256ww,
             'Email'  => $Email
         ]);
-        var_dump($statement);
-        return true;
+        var_dump( $parameters);
+        return  $sql->execute($parameters);
     }
-
-    //FOTO toevoegen gaat anders niet via een constructor
-//    function add(
-//        string $Gebruikersnaam,
-//        string $Wachtwoord,
-//        string $Email,
-//        ?School $School,
-//        ?Opleiding $Opleiding,
-//        ?DateTime $Startdatumopleiding,
-//        string $Status,
-//        string $Achternaam,
-//        String $Voornaam,
-//        string $Tussenvoegsel,
-//        string $Prefix,
-//        string $Straat,
-//          int $Huisnummer,
-//        string $Extentie,
-//        string $Postcode,
-//        string $Woonplaats,
-//        ?DateTime $Geboortedatum,
-//        string $Telefoonnummer)
-//    {
-//        $statement = $this->conn->prepare("INSERT INTO Gebruiker (GebruikerID , Gebruikersnaam ,Wachtwoord,Email,School ,Opleiding ,Startdatumopleiding ,Status,
-//            Achternaam ,Voornaam ,Tussenvoegsel,Prefix ,Straat ,Huisnummer,Extentie ,Postcode ,Woonplaats ,Geboortedatum ,Telefoonnummer)
-//            VALUES (:GebruikerID ,:Gebruikersnaam ,:Wachtwoord,:Email,:School ,:Opleiding ,:Startdatumopleiding ,:Status,
-//:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,:Straat ,:Huisnummer,:Extentie ,:Postcode ,:Woonplaats ,:Geboortedatum ,:Telefoonnummer)");
-//        $statement->execute([
-//            'Gebruikersnaam'  => $Gebruikersnaam,
-//            'Wachtwoord'  => $Wachtwoord,
-//            'Email'  => $Email,
-//            'School'  => $School,
-//            'Opleiding'  => $Opleiding,
-//            'Startdatumopleiding'  => $Startdatumopleiding,
-//            'Status'  => $Status,
-//            'Achternaam'  => $Achternaam,
-//            'Voornaam'  => $Voornaam,
-//            'Tussenvoegsel'  => $Tussenvoegsel,
-//            'Prefix'  => $Prefix,
-//            'Straat'  => $Straat,
-//            'Huisnummer'  => $Huisnummer,
-//            'Extentie'  => $Extentie,
-//            'Postcode'  => $Postcode,
-//            'Woonplaats'  => $Woonplaats,
-//            'Geboortedatum'  => $Geboortedatum,
-//            'Telefoonnummer' => $Telefoonnummer
-//        ]);
-//        return true;
-//    }
 
     function delete(int $ID) {
 
@@ -114,6 +68,12 @@ class GebruikerModel
     function get(int $ID)
     {
         $sql = "SELECT OpleidingID,Naamgebruiker,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
+        return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+    }
+
+    function getByGebruikersNaam(string $GebruikersNaam)
+    {
+        $sql = "SELECT GebruikersNaam FROM Gebruiker WHERE GebruikersNaam = '".$GebruikersNaam."'";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
