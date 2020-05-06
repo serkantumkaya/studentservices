@@ -15,10 +15,8 @@ class SchoolController
 
     public function GetScholen()
     {
-        //return $this->schoolmodel->GetScholen()->fetchAll(PDO::FETCH_ASSOC);
-
         $SchoolArray = [];
-        foreach ($this->schoolmodel->GetScholen()->fetchAll(PDO::FETCH_ASSOC) as $school)
+        foreach ($this->schoolmodel->GetScholen() as $school)
         {
             $school = new School($school['SchoolID'],$school['Schoolnaam']);
             $SchoolArray [] = $school;
@@ -43,8 +41,8 @@ class SchoolController
 
     function getById(int $id) : school
     {
-        $School = $this->schoolmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
-        return new School($School[0]['SchoolID'],$School[0]['Schoolnaam']);
+        $School = $this->schoolmodel->Get($id);
+        return new School($School['SchoolID'],$School['Schoolnaam']);
 
     }
 }

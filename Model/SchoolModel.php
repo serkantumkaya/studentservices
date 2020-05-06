@@ -23,27 +23,16 @@ class SchoolModel
 
         $stmt = $db->prepare('SELECT price, quantity FROM stock');
         $stmt->setFetchMode(PDO::FETCH_CLASS,'School');
-        $result = $stmt->fetch();
+        $result = $stmt->fetch()->fetchAll(PDO::FETCH_ASSOC);
 
     }
     function add(string $schoolNaam)
     {
-        //deze functie kan nog veul mooier. ID terug geven.
-        //$this->conn->execute("INSERT INTO School (Naam) VALUES ('$schoolNaam')");
-
         $statement = $this->conn->prepare("INSERT INTO School (SchoolNaam) VALUES (:Naam)");
         $statement->execute([
             'Naam' => $schoolNaam
         ]);
         return true;
-        //i van integer. s voor string enz enz //bindparam kreeg ik niet aan de praat. Maar is wel beter
-       /// $sql->bind_param("s", $schoolNaam);//https://www.w3schools.com/php/php_mysql_prepared_statements.asp
-        //{
-        //    $last_id = $this->conn->insert_id;
-        //    return get($last_id);//nieuwe object terugsturen met nieuwe ID
-        //} else {
-        //    echo "Error: " . $sql . "<br>" . $this->conn->error;
-       // }
     }
 
     function delete(int $ID) {
@@ -82,7 +71,7 @@ class SchoolModel
     function get(int $ID)
     {
         $sql = "Select SchoolID,Schoolnaam from SCHOOL WHERE SCHOOLID =$ID";
-        return $this->conn->query($sql);
+        return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
 
     }
 }
