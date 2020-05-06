@@ -22,79 +22,47 @@ class GebruikerController
         foreach ($this->gebruikermodel->GetGebruikers()->fetchAll(PDO::FETCH_ASSOC) as $gebruiker)
         {
 
-            $schoolc = new SchoolController();
-            $opleidingc = new OpleidingController();
-
             $gebruiker = new Gebruiker(
                 $gebruiker['GebruikerID'],
                 $gebruiker['Gebruikersnaam'],
                 $gebruiker['Wachtwoord'],
+                $gebruiker['WachtwoordCheck'],
                 $gebruiker['Email'] == null ? "" : $gebruiker['Email'],
-                $gebruiker['School'] == null ? null : $schoolc->getById($gebruiker['School']),
-                $gebruiker['Opleiding'] == null ? null : $opleidingc->getById($gebruiker['Opleiding']),
-                new DateTime($gebruiker['Startdatumopleiding']),
-                $gebruiker['Status'] = null ? "onbekend" : $gebruiker['Status'],
-                $gebruiker['Achternaam']?? "",
-                $gebruiker['Voornaam']?? "",
-                $gebruiker['Tussenvoegsel'] == null ? "" : $gebruiker['Tussenvoegsel'],
-                $gebruiker['Prefix']== null ? "" : $gebruiker['Prefix'],
-                $gebruiker['Straat'] ?? "",
-                $gebruiker['Huisnummer'] ?? 0,
-                $gebruiker['Extentie'] ?? "",
-                $gebruiker['Postcode']?? "",
-                $gebruiker['Woonplaats']?? "",
-                new DateTime($gebruiker['Geboortedatum']),
-                $gebruiker['Telefoonnummer'] == null ? "" :  $gebruiker['Telefoonnummer']);
+                );
             $GebruikerArray [] = $gebruiker;
         }
         return $GebruikerArray ;
     }
-    function CreateNewUser(string $Gebruikersnaam,string $Wachtwoord,
-                           string $Email)
+    function Add(string $Gebruikersnaam,string $Wachtwoord,string $WachtwoordCheck,
+                           string $Email) : array
     {
-        return $this->gebruikermodel->CreateNewUser($Gebruikersnaam,
-            $Wachtwoord,
-            $Email);
-    }
+        $Errorsfound = [
+            "Gebruikersnaam" => "",
+            "Wachtwoord" => "",
+            "Email" => ""] ;
+        if ($Wachtwoord != $WachtwoordCheck || empty($Wachtwoord) || empty($WachtwoordCheck))
+        {
+            $Errorsfound["Wachtwoord"] = "De wachtwoorden zijn niet gelijk of 1 van de wachtwoorden is leeg.<br>";
+        }
+        if ($Gebruikersnaam =="")
+        {
+            $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
+        }
+        if (empty($Email))
+        {
+            $Errorsfound["Email"] = "Email is verplicht.<br>";
+        }
+        if (!empty($Errorsfound["Wachtwoord"]) || !empty($Errorsfound["Gebruikersnaam"]) || !empty($Errorsfound["Email"]) )
+        {
+            return $Errorsfound;
+        }
 
-    //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Gebruikersnaam,
-            string $Wachtwoord,
-            string $Email,
-            School $School,
-            Opleiding $Opleidingg,
-            DateTime $Startdatumopleiding,
-            string $Status,
-            string $Achternaam,
-            string $Voornaam,
-            string $Tussenvoegsel,
-            string $Prefix,
-            string $Straat,
-            int $Huisnummer,
-            string $Extentie,
-            string $Postcode,
-            string $Woonplaats,
-            DateTime $Geboortedatum,
-            string $Telefoonnummer)
-    {
-        return $this->gebruikermodel->Add($Gebruikersnaam,
+        if ($this->gebruikermodel->CreateNewUser($Gebruikersnaam,
             $Wachtwoord,
-            $Email,
-            $School,
-            $Opleidingg,
-            $Startdatumopleiding,
-            $Status,
-            $Achternaam,
-            $Voornaam,
-            $Tussenvoegsel,
-            $Prefix,
-            $Straat,
-            $Huisnummer,
-            $Extentie,
-            $Postcode,
-            $Woonplaats,
-            $Geboortedatum,
-            $Telefoonnummer);
+            $Email))
+        {
+            return $Errorsfound();
+        }
     }
 
     function delete(int $Id)
@@ -109,29 +77,12 @@ class GebruikerController
 
     function getById(int $id) : gebruiker
     {
-        $Gebruiker = $this->gebruikermodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
+        $Gebruiker = $this->gebruikermodel->Get($id);
         return new Gebruiker(
-            $Gebruiker[0]['GebruikerID'],
-            $Gebruiker[0]['Gebruikernaam'],
-            $Gebruiker[0]['Wachtwoord'],
-            $Gebruiker[0]['Email'],
-            $Gebruiker[0]['School'],
-            $Gebruiker[0]['Opleiding'],
-            $Gebruiker[0]['Startdatumopleiding'],
-            $Gebruiker[0]['Foto'],
-            $Gebruiker[0]['Status'],
-            $Gebruiker[0]['Achternaam'],
-            $Gebruiker[0]['Voornaam'],
-            $Gebruiker[0]['Tussenvoegsel'],
-            $Gebruiker[0]['Prefix'],
-            $Gebruiker[0]['Straat'],
-            $Gebruiker[0]['Huisnummer'],
-            $Gebruiker[0]['Extentie'],
-            $Gebruiker[0]['Postcode'],
-            $Gebruiker[0]['Woonplaats'],
-            $Gebruiker[0]['Geboortedatum'],
-            $Gebruiker[0]['Telefoonnummer']);
-
+            $Gebruiker['GebruikerID'],
+            $Gebruiker['Gebruikernaam'],
+            $Gebruiker['Wachtwoord'],
+            $Gebruiker['Email'];
     }
 
     //todo : maken als projecten af is

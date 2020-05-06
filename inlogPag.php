@@ -41,7 +41,7 @@
 
 </form>
 
-<form id='login' action=View/Gebruiker/AddLogin.php accept-charset='UTF-8' class="modal-content animate">
+<form id='login' action=View/Gebruiker/Add.php accept-charset='UTF-8' class="modal-content animate">
     <div class="container">
       <input type='submit' name='Submit' value='Registreren' />
     </div>

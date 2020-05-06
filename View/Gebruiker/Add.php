@@ -1,11 +1,7 @@
-//Create gebruiker en create login in 1 screen, because some fields of the gebruiker object are required.
-//that's why you can't seperate the screens. Otherwise you will have to spit the tables into login en gebruiker.
-//DON'T fill in empty strings in required fields just to fill them. This is against all rules of integrity.
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 ?>
 <!DOCTYPE HTML>
@@ -37,7 +33,7 @@ session_start();
         <!-- [MENU ITEMS] -->
 <ul>
     <li>
-        <a href="./View.php">Terug</a>
+        <a href="/StudentServices/inlogPag.php">Terug</a>
     </li>
 </ul>
     </nav>
@@ -54,30 +50,37 @@ $EmailErr = "";
 $WachtwoordErr = "";
 $WachtwoordCheckErr = "";
 
+//validatie client and serverside. https://stackoverflow.com/questions/8780436/user-input-validation-client-side-or-server-side-php-js?
+//dus de invoer checken met javascript maar ook in de controler controleren serverside.
 if (isset($_POST["WachtwoordCheck"]) && isset($_POST["Wachtwoord"]) && $_POST["WachtwoordCheck"] != isset($_POST["Wachtwoord"]))
 {
     $WachtwoordErr = "Wachtwoorden zijn niet gelijk";
     $WachtwoordCheckErr = "Wachtwoorden zijn niet gelijk";
+    $noerror = false;
 }
-else if (isset($_POST[""]) && isset($_POST["Gebruikersnaam"]) =="")
+if (!isset($_POST[""]) || isset($_POST["Gebruikersnaam"]) =="")
 {
     $WachtwoordCheckErr = "Gebruikersnaam is verplicht.";
+    $noerror = false;
 }
-else if (isset($_POST["Email"]) && isset($_POST["Email"]) =="")
+if (!isset($_POST["Email"]) || isset($_POST["Email"]) =="")
 {
     $WachtwoordCheckErr = "Email is verplicht.";
+    $noerror = false;
 }
-else if (isset($_POST["WachtwoordCheck"]) && isset($_POST["WachtwoordCheck"]) =="")
+if (!isset($_POST["WachtwoordCheck"]) || isset($_POST["WachtwoordCheck"]) =="")
 {
     $WachtwoordCheckErr = "Wachtwoord check is verplicht.";
+    $noerror = false;
 }
-else if (isset($_POST["Wachtwoord"]) && isset($_POST["Wachtwoord"]) =="")
+if (!isset($_POST["Wachtwoord"]) || isset($_POST["Wachtwoord"]) =="")
 {
     $WachtwoordCheckErr = "Wacthwoord is verplicht.";
+    $noerror = false;
 }
 
 echo "<h1 > Aanmaken login gegevens</h1 ><br>
-<form action = \"AddLogin.php\" method = \"post\" >
+<form action = \"Add.php\" method = \"post\" >
 
     <div class='gebruikerlabel'>Gebruikersnaam *</div>
         <div class='gebruikerinput'><input type = \"text\" name=\"GebruikersNaam\" value=\"";
@@ -99,103 +102,22 @@ echo "\"/></div>
 if (isset($_POST["WachtwoordCheck"])) echo $_POST["WachtwoordCheck"];
 echo "\" /></div>
          <span class='gebruikersinput'>$WachtwoordCheckErr</span>    
-         <!--Voornaam-->
-    <div class='gebruikerlabel'>Voornaam *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Voornaam\" value=\"";
-if (isset($_POST["Voornaam"])) echo $_POST["Voornaam"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$VoornaamErr</span>
-         <!--Tussenvoegsel-->
-<div class='gebruikerlabel'>Tussenvoegsel</div>
-         <div class='gebruikerinput'><input type = \"password\" name=\"Tussenvoegsel\" value=\"";
-if (isset($_POST["Tussenvoegsel"])) echo $_POST["Tussenvoegsel"];
-echo "\" /></div>
-         <!--Achternaam-->
-    <div class='gebruikerlabel'>Achternaam *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Achternaam\" value=\"";
-if (isset($_POST["Achternaam"])) echo $_POST["Achternaam"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$AchternaamErr</span>   
-    <!--Straat-->
- <div class='gebruikerlabel'>Straat *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Straat\" value=\"";
-if (isset($_POST["Straat"])) echo $_POST["Straat"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$StraatErr</span>
-         
-    <!--Huisnummer-->
- <div class='gebruikerlabel'>Huisnummer *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Huisnummer\" value=\"";
-if (isset($_POST["Huisnummer"])) echo $_POST["Huisnummer"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$HuisnummerErr</span>
 
-        <!--Extentie-->
- <div class='gebruikerlabel'>Extentie *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Extentie\" value=\"";
-if (isset($_POST["Extentie"])) echo $_POST["Extentie"];
-echo "\"/></div>
-         
-
-<!--Postcode-->
- <div class='gebruikerlabel'>Postcode *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Postcode\" value=\"";
-if (isset($_POST["Postcode"])) echo $_POST["Postcode"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$PostcodeErr</span>
-         
-     <!--Woonplaats-->
- <div class='gebruikerlabel'>Woonplaats *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Woonplaats\" value=\"";
-if (isset($_POST["Woonplaats"])) echo $_POST["Woonplaats"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$WoonplaatsErr</span>
-        
-                <!--Geboortedatum-->
- <div class='gebruikerlabel'>Geboortedatum</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Geboortedatum\" value=\"";
-if (isset($_POST["Geboortedatum"])) echo $_POST["Geboortedatum"];
-echo "\"/></div>
-         
-         
-
-    private ?School $School;
-    private ?Opleiding $Opleiding;
-    
-
-                   <!--Startdatumopleiding-->
- <div class='gebruikerlabel'>Startdatumopleiding</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Startdatumopleiding\" value=\"";
-if (isset($_POST["Startdatumopleiding"])) echo $_POST["Startdatumopleiding"];
-echo "\"/></div>
- 
-  <!--foto-->
- <div class='gebruikerlabel'>Foto</div>
-
-
-    private string $Status;
-    
- <!--Telefoonnummer-->
- <div class='gebruikerlabel'>Telefoonnummer</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
-if (isset($_POST["Telefoonnummer"])) echo $_POST["Telefoonnummer"];
-echo "\"/></div>
-
-    
-    <input type = \"submit\" >
+       <input type=\"submit\" >  <br><br><br>
     </form >";
-
-
-    
-
-
-if (isset($_POST["GebruikersNaam"]) && isset($_POST["Email"]) && isset($_POST["Wachtwoord"]))
+if ($noerror)//No validation errors
 {
     $gebruikercontroller= new GebruikerController();
 
-    if ($gebruikercontroller->CreateNewUser($_POST["GebruikersNaam"],$_POST["Email"] ,$_POST["Wachtwoord"]))
+    if ($gebruikercontroller->Add(
+        $_POST["Gebruikersnaam"],
+        $_POST["Wachtwoord"],
+        $_POST["WachtwoordCheck"],
+        $_POST["Email"]
+        ))
     {
-        //header("Location: /StudentServices/View/Gebruiker/View.php");
+        echo "Record opgeslagen";
+        //header("Location: /StudentServices/InlogPag.php");
     }
     else
     {

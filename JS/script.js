@@ -28,3 +28,9 @@ function GetSchool() {
         elmnt.scrollIntoView();
     }
 }
+
+function checkGebruikerInput()
+{
+
+
+}

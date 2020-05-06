@@ -84,7 +84,6 @@ input[type=submit]:active
 
 .gebruikerlabel .loginlabel
 {
-    clear:left;
     width:100px;
     float:left;
 }
@@ -136,6 +135,12 @@ input[type=submit]:active
 
 textarea {
     resize: none;
+}
+
+.studentfoto
+{
+    height:150px;
+    width:100px;
 }
 
 #logo{
@@ -706,70 +711,12 @@ input[type=text], select, textarea {
     font-size: 16px;
 }
 
-/*dit is mooi. Maar het vinkje is niet in het vak zelf. Ziet er daarom niet uit.*/
-/*.tel {position: relative; margin: 20px; display: inline-block;}
-.tel input{display: none; max-width:200px;}
-.tel label{float: left; line-height: 1.4}
-.tel label::before{
-    width: 20px;
-    height: 20px;
-    border: 1px solid #2196F3;
-    content: '';
-    border-radius: 10px;
-    float: left;
-    margin:0 10px;
-    cursor: pointer;
-}
-.tel input[type=checkbox]:checked + label::after{display: block;max-width:300px;}
-.tel label::after{
-    display: none;
-    top: 6px;
-    left: 16px;
-    content: '';
-    color: #2196F3;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #2196F3;
-    border-radius: 5px;F
-    cursor: pointer;
-}
-
-.E-mail{position: relative; width:calc(100% - 40px); margin: 20px; display: inline-block;}
-.E-mail input{display: none;}
-.E-mail label{float: left; line-height: 1.4}
-.E-mail label::before{
-    width: 20px;
-    height: 20px;
-    border: 1px solid #2196F3;
-    content: '';
-    border-radius: 10px;
-    float: left;
-    margin:0 10px;
-    cursor: pointer;
-}
-.E-mail input[type=checkbox]:checked + label::after{display: block;}
-.E-mail label::after{
-    display: none;
-    top: 6px;
-    left: 16px;
-    content: '';
-    color: #2196F3;
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #2196F3;
-    border-radius: 5px;
-    cursor: pointer;
-}*/
 .error{
     color: red;
     visibility: visible;
     margin: 0;
 }
 
-*/login*/
-/* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
