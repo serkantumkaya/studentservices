@@ -8,7 +8,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolContr
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 
 //hier doe je de crud afvangen vanuit de gebruiker.
-class GebruikerController
+class ProfielController
 {
     private GebruikerModel $gebruikermodel;
 

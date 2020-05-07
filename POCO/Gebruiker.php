@@ -15,6 +15,10 @@ class Gebruiker
         $this->Email = $Email;
     }
 
+    function __toString(){
+        return $this->getGebruikersnaam();
+    }
+
     /**
      * @return int
      */

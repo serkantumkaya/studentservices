@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 session_start();
 ?>
 <!DOCTYPE HTML>
@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <title>Student Services</title>
-    <meta name="Toevoegen opleiding" content="index">
+    <meta name="Toevoegen gebruiker" content="index">
     <meta name="author" content="The big 5">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--The viewport is the user's visible area of a web page.-->
@@ -52,20 +52,20 @@ session_start();
 
 if (isset($_GET["ID"]))
 {
-    $opleidingcontroller= new OpleidingController();
-    $opleiding= $opleidingcontroller->getById($_GET["ID"]);
-    $_SESSION["CurrentOpleiding"] = $opleiding;
+    $gebruikercontroller= new GebruikerController();
+    $gebruiker= $gebruikercontroller->getById($_GET["ID"]);
+    $_SESSION["CurrentGebruiker"] = $gebruiker;
 }
 
-if (isset($_POST["NaamOpleiding"]) || isset($_POST["VoltijdDeeltijd"]))
+if (isset($_POST["NaamGebruiker"]) || isset($_POST["VoltijdDeeltijd"]))
 {
-    $_SESSION["CurrentNaam"] = $_POST["NaamOpleiding"];
+    $_SESSION["CurrentNaam"] = $_POST["NaamGebruiker"];
     $_SESSION["VoltijdDeeltijd"] = $_POST["VoltijdDeeltijd"];
 }
 
-if ( $_SESSION["CurrentOpleiding"] != null)
+if ( $_SESSION["CurrentGebruiker"] != null)
 {
-    $opleiding = $_SESSION["CurrentOpleiding"];
+    $gebruiker = $_SESSION["CurrentGebruiker"];
 }
 
 ?>
@@ -79,21 +79,21 @@ if (isset($_POST["Post"]))
     $valueVD=  $_SESSION["VoltijdDeeltijd"];
 }
 else if (isset($_GET["ID"])) {
-    $valueNaam = $opleiding->getNaamopleiding();
-    $valueVD=   $opleiding->getVoltijdDeeltijd();
+    $valueNaam = $gebruiker->getNaamgebruiker();
+    $valueVD=   $gebruiker->getVoltijdDeeltijd();
 }
 else {
-    $valueNaam = $_POST["NaamOpleiding"];
+    $valueNaam = $_POST["NaamGebruiker"];
     $valueVD=  $_POST["VoltijdDeeltijd"];
 }
 
 if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 {
     //todo : object van maken?
-    echo "<h1 > Wijzigen opleiding </h1 ><br>
+    echo "<h1 > Wijzigen gebruiker </h1 ><br>
     <form action = \"Edit.php\" method = \"post\" >
-            Opleiding:
-        <input type = \"text\" name = \"NaamOpleiding\" value=\"" . $valueNaam . "\"/>
+            Gebruiker:
+        <input type = \"text\" name = \"NaamGebruiker\" value=\"" . $valueNaam . "\"/>
         <select name=\"VoltijdDeeltijd\">";
             $voldeel = new EnumVoltijdDeeltijd();
             foreach($voldeel->getConstants() as $vd)
@@ -111,22 +111,22 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 
 if (isset($_POST["delete"]))
 {
-    $opleidingcontroller= new OpleidingController();
-    if ($opleidingcontroller->delete($_SESSION["CurrentOpleiding"]->getOpleidingID()))
+    $gebruikercontroller= new GebruikerController();
+    if ($gebruikercontroller->delete($_SESSION["CurrentGebruiker"]->getGebruikerID()))
     {
         header("Location: View.php");
     }
 
 }
-else if (!isset($_POST["Delete"]) && isset($_POST["NaamOpleiding"]) && isset($_POST["VoltijdDeeltijd"]) && isset($_SESSION["CurrentOpleiding"]))
+else if (!isset($_POST["Delete"]) && isset($_POST["NaamGebruiker"]) && isset($_POST["VoltijdDeeltijd"]) && isset($_SESSION["CurrentGebruiker"]))
 {
-    $opleidingcontroller= new OpleidingController();
+    $gebruikercontroller= new GebruikerController();
     if ($_SESSION["CurrentNaam"] && $_SESSION["VoltijdDeeltijd"])
     {
-        $opleiding = new Opleiding($_SESSION["CurrentOpleiding"]->getOpleidingID(),$_SESSION["CurrentNaam"],$_SESSION["VoltijdDeeltijd"]);
+        $gebruiker = new Gebruiker($_SESSION["CurrentGebruiker"]->getGebruikerID(),$_SESSION["CurrentNaam"],$_SESSION["VoltijdDeeltijd"]);
     }
 
-    if ($opleidingcontroller->update($opleiding))
+    if ($gebruikercontroller->update($gebruiker))
     {
         header("Location: View.php");
     }

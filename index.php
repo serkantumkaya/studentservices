@@ -2,7 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require 'Includes/DB.php';
-if ($GebrID == 0)
+session_start();
+if ($_SESSION["GebruikerID"]==-1)
 {
     Header("Location: /StudentServices/inlogPag.php");
 }
@@ -60,6 +61,7 @@ if ($GebrID == 0)
                 echo "<li><a href=\"\./StudentServices/View/Categorie/View.php\"\">Categorie</a></li>";
                 echo "<li><a href=\"\./StudentServices/View/Opleiding/View.php\"\">Opleiding</a></li>";
                 echo "<li><a href=\"\./StudentServices/View/Gebruiker/View.php\"\">Gebruikers</a></li>";
+                echo "<li><a href=\"\./StudentServices/InlogPag.php\"\">Uitloggen</a></li>";
                 //break;
                 //}
                 ?>

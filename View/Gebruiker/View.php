@@ -34,78 +34,55 @@ session_start();
 
 <body>
 
-    <div class="header">
-        <nav id="page-nav">
-            <!-- [THE HAMBURGER] -->
-            <label for="hamburger">&#9776;</label>
-            <input type="checkbox" id="hamburger"/>
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
 
-            <!-- [MENU ITEMS] -->
+        <!-- [MENU ITEMS] -->
 
-<ul>
-    <?php
-    echo "<li>
+        <ul>
+            <?php
+            echo "<li>
             <a href=\"Add.php\">Nieuw</a>
         </li>";
-    echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
-    ?>
-</ul>
-        </nav>
-        <img id=
-             <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
-    </div>
+            echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+            ?>
+        </ul>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
 
 <div class="info">
-<form  method="post" action="Edit.php">
-<table> <tr> <th>Gebruiker</th> <th></th> <th></th></tr>
-<tr><td>
-    <?php
+    <form  method="post" action="Edit.php">
+        <table> <tr> <th>Gebruiker</th> <th></th> <th></th></tr>
+            <tr><td>
+                    <?php
 
-        //DO NOT USE A BIG IF. If the conditions are not met. Return.
-        if (empty($_Post) && !isset($_Post["actie"]))
-        {
-            LoadList();
-            return;
-        }
+                    //DO NOT USE A BIG IF. If the conditions are not met. Return.
+                    if (empty($_Post) && !isset($_Post["actie"]))
+                    {
+                        LoadList();
+                        return;
+                    }
 
+                    function LoadList()
+                    {
+                        $gebruikercontroller= new GebruikerController();
 
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
+                        foreach ($gebruikercontroller->GetGebruikers() as $gebruiker)
+                        {
+                            echo "<tr> <td> <input type=\"submit\" value=\"".$gebruiker->getGebruikersNaam()."\" formaction='Edit.php?ID=".$gebruiker->getGebruikerID()."' class=\"table1col\"> </td></tr>";
+                        }
+                    }
 
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("GebruikerID");
-                 $this->delete($_Post["GebruikerID"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
-        function LoadList()
-        {
-            $gebruikercontroller= new GebruikerController();
-            foreach ($gebruikercontroller->GetGebruikers() as $gebruiker )
-            {
-                echo "<tr> <td>
-                    <input type=\"submit\" value=\"".$gebruiker."\" formaction='Edit.php?ID=".$gebruiker->getGebruikerID()."' class=\"table1col\">
-                    </td>
-                    </tr>";
-            }
-        }
-
-    ?>
-    </td>
-</tr>
-</table>
-</form>
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
 <div class="footer">
     <div>© Student Services, 2020

@@ -23,6 +23,12 @@ class ConnectDB {
 
     }
 
+    public static function makeSafe($password)
+    {
+        $salt = "Gue\$This0192893847KGYTRT!";
+        return hash("sha256", "{$salt}.{$password}");
+    }
+
     public function GetConnection() : PDO
     {
         return $this->conn;
