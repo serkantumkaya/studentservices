@@ -55,12 +55,13 @@ if (isset($_GET["ID"]))
     $gebruikercontroller= new GebruikerController();
     $gebruiker= $gebruikercontroller->getById($_GET["ID"]);
     $_SESSION["CurrentGebruiker"] = $gebruiker;
+    $_SESSION["OriginalLoginName"] = $gebruiker->getGebruikersnaam();
 }
 
-if (isset($_POST["NaamGebruiker"]) || isset($_POST["VoltijdDeeltijd"]))
+if (isset($_POST["GebruikersNsaam"]) || isset($_POST["Email"]) )
 {
-    $_SESSION["CurrentNaam"] = $_POST["NaamGebruiker"];
-    $_SESSION["VoltijdDeeltijd"] = $_POST["VoltijdDeeltijd"];
+    $_SESSION["Gebruikersnaam"] = $_POST["GebruikersNaam"];
+    $_SESSION["Email"] = $_POST["Email"];
 }
 
 if ( $_SESSION["CurrentGebruiker"] != null)
@@ -68,46 +69,42 @@ if ( $_SESSION["CurrentGebruiker"] != null)
     $gebruiker = $_SESSION["CurrentGebruiker"];
 }
 
-?>
+$valueGebruikersnaam = "";
+$valueEmail = "";
 
-<?php
-$valueNaam = "";
-$valueVD = "";
 if (isset($_POST["Post"]))
 {
-    $valueNaam =  $_SESSION["CurrentNaam"];
-    $valueVD=  $_SESSION["VoltijdDeeltijd"];
+    $valueGebruikersnaam =  $_SESSION["Gebruikersnaam"];
+    $valueEmail=  $_SESSION["Email"];
 }
 else if (isset($_GET["ID"])) {
-    $valueNaam = $gebruiker->getNaamgebruiker();
-    $valueVD=   $gebruiker->getVoltijdDeeltijd();
+    $valueGebruikersnaam = $gebruiker->getGebruikersnaam();
+    $valueEmail=   $gebruiker->getEmail();
 }
 else {
-    $valueNaam = $_POST["NaamGebruiker"];
-    $valueVD=  $_POST["VoltijdDeeltijd"];
+    $valueGebruikersnaam = $_POST["GebruikersNaam"];
+    $valueEamil=  $_POST["Email"];
 }
+$form =  "<h1 > Wijzigen login gegevens</h1 ><br>
+<form action = \"Edit.php\" method = \"post\" >
 
+    <div class='gebruikerlabel'>Gebruikersnaam *</div>
+        <div class='gebruikerinput'><input type = \"text\" name=\"GebruikersNaam\" value=\"" . $valueGebruikersnaam . "\"/>
+        </div>
+    <div class='gebruikerlabel'>Email *</div>
+         <div class='gebruikerinput'><input type = \"text\" name=\"Email\" value=\"" . $valueEmail . "\"/></div>
+       <input type=\"submit\" >  
+       <input type=\"submit\" value=\"delete\" name=\"delete\">
+    </form >";
+$formset = false;
 if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 {
     //todo : object van maken?
-    echo "<h1 > Wijzigen gebruiker </h1 ><br>
-    <form action = \"Edit.php\" method = \"post\" >
-            Gebruiker:
-        <input type = \"text\" name = \"NaamGebruiker\" value=\"" . $valueNaam . "\"/>
-        <select name=\"VoltijdDeeltijd\">";
-            $voldeel = new EnumVoltijdDeeltijd();
-            foreach($voldeel->getConstants() as $vd)
-            {
-                if ($vd == $valueVD)
-                    echo "<option value=\"$vd\" selected>$vd</option>";
-                    else
-                echo "<option value=\"$vd\">$vd</option>";
-            }
-       echo"</select>
-                    <input type=\"submit\" value=\"post\" name=\"post\" class=\"ssbutton\">
-            <input type=\"submit\" value=\"delete\" name=\"delete\" class=\"ssbutton\">
-        </form >";
+
+    $formset = true;
+    echo $form;
 }
+
 
 if (isset($_POST["delete"]))
 {
@@ -118,23 +115,36 @@ if (isset($_POST["delete"]))
     }
 
 }
-else if (!isset($_POST["Delete"]) && isset($_POST["NaamGebruiker"]) && isset($_POST["VoltijdDeeltijd"]) && isset($_SESSION["CurrentGebruiker"]))
+else if (!isset($_POST["Delete"]) && isset($_SESSION["Gebruikersnaam"]) && isset($_SESSION["Email"]))
 {
     $gebruikercontroller= new GebruikerController();
-    if ($_SESSION["CurrentNaam"] && $_SESSION["VoltijdDeeltijd"])
-    {
-        $gebruiker = new Gebruiker($_SESSION["CurrentGebruiker"]->getGebruikerID(),$_SESSION["CurrentNaam"],$_SESSION["VoltijdDeeltijd"]);
-    }
 
-    if ($gebruikercontroller->update($gebruiker))
-    {
-        header("Location: View.php");
-    }
-    else
-    {
-        echo "Record niet opgeslagen";
-    }
+    $gebruiker = new Gebruiker($_SESSION["CurrentGebruiker"]->getGebruikerID(),$_SESSION["Gebruikersnaam"] ,"",$_SESSION["Email"]);
+    $gebruikercontroller->setOriginalUserName($_SESSION["OriginalLoginName"]);
+
+    $answers = $gebruikercontroller->update($gebruiker);
+
+        if (isset($answers) && $answers["Errorsfound"] != "true")
+        {
+            unset($_SESSION['CurrentGebruiker']);
+            unset($_SESSION["Gebruikersnaam"]);
+            unset($_SESSION["Email"]);
+            header("Location: View.php");
+        }
+        else
+        {
+            $NaamErr = $answers["Gebruikersnaam"];
+            $EmailErr = $answers["Email"];
+            //todo : object van maken?
+            if ($formset==false)
+                echo $form;
+            echo "Record niet opgeslagen.";
+            if ($NaamErr != "")
+                echo "<br>".$NaamErr;
+            if ($EmailErr != "") echo "<br>".$EmailErr;
+        }
 }
+
 ?>
     <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </div>

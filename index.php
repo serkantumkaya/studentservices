@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require 'Includes/DB.php';
 session_start();
-if ($_SESSION["GebruikerID"]==-1)
+if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"]==-1)
 {
     Header("Location: /StudentServices/inlogPag.php");
 }

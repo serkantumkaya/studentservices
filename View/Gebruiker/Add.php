@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
@@ -34,7 +35,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
         <!-- [MENU ITEMS] -->
 <ul>
     <li>
-        <a href="/StudentServices/inlogPag.php">Terug</a>
+        <a href="View.php">Terug</a>
     </li>
 </ul>
     </nav>
@@ -86,28 +87,30 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
 {
     $gebruikercontroller= new GebruikerController();
 
+    $answers = $gebruikercontroller->Add(
 
-        $answers = $gebruikercontroller->Add(
             $_POST["GebruikersNaam"],
             $_POST["Wachtwoord"],
             $_POST["WachtwoordCheck"],
             $_POST["Email"]
         );
 
-
-    var_dump($answers);
-    if (empty($answers[0]) && empty($answers[1]) && empty($answers[2]) && empty($answers[3]))
+    if ($answers["Errorsfound"] == "")
     {
 
-        //header("Location: /StudentServices/InlogPag.php");
+        header("Location: View.php");
     }
     else
     {
-        $NaamErr = $answers[0];
-        $EmailErr = $answers[1];
-        $WachtwoordErr = $answers[2];
-        $WachtwoordCheckErr = $answers[3];
-        echo "Record niet opgeslagen";
+        $NaamErr = $answers["Gebruikersnaam"];
+        $EmailErr = $answers["Email"];
+        $WachtwoordErr = $answers["Wachtwoord"];
+
+        echo "Record niet opgeslagen.";
+        if ($NaamErr != "")
+            echo "<br>".$NaamErr;
+        if ($EmailErr != "") echo "<br>".$EmailErr;
+        if ($WachtwoordErr != "") echo "<br>".$WachtwoordErr;
     }
 }
 

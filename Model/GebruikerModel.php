@@ -28,7 +28,8 @@ class GebruikerModel
     function Add(string $Gebruikersnaam, string $Wachtwoord, string $Email){
         $sql      =
             $this->conn->prepare("INSERT INTO Gebruiker (Gebruikersnaam,Wachtwoord,Email) Values(:Gebruikersnaam ,:Wachtwoord,:Email)");
-        $sha256ww = $this->makeSafe($Wachtwoord);
+        $db = new ConnectDB();
+        $sha256ww = $db->makeSafe($Wachtwoord);
 
         $parameters = ([
             'Gebruikersnaam' => $Gebruikersnaam,
@@ -41,7 +42,7 @@ class GebruikerModel
 
     function delete(int $ID){
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM Gebruiker WHERE GebruikerID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -50,14 +51,14 @@ class GebruikerModel
         return $sql->execute($parameters);
     }
 
-    function update(int $ID, string $Naamgebruiker, string $VoltijdDeeltijd){
+    function update(int $ID, string $Naamgebruiker, string $Email){
 
         $sql =
-            $this->conn->prepare("UPDATE SelectieOpleiding SET Naamgebruiker=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
+            $this->conn->prepare("UPDATE Gebruiker SET Gebruikersnaam=:Naam , Email=:Email Where GebruikerID=:SID");//let op id geen quotes
 
         $parameters = [
             'Naam' => $Naamgebruiker,
-            'VDD' => $VoltijdDeeltijd,
+            'Email' => $Email,
             'SID' => $ID
         ];
 
@@ -65,18 +66,19 @@ class GebruikerModel
     }
 
     function get(int $ID){
-        $sql = "SELECT OpleidingID,Naamgebruiker,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
+        $sql = "SELECT GebruikerID,Gebruikersnaam,Email FROM Gebruiker WHERE GebruikerID =$ID";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
     function getByGebruikersNaam(string $GebruikersNaam){
-        $sql = "SELECT GebruikersNaam FROM Gebruiker WHERE GebruikersNaam = '" . $GebruikersNaam . "'";
+        $sql = "SELECT Gebruikersnaam FROM Gebruiker WHERE Gebruikersnaam = '" . $GebruikersNaam . "'";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getProjectenByGebruiker(){
-        return $this->conn->query("SELECT * from Project where GebruikerID= '$this->GebrID'");
-    }
+    //todo : later doenFPasss
+    //public function getProjectenByGebruiker(){
+    //    return $this->conn->query("SELECT * from Project where GebruikerID= '$this->GebrID'");
+    //}
 
     function Validate(string $GebruikersNaam, string $Password){
         $sql =
