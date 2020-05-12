@@ -2,9 +2,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/ProfielModel.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Opleiding.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/School.php");
-//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Projecten.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Opleiding.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/School.php");
+//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Projecten.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 

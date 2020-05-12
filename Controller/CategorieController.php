@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/CategorieModel.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Categorie.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Categorie.php");
 
 //hier doe je de crud afvangen vanuit de gebruiker.
 class CategorieController
