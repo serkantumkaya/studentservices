@@ -64,12 +64,6 @@ session_start();
         //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
         {
-            LoadList();
-            return;
-        }
-
-        function LoadList()
-        {
             $schoolcontroller= new SchoolController();
 
             foreach ($schoolcontroller->GetScholen() as $school)

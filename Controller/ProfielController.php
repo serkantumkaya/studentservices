@@ -1,64 +1,65 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/GebruikerModel.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Gebruiker.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/ProfielModel.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Opleiding.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/School.php");
 //require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Projecten.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 
-//hier doe je de crud afvangen vanuit de gebruiker.
+//hier doe je de crud afvangen vanuit de profiel.
 class ProfielController
 {
-    private GebruikerModel $gebruikermodel;
-
-    public function __construct() {
-        $this->gebruikermodel = new GebruikerModel();
+    private ProfielModel $profielmodel;
+    private int $ebruikerID;
+    //link the gebruiker here so you always have a connection to the logged on user.
+    public function __construct(int $GebruikerID) {
+        $this->profielmodel = new ProfielModel();
+        $this->gebruikerID = $GebruikerID;
     }
 
-    public function GetGebruikers()
+    public function GetProfielen()
     {
-        $GebruikerArray = [];
-        foreach ($this->gebruikermodel->GetGebruikers()->fetchAll(PDO::FETCH_ASSOC) as $gebruiker)
+        $ProfielArray = [];
+        foreach ($this->profielmodel->GetProfielen()->fetchAll(PDO::FETCH_ASSOC) as $profiel)
         {
 
             $schoolc = new SchoolController();
             $opleidingc = new OpleidingController();
 
-            $gebruiker = new Gebruiker(
-                $gebruiker['GebruikerID'],
-                $gebruiker['Gebruikersnaam'],
-                $gebruiker['Wachtwoord'],
-                $gebruiker['Email'] == null ? "" : $gebruiker['Email'],
-                $gebruiker['School'] == null ? null : $schoolc->getById($gebruiker['School']),
-                $gebruiker['Opleiding'] == null ? null : $opleidingc->getById($gebruiker['Opleiding']),
-                new DateTime($gebruiker['Startdatumopleiding']),
-                $gebruiker['Status'] = null ? "onbekend" : $gebruiker['Status'],
-                $gebruiker['Achternaam']?? "",
-                $gebruiker['Voornaam']?? "",
-                $gebruiker['Tussenvoegsel'] == null ? "" : $gebruiker['Tussenvoegsel'],
-                $gebruiker['Prefix']== null ? "" : $gebruiker['Prefix'],
-                $gebruiker['Straat'] ?? "",
-                $gebruiker['Huisnummer'] ?? 0,
-                $gebruiker['Extentie'] ?? "",
-                $gebruiker['Postcode']?? "",
-                $gebruiker['Woonplaats']?? "",
-                new DateTime($gebruiker['Geboortedatum']),
-                $gebruiker['Telefoonnummer'] == null ? "" :  $gebruiker['Telefoonnummer']);
-            $GebruikerArray [] = $gebruiker;
+            $profiel = new Profiel(
+                $profiel['ProfielID'],
+                $profiel['GebruikerID'],
+                $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
+                $profiel['Opleiding'] == null ? null : $opleidingc->getById($profiel['Opleiding']),
+                new DateTime($profiel['Startdatumopleiding']),
+                $profiel['Status'] = null ? "onbekend" : $profiel['Status'],
+                $profiel['Achternaam']?? "",
+                $profiel['Voornaam']?? "",
+                $profiel['Tussenvoegsel'] == null ? "" : $profiel['Tussenvoegsel'],
+                $profiel['Prefix']== null ? "" : $profiel['Prefix'],
+                $profiel['Straat'] ?? "",
+                $profiel['Huisnummer'] ?? 0,
+                $profiel['Extentie'] ?? "",
+                $profiel['Postcode']?? "",
+                $profiel['Woonplaats']?? "",
+                new DateTime($profiel['Geboortedatum']),
+                $profiel['Telefoonnummer'] == null ? "" :  $profiel['Telefoonnummer']);
+            $ProfielArray [] = $profiel;
         }
-        return $GebruikerArray ;
+        return $ProfielArray ;
     }
-    function CreateNewUser(string $Gebruikersnaam,string $Wachtwoord,
+    function CreateNewUser(string $Profielsnaam,string $Wachtwoord,
                            string $Email)
     {
-        return $this->gebruikermodel->CreateNewUser($Gebruikersnaam,
+        return $this->profielmodel->CreateNewUser($Profielsnaam,
             $Wachtwoord,
             $Email);
     }
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Gebruikersnaam,
+    function add(string $Profielsnaam,
             string $Wachtwoord,
             string $Email,
             ?School $School,
@@ -77,7 +78,7 @@ class ProfielController
             ?DateTime $Geboortedatum,
             string $Telefoonnummer)
     {
-        return $this->gebruikermodel->Add($Gebruikersnaam,
+        return $this->profielmodel->Add($Profielsnaam,
             $Wachtwoord,
             $Email,
             $School,
@@ -99,45 +100,44 @@ class ProfielController
 
     function delete(int $Id)
     {
-        return $this->gebruikermodel->Delete($Id);
+        return $this->profielmodel->Delete($Id);
     }
 
-    function update(Gebruiker $Gebruiker)
+    function update(Profiel $Profiel)
     {
-        return $this->gebruikermodel->Update($Gebruiker);
+        return $this->profielmodel->Update($Profiel);
     }
 
-    function getById(int $id) : gebruiker
+    function getById(int $id) : profiel
     {
-        $Gebruiker = $this->gebruikermodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
-        return new Gebruiker(
-            $Gebruiker[0]['GebruikerID'],
-            $Gebruiker[0]['Gebruikernaam'],
-            $Gebruiker[0]['Wachtwoord'],
-            $Gebruiker[0]['Email'],
-            $Gebruiker[0]['School'],
-            $Gebruiker[0]['Opleiding'],
-            $Gebruiker[0]['Startdatumopleiding'],
-            $Gebruiker[0]['Foto'],
-            $Gebruiker[0]['Status'],
-            $Gebruiker[0]['Achternaam'],
-            $Gebruiker[0]['Voornaam'],
-            $Gebruiker[0]['Tussenvoegsel'],
-            $Gebruiker[0]['Prefix'],
-            $Gebruiker[0]['Straat'],
-            $Gebruiker[0]['Huisnummer'],
-            $Gebruiker[0]['Extentie'],
-            $Gebruiker[0]['Postcode'],
-            $Gebruiker[0]['Woonplaats'],
-            $Gebruiker[0]['Geboortedatum'],
-            $Gebruiker[0]['Telefoonnummer']);
+        $Profiel = $this->profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        return new Profiel(
+            $Profiel[0]['ProfielID'],
+            $Profiel[0]['Wachtwoord'],
+            $Profiel[0]['Email'],
+            $Profiel[0]['School'],
+            $Profiel[0]['Opleiding'],
+            $Profiel[0]['Startdatumopleiding'],
+            $Profiel[0]['Foto'],
+            $Profiel[0]['Status'],
+            $Profiel[0]['Achternaam'],
+            $Profiel[0]['Voornaam'],
+            $Profiel[0]['Tussenvoegsel'],
+            $Profiel[0]['Prefix'],
+            $Profiel[0]['Straat'],
+            $Profiel[0]['Huisnummer'],
+            $Profiel[0]['Extentie'],
+            $Profiel[0]['Postcode'],
+            $Profiel[0]['Woonplaats'],
+            $Profiel[0]['Geboortedatum'],
+            $Profiel[0]['Telefoonnummer']);
 
     }
 
     //todo : maken als projecten af is
-    //public function getProjectenByGebruiker()
+    //public function getProjectenByProfiel()
     //{
-    //    $res = $this->gebruikermodel->getProjectenByGebruiker()->fetchAll(PDO::FETCH_ASSOC);
+    //    $res = $this->profielmodel->getProjectenByProfiel()->fetchAll(PDO::FETCH_ASSOC);
     //    while($obj = mysqli_fetch_array($res)) {
     //        $projecten[] = new Project($obj,$this);
     //    }

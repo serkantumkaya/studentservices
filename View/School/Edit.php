@@ -51,8 +51,8 @@ session_start();
 
 if (isset($_GET["ID"]))
 {
-    $schoolcontroller= new SchoolController();
-    $school = $schoolcontroller->getById($_GET["ID"]);
+    $schoolcontroller= SchoolController::withempty();
+    $school = $schoolcontroller.getById($_GET["ID"]);
     $_SESSION["CurrentSchool"] = $school;
 }
 
@@ -91,21 +91,22 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 
 if (isset($_POST["delete"]))
 {
-    $schoolcontroller= new SchoolController();
-    if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())) {
+    if (new SchoolController($_SESSION["CurrentSchool"]->Delete()))
+{
         header("Location: View.php");
     }
 
 }
 else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"]))
 {
-    $schoolcontroller= new SchoolController();
+    $schoolcontroller= null;
     if ($_SESSION["CurrentNaam"])
     {
         $school = new School( $_SESSION["CurrentSchool"]->getSchoolID(),$_SESSION["CurrentNaam"]);
+        $schoolcontroller= new SchoolController($school);
     }
 
-    if ($schoolcontroller->update($school))
+    if ($schoolcontroller->update())
     {
         header("Location: View.php");
     }

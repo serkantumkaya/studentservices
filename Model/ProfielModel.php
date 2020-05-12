@@ -1,14 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Opleiding.php");
+require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/POCO/Profiel.php");
 require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/includes/DB.php");
 
-class GebruikerModel
+class ProfielModel
 {
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
-    private Opleiding $gebruiker;
+    private Profiel $profiel;
 
     public function __construct()
     {
@@ -16,13 +16,11 @@ class GebruikerModel
         $this->conn = $this->ConnectDb->GetConnection();
     }
 
-    public function GetGebruikers()
+    public function GetProfielen()
     {
         //Blob hier nog niet meenemen is intensief en hier nog niet nodig.
-        $sql = "SELECT GebruikerID ,
-            Gebruikersnaam ,
-            Wachtwoord,
-            Email,
+        $sql = "SELECT ProfielID ,
+            GebruikerID,
             School ,
             Opleiding ,
             Startdatumopleiding ,
@@ -37,37 +35,20 @@ class GebruikerModel
             Postcode ,
             Woonplaats ,
             Geboortedatum , 
-            Telefoonnummer FROM Gebruiker";
+            Telefoonnummer FROM Profiel";
         return $this->conn->query($sql);
 
 
     }
 
-    public static function makeSafe($password)
-    {
-        $salt = "mySalt";
-        return hash("sha256", "{$salt}.{$password}");
-    }
-
-    /*function CreateNewUser(string $Gebruikersnaam,string $Wachtwoord, string $Email)
-    {
-        $statement = $this->conn->prepare("INSERT INTO Gebruiker (:Gebruikersnaam ,:Wachtwoord,:Email)");
-        $statement->execute([
-            'Gebruikersnaam'  => $Gebruikersnaam,
-            'Wachtwoord'  => $this->makeSafe($Wachtwoord),
-            'Email'  => $Email
-        ]);
-        var_dump($statement);
-        return true;
-    }*/
-
     //FOTO toevoegen gaat anders niet via een constructor
+    //todo : Via een factory doen?
     function add(
-        string $Gebruikersnaam,
+        string $Profielsnaam,
         string $Wachtwoord,
         string $Email,
         ?School $School,
-        ?Opleiding $Opleiding,
+        ?Profiel $Profiel,
         ?DateTime $Startdatumopleiding,
         string $Status,
         string $Achternaam,
@@ -82,16 +63,16 @@ class GebruikerModel
         ?DateTime $Geboortedatum,
         string $Telefoonnummer)
     {
-        $statement = $this->conn->prepare("INSERT INTO Gebruiker (GebruikerID , Gebruikersnaam ,Wachtwoord,Email,School ,Opleiding ,Startdatumopleiding ,Status,
+        $statement = $this->conn->prepare("INSERT INTO Profiel (ProfielID , Profielsnaam ,Wachtwoord,Email,School ,Profiel ,Startdatumopleiding ,Status,
             Achternaam ,Voornaam ,Tussenvoegsel,Prefix ,Straat ,Huisnummer,Extentie ,Postcode ,Woonplaats ,Geboortedatum ,Telefoonnummer) 
-            VALUES (:GebruikerID ,:Gebruikersnaam ,:Wachtwoord,:Email,:School ,:Opleiding ,:Startdatumopleiding ,:Status,
+            VALUES (:ProfielID ,:Profielsnaam ,:Wachtwoord,:Email,:School ,:Profiel ,:Startdatumopleiding ,:Status,
 :Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,:Straat ,:Huisnummer,:Extentie ,:Postcode ,:Woonplaats ,:Geboortedatum ,:Telefoonnummer)");
         $statement->execute([
-            'Gebruikersnaam'  => $Gebruikersnaam,
+            'Profielsnaam'  => $Profielsnaam,
             'Wachtwoord'  => $Wachtwoord,
             'Email'  => $Email,
             'School'  => $School,
-            'Opleiding'  => $Opleiding,
+            'Profiel'  => $Profiel,
             'Startdatumopleiding'  => $Startdatumopleiding,
             'Status'  => $Status,
             'Achternaam'  => $Achternaam,
@@ -111,7 +92,7 @@ class GebruikerModel
 
     function delete(int $ID) {
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM SelectieProfiel WHERE ProfielID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -120,13 +101,13 @@ class GebruikerModel
         return $sql->execute($parameters);
     }
 
-    function update(int $ID, string $Naamgebruiker, string $VoltijdDeeltijd)
+    function update(int $ID, string $Naamprofiel, string $VoltijdDeeltijd)
     {
 
-        $sql = $this->conn->prepare("UPDATE SelectieOpleiding SET Naamgebruiker=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
+        $sql = $this->conn->prepare("UPDATE SelectieProfiel SET Naamprofiel=:Naam , Voltijd_deeltijd=:VDD Where ProfielID=:SID");//let op id geen quotes
 
         $parameters = [
-            'Naam' => $Naamgebruiker,
+            'Naam' => $Naamprofiel,
             'VDD' => $VoltijdDeeltijd,
             'SID' => $ID
         ];
@@ -134,15 +115,10 @@ class GebruikerModel
         return $sql->execute($parameters);
     }
 
-    function get(int $ID)
+    function getById(int $ID)
     {
-        $sql = "SELECT OpleidingID,Naamgebruiker,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
+        $sql = "SELECT ProfielID,Naamprofiel,Voltijd_deeltijd  FROM SelectieProfiel WHERE ProfielID =$ID";
         return $this->conn->query($sql);
-    }
-
-    public function getProjectenByGebruiker()
-    {
-        return $this->conn->query("SELECT * from Project where GebruikerID= '$this->GebrID'");
     }
 }
 

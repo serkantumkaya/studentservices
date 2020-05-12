@@ -52,7 +52,7 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"]==-1)
                 //case gebruiker
                 //{
                 //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\School\View.php\"\">Projecten</a></li>";
-                //echo "<li><a href=\"".$_SERVER['DOCUMENT_ROOT']."\StudentServices\View\Gebruiker\View.php\"\">Profiel</a></li>";
+                echo "<li><a href=\"\./StudentServices/View/Profiel/View.php\"\">Profiel</a></li>";
                 //break;
                 //}
                 //case admin

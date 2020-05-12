@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
 session_start();
 ?>
 
@@ -57,49 +57,21 @@ session_start();
 
 <div class="info">
 <form  method="post" action="Edit.php">
-<table> <tr> <th>Gebruiker</th> <th></th> <th></th></tr>
+<table> <tr> <th>Profiel</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
 
-        //DO NOT USE A BIG IF. If the conditions are not met. Return.
-        if (empty($_Post) && !isset($_Post["actie"]))
+    //DO NOT USE A BIG IF. If the conditions are not met. Return.
+    if (empty($_Post) && !isset($_Post["actie"]))
+    {
+        //todo : wijzigen naar $_SESSION["GebruikerID"]
+        $profielcontroller= new ProfielController(1000);
+
+        foreach ($profielcontroller->GetProfielen() as $profiel)
         {
-            LoadList();
-            return;
+            echo "<tr> <td> <input type=\"submit\" value=\"".$profiel->getVoornaam()."\" formaction='Edit.php?ID=".$profiel->getProfielId()."' class=\"table1col\"> </td></tr>";
         }
-
-
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
-
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("GebruikerID");
-                 $this->delete($_Post["GebruikerID"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
-        function LoadList()
-        {
-            $gebruikercontroller= new GebruikerController();
-            foreach ($gebruikercontroller->GetGebruikers() as $gebruiker )
-            {
-                echo "<tr> <td>
-                    <input type=\"submit\" value=\"".$gebruiker."\" formaction='Edit.php?ID=".$gebruiker->getGebruikerID()."' class=\"table1col\">
-                    </td>
-                    </tr>";
-            }
-        }
+    }
 
     ?>
     </td>

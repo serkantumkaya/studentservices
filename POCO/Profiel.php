@@ -24,11 +24,12 @@ class Profiel
     private ?DateTime $Geboortedatum;
     private string $Telefoonnummer;
 
-    public function __construct(int $GebruikerID,?School $School, ?Opleiding $Opleiding,
-                                ?DateTime $Startdatumopleiding, string $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
-                                string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode,
-                                string $Woonplaats, ?DateTime $Geboortedatum, string $Telefoonnummer)
+    public function __construct(int $ProfielID,int $GebruikerID,?School $School, ?Opleiding $Opleiding,
+        ?DateTime $Startdatumopleiding, string $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
+        string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode,
+        string $Woonplaats, ?DateTime $Geboortedatum, string $Telefoonnummer)
     {
+        $this->ProfielID = $ProfielID;
         $this->GebruikerID = $GebruikerID;
         $this->School = $School;
         $this->Opleiding = $Opleiding;
@@ -50,6 +51,34 @@ class Profiel
     public function __toString() : string
     {
         return trim($this->Voornaam." ".$this->Tussenvoegsel." ").$this->Achternaam ;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfielID(): int{
+        return $this->ProfielID;
+    }
+
+    /**
+     * @param int $ProfielID
+     */
+    public function setProfielID(int $ProfielID): void{
+        $this->ProfielID = $ProfielID;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGebruikerID(): int{
+        return $this->GebruikerID;
+    }
+
+    /**
+     * @param int $GebruikerID
+     */
+    public function setGebruikerID(int $GebruikerID): void{
+        $this->GebruikerID = $GebruikerID;
     }
 
      /**
@@ -307,5 +336,4 @@ class Profiel
     {
         $this->Telefoonnummer = $Telefoonnummer;
     }
-
 }
