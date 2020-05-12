@@ -42,44 +42,13 @@ session_start();
 <table> <tr> <th>Categorie</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
-
         //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
         {
-            LoadList();
-            return;
-        }
-
-
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
-
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("CategorieId");
-                 $this->delete($_Post["CategorieId"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
-        function LoadList()
-        {
-            $Categoriecontroller= new CategorieController();
-
+           $Categoriecontroller= new CategorieController();
             foreach ($Categoriecontroller->GetCategorieen() as $sg)
             {
                 $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
-
-                //echo "<tr> <td > <div id='".$Categorie->getCategorienaam()."'> ".$Categorie->getCategorienaam()."</div></td>";
                 echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
             }
         }
