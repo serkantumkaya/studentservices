@@ -5,6 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
 class GebruikerModel
 {
+    // deze lijkt mij niet nodig?? de PDO, want die zit al in ConnectDB
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
 
