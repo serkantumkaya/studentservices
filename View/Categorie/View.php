@@ -1,9 +1,22 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CategorieController.php");
 session_start();
+
+function LoadList()
+{
+    $Categoriecontroller= new CategorieController();
+
+    foreach ($Categoriecontroller->GetCategorieen() as $sg)
+    {
+        $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
+
+        //echo "<tr> <td > <div id='".$Categorie->getCategorienaam()."'> ".$Categorie->getCategorienaam()."</div></td>";
+        echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
+    }
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -70,20 +83,6 @@ session_start();
                  Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
              }
         }
-
-        function LoadList()
-        {
-            $Categoriecontroller= new CategorieController();
-
-            foreach ($Categoriecontroller->GetCategorieen() as $sg)
-            {
-                $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
-
-                //echo "<tr> <td > <div id='".$Categorie->getCategorienaam()."'> ".$Categorie->getCategorienaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
-            }
-        }
-
     ?>
     </td>
 </tr>
