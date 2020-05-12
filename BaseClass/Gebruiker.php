@@ -1,5 +1,6 @@
 <?php
 
+// deze is klaar
 class Gebruiker
 {
     private int $GebruikerID;
@@ -7,12 +8,11 @@ class Gebruiker
     private string $Wachtwoord;
     private string $Email;
 
-    public function __construct(int $GebruikerID, string $Gebruikersnaam, string $Wachtwoord, string $Email)
-    {
-        $this->GebruikerID = $GebruikerID;
+    public function __construct(int $GebruikerID, string $Gebruikersnaam, string $Wachtwoord, string $Email){
+        $this->GebruikerID    = $GebruikerID;
         $this->Gebruikersnaam = $Gebruikersnaam;
-        $this->Wachtwoord = $Wachtwoord;
-        $this->Email = $Email;
+        $this->Wachtwoord     = $Wachtwoord;
+        $this->Email          = $Email;
     }
 
     function __toString(){
@@ -22,64 +22,56 @@ class Gebruiker
     /**
      * @return int
      */
-    public function getGebruikerID(): int
-    {
+    public function getGebruikerID(): int{
         return $this->GebruikerID;
     }
 
     /**
      * @param int $GebruikerID
      */
-    public function setGebruikerID(int $GebruikerID): void
-    {
+    public function setGebruikerID(int $GebruikerID): void{
         $this->GebruikerID = $GebruikerID;
     }
 
     /**
      * @return string
      */
-    public function getGebruikersnaam(): string
-    {
+    public function getGebruikersnaam(): string{
         return $this->Gebruikersnaam;
     }
 
     /**
      * @param string $Gebruikersnaam
      */
-    public function setGebruikersnaam(string $Gebruikersnaam): void
-    {
+    public function setGebruikersnaam(string $Gebruikersnaam): void{
         $this->Gebruikersnaam = $Gebruikersnaam;
     }
 
     /**
      * @return string
      */
-    public function getWachtwoord(): string
-    {
+    public function getWachtwoord(): string{
         return $this->Wachtwoord;
     }
 
     /**
      * @param string $Wachtwoord
      */
-    public function setWachtwoord(string $Wachtwoord): void
-    {
+    public function setWachtwoord(string $Wachtwoord): void{
         $this->Wachtwoord = $Wachtwoord;
     }
 
     /**
      * @return string
      */
-    public function getEmail(): string
-    {
+    public function getEmail(): string{
         return $this->Email;
     }
 
     /**
      * @param string $Email
      */
-    public function setEmail(string $Email): void
-    {
+    public function setEmail(string $Email): void{
         $this->Email = $Email;
     }
 }
