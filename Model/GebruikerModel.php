@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
 class GebruikerModel
 {
-    // deze lijkt mij niet nodig?? de PDO, want die zit al in ConnectDB
+    // deze lijkt mij niet nodig?? de PDO, want die zit al in ConnectDB. nog even navragen
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
 
@@ -16,7 +16,7 @@ class GebruikerModel
 
     public function GetGebruikers(){
         $sql = "SELECT GebruikerID,Gebruikersnaam,Wachtwoord,Email FROM Gebruiker";
-        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC) ;
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //verhuist naar db
@@ -29,7 +29,7 @@ class GebruikerModel
     function Add(string $Gebruikersnaam, string $Wachtwoord, string $Email){
         $sql      =
             $this->conn->prepare("INSERT INTO Gebruiker (Gebruikersnaam,Wachtwoord,Email) Values(:Gebruikersnaam ,:Wachtwoord,:Email)");
-        $db = new ConnectDB();
+        $db       = new ConnectDB();
         $sha256ww = $db->makeSafe($Wachtwoord);
 
         $parameters = ([
@@ -83,7 +83,8 @@ class GebruikerModel
 
     function Validate(string $GebruikersNaam, string $Password){
         $sql =
-            "SELECT GebruikerID,GebruikersNaam, Wachtwoord,Email FROM Gebruiker WHERE GebruikersNaam = '" . $GebruikersNaam . "' and Wachtwoord = '" .
+            "SELECT GebruikerID,GebruikersNaam, Wachtwoord,Email FROM Gebruiker WHERE GebruikersNaam = '" .
+            $GebruikersNaam . "' and Wachtwoord = '" .
             $Password . "'";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }

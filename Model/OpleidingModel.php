@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Opleiding.php");
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/includes/DB.php");
+ini_set('display_errors', 1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Opleiding.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
 class OpleidingModel
 {
@@ -10,22 +10,19 @@ class OpleidingModel
     private ConnectDB $ConnectDb;//current connection
     private Opleiding $opleiding;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->ConnectDb = new ConnectDb();
-        $this->conn = $this->ConnectDb->GetConnection();
+        $this->conn      = $this->ConnectDb->GetConnection();
     }
 
-    public function GetOpleidingen()
-    {
+    public function GetOpleidingen(){
         $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd FROM SelectieOpleiding";
         return $this->conn->query($sql);
-
-
     }
-    function add(string $NaamOpleiding,string $VoltijdDeeltijd)
-    {
-        $statement = $this->conn->prepare("INSERT INTO SelectieOpleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
+
+    function add(string $NaamOpleiding, string $VoltijdDeeltijd){
+        $statement =
+            $this->conn->prepare("INSERT INTO SelectieOpleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
         $statement->execute([
             'Naam' => $NaamOpleiding,
             'VDD' => $VoltijdDeeltijd
@@ -33,7 +30,7 @@ class OpleidingModel
         return true;
     }
 
-    function delete(int $ID) {
+    function delete(int $ID){
 
         $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID=:SID");
 
@@ -44,10 +41,10 @@ class OpleidingModel
         return $sql->execute($parameters);
     }
 
-    function update(int $ID, string $Naamopleiding, string $VoltijdDeeltijd)
-    {
+    function update(int $ID, string $Naamopleiding, string $VoltijdDeeltijd){
 
-        $sql = $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
+        $sql =
+            $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
 
         $parameters = [
             'Naam' => $Naamopleiding,
@@ -58,8 +55,7 @@ class OpleidingModel
         return $sql->execute($parameters);
     }
 
-    function get(int $ID)
-    {
+    function get(int $ID){
         $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
         return $this->conn->query($sql);
     }
