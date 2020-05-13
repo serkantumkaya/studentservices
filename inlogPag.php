@@ -14,9 +14,6 @@
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-
-</head>
-
 <body>
 
 <?php
