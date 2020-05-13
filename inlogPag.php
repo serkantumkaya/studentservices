@@ -36,6 +36,7 @@ if (isset($_POST['username']) && $_POST['password']){
     if ($Gebruiker->getGebruikerID() != -1){
         echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
+        $_SESSION["Gebruiker"] = $Gebruiker;//nodig voor profiel
         header("Location: index.php");
     } else{
         $wronglogin = "De combinatie van gebruiker en/of wachtwoord is onjuist.";
