@@ -6,12 +6,13 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 class GebruikerModel
 {
     // deze lijkt mij niet nodig?? de PDO, want die zit al in ConnectDB. nog even navragen
-    private PDO $conn;//current connection
+    //private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
 
-    public function __construct(){
+    public function __construct($ID = null){
         $this->ConnectDb = new ConnectDb();
         $this->conn      = $this->ConnectDb->GetConnection();
+        $this->ID        = $ID;
     }
 
     public function GetGebruikers(){
@@ -88,5 +89,11 @@ class GebruikerModel
             $Password . "'";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
+
+    function checkRechten(){
+        $sql = "Select level FROM admin where GebruikerID ='" . $this->ID . "'";
+        return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+    }
+
 }
 
