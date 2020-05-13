@@ -296,14 +296,14 @@ Insert into selectieCategorie (Categorienaam) Values
 ('Eten en drinken');
 
 Delete from gebruiker;
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Patrick','phwm.deruijter@student.avans.nl','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Serkan','s.tumkaya@avans.nl','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Dirk','d.vandervliet1@student.avans.nl','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Joost','jfjm.desadeleer@student.avans.nl','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Jelle','jj.deruiter2@student.avans.nl','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Peter','psmets@gmail.com','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Miky','mikydebeer@gmail.com','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
-INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('MariskaRaamsdonk','MariskaRaamsdonk@gmail.com','ada8c87c942a3685dea10eccbc9f9011adf03d5341aaa467f64a6c182340e413');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Patrick','phwm.deruijter@student.avans.nl','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Serkan','s.tumkaya@avans.nl','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Dirk','d.vandervliet1@student.avans.nl','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Joost','jfjm.desadeleer@student.avans.nl','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Jelle','jj.deruiter2@student.avans.nl','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Peter','psmets@gmail.com','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Miky','mikydebeer@gmail.com','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
+INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('MariskaRaamsdonk','MariskaRaamsdonk@gmail.com','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
 
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats)
