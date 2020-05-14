@@ -2,7 +2,11 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 ?>
 <!DOCTYPE HTML>
@@ -48,65 +52,207 @@ session_start();
     <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
-
-
 if (isset($_GET["ID"]))
 {
-    $opleidingcontroller= new OpleidingController();
-    $opleiding= $opleidingcontroller->getById($_GET["ID"]);
-    $_SESSION["CurrentOpleiding"] = $opleiding;
+    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
+    $profiel= $profielcontroller->getById($_GET["ID"]);
+    $_SESSION["CurrentProfiel"] = $profiel;
+
+    $GebruikersID =$profiel->getGebruikerID();
+    $School =$profiel->getSchool();
+    $Opleiding=$profiel->getOpleiding();
+    $Startdatumopleiding=$profiel->getStartdatumopleiding();
+    $Status=$profiel->getStatus();
+    $Achternaam=$profiel->getAchternaam();
+    $Voornaam=$profiel->getVoornaam();
+    $Tussenvoegsel=$profiel->getTussenvoegsel();
+    $Prefix=$profiel->getPrefix();
+    $Straat=$profiel->getStraat();
+    $Huisnummer=$profiel->getHuisnummer();
+    $Extensie =$profiel->getExtentie();
+    $Postcode=$profiel->getPostcode();
+    $Woonplaats=$profiel->getWoonplaats();
+    $Geboortedatum=$profiel->getGeboortedatum();
+    $Telefoonnummer=$profiel->getTelefoonnummer();
 }
 
-if (isset($_POST["NaamOpleiding"]) || isset($_POST["VoltijdDeeltijd"]))
+#region [errorafhandeling]
+$NaamErr = "";
+$EmailErr = "";
+$WachtwoordErr = "";
+$WachtwoordCheckErr = "";
+$VoornaamErr = "";
+$AchternaamErr = "";
+$StraatErr = "";
+$HuisnummerErr = "";
+$PostcodeErr = "";
+$WoonplaatsErr = "";
+$noerror = true;
+
+if (!isset($_POST["Voornaam"]) || isset($_POST["Voornaam"]) =="")
 {
-    $_SESSION["CurrentNaam"] = $_POST["NaamOpleiding"];
-    $_SESSION["VoltijdDeeltijd"] = $_POST["VoltijdDeeltijd"];
+    $VoornaamErr = "Voornaam is verplicht.";
+    $noerror = false;
 }
-
-if ( $_SESSION["CurrentOpleiding"] != null)
+if (!isset($_POST["Achternaam"]) || isset($_POST["Achternaam"]) =="")
 {
-    $opleiding = $_SESSION["CurrentOpleiding"];
+    $AchternaamErr = "Achternaam is verplicht.";
+    $noerror = false;
 }
-
-?>
-
-<?php
-$valueNaam = "";
-$valueVD = "";
-if (isset($_POST["Post"]))
+if (!isset($_POST["Straat"]) || isset($_POST["Straat"]) =="")
 {
-    $valueNaam =  $_SESSION["CurrentNaam"];
-    $valueVD=  $_SESSION["VoltijdDeeltijd"];
+    $StraatErr = "Straat is verplicht.";
+    $noerror = false;
 }
-else if (isset($_GET["ID"])) {
-    $valueNaam = $opleiding->getNaamopleiding();
-    $valueVD=   $opleiding->getVoltijdDeeltijd();
-}
-else {
-    $valueNaam = $_POST["NaamOpleiding"];
-    $valueVD=  $_POST["VoltijdDeeltijd"];
-}
-
-if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
+if (!isset($_POST["Huisnummer"]) || isset($_POST["Huisnummer"]) =="")
 {
-    //todo : object van maken?
-    echo "<h1 > Wijzigen opleiding </h1 ><br>
-    <form action = \"Edit.php\" method = \"post\" >
-            Opleiding:
-        <input type = \"text\" name = \"NaamOpleiding\" value=\"" . $valueNaam . "\"/>
-        <select name=\"VoltijdDeeltijd\">";
-            $voldeel = new EnumVoltijdDeeltijd();
-            foreach($voldeel->getConstants() as $vd)
-            {
-                if ($vd == $valueVD)
-                    echo "<option value=\"$vd\" selected>$vd</option>";
-                    else
-                echo "<option value=\"$vd\">$vd</option>";
-            }
-       echo"</select>
-                    <input type=\"submit\" value=\"post\" name=\"post\" class=\"ssbutton\">
-            <input type=\"submit\" value=\"delete\" name=\"delete\" class=\"ssbutton\">
-        </form >";
+    $HuisnummerErr = "Huisnummer is verplicht.";
+    $noerror = false;
+}
+if (!isset($_POST["Postcode"]) || isset($_POST["Postcode"]) =="")
+{
+    $PostcodeErr = "Postcode is verplicht.";
+    $noerror = false;
+}
+if (!isset($_POST["Woonplaats"]) || isset($_POST["Woonplaats"]) =="")
+{
+    $WoonplaatsErr = "Woonplaats is verplicht.";
+    $noerror = false;
+}
+#endregion
+
+$gbController = new GebruikerController();
+$gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
+
+echo "Profiel aanmaken voor : ".$gebruiker->getGebruikersnaam()."<br>";
+
+    //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
+   // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
+{
+ echo "<h1 > Koppelen profiel</h1 ><br>
+<form action = \"Add.php\" method = \"post\" >";
+
+echo "<!--Voornaam-->
+    <div class='profiellabel'>Voornaam *</div>
+    <div class='profielinput'><input type = \"text\" name=\"Voornaam\" value=\"";
+            echo $Voornaam;
+            echo "\"/></div>
+         <span class='profielsinput'>$VoornaamErr</span>";
+
+echo "<!--Tussenvoegsel-->";
+echo "<div class='profiellabel'>Tussenvoegsel</div>
+         <div class='profielinput'><input type = \"password\" name=\"Tussenvoegsel\" value=\"";
+if (isset($_POST["Tussenvoegsel"])) echo $Tussenvoegsel;
+echo "\" /></div>";
+
+echo "<!--Prefix-->";
+echo "<div class='profiellabel'>Prefix</div>
+         <div class='profielinput'><input type = \"text\" name=\"Prefix\" value=\"";
+if (isset($_POST["Prefix"])) echo $Prefix;
+echo "\" /></div>
+
+         <!--Achternaam-->
+    <div class='profiellabel'>Achternaam *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Achternaam\" value=\"";
+if (isset($_POST["Achternaam"])) echo $Achternaam;
+echo "\"/></div>
+         <span class='profielsinput'>$AchternaamErr</span>   
+    <!--Straat-->
+ <div class='profiellabel'>Straat *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Straat\" value=\"";
+if (isset($_POST["Straat"])) echo $Straat;
+echo "\"/></div>
+         <span class='profielsinput'>$StraatErr</span>
+         
+    <!--Huisnummer-->
+ <div class='profiellabel'>Huisnummer *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Huisnummer\" value=\"";
+if (isset($_POST["Huisnummer"])) echo $Huisnummer;
+echo "\"/></div>
+         <span class='profielsinput'>$HuisnummerErr</span>
+
+        <!--Extentie-->
+ <div class='profiellabel'>Extensie</div>
+         <div class='profielinput'><input type = \"text\" name=\"Extensie\" value=\"";
+if (isset($_POST["Extensie"])) echo $Extensie;
+echo "\"/></div>
+         
+
+<!--Postcode-->
+ <div class='profiellabel'>Postcode *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Postcode\" value=\"";
+if (isset($_POST["Postcode"])) echo $Postcode;
+echo "\"/></div>
+         <span class='profielsinput'>$PostcodeErr</span>
+         
+     <!--Woonplaats-->
+ <div class='profiellabel'>Woonplaats *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Woonplaats\" value=\"";
+if (isset($_POST["Woonplaats"])) echo $Woonplaats;
+echo "\"/></div>
+         <span class='profielsinput'>$WoonplaatsErr</span>
+        
+                <!--Geboortedatum-->
+ <div class='profiellabel'>Geboortedatum</div>
+         <div class='profielinput'><input type = \"text\" name=\"Geboortedatum\" value=\"";
+if (isset($_POST["Geboortedatum"])) echo $Geboortedatum;
+echo "\"/></div>
+         
+    <!--School-->
+ <div class='profiellabel'>School</div>
+    <select name=\"School\" class='profielinput'>";
+        $School = new SchoolController();
+        foreach($School->GetScholen() as $sh)
+        {
+            $schoolid = $sh->getSchoolID();
+            $schoolnaam = $sh->getSchoolnaam();
+            echo "<option value=\"$schoolid\">$schoolnaam</option>";
+        }
+   echo"</select>
+    
+    <!--Opleiding-->
+     <div class='profiellabel'>Opleiding</div>
+    <select name=\"Opleiding\" class='profielinput'>";
+        $Opleiding = new OpleidingController();
+        foreach($Opleiding->GetOpleidingen() as $op)
+        {
+            $opleidingid = $op->getOpleidingID();
+            $naamopleiding = $op->getNaamopleiding();
+            echo "<option value=\"$opleidingid\">$naamopleiding</option>";
+        }
+   echo"</select>
+                   <!--Startdatumopleiding-->
+ <div class='profiellabel'>Startdatumopleiding</div>
+         <div class='profielinput'><input type = \"text\" name=\"Startdatumopleiding\" value=\"";
+if (isset($_POST["Startdatumopleiding"])) echo $Startdatumopleiding;
+
+echo "\"/>
+</div>
+
+  <!--foto-->
+ <div class='profiellabel'>Foto</div><input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" class=\"profielinput\">
+  <div class='profiellabel'>Huidige foto</div>
+<img id=\"nieuwestudent\" src=\"/StudentServices/images/studenten/ss3.png\" class=\"studentfoto\"/>
+
+
+
+
+ <div class='profiellabel'>Status</div>
+<select name=\"Status\">";
+        $Status = new EnumGebruikerStatus();
+        foreach($Status->getConstants() as $st)
+        {
+            echo "<option value=\"$st\">$st</option>";
+        }
+echo"</select>
+    
+ <!--Telefoonnummer-->
+ <div class='profiellabel'>Telefoonnummer</div>
+         <div class='profielinput'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
+        if (isset($_POST["Telefoonnummer"])) echo $Telefoonnummer;
+echo "\"></div>
+       <input type=\"submit\" >  <br><br><br>
+    </form >";
 }
 
 if (isset($_POST["delete"]))
@@ -128,7 +274,7 @@ else if (!isset($_POST["Delete"]) && isset($_POST["NaamOpleiding"]) && isset($_P
 
     if ($opleidingcontroller->update($opleiding))
     {
-        header("Location: View.php");
+        header("Location: View/Profiel/View.php");
     }
     else
     {
