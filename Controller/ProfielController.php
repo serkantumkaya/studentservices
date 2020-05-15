@@ -27,7 +27,7 @@ class ProfielController
             $schoolc    = new SchoolController();
             $opleidingc = new OpleidingController();
 
-            $profiel         = new Profiel(
+            $profiel = new Profiel(
                 $profiel['ProfielID'],
                 $profiel['GebruikerID'],
                 $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
@@ -39,7 +39,7 @@ class ProfielController
                 $profiel['Tussenvoegsel'] == null ? "" : $profiel['Tussenvoegsel'],
                 $profiel['Prefix'] == null ? "" : $profiel['Prefix'],
                 $profiel['Straat'] ?? "",
-                $profiel['Huisnummer'] ?? 0,
+                $profiel['Huisnummer'] ?? "",
                 $profiel['Extentie'] ?? "",
                 $profiel['Postcode'] ?? "",
                 $profiel['Woonplaats'] ?? "",
@@ -50,49 +50,25 @@ class ProfielController
         return $ProfielArray;
     }
 
-    function CreateNewUser(string $Profielsnaam, string $Wachtwoord,
-        string $Email){
-        return $this->profielmodel->CreateNewUser($Profielsnaam,
-            $Wachtwoord,
-            $Email);
-    }
+    ////voor parameters bindparam gebruiken. Named parameters
+    //function add(int $GebruikerID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+    //    string $Achternaam,string $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
+    //    string $Extentie,string $Postcode,string $Woonplaats,string $Geboortedatum,
+    //    string $Telefoonnummer)
+    //{
+    //    return $this->profielmodel->Add($GebruikerID,$Achternaam,
+    //        $Voornaam,$Straat,$Huisnummer,$Postcode,$Woonplaats);
+    //}
+
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Profielsnaam,
-        string $Wachtwoord,
-        string $Email,
-        ?School $School,
-        ?Opleiding $Opleidingg,
-        ?DateTime $Startdatumopleiding,
-        string $Status,
-        string $Achternaam,
-        string $Voornaam,
-        string $Tussenvoegsel,
-        string $Prefix,
-        string $Straat,
-        int $Huisnummer,
-        string $Extentie,
-        string $Postcode,
-        string $Woonplaats,
-        ?DateTime $Geboortedatum,
-        string $Telefoonnummer){
-        return $this->profielmodel->Add($Profielsnaam,
-            $Wachtwoord,
-            $Email,
-            $School,
-            $Opleidingg,
-            $Startdatumopleiding,
-            $Status,
-            $Achternaam,
-            $Voornaam,
-            $Tussenvoegsel,
-            $Prefix,
-            $Straat,
-            $Huisnummer,
-            $Extentie,
-            $Postcode,
-            $Woonplaats,
-            $Geboortedatum,
+    function add(int $GebruikerID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+        string $Achternaam,string $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
+        string $Extentie,string $Postcode,string $Woonplaats,string $Geboortedatum,
+        string $Telefoonnummer)
+    {
+        return $this->profielmodel->Add($GebruikerID,$School,$Opleiding,$Startdatumopleiding,$Status,$Achternaam,
+            $Voornaam,$Tussenvoegsel,$Prefix,$Straat,$Huisnummer,$Extentie,$Postcode,$Woonplaats,$Geboortedatum,
             $Telefoonnummer);
     }
 

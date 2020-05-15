@@ -318,7 +318,6 @@ INSERT INTO ADMIN (`GebruikerID`, `Level`) VALUES
     ('1000', '100'),
     ('1001', '100');
 
-
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats)
 VALUES (1000,'Patrick','Ruijter','de', (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,
 (SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
