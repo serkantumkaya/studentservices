@@ -37,6 +37,8 @@ session_start();
 <tr><td>
     <?php
 
+
+
         //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
         {
@@ -83,6 +85,7 @@ session_start();
 </tr>
 </table>
 </form>
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </body>
 </html>
 

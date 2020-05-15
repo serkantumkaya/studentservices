@@ -1,17 +1,16 @@
 
 p {
-    font-size: 12px;  /*12px font grootte*/
-	font-family:verdana;
+    font-size: 12px; /*12px font grootte*/
+    font-family: verdana;
 }
 
 body {
-    height:100%;
-    padding:0px;
-    margin:0px;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
-.table1col
-{
+.table1col {
     display: inline-block;
     color: #666;
     background-color: #ffffff;
@@ -22,14 +21,13 @@ body {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-bottom-width: 1px;
-    width:100%;
+    width: 100%;
 
 }
 
-button
-{
+button {
     display: inline-block;
     color: #666;
     background-color: #eee;
@@ -40,17 +38,16 @@ button
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-bottom-width: 3px;
 
 }
-.ssbutton button
-{
-    width : 100px;
+
+.ssbutton button {
+    width: 100px;
 }
 
-.edit input[type=submit]
-{
+.edit input[type=submit] {
     display: inline-block;
     color: #666;
     background-color: #eee;
@@ -61,101 +58,93 @@ button
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    border: 1px solid rgba(0,0,0,0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-bottom-width: 3px;
-    width:25px;
+    width: 25px;
     padding: 0px;
 }
 
 
 button:hover
-input[type=submit]:hover
-{
+input[type=submit]:hover {
     background-color: #e3e3e3;
-    border-color: rgba(0,0,0,0.5);
+    border-color: rgba(0, 0, 0, 0.5);
 }
 
 button:active
-input[type=submit]:active
-{
+input[type=submit]:active {
     background-color: #CCC;
-    border-color: rgba(0,0,0,0.9);
+    border-color: rgba(0, 0, 0, 0.9);
 }
 
-.gebruikerlabel .loginlabel
-{
-    width:100px;
-    float:left;
+.gebruikerlabel .loginlabel {
+    width: 100px;
+    float: left;
 }
-.gebruikerinput .logininput
-{
-    width:200px;
-    float:left;
+
+.gebruikerinput .logininput {
+    width: 200px;
+    float: left;
 }
 
 
-.formrow
-{
-    width:100%;
+.formrow {
+    width: 100%;
     margin-bottom: 10px;
 }
 
 
-.formcol1
-{
-    width:200px;
-    float:left;
+.formcol1 {
+    width: 200px;
+    float: left;
 }
 
-.formcol2
-{
-    width:300px;
-    float:left;
+.formcol2 {
+    width: 300px;
+    float: left;
 }
 
-.formouter{
+.formouter {
     border-radius: 25px;
     border: 1px solid #00008B;
-    position:relative;
-    text-align:right;
-    height:440px;
-    width:500px;
-    margin-top:20px;
-    padding-top:20px;
-    padding-left:20px;
-    margin-left:20px;
-    margin-bottom:20px;
+    position: relative;
+    text-align: right;
+    height: 440px;
+    width: 500px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
-#validation
-{
-    width:100%;
-    float:left;
+#validation {
+    width: 100%;
+    float: left;
 }
 
 textarea {
     resize: none;
 }
 
-.studentfoto
-{
-    height:150px;
-    width:100px;
+.studentfoto {
+    height: 150px;
+    width: 100px;
 }
 
-#logo{
+#logo {
     position: fixed; /*Logo altijd in de hoek*/
-    right : 0px;
-    top :0px;
+    right: 0px;
+    top: 0px;
     height: 100px;
-    width:100px;
+    width: 100px;
 }
 
 .sliderimage {
-    width:100%;
-    height:100px;
-    position:fixed;
-    top:40px;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 40px;
 }
 
 /* Hide Hamburger */
@@ -163,7 +152,7 @@ textarea {
     display: none;
 }
 
-#page-nav{
+#page-nav {
     width: 100%;
     position: fixed;
     border-bottom: 1px solid #00008B;
@@ -175,44 +164,44 @@ textarea {
     /*top:150px;/*
     height: auto;
     /*position:fixed;*/
-    width:100%;
+    width: 100%;
     overflow: auto;
     /*auto scrollbars bij een grotere wordende tekst*/
 }
 
- dt {
+dt {
     font-weight: bold;
- }
+}
 
- .active{
+.active {
     background-color: #00008B;
     color: #FFB31A;
- }
+}
 
 #rcorners2 {
     border-radius: 25px;
     border: 1px solid #00008B;
-    padding: 20px; 
+    padding: 20px;
     width: auto;
-    height: auto;  
+    height: auto;
     margin: 10px;
     margin-bottom: auto;
     text-align: center;
-    z-index:0;
-  }
+    z-index: 0;
+}
 
 #rcornersContact {
     border-radius: 25px;
     border: 1px solid #00008B;
-    padding: 20px; 
+    padding: 20px;
     width: 71%;
-    height: auto;  
+    height: auto;
     margin: 10px;
     margin-bottom: auto;
     text-align: center;
-    margin-bottom:20px;
-    z-index:0;
-  }
+    margin-bottom: 20px;
+    z-index: 0;
+}
 
 #rcornersContactform {
     border-radius: 25px;
@@ -223,25 +212,25 @@ textarea {
     margin: 10px;
     margin-bottom: auto;
     text-align: center;
-    maring-bottom:20px;
-    z-index:0;
+    maring-bottom: 20px;
+    z-index: 0;
 }
 
 #rcornersMaps {
     border-radius: 25px;
     border: 1px solid #00008B;
-    padding: 10px; 
-	margin: 20px;
+    padding: 10px;
+    margin: 20px;
     text-align: center;
-    z-index:0;
+    z-index: 0;
 }
 
 ul {
     list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
     overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
-    width:100%;
-    height:40px;
-    margin:auto;
+    width: 100%;
+    height: 40px;
+    margin: auto;
     background-color: #FFFFFF;
     border-color: #00008B;
 }
@@ -256,11 +245,11 @@ li a {
     background-color: #FFFFFF;
     color: #00008B;
     border-left: 1px solid #00008B; /*De knop beginnen met een blauwe lijn aan de linkerkant*/
-    margin-left:0px;
-    margin-top:0px;
+    margin-left: 0px;
+    margin-top: 0px;
     padding-top: 5px;
-    height:40px;
-    width:110px;
+    height: 40px;
+    width: 110px;
     font-size: 16px;
     text-align: center; /*De tekst in het midden*/
 }
@@ -276,39 +265,39 @@ li:last-child {
 
 .header {
     grid-area: header;
-    height:40px;
+    height: 40px;
     border-bottom: 1px solid #00008B; /*blauwe lijn onderaan om de header af te sluiten*/
-    z-index:1;/*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
+    z-index: 1; /*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
     background-color: #FFFFFF;
 }
 
-.row:after{
-	content: "";
-	display: table;
-	clear: both;
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 /* stukje voor de mag binnen de contactpagina*/
-.mapouter{
-	position:relative;
-	text-align:right;
-	height:600px;
-	width:75%;
-    z-index:0;
+.mapouter {
+    position: relative;
+    text-align: right;
+    height: 600px;
+    width: 75%;
+    z-index: 0;
 }
 
 .gmap_canvas {
-	overflow:hidden;
-	background:none;
-	height:600px;
-	width:99%;
-    z-index:0;
+    overflow: hidden;
+    background: none;
+    height: 600px;
+    width: 99%;
+    z-index: 0;
 }
 
-iframe{
-	height:600px;
-	width:99%;
-    z-index:0;
+iframe {
+    height: 600px;
+    width: 99%;
+    z-index: 0;
 }
 
 .footer {
@@ -317,20 +306,20 @@ iframe{
     left: 0;
     bottom: 0;
     background-color: #ffffff;
-    overflow: hidden;/*hier geen scrollbars*/
-    height:20px;
-    padding:5px;
-    width : 99%;
+    overflow: hidden; /*hier geen scrollbars*/
+    height: 20px;
+    padding: 5px;
+    width: 99%;
     /*border-top-color: #FFB31A;*/
-    text-align: center;/*text (alleen) in het midden zetten*/
+    text-align: center; /*text (alleen) in het midden zetten*/
     border-top: 1px solid #00008B;
 }
 
 .footer a {
     text-decoration: none;
     color: #00008B;
-    margin-left:0px;
-    margin-top:0px;
+    margin-left: 0px;
+    margin-top: 0px;
     padding-top: 25px;
 
     text-align: center; /*De tekst in het midden*/
@@ -338,73 +327,58 @@ iframe{
 
 .itemslider {
     grid-area: slider;
-    overflow: hidden;/*hier geen scrollbars*/
+    overflow: hidden; /*hier geen scrollbars*/
     background-color: transparent;
-    width:100%;
+    width: 100%;
     /*height:350px;*/
-    padding:auto;
+    padding: auto;
     border-bottom: 1px solid #00008B;
 }
 
 .grid-container {
-    grid-template-areas: 'header' 'slider' 'info' 'footer';/* hier geef je dus je grid componenten op*/
+    grid-template-areas: 'header' 'slider' 'info' 'footer'; /* hier geef je dus je grid componenten op*/
     grid-gap: 0px;
     background-color: #FFFFFF;
     display: grid;
-    padding:0px;/*geen witte randen*/
-    margin:0px;/*geen witte randen*/
+    padding: 0px; /*geen witte randen*/
+    margin: 0px; /*geen witte randen*/
     height: 100vh;
-    grid-template-rows: 40px 100px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-   
+    grid-template-rows: 40px 100px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+
 }
 
 .grid-containersubs {
     display: grid;
-    grid-template-areas: 'header' 'info' 'footer';/* hier geef je dus je grid componenten op*/
+    grid-template-areas: 'header' 'info' 'footer'; /* hier geef je dus je grid componenten op*/
     grid-gap: 0px;
     background-color: #FFFFFF;
-    padding:0px;/*geen witte randen*/
-    margin:0px;/*geen witte randen*/
+    padding: 0px; /*geen witte randen*/
+    margin: 0px; /*geen witte randen*/
     height: 100vh;
-    grid-template-rows: 102px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-    
+    grid-template-rows: 102px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+
 }
 
-.contactcel
-{
+.contactcel {
     width: 48%;
-    float:left;
-	padding-left:12px;
-    padding-bottom:10px;
-    padding-top:10px;
+    float: left;
+    padding-left: 12px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
-.contacttekst
-{
-    float:left;
+.contacttekst {
+    float: left;
 }
 
-.contacttekst img{
-	margin-right:5px;
-    width:50%;
+.contacttekst img {
+    margin-right: 5px;
+    width: 50%;
     border-radius: 25px;
     border: 1px solid #00008B;
 }
 
 a.button {
-  border-radius: 25px;
-  background-color: #00008B; /* Oranje */
-  border: none;
-  color: #FFB31A;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  width:60%;
-}
-
-#submit{
     border-radius: 25px;
     background-color: #00008B; /* Oranje */
     border: none;
@@ -414,11 +388,10 @@ a.button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width:200px;
-    margin-bottom : 5px;
+    width: 60%;
 }
 
-.formbutton{
+#submit {
     border-radius: 25px;
     background-color: #00008B; /* Oranje */
     border: none;
@@ -428,201 +401,209 @@ a.button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width:140px;
+    width: 200px;
+    margin-bottom: 5px;
 }
+
+.formbutton {
+    border-radius: 25px;
+    background-color: #00008B; /* Oranje */
+    border: none;
+    color: #FFB31A;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 140px;
+}
+
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
-@media only screen and (max-width: 820px)
-{
-    #page-nav{
-        border:none;
-        width:99%;
+@media only screen and (max-width: 820px) {
+    #page-nav {
+        border: none;
+        width: 99%;
     }
 
     #page-nav label {
-        position:fixed;
+        position: fixed;
         display: inline-block;
         color: #000000;
         background: #ffffff;
         font-style: normal;
         font-size: 1.2em;
         padding: 10px;
-        z-index:999;
-        width:100%;
+        z-index: 999;
+        width: 100%;
     }
 
     ul {
         list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
         overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
-        width:100%;
-        height:100%;
-        position:fixed;
-        margin:0px;
-        top:45px;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        margin: 0px;
+        top: 45px;
         background-color: #FFFFFF;
-        border:none;
-        z-index:999;
+        border: none;
+        z-index: 999;
     }
 
     li:first-child {
         border-top: 1px solid #00008B;
     }
 
-    li
-    {
+    li {
         float: none;
         text-decoration: none;
         display: block;
-        z-index:999;
-        height:50px;
-        width:100%;
-        border-left:none;
+        z-index: 999;
+        height: 50px;
+        width: 100%;
+        border-left: none;
         border-bottom: 1px solid #00008B;
     }
 
     li a {
         float: none;
         display: block;
-        z-index:999;
+        z-index: 999;
         text-decoration: none;
         background-color: #FFFFFF;
         color: #00008B;
-        border-left:none;
-        margin-left:0px;
-        margin-top:0px;
+        border-left: none;
+        margin-left: 0px;
+        margin-top: 0px;
         padding-top: 0px;
-        height:50px;
-        width:100%;
+        height: 50px;
+        width: 100%;
         font-size: 16px;
         text-align: center; /*De tekst in het midden*/
     }
 
     /* Toggle show/hide menu on checkbox click */
-    #page-nav ul
-    {
+    #page-nav ul {
         display: none;
-        border:none;
+        border: none;
     }
-    #page-nav input:checked ~ ul
-    {
+
+    #page-nav input:checked ~ ul {
         display: block;
-        height:99%;
-        width:100%;
+        height: 99%;
+        width: 100%;
         z-index: 999;
         background-color: #ffffff;
         border: none;
     }
 
     ul {
-        width:100%;
-        height:50px;
-        margin:0;
-        padding:0;
+        width: 100%;
+        height: 50px;
+        margin: 0;
+        padding: 0;
     }
+
     .grid-container {
-        grid-template-rows: 50px 105px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+        grid-template-rows: 50px 105px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
     }
 
     .grid-container2 {
         display: block;
-        width:100%;
+        width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
     }
-    .header{
-        height:50px;
+
+    .header {
+        height: 50px;
     }
 
 
-	.mapouter{
-		position:relative;
-		text-align:right;
-		height:250px;
-		width:74%;
-        z-index:0;
-	}
+    .mapouter {
+        position: relative;
+        text-align: right;
+        height: 250px;
+        width: 74%;
+        z-index: 0;
+    }
 
-	.gmap_canvas {
-		overflow:hidden;
-		background:none;
-		height:250px;
-		width:100%;
-	}
+    .gmap_canvas {
+        overflow: hidden;
+        background: none;
+        height: 250px;
+        width: 100%;
+    }
 
-	iframe{
-		height:250px;
-		width:100%;
+    iframe {
+        height: 250px;
+        width: 100%;
 
-	}
+    }
 
-    #logo{
+    #logo {
         height: 50px;
-        width:50px;
+        width: 50px;
         position: absolute;
     }
 
     /*let op een mobiel device heeft GEEN hover*/
-
     .sliderimage {
-        height:50px;
-        position:fixed;
-        top:0px;
+        height: 50px;
+        position: fixed;
+        top: 0px;
     }
 
-    .slider{
-        height:50px;
+    .slider {
+        height: 50px;
     }
 
-    .contactcel
-    {
+    .contactcel {
         float: none;
-        width:100%;
-        padding-left:10px;
-        height:250px;
+        width: 100%;
+        padding-left: 10px;
+        height: 250px;
     }
 
-    .contacttekst{
-        width:50%;
+    .contacttekst {
+        width: 50%;
     }
 
-    .contacttekstform{
-        width:100%;
-    }
-    .contacttekst img
-    {
-        width:100px;
+    .contacttekstform {
+        width: 100%;
     }
 
-    .formouter{
-        height:800px;
-        width:300px;
+    .contacttekst img {
+        width: 100px;
     }
 
-    .form
-    {
-        width:100%;
-        float:none;
-        maring-bottom:10px;
+    .formouter {
+        height: 800px;
+        width: 300px;
     }
 
-    .formrow
-    {
-        width:300px;
-        float:none;
-
-   }
-
-
-    .formcol1
-    {
-        float:none;
+    .form {
+        width: 100%;
+        float: none;
+        maring-bottom: 10px;
     }
 
-    .formcol2
-    {
+    .formrow {
+        width: 300px;
+        float: none;
+
+    }
+
+
+    .formcol1 {
+        float: none;
+    }
+
+    .formcol2 {
         margin-top: 10px;
-        width:300px;
-        float:none;
+        width: 300px;
+        float: none;
     }
 
 
@@ -635,16 +616,16 @@ a.button {
     -webkit-animation-duration: 2s; /*voor 2 sec*/
     animation-name: fade;
     animation-duration: 2s;
-    padding:auto;
+    padding: auto;
 }
 
-@media only screen and (max-height: 375px) /* om landscape responsive leesbaar te maken*/
-{
+@media only screen and (max-height: 375px) /* om landscape responsive leesbaar te maken*/ {
     .grid-container {
-        grid-template-rows: 50px 0px auto 50px;/* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+        grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
     }
-    .itemslider{
-        display:none;
+
+    .itemslider {
+        display: none;
     }
 }
 
@@ -658,14 +639,14 @@ a.button {
     }
 }
 
-@keyframes fadessliderimage{
-                from {
-                    opacity: .4
-                }
+@keyframes fadessliderimage {
+    from {
+        opacity: .4
+    }
 
-to {
-    opacity: 1
-}
+    to {
+        opacity: 1
+    }
 }
 
 .mySlides {
@@ -678,12 +659,13 @@ to {
 /*    border-radius: 4px;*/
 /*}*/
 
- textarea {
+textarea {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
-     width:90%;
+    width: 90%;
 }
+
 .container {
     grid-area: invulform;
     border-radius: 5px;
@@ -703,7 +685,7 @@ to {
     grid-template-rows: 100px auto 60px;
 }
 
-#header h3{
+#header h3 {
     left: 1px;
     top: 1px;
     grid-area: header;
@@ -711,7 +693,7 @@ to {
     font-size: 16px;
 }
 
-.error{
+.error {
     color: red;
     visibility: visible;
     margin: 0;
@@ -723,13 +705,21 @@ to {
 }
 
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)}
-    to {-webkit-transform: scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
 
 @keyframes animatezoom {
-    from {transform: scale(0)}
-    to {transform: scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -738,6 +728,7 @@ to {
         display: block;
         float: none;
     }
+
     .cancelbtn {
         width: 100%;
     }

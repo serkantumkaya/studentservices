@@ -6,15 +6,16 @@ $level = $GC->checkRechten();
 
 if ($level>=50){
     $uitvoer = <<<EOD
-
             <!-- [MENU ITEMS] -->
 <!--            ADMIN heeft admin en normale menu's -->
-                    <ul>
+                <ul>
+                <li><a href="/StudentServices/index.php">Home</a></li>
+                <li><a href="/StudentServices/View/Beschikbaarheid/View.php">Beschikbaarheid</a></li>  
                 <li><a href="/StudentServices/View/School/View.php">School</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
                 <li><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
                 <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
-                <li><a href="/StudentServices/View/School/View.php">Mijn profiel</a></li>
+                <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
                 <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
                 <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
@@ -23,12 +24,9 @@ if ($level>=50){
 EOD;
 } else{
     $uitvoer = <<<EOD
-
-
             <!-- [MENU ITEMS] -->
-
-                    <ul>
-                <li><a href="/StudentServices/View/School/View.php">Mijn profiel</a></li>
+            <ul>
+                <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
                 <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
                 <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
@@ -52,17 +50,16 @@ EOD;
     </script>
 </head>
 <body>
-<div class="grid-container">
-    <div class="header">
-        <nav id="page-nav">
-            <!-- [THE HAMBURGER] -->
-            <label for="hamburger">&#9776;</label>
-            <input type="checkbox" id="hamburger"/>
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
 
-            <?php
-            echo $uitvoer;
-            ?>
-        </nav>
-        <img id=
-             <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
-    </div>
+        <?php
+        echo $uitvoer;
+        ?>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
