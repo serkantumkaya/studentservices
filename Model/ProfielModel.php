@@ -61,7 +61,7 @@ class ProfielModel
 
     function delete(int $ID){
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieProfiel WHERE ProfielID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM profiel WHERE ProfielID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -75,6 +75,7 @@ class ProfielModel
         string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer){
 
         $sql =
+
             $this->conn->prepare("UPDATE Profiel SET 
             School=:School ,Opleiding=:Opleiding ,Startdatumopleiding=:Startdatumopleiding ,Status=:Status,
             Achternaam=:Achternaam ,Voornaam=:Voornaam ,Tussenvoegsel=:Tussenvoegsel,Prefix=:Prefix ,Straat=:Straat ,Huisnummer=:Huisnummer,
