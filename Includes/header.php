@@ -6,16 +6,27 @@ $level = $GC->checkRechten();
 
 if ($level>=50){
     $uitvoer = <<<EOD
+
+            <!-- [MENU ITEMS] -->
+<!--            ADMIN heeft admin en normale menu's -->
                     <ul>
                 <li><a href="/StudentServices/View/School/View.php">School</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
                 <li><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
                 <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
+                <li><a href="/StudentServices/View/School/View.php">Mijn profiel</a></li>
+                <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
+                <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
+                <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
                 <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
             </ul>
 EOD;
 } else{
     $uitvoer = <<<EOD
+
+
+            <!-- [MENU ITEMS] -->
+
                     <ul>
                 <li><a href="/StudentServices/View/School/View.php">Mijn profiel</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
@@ -48,22 +59,9 @@ EOD;
             <label for="hamburger">&#9776;</label>
             <input type="checkbox" id="hamburger"/>
 
-            <!-- [MENU ITEMS] -->
-
             <?php
-
-                echo $uitvoer;
-
-
+            echo $uitvoer;
             ?>
-
-            <!--<ul>
-                <li><a href="/StudentServices/View/School/View.php">School</a></li>
-                <li><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
-                <li><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
-                <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
-                <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
-            </ul>-->
         </nav>
         <img id=
              <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>

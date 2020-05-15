@@ -89,7 +89,7 @@ class ProfielModel
 
     function delete(int $ID){
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieProfiel WHERE ProfielID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM profiel WHERE ProfielID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -101,7 +101,7 @@ class ProfielModel
     function update(int $ID, string $Naamprofiel, string $VoltijdDeeltijd){
 
         $sql =
-            $this->conn->prepare("UPDATE SelectieProfiel SET Naamprofiel=:Naam , Voltijd_deeltijd=:VDD Where ProfielID=:SID");//let op id geen quotes
+            $this->conn->prepare("UPDATE profiel SET Naamprofiel=:Naam , Voltijd_deeltijd=:VDD Where ProfielID=:SID");//let op id geen quotes
 
         $parameters = [
             'Naam' => $Naamprofiel,
@@ -113,7 +113,7 @@ class ProfielModel
     }
 
     function getById(int $ID){
-        $sql = "SELECT ProfielID,Naamprofiel,Voltijd_deeltijd  FROM SelectieProfiel WHERE ProfielID =$ID";
+        $sql = "SELECT ProfielID,Naamprofiel,Voltijd_deeltijd  FROM profiel WHERE ProfielID =$ID";
         return $this->conn->query($sql);
     }
 }
