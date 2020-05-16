@@ -1,4 +1,3 @@
-
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 session_start();

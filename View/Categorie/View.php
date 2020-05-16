@@ -3,20 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CategorieController.php");
 session_start();
-
-function LoadList()
-{
-    $Categoriecontroller= new CategorieController();
-
-    foreach ($Categoriecontroller->GetCategorieen() as $sg)
-    {
-        $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
-
-        //echo "<tr> <td > <div id='".$Categorie->getCategorienaam()."'> ".$Categorie->getCategorienaam()."</div></td>";
-        echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
-    }
-}
-
 ?>
 
 <!DOCTYPE HTML>
@@ -47,29 +33,59 @@ function LoadList()
 
 <body>
 
-<form  method="post" action="Add.php">
-    <input type="submit" value="Nieuw"  class="ssbutton">
-    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
-</form>
-<form  method="post" action="Edit.php">
-<table> <tr> <th>Categorie</th> <th></th> <th></th></tr>
-<tr><td>
-    <?php
-        //DO NOT USE A BIG IF. If the conditions are not met. Return.
-        if (empty($_Post) && !isset($_Post["actie"]))
-        {
-           $Categoriecontroller= new CategorieController();
-            foreach ($Categoriecontroller->GetCategorieen() as $sg)
-            {
-                $Categorie = new Categorie($sg['CategorieID'],$sg['Categorienaam']);
-                echo "<tr> <td> <input type=\"submit\" value=\"".$Categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$Categorie->getCategorieID()."' class=\"selectionrow\"> </td></tr>";
-            }
-        }
-    ?>
-    </td>
-</tr>
-</table>
-</form>
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
+
+        <!-- [MENU ITEMS] -->
+
+        <ul>
+            <?php
+            echo "<li>
+            <a href=\"Add.php\">Nieuw</a>
+        </li>";
+            echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+            ?>
+        </ul>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
+
+<div class="info">
+    <form  method="post" action="Edit.php">
+        <table> <tr> <th>Categorie</th> <th></th> <th></th></tr>
+            <tr><td>
+                    <?php
+
+                    //DO NOT USE A BIG IF. If the conditions are not met. Return.
+                    if (empty($_Post) && !isset($_Post["actie"]))
+                    {
+                        $categoriecontroller= new CategorieController();
+
+                        foreach ($categoriecontroller->getCategorieen() as $categorie)
+                        {
+                            echo "<tr> <td> <input type=\"submit\" value=\"".$categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$categorie->getCategorieID()."' class=\"table1col\"> </td></tr>";
+                        }
+                    }
+
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="footer">
+    <div>© Student Services, 2020
+        <?php
+        $GebrID = 1;
+        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
+
+        ?>
+    </div>
+</div>
 </body>
 </html>
 
