@@ -1,12 +1,13 @@
-
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+ini_set('display_errors', 1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/FeedbackController.php");
 session_start();
-?>
 
-<!DOCTYPE HTML>
+if (empty($_Post) && !isset($_Post["actie"])){
+    $feedbackController = new FeedbackController();
+}
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,72 +23,58 @@ session_start();
         <?php
         //nu i
         $focus = "";
-        if (isset($_SESSION["CurrentNaam"])) {
+        if (isset($_SESSION["CurrentNaam"])){
             $focus = trim($_SESSION["CurrentNaam"]);
         }
         ?>
-
     </script>
 </head>
-
-</head>
-
 <body>
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
 
-<form  method="post" action="Add.php">
-    <input type="submit" value="Nieuw"  class="ssbutton">
-    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
-</form>
-<form  method="post" action="Edit.php">
-<table> <tr> <th>School</th> <th></th> <th></th></tr>
-<tr><td>
-    <?php
+        <!-- [MENU ITEMS] -->
 
-        //DO NOT USE A BIG IF. If the conditions are not met. Return.
-        if (empty($_Post) && !isset($_Post["actie"]))
-        {
-            LoadList();
-            return;
+        <ul>
+            <?php
+            echo "<li>
+            <a href=\"Add.php\">Nieuw</a>
+        </li>";
+            echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+            ?>
+        </ul>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
+<form method="post" action="Edit.php">
+    <table>
+        <tr>
+            <th>ProjectID</th>
+            <th>Feedback</th>
+            <th></th>
+        </tr>
+        <?php
+        foreach ($feedbackController->getFeedback() as $feedback){
+            echo "<tr>
+                    <td>
+                        <input type=\"submit\" value=\"" . $feedback->getProjectID() .
+                "\" formaction='../Project/Edit.php?ID=" . $feedback->getProjectID() .
+                "' class=\"table1col\"> 
+                    </td>
+                    <td>
+                       <input type=\"submit\" value=\"" . $feedback->getReviewKort() .
+                "\" formaction='Edit.php?ID=" . $feedback->getFeedbackID() .
+                "' class=\"table1col\">
+                    </td>
+                </tr>";
         }
+        ?>
 
-
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
-
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("SchoolId");
-                 $this->delete($_Post["SchoolId"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
-        function LoadList()
-        {
-            $schoolcontroller= new SchoolController();
-
-            foreach ($schoolcontroller->GetScholen() as $sg)
-            {
-                $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
-
-                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"selectionrow\"> </td></tr>";
-            }
-        }
-
-    ?>
-    </td>
-</tr>
-</table>
+    </table>
 </form>
 </body>
 </html>

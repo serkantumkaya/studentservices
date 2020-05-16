@@ -94,7 +94,6 @@ if (isset($_POST["delete"]))
     if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())) {
         header("Location: View.php");
     }
-
 }
 else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"]))
 {

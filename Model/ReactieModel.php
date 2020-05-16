@@ -25,11 +25,12 @@ class ReactieModel
     }
 
     function add(
-        int $GebruikersID,int $ProfielID,int $ProjectID, string $Reactie)
-    {
+        int $GebruikersID, int $ProfielID, int $ProjectID, string $Reactie){
 
-        $statement = $this->conn->prepare("INSERT INTO Reactie (GebruikerID, ProfielID, ProjectID, Reactie) VALUES (:GebruikerID, :ProfielID, :ProjectID, :Reactie)");
-        $statement->execute(['GebruikersID' => $GebruikersID,'ProfielID' => $ProfielID->getProfielID(),'PojecctID' => $ProjectID->getProjectID(),
+        $statement =
+            $this->conn->prepare("INSERT INTO Reactie (GebruikerID, ProfielID, ProjectID, Reactie) VALUES (:GebruikerID, :ProfielID, :ProjectID, :Reactie)");
+        $statement->execute(['GebruikersID' => $GebruikersID, 'ProfielID' => $ProfielID->getProfielID(),
+            'PojecctID' => $ProjectID->getProjectID(),
             'Reatie' => $Reactie]);
         return true;
     }

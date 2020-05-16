@@ -7,7 +7,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 class CategorieModel
 {
 
-    // PDO is denk ik niet nodig.... staat al in ConnectDB
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
 

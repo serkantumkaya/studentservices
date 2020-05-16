@@ -70,7 +70,7 @@ class ProfielModel
         return $sql->execute($parameters);
     }
 
-    function update(int ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+    function update(int $ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
         string $Achternaam,String $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
         string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer){
 
