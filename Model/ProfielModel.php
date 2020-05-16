@@ -38,58 +38,30 @@ class ProfielModel
 
 
     }
-
-    //FOTO toevoegen gaat anders niet via een constructor
-    //todo : Via een factory doen?
+    //FOTO toevoegen gaat anders, niet via een constructor
     function add(
-        string $Profielsnaam,
-        string $Wachtwoord,
-        string $Email,
-        ?School $School,
-        ?Profiel $Profiel,
-        ?DateTime $Startdatumopleiding,
-        string $Status,
-        string $Achternaam,
-        String $Voornaam,
-        string $Tussenvoegsel,
-        string $Prefix,
-        string $Straat,
-        int $Huisnummer,
-        string $Extentie,
-        string $Postcode,
-        string $Woonplaats,
-        ?DateTime $Geboortedatum,
-        string $Telefoonnummer){
-        $statement = $this->conn->prepare("INSERT INTO Profiel (ProfielID , Profielsnaam ,Wachtwoord,Email,School ,Profiel ,Startdatumopleiding ,Status,
-            Achternaam ,Voornaam ,Tussenvoegsel,Prefix ,Straat ,Huisnummer,Extentie ,Postcode ,Woonplaats ,Geboortedatum ,Telefoonnummer) 
-            VALUES (:ProfielID ,:Profielsnaam ,:Wachtwoord,:Email,:School ,:Profiel ,:Startdatumopleiding ,:Status,
-:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,:Straat ,:Huisnummer,:Extentie ,:Postcode ,:Woonplaats ,:Geboortedatum ,:Telefoonnummer)");
-        $statement->execute([
-            'Profielsnaam' => $Profielsnaam,
-            'Wachtwoord' => $Wachtwoord,
-            'Email' => $Email,
-            'School' => $School,
-            'Profiel' => $Profiel,
-            'Startdatumopleiding' => $Startdatumopleiding,
-            'Status' => $Status,
-            'Achternaam' => $Achternaam,
-            'Voornaam' => $Voornaam,
-            'Tussenvoegsel' => $Tussenvoegsel,
-            'Prefix' => $Prefix,
-            'Straat' => $Straat,
-            'Huisnummer' => $Huisnummer,
-            'Extentie' => $Extentie,
-            'Postcode' => $Postcode,
-            'Woonplaats' => $Woonplaats,
-            'Geboortedatum' => $Geboortedatum,
-            'Telefoonnummer' => $Telefoonnummer
-        ]);
+        int $GebruikersID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+        string $Achternaam,String $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
+        string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer)
+    {
+
+        $statement = $this->conn->prepare("INSERT INTO Profiel (GebruikerID,School ,Opleiding ,Startdatumopleiding ,Status,
+            Achternaam ,Voornaam ,Tussenvoegsel,Prefix ,Straat ,Huisnummer,Extentie ,Postcode ,Woonplaats ,Geboortedatum ,Telefoonnummer)
+            VALUES (:GebruikersID ,:School ,:Opleiding ,:Startdatumopleiding ,:Status,:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,
+            :Straat ,:Huisnummer,:Extensie ,:Postcode ,:Woonplaats ,:Geboortedatum ,:Telefoonnummer)");
+
+        $statement->execute(['GebruikersID' => $GebruikersID,'School' => $School->getSchoolID(),'Opleiding' => $Opleiding->getOpleidingID(),
+            'Startdatumopleiding' => $Startdatumopleiding,'Status' => $Status,'Achternaam' => $Achternaam,'Voornaam' => $Voornaam,
+            'Tussenvoegsel' => $Tussenvoegsel,'Prefix' => $Prefix,'Straat' => $Straat,'Huisnummer' => $Huisnummer,
+            'Extensie' => $Extensie,'Postcode' => $Postcode,'Woonplaats' => $Woonplaats
+            ,'Geboortedatum' => $Geboortedatum
+            ,'Telefoonnummer' => $Telefoonnummer]);
         return true;
     }
 
     function delete(int $ID){
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieProfiel WHERE ProfielID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM profiel WHERE ProfielID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -98,22 +70,44 @@ class ProfielModel
         return $sql->execute($parameters);
     }
 
-    function update(int $ID, string $Naamprofiel, string $VoltijdDeeltijd){
+    function update(int ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+        string $Achternaam,String $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
+        string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer){
 
         $sql =
-            $this->conn->prepare("UPDATE SelectieProfiel SET Naamprofiel=:Naam , Voltijd_deeltijd=:VDD Where ProfielID=:SID");//let op id geen quotes
+
+            $this->conn->prepare("UPDATE Profiel SET 
+            School=:School ,Opleiding=:Opleiding ,Startdatumopleiding=:Startdatumopleiding ,Status=:Status,
+            Achternaam=:Achternaam ,Voornaam=:Voornaam ,Tussenvoegsel=:Tussenvoegsel,Prefix=:Prefix ,Straat=:Straat ,Huisnummer=:Huisnummer,
+            Extentie=:Extentie ,Postcode=:Postcode ,Woonplaats=:Woonplaats ,Geboortedatum=:Geboortedatum ,Telefoonnummer=:Telefoonnummer)
+            VALUES (:GebruikersID ,:School ,:Opleiding ,:Startdatumopleiding ,:Status,:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,
+            Where ProfielID=:ProfielID");//let op id geen quotes
 
         $parameters = [
-            'Naam' => $Naamprofiel,
-            'VDD' => $VoltijdDeeltijd,
-            'SID' => $ID
+            'School' => $School,
+            'Opleiding' => $Opleiding,
+            'Startdatumopleiding' => $Startdatumopleiding,
+            'Status' => $Status,
+            'Achternaam' => $Achternaam,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+            'School' => $School,
+
         ];
 
         return $sql->execute($parameters);
     }
 
     function getById(int $ID){
-        $sql = "SELECT ProfielID,Naamprofiel,Voltijd_deeltijd  FROM SelectieProfiel WHERE ProfielID =$ID";
+        $sql = "SELECT *  FROM Profiel WHERE ProfielID =$ID";
         return $this->conn->query($sql);
     }
 }

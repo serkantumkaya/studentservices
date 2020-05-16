@@ -12,6 +12,11 @@ class GebruikerController
     private GebruikerModel $gebruikermodel;
     private string $OriginalUserName;
 
+    public function __construct($ID){
+        $this->gebruikermodel = new GebruikerModel($ID);
+        $this->ID             = $ID;
+    }
+
     /**
      * @return string
      */
@@ -26,16 +31,11 @@ class GebruikerController
         $this->OriginalUserName = $OriginalUserName;
     }
 
-
-    public function __construct(){
-        $this->gebruikermodel = new GebruikerModel();
-    }
-
     public function GetGebruikers(){
         $GebruikerArray = [];
         foreach ($this->gebruikermodel->GetGebruikers() as $gebruiker){
 
-            $gebruiker = new Gebruiker(
+            $gebruiker         = new Gebruiker(
                 $gebruiker['GebruikerID'],
                 $gebruiker['Gebruikersnaam'],
                 $gebruiker['Wachtwoord'],
@@ -46,7 +46,6 @@ class GebruikerController
         return $GebruikerArray;
     }
 
-
     function Add(string $Gebruikersnaam, string $Wachtwoord, string $WachtwoordCheck, string $Email): array{
 
         $Errorsfound = [
@@ -55,25 +54,25 @@ class GebruikerController
             "Wachtwoord" => "",
             "Email" => ""];
         if ($Wachtwoord != $WachtwoordCheck || empty($Wachtwoord) || empty($WachtwoordCheck)){
-            $Errorsfound["Wachtwoord"] = "De wachtwoorden zijn niet gelijk of 1 van de wachtwoorden is leeg.<br>";
+            $Errorsfound["Wachtwoord"]  = "De wachtwoorden zijn niet gelijk of 1 van de wachtwoorden is leeg.<br>";
             $Errorsfound["Errorsfound"] = "true";
         }
         if ($Gebruikersnaam == ""){
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
 
-        if ($this->gebruikermodel->getByGebruikersNaam($Gebruikersnaam) ){
+        if ($this->gebruikermodel->getByGebruikersNaam($Gebruikersnaam)){
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
 
         if (preg_match('/[^a-zA-Z\d]/', $Gebruikersnaam)){
             $Errorsfound["Gebruikersnaam"] .= "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
         if (empty($Email)){
-            $Errorsfound["Email"] = "Email is verplicht.<br>";
+            $Errorsfound["Email"]       = "Email is verplicht.<br>";
             $Errorsfound["Errorsfound"] = "true";
         }
         if (!empty($Errorsfound["Wachtwoord"]) || !empty($Errorsfound["Gebruikersnaam"]) ||
@@ -96,8 +95,7 @@ class GebruikerController
         return $this->gebruikermodel->Delete($Id);
     }
 
-    function update(Gebruiker $Gebruiker) : array
-    {
+    function update(Gebruiker $Gebruiker): array{
         $Errorsfound = [
             "Errorsfound" => "",
             "Gebruikersnaam" => "",
@@ -105,24 +103,26 @@ class GebruikerController
 
         if ($Gebruiker->getGebruikersnaam() == ""){
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
 
-        if ($this->gebruikermodel->getByGebruikersNaam($Gebruiker->getGebruikersnaam()) && $Gebruiker->getGebruikersnaam() != $this->OriginalUserName){
+        if ($this->gebruikermodel->getByGebruikersNaam($Gebruiker->getGebruikersnaam()) &&
+            $Gebruiker->getGebruikersnaam() != $this->OriginalUserName){
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
 
         if (preg_match('/[^a-zA-Z\d]/', $Gebruiker->getGebruikersnaam())){
             $Errorsfound["Gebruikersnaam"] .= "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
-            $Errorsfound["Errorsfound"] = "true";
+            $Errorsfound["Errorsfound"]    = "true";
         }
         if (empty($Gebruiker->getEmail())){
-            $Errorsfound["Email"] = "Email is verplicht.<br>";
+            $Errorsfound["Email"]       = "Email is verplicht.<br>";
             $Errorsfound["Errorsfound"] = "true";
         }
         if ($Errorsfound["Errorsfound"] == ""){
-            $this->gebruikermodel->Update($Gebruiker->getGebruikerID(), $Gebruiker->getGebruikersnaam(), $Gebruiker->getEmail());
+            $this->gebruikermodel->Update($Gebruiker->getGebruikerID(), $Gebruiker->getGebruikersnaam(),
+                $Gebruiker->getEmail());
         }
         return $Errorsfound;
     }
@@ -132,13 +132,29 @@ class GebruikerController
 
         return new Gebruiker(
             $Gebruiker['GebruikerID'],
-            $Gebruiker['Gebruikersnaam'],"",
+            $Gebruiker['Gebruikersnaam'], "",
             $Gebruiker['Email']);
     }
 
     function CheckUserName(string $UserName): bool{
         return !empty($this->gebruikermodel->GetByName($UserName));
     }
+
+    function checkRechten(){
+        $level = $this->gebruikermodel->checkRechten();
+        if ($level == false){ //indien niet bestaat, level 1 terugsturen.
+            return 1;
+        } else{
+            return intval($level['level']);
+        }
+        //var_dump($this->gebruikermodel->checkRechten());
+    }
+
+    /**
+     * @param string $GebruikersNaam
+     * @param string $Password
+     * @return Gebruiker
+     */
 
     function Validate(string $GebruikersNaam, string $Password): Gebruiker{
         $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
@@ -150,7 +166,7 @@ class GebruikerController
                 $Gebruiker['Wachtwoord'],
                 $Gebruiker['Email']);
         }
-        return new Gebruiker(-1,"","","");
+        return new Gebruiker(-1, "", "", "");
     }
 
     //todo : maken als projecten af is. Met een koppeling heb je altijd een verzameling bij het gekoppelde object.

@@ -1,4 +1,31 @@
-<!DOCTYPE HTML>
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+session_start();
+$wronglogin = "";
+
+
+if (isset($_POST['username']) && $_POST['password']){
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $DB       = new ConnectDB();
+    //$password   = hash('sha256',$password);//
+    $pwsafe    = $DB->MakeSafe($password);
+    $GC        = new GebruikerController(-1);
+    $Gebruiker = $GC->Validate($username, $pwsafe);
+
+    if ($Gebruiker->getGebruikerID() != -1){
+        echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
+        $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
+
+        //$_SESSION["Gebruiker"] = $Gebruiker;
+        header("Location: index.php");
+    } else{
+        $wronglogin = "De combinatie van gebruiker en/of wachtwoord is onjuist.";
+    }
+}
+
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="images/studentservices.ico"/>
@@ -15,7 +42,6 @@
     </script>
 </head>
 <body>
-
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");

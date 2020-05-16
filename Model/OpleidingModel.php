@@ -16,13 +16,13 @@ class OpleidingModel
     }
 
     public function GetOpleidingen(){
-        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd FROM SelectieOpleiding";
+        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd FROM Opleiding";
         return $this->conn->query($sql);
     }
 
     function add(string $NaamOpleiding, string $VoltijdDeeltijd){
         $statement =
-            $this->conn->prepare("INSERT INTO SelectieOpleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
+            $this->conn->prepare("INSERT INTO Opleiding (Naamopleiding,Voltijd_deeltijd) VALUES (:Naam,:VDD)");
         $statement->execute([
             'Naam' => $NaamOpleiding,
             'VDD' => $VoltijdDeeltijd
@@ -32,7 +32,7 @@ class OpleidingModel
 
     function delete(int $ID){
 
-        $sql = $this->conn->prepare("DELETE FROM SelectieOpleiding WHERE OpleidingID=:SID");
+        $sql = $this->conn->prepare("DELETE FROM Opleiding WHERE OpleidingID=:SID");
 
         $parameters = [
             'SID' => $ID
@@ -44,7 +44,7 @@ class OpleidingModel
     function update(int $ID, string $Naamopleiding, string $VoltijdDeeltijd){
 
         $sql =
-            $this->conn->prepare("UPDATE SelectieOpleiding SET Naamopleiding=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
+            $this->conn->prepare("UPDATE Opleiding SET Naamopleiding=:Naam , Voltijd_deeltijd=:VDD Where OpleidingID=:SID");//let op id geen quotes
 
         $parameters = [
             'Naam' => $Naamopleiding,
@@ -56,7 +56,7 @@ class OpleidingModel
     }
 
     function get(int $ID){
-        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd  FROM SelectieOpleiding WHERE OpleidingID =$ID";
+        $sql = "SELECT OpleidingID,Naamopleiding,Voltijd_deeltijd  FROM Opleiding WHERE OpleidingID =$ID";
         return $this->conn->query($sql);
     }
 }

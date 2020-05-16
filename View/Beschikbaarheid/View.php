@@ -1,12 +1,9 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 session_start();
-?>
-
-<!DOCTYPE HTML>
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -29,9 +26,6 @@ session_start();
 
     </script>
 </head>
-
-</head>
-
 <body>
 
 <form  method="post" action="Add.php">
@@ -42,6 +36,8 @@ session_start();
 <table> <tr> <th>School</th> <th></th> <th></th></tr>
 <tr><td>
     <?php
+
+
 
         //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
@@ -89,6 +85,7 @@ session_start();
 </tr>
 </table>
 </form>
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </body>
 </html>
 
