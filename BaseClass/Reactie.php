@@ -1,5 +1,9 @@
 <?php
 
+require_once "Gebruiker.php";
+require_once "Profiel.php";
+require_once "Projecten.php";
+
 class Reactie
 {
     private int $ReactieID;
@@ -11,7 +15,7 @@ class Reactie
         $this->ReactieID    = $ReactieID;
         $this->GebruikersID = $GebruikersID;
         $this->ProjectID    = $ProjectID;
-        $this->Reactie      = $ReactieID;
+        $this->Reactie      = $Reactie;
     }
 
     /**
