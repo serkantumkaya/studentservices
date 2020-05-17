@@ -88,8 +88,8 @@ ALTER TABLE PROFIEL AUTO_INCREMENT = 1000;
 CREATE TABLE PROJECT (
 ProjectID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 GebruikerID int NOT NULL,
-Type1 varchar(15) NOT NULL,
 Titel varchar(70) NOT NULL,
+Type1 varchar(15) NOT NULL,
 Beschrijving varchar(500) NOT NULL,
 CategorieID int NOT NULL,
 Datumaangemaakt TIMESTAMP NOT NULL,
