@@ -2,7 +2,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ReactieController.php");
 session_start();
 ?>
 
@@ -34,6 +34,28 @@ session_start();
 
 <body>
 
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
+
+        <!-- [MENU ITEMS] -->
+
+        <ul>
+            <?php
+            echo "<li>
+            <a href=\"Add.php\">Nieuw</a>
+        </li>";
+            echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+            ?>
+        </ul>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
+
+<div class="info">
 <form  method="post" action="Add.php">
     <input type="submit" value="Nieuw"  class="ssbutton">
     <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
@@ -89,6 +111,7 @@ session_start();
 </tr>
 </table>
 </form>
+</div>
 </body>
 </html>
 
