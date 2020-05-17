@@ -5,16 +5,19 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/GebruikerModel.
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Gebruiker.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
-
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/factory/sendEmail.php");
 //hier doe je de crud afvangen vanuit de gebruiker.
 class GebruikerController
 {
-    private GebruikerModel $gebruikermodel;
+    public GebruikerModel $gebruikermodel;
+    private createEmail $verficateemail;
+    private $randomusernumber = 0;
     private string $OriginalUserName;
 
-    public function __construct($ID){
-        $this->gebruikermodel = new GebruikerModel($ID);
-        $this->ID             = $ID;
+
+    public function __construct(){
+        $this->gebruikermodel = new GebruikerModel();
+        $this->verficateemail = new createEmail();
     }
 
     /**
@@ -35,7 +38,7 @@ class GebruikerController
         $GebruikerArray = [];
         foreach ($this->gebruikermodel->GetGebruikers() as $gebruiker){
 
-            $gebruiker         = new Gebruiker(
+            $gebruiker = new Gebruiker(
                 $gebruiker['GebruikerID'],
                 $gebruiker['Gebruikersnaam'],
                 $gebruiker['Wachtwoord'],
@@ -46,129 +49,135 @@ class GebruikerController
         return $GebruikerArray;
     }
 
-    function Add(string $Gebruikersnaam, string $Wachtwoord, string $WachtwoordCheck, string $Email): array{
+
+    function Add(string $Gebruikersnaam, string $Wachtwoord, string $WachtwoordCheck, string $Email): array
+    {
 
         $Errorsfound = [
             "Errorsfound" => "",
             "Gebruikersnaam" => "",
             "Wachtwoord" => "",
             "Email" => ""];
-        if ($Wachtwoord != $WachtwoordCheck || empty($Wachtwoord) || empty($WachtwoordCheck)){
-            $Errorsfound["Wachtwoord"]  = "De wachtwoorden zijn niet gelijk of 1 van de wachtwoorden is leeg.<br>";
+        if ($Wachtwoord != $WachtwoordCheck || empty($Wachtwoord) || empty($WachtwoordCheck)) {
+            $Errorsfound["Wachtwoord"] = "De wachtwoorden zijn niet gelijk of 1 van de wachtwoorden is leeg.<br>";
             $Errorsfound["Errorsfound"] = "true";
         }
-        if ($Gebruikersnaam == ""){
+        if ($Gebruikersnaam == "") {
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
+            $Errorsfound["Errorsfound"] = "true";
         }
 
-        if ($this->gebruikermodel->getByGebruikersNaam($Gebruikersnaam)){
+        if(!empty($this->verficateemail->dataaccessmodel->getusername($Gebruikersnaam)['Username']))
+        {
+            if($this->verficateemail->dataaccessmodel->getusername($Gebruikersnaam)['Username'] == $Gebruikersnaam){
+                $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
+                $Errorsfound["Errorsfound"] = "true";
+            }
+
+        }
+        if ($this->gebruikermodel->getByGebruikersNaam($Gebruikersnaam)) {
             $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
+            $Errorsfound["Errorsfound"] = "true";
         }
 
-        if (preg_match('/[^a-zA-Z\d]/', $Gebruikersnaam)){
+        if (preg_match('/[^a-zA-Z\d]/', $Gebruikersnaam)) {
             $Errorsfound["Gebruikersnaam"] .= "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
+            $Errorsfound["Errorsfound"] = "true";
         }
-        if (empty($Email)){
-            $Errorsfound["Email"]       = "Email is verplicht.<br>";
+        if (empty($Email)) {
+            $Errorsfound["Email"] = "Email is verplicht.<br>";
             $Errorsfound["Errorsfound"] = "true";
         }
         if (!empty($Errorsfound["Wachtwoord"]) || !empty($Errorsfound["Gebruikersnaam"]) ||
-            !empty($Errorsfound["Email"])){
+            !empty($Errorsfound["Email"])) {
             return $Errorsfound;
         }
 
-        if ($Errorsfound["Errorsfound"] == ""){
-            //This is what a controller does. You pass your 2nd password for validation. But is it not needed in the add of the model.
-            $this->gebruikermodel->Add($Gebruikersnaam,
-                $Wachtwoord,
-                $Email);
+        if ($Errorsfound["Errorsfound"] == "") {
+            $this->randomusernumber = rand(111111111111, 999999999999);
+            if($this->verficateemail->sendEmail($Gebruikersnaam, $Wachtwoord, $Email, $this->randomusernumber)){
 
+            } else {
+                //   vardump($this->verficateemail->getemailerrorinfo());//hoe we met eventuele errors die terug komen van de klass email
+            }
+            /********dit stuk is verplaats factory/verficatie.php
+            /*if ($Errorsfound["Errorsfound"] == "") {
+                //This is what a controller does. You pass your 2nd password for validation. But is it not needed in the add of the model.
+                $this->gebruikermodel->Add($Gebruikersnaam,
+                    $Wachtwoord,
+                    $Email);
+
+                return $Errorsfound;
+            }*/
             return $Errorsfound;
         }
-        return $Errorsfound;
     }
 
-    function delete(int $Id){
-        return $this->gebruikermodel->Delete($Id);
-    }
-
-    function update(Gebruiker $Gebruiker): array{
-        $Errorsfound = [
-            "Errorsfound" => "",
-            "Gebruikersnaam" => "",
-            "Email" => ""];
-
-        if ($Gebruiker->getGebruikersnaam() == ""){
-            $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
+        function delete(int $Id)
+        {
+            return $this->gebruikermodel->Delete($Id);
         }
 
-        if ($this->gebruikermodel->getByGebruikersNaam($Gebruiker->getGebruikersnaam()) &&
-            $Gebruiker->getGebruikersnaam() != $this->OriginalUserName){
-            $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
+        function update(Gebruiker $Gebruiker): array
+        {
+            $Errorsfound = [
+                "Errorsfound" => "",
+                "Gebruikersnaam" => "",
+                "Email" => ""];
+
+            if ($Gebruiker->getGebruikersnaam() == "") {
+                $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is verplicht.<br>";
+                $Errorsfound["Errorsfound"] = "true";
+            }
+
+            /*if ($this->gebruikermodel->getByGebruikersNaam($Gebruiker->getGebruikersnaam()) && $Gebruiker->getGebruikersnaam() != $this->OriginalUserName ||  ($this->verficateemail->dataaccessmodel->getusername($Gebruikersnaam)['Username'] == $Gebruikersnaam)) {
+                $Errorsfound["Gebruikersnaam"] = "Gebruikersnaam is al reeds gebruikt. Kies een andere gebruikersnaam.<br>";
+                $Errorsfound["Errorsfound"] = "true";
+            }
+
+            if (preg_match('/[^a-zA-Z\d]/', $Gebruiker->getGebruikersnaam())) {
+                $Errorsfound["Gebruikersnaam"] .= "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
+                $Errorsfound["Errorsfound"] = "true";
+            }*/
+            if (empty($Gebruiker->getEmail())) {
+                $Errorsfound["Email"] = "Email is verplicht.<br>";
+                $Errorsfound["Errorsfound"] = "true";
+            }
+            if ($Errorsfound["Errorsfound"] == "") {
+                $this->gebruikermodel->Update($Gebruiker->getGebruikerID(), $Gebruiker->getGebruikersnaam(), $Gebruiker->getEmail());
+            }
+            return $Errorsfound;
         }
 
-        if (preg_match('/[^a-zA-Z\d]/', $Gebruiker->getGebruikersnaam())){
-            $Errorsfound["Gebruikersnaam"] .= "De gebruikernaam is ongeldig. Gebruik geen leestekens of spaties.<br>";
-            $Errorsfound["Errorsfound"]    = "true";
-        }
-        if (empty($Gebruiker->getEmail())){
-            $Errorsfound["Email"]       = "Email is verplicht.<br>";
-            $Errorsfound["Errorsfound"] = "true";
-        }
-        if ($Errorsfound["Errorsfound"] == ""){
-            $this->gebruikermodel->Update($Gebruiker->getGebruikerID(), $Gebruiker->getGebruikersnaam(),
-                $Gebruiker->getEmail());
-        }
-        return $Errorsfound;
-    }
+        function getById(int $id): gebruiker
+        {
+            $Gebruiker = $this->gebruikermodel->Get($id);
 
-    function getById(int $id): gebruiker{
-        $Gebruiker = $this->gebruikermodel->Get($id);
-
-        return new Gebruiker(
-            $Gebruiker['GebruikerID'],
-            $Gebruiker['Gebruikersnaam'], "",
-            $Gebruiker['Email']);
-    }
-
-    function CheckUserName(string $UserName): bool{
-        return !empty($this->gebruikermodel->GetByName($UserName));
-    }
-
-    function checkRechten(){
-        $level = $this->gebruikermodel->checkRechten();
-        if ($level == false){ //indien niet bestaat, level 1 terugsturen.
-            return 1;
-        } else{
-            return intval($level['level']);
-        }
-        //var_dump($this->gebruikermodel->checkRechten());
-    }
-
-    /**
-     * @param string $GebruikersNaam
-     * @param string $Password
-     * @return Gebruiker
-     */
-
-    function Validate(string $GebruikersNaam, string $Password): Gebruiker{
-        $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
-
-        if (!empty($Gebruiker)){
             return new Gebruiker(
                 $Gebruiker['GebruikerID'],
-                $Gebruiker['GebruikersNaam'],
-                $Gebruiker['Wachtwoord'],
+                $Gebruiker['Gebruikersnaam'], "",
                 $Gebruiker['Email']);
         }
-        return new Gebruiker(-1, "", "", "");
-    }
 
+        function CheckUserName(string $UserName): bool
+        {
+            return !empty($this->gebruikermodel->GetByName($UserName));
+        }
+
+        function Validate(string $GebruikersNaam, string $Password): Gebruiker
+        {
+            $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
+
+            if (!empty($Gebruiker)) {
+                return new Gebruiker(
+                    $Gebruiker['GebruikerID'],
+                    $Gebruiker['GebruikersNaam'],
+                    $Gebruiker['Wachtwoord'],
+                    $Gebruiker['Email']);
+            }
+            return new Gebruiker(-1, "", "", "");
+        }
+    }
     //todo : maken als projecten af is. Met een koppeling heb je altijd een verzameling bij het gekoppelde object.
     //public function getProjectenByGebruiker()
     //{
@@ -178,4 +187,4 @@ class GebruikerController
     //    }
     //    return $projecten;
     //}
-}
+
