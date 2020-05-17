@@ -158,6 +158,23 @@ textarea {
     background-color: #ffffff;
 }
 
+
+#nav ul {
+    position:absolute;
+    padding:0;
+    left:0;
+    display:none; /* hides sublists */
+}
+
+#nav li:hover ul ul {display:none;} /* hides sub-sublists */
+
+#nav li:hover ul ul {display:none;} /* hides sub-sublists */
+#nav li:hover ul {display:block;} /* shows sublist on hover */
+/*#nav li li:hover ul {*/
+/*    display:block; !* shows sub-sublist on hover *!*/
+/*    margin-left:200px; !* this should be the same width as the parent list item *!*/
+/*    margin-top:-35px; !* aligns top of sub menu with top of list item *!*/
+
 .info {
     grid-area: info;
     /*top:150px;/*
@@ -264,6 +281,33 @@ li:last-child {
     border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
 }
 
+lisub {
+    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive asl er meer knoppen komen*/
+}
+
+lisub a {
+    text-decoration: none;
+    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive als er meer knoppen komen*/
+    background-color: #FFFFFF;
+    color: #00008B;
+    border-left: 1px solid #00008B; /*De knop beginnen met een blauwe lijn aan de linkerkant*/
+    margin-left: 0px;
+    margin-top: 0px;
+    padding-top: 5px;
+    height: 40px;
+    width: 110px;
+    font-size: 16px;
+    text-align: center; /*De tekst in het midden*/
+}
+
+ul lisub a:hover {
+    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+    color: #FFB31A;
+}
+
+lisub:last-child {
+    border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
+}
 .header {
     grid-area: header;
     height: 40px;
