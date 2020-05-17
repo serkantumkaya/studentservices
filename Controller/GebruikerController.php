@@ -165,6 +165,16 @@ class GebruikerController
         return !empty($this->gebruikermodel->GetByName($UserName));
     }
 
+    function checkRechten(){
+        $level = $this->gebruikermodel->checkRechten();
+        if ($level == false){ //indien niet bestaat, level 1 terugsturen.
+            return 1;
+        } else{
+            return intval($level['level']);
+        }
+        //var_dump($this->gebruikermodel->checkRechten());
+    }
+
     function Validate(string $GebruikersNaam, string $Password): Gebruiker{
         $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
 
