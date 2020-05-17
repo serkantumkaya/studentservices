@@ -83,8 +83,8 @@ session_start();
             //}
              case "delete":
              {
-                 echo "De te verwijderen ID = ".$_Post("SchoolId");
-                 $this->delete($_Post["SchoolId"]);
+                 echo "De te verwijderen ID = ".$_Post("ReactieId");
+                 $this->delete($_Post["ReactieId"]);
                 break;
              }
              default:
@@ -95,14 +95,14 @@ session_start();
 
         function LoadList()
         {
-            $schoolcontroller= new SchoolController();
+            $reactiecontroller= new ReactieController();
 
-            foreach ($schoolcontroller->GetScholen() as $sg)
+            foreach ($reactiecontroller->getReacties() as $rg)
             {
-                $school = new School($sg['SchoolID'],$sg['Schoolnaam']);
+                $reactie = new Reactie($rg['ReactieID'],$rg['Reactie']);
 
                 //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$school->getSchoolnaam()."\" formaction='Edit.php?ID=".$school->getSchoolID()."' class=\"selectionrow\"> </td></tr>";
+                echo "<tr> <td> <input type=\"submit\" value=\"".$reactie->getReactie()."\" formaction='Edit.php?ID=".$reactie->getReactieID()."' class=\"selectionrow\"> </td></tr>";
             }
         }
 

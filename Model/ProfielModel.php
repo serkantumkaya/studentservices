@@ -70,7 +70,7 @@ class ProfielModel
         return $sql->execute($parameters);
     }
 
-    function update(int ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
+    function update(int $ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
         string $Achternaam,String $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
         string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer){
 
@@ -84,23 +84,22 @@ class ProfielModel
             Where ProfielID=:ProfielID");//let op id geen quotes
 
         $parameters = [
+            'ProfielID' => $ProfielID,
             'School' => $School,
             'Opleiding' => $Opleiding,
             'Startdatumopleiding' => $Startdatumopleiding,
             'Status' => $Status,
             'Achternaam' => $Achternaam,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-            'School' => $School,
-
+            'Voornaam' => $Voornaam,
+            'Tussenvoegsel' => $Tussenvoegsel,
+            'Prefix' => $Prefix,
+            'Straat' => $Straat,
+            'Huisnummer' => $Huisnummer,
+            'Extensie' => $Extensie,
+            'Postcode' => $Postcode,
+            'Woonplaats' => $Woonplaats,
+            'Geboortedatum' => $Geboortedatum,
+            'Telefoonnummer' => $Telefoonnummer,
         ];
 
         return $sql->execute($parameters);
