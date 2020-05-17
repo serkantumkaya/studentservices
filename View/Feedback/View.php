@@ -55,7 +55,7 @@ if (empty($_Post) && !isset($_Post["actie"])){
         <tr>
             <th>ProjectID</th>
             <th>Feedback</th>
-            <th></th>
+            <th>Cijfer</th>
         </tr>
         <?php
         foreach ($feedbackController->getFeedback() as $feedback){
@@ -70,10 +70,14 @@ if (empty($_Post) && !isset($_Post["actie"])){
                 "\" formaction='Edit.php?ID=" . $feedback->getFeedbackID() .
                 "' class=\"table1col\">
                     </td>
+                    <td>
+                        <input type=\"submit\" value=\"" . $feedback->getCijfer() .
+                "\" formaction='../Project/Edit.php?ID=" . $feedback->getProjectID() .
+                "' class=\"table1col\"> 
+                    </td>
                 </tr>";
         }
         ?>
-
     </table>
 </form>
 </body>

@@ -1,5 +1,5 @@
 <?php
-
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 class Feedback
 {
 
@@ -8,6 +8,7 @@ class Feedback
     private int $ProjectID;
     private int $Cijfer;
     private string $Review;
+    private GebruikerController $gebruikercontroller;
 
     public function __construct(int $FeedbackID, int $GebruikerID, int $ProjectID, int $Cijfer, string $Review){
         $this->FeedbackID  = $FeedbackID;
@@ -15,6 +16,7 @@ class Feedback
         $this->ProjectID   = $ProjectID;
         $this->Cijfer      = $Cijfer;
         $this->Review      = $Review;
+        $this->gebruikercontroller = new GebruikerController($this->getGebruikerID());
     }
 
     /**
@@ -88,7 +90,15 @@ class Feedback
     }
 
     public function getReviewKort(): string{
-        return substr($this->Review,0,40)."...";
+        if (strlen($this->Review)>40){
+            return substr($this->Review,0,40)."...";
+        } else{
+            return $this->Review;
+        }
+    }
+
+    public function getGebruikerNaam():string{
+        return $this->gebruikercontroller->getById();
     }
 
 

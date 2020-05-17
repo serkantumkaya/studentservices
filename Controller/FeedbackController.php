@@ -23,10 +23,22 @@ class FeedbackController
         return $feedbacklijst;
     }
 
-    public function add(int $projectID, int $gebruikerID, int $cijfer, string $feedback): bool{
-        return $this->Feedbackmodel->add($projectID, $gebruikerID, $cijfer, $feedback);
+    public function add(int $projectID, int $gebruikerID, int $cijfer, string $review): bool{
+        return $this->Feedbackmodel->add($projectID, $gebruikerID, $cijfer, $review);
     }
 
+    public function delete(int $Id){
+        return $this->Feedbackmodel->delete($Id);
+    }
 
+    public function update(Feedback $feedback){
+        return $this->Feedbackmodel->update($feedback);
+    }
+
+    public function getById(int $ID): Feedback{
+        $feedback = $this->Feedbackmodel->get($ID);
+        return new Feedback($feedback['FeedbackID'], $feedback['GebruikerID'], $feedback['ProjectID'],
+            $feedback['Cijfer'], $feedback['Review']);
+    }
 
 }

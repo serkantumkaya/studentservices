@@ -51,7 +51,6 @@ class SchoolModel
     }
 
     function update(School $school){
-
         $sql        =
             $this->conn->prepare("UPDATE SCHOOL SET Schoolnaam=:SN Where SchoolID =:SID");//let op id geen quotes
         $schoolnaam = $school->getSchoolnaam();

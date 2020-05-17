@@ -72,7 +72,7 @@ session_start();
                     {
                         $gebruikercontroller= new GebruikerController();
 
-                        foreach ($gebruikercontroller->GetGebruikers() as $gebruiker)
+                        foreach ($gebruikercontroller->getGebruikers() as $gebruiker)
                         {
                             echo "<tr> <td> <input type=\"submit\" value=\"".$gebruiker->getGebruikersNaam()."\" formaction='Edit.php?ID=".$gebruiker->getGebruikerID()."' class=\"table1col\"> </td></tr>";
                         }

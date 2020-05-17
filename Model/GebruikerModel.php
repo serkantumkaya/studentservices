@@ -15,7 +15,7 @@ class GebruikerModel
         $this->ID        = $ID;
     }
 
-    public function GetGebruikers(){
+    public function getGebruikers(){
         $sql = "SELECT GebruikerID,Gebruikersnaam,Wachtwoord,Email FROM Gebruiker";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }

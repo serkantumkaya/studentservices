@@ -31,9 +31,9 @@ class GebruikerController
         $this->OriginalUserName = $OriginalUserName;
     }
 
-    public function GetGebruikers(){
+    public function getGebruikers(){
         $GebruikerArray = [];
-        foreach ($this->gebruikermodel->GetGebruikers() as $gebruiker){
+        foreach ($this->gebruikermodel->getGebruikers() as $gebruiker){
 
             $gebruiker         = new Gebruiker(
                 $gebruiker['GebruikerID'],
@@ -127,7 +127,10 @@ class GebruikerController
         return $Errorsfound;
     }
 
-    function getById(int $id): gebruiker{
+    function getById(int $id = null): gebruiker{
+        if (isset($this->ID) && $this->ID != -1){
+            $id = $this->ID;
+        }
         $Gebruiker = $this->gebruikermodel->Get($id);
 
         return new Gebruiker(
