@@ -13,7 +13,9 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
 ?><!DOCTYPE HTML>
 <html>
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php"); ?>
+include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
+
+?>
 <!--overige knoppen-->
 
 

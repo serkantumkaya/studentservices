@@ -85,7 +85,7 @@ echo "\" /></div>
 if (isset( $_POST["GebruikersNaam"]) && isset( $_POST["Wachtwoord"]) &&
 isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation errors
 {
-    $gebruikercontroller= new GebruikerController();
+    $gebruikercontroller= new GebruikerController(-1);
 
     $answers = $gebruikercontroller->Add(
 

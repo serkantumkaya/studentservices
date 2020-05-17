@@ -38,7 +38,6 @@ class GebruikerModel
             'Wachtwoord' => $sha256ww,
             'Email' => $Email
         ]);
-        var_dump($parameters);
         return $sql->execute($parameters);
     }
 

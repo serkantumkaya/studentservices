@@ -59,6 +59,7 @@ EOD;
 
         <?php
         echo $uitvoer;
+
         ?>
     </nav>
     <img id=

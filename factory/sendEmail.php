@@ -45,7 +45,6 @@ class createEmail
         return false;
     }
 
-
     public function getemailerrorinfo(): string{
         return ($this->mail->ErrorInfo);
     }

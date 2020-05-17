@@ -17,7 +17,7 @@ class GebruikerController
 
 
     public function __construct($ID){
-        $this->gebruikermodel = new GebruikerModel();
+        $this->gebruikermodel = new GebruikerModel($ID);
         $this->verficateemail = new createEmail();
         $this->ID             = $ID;
     }
@@ -167,6 +167,7 @@ class GebruikerController
 
     function checkRechten(){
         $level = $this->gebruikermodel->checkRechten();
+
         if ($level == false){ //indien niet bestaat, level 1 terugsturen.
             return 1;
         } else{
