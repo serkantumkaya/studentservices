@@ -140,14 +140,14 @@ class Profiel
     /**
      * @return GebruikerStatus
      */
-    public function getStatus(): GebruikerStatus{
+    public function getStatus(): string{
         return $this->Status;
     }
 
     /**
      * @param GebruikerStatus $Status
      */
-    public function setStatus(GebruikerStatus $Status): void{
+    public function setStatus(string $Status): void{
         $this->Status = $Status;
     }
 

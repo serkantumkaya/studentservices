@@ -70,7 +70,7 @@ session_start();
 
                     function LoadList()
                     {
-                        $gebruikercontroller= new GebruikerController();
+                        $gebruikercontroller= new GebruikerController($_SESSION["GebruikerID"]);
 
                         foreach ($gebruikercontroller->getGebruikers() as $gebruiker)
                         {

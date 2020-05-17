@@ -50,17 +50,6 @@ class ProfielController
         return $ProfielArray;
     }
 
-    ////voor parameters bindparam gebruiken. Named parameters
-    //function add(int $GebruikerID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
-    //    string $Achternaam,string $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
-    //    string $Extentie,string $Postcode,string $Woonplaats,string $Geboortedatum,
-    //    string $Telefoonnummer)
-    //{
-    //    return $this->profielmodel->Add($GebruikerID,$Achternaam,
-    //        $Voornaam,$Straat,$Huisnummer,$Postcode,$Woonplaats);
-    //}
-
-
     //voor parameters bindparam gebruiken. Named parameters
     function add(int $GebruikerID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
         string $Achternaam,string $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
@@ -82,14 +71,15 @@ class ProfielController
 
     function getById(int $id): profiel{
         $Profiel = $this->profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        $schoolcontroller = new SchoolController();
+        $opleidingcontroller = new OpleidingController();
+
         return new Profiel(
             $Profiel[0]['ProfielID'],
-            $Profiel[0]['Wachtwoord'],
-            $Profiel[0]['Email'],
-            $Profiel[0]['School'],
-            $Profiel[0]['Opleiding'],
-            $Profiel[0]['Startdatumopleiding'],
-            $Profiel[0]['Foto'],
+            $Profiel[0]['GebruikerID'],
+            $schoolcontroller->getById($Profiel[0]['School']),
+            $opleidingcontroller->getById($Profiel[0]['Opleiding']),
+            new DateTime($Profiel[0]['Startdatumopleiding']),
             $Profiel[0]['Status'],
             $Profiel[0]['Achternaam'],
             $Profiel[0]['Voornaam'],
@@ -100,7 +90,7 @@ class ProfielController
             $Profiel[0]['Extentie'],
             $Profiel[0]['Postcode'],
             $Profiel[0]['Woonplaats'],
-            $Profiel[0]['Geboortedatum'],
+            new DateTime($Profiel[0]['Geboortedatum']),
             $Profiel[0]['Telefoonnummer']);
 
     }
