@@ -45,7 +45,7 @@ class FeedbackModel
         }
     }
 
-    public function update(Feedback $feedback){
+    public function update(Feedback $feedback):void {
         //    UPDATE `feedback` SET `ProjectID` = '4', `Cijfer` = '6', `Review` = 'HEEL GAAF' WHERE `feedback`.`FeedbackID` = 3;
         $sql =
             $this->conn->prepare("UPDATE Feedback SET ProjectID=:ProjectID, GebruikerID=:GebruikerID, Cijfer=:Cijfer, Review=:Review WHERE FeedbackID = ".$feedback->getFeedbackID()." ");
@@ -59,10 +59,26 @@ class FeedbackModel
         $sql->execute($parameters);
     }
 
+    /**
+     * haalt één feedback op aan de hand van het ID.
+     * @param int $ID
+     * @return array
+     */
 
-    public function get(int $ID): array{
+    public function get(int $ID): array {
         $sql = "SELECT * FROM FEEDBACK WHERE FeedbackID = $ID";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * haalt een hele hoop feedback op, die een gebruiker heeft gegeven.
+     * @param $ID
+     * @return array
+     */
+
+    public function getGegevenFeedbak($ID){
+        $sql = "SELECT * FROM FEEDBACK WHERE GebruikerID = $ID";
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

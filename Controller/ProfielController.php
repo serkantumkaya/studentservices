@@ -27,7 +27,7 @@ class ProfielController
             $schoolc    = new SchoolController();
             $opleidingc = new OpleidingController();
 
-            $profiel = new Profiel(
+            $profiel         = new Profiel(
                 $profiel['ProfielID'],
                 $profiel['GebruikerID'],
                 $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
@@ -51,13 +51,12 @@ class ProfielController
     }
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(int $GebruikerID,?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
-        string $Achternaam,string $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
-        string $Extentie,string $Postcode,string $Woonplaats,string $Geboortedatum,
-        string $Telefoonnummer)
-    {
-        return $this->profielmodel->Add($GebruikerID,$School,$Opleiding,$Startdatumopleiding,$Status,$Achternaam,
-            $Voornaam,$Tussenvoegsel,$Prefix,$Straat,$Huisnummer,$Extentie,$Postcode,$Woonplaats,$Geboortedatum,
+    function add(int $GebruikerID, ?School $School, ?Opleiding $Opleiding, string $Startdatumopleiding, string $Status,
+        string $Achternaam, string $Voornaam, string $Tussenvoegsel, string $Prefix, string $Straat, int $Huisnummer,
+        string $Extentie, string $Postcode, string $Woonplaats, string $Geboortedatum,
+        string $Telefoonnummer){
+        return $this->profielmodel->Add($GebruikerID, $School, $Opleiding, $Startdatumopleiding, $Status, $Achternaam,
+            $Voornaam, $Tussenvoegsel, $Prefix, $Straat, $Huisnummer, $Extentie, $Postcode, $Woonplaats, $Geboortedatum,
             $Telefoonnummer);
     }
 
@@ -70,9 +69,9 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        $profielmodel = new ProfielModel();
-        $Profiel = $profielmodel->GetById($id)->fetch(PDO::FETCH_ASSOC);
-        $schoolcontroller = new SchoolController();
+        $profielmodel        = new ProfielModel();
+        $Profiel             = $profielmodel->GetById($id)->fetch(PDO::FETCH_ASSOC);
+        $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
         return new Profiel(
@@ -96,15 +95,15 @@ class ProfielController
 
     }
 
-    function getByGebruikerID()
-    {
+    function getByGebruikerID(){
         var_dump($this->gebruikerID);
         $profielmodel = new ProfielModel($this->gebruikerID);
         var_dump($profielmodel);
-        $Profielc =$profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
-        if (!isset($Profielc) || $Profielc == false)
-            return null;//Profile does not exist
-        $schoolcontroller = new SchoolController();
+        $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
+        if (!isset($Profielc) || $Profielc == false){
+            return null;
+        }//Profile does not exist
+        $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
         return new Profiel(

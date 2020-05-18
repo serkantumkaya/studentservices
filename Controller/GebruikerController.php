@@ -149,6 +149,12 @@ class GebruikerController
         return $Errorsfound;
     }
 
+    /**
+     *
+     * @param int|null $id
+     * @return gebruiker
+     */
+
     function getById(int $id = null): gebruiker{
         if (isset($this->ID) && $this->ID != -1){
             $id = $this->ID;
