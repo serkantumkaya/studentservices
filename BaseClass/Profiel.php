@@ -238,14 +238,14 @@ class Profiel
     /**
      * @return string
      */
-    public function getExtentie(): string{
+    public function getExtensie(): string{
         return $this->Extentie;
     }
 
     /**
      * @param string $Extentie
      */
-    public function setExtentie(string $Extentie): void{
+    public function setExtensie(string $Extentie): void{
         $this->Extentie = $Extentie;
     }
 

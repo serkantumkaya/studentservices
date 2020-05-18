@@ -67,10 +67,10 @@ if (!isset($_SESSION["CurrentProfiel"]))
 
 if (isset($_GET["ID"]) || isset($profiel))
 {
+    $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
     //als de admin inlogt
     if (isset($_GET["ID"])){
-        $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $profiel           = $profielcontroller->getById($_GET["ID"]);
+        $profiel = $profielcontroller->getById($_GET["ID"]);
     }
 
     $_SESSION["CurrentProfiel"] = $profiel;
@@ -84,7 +84,7 @@ if (isset($_GET["ID"]) || isset($profiel))
     $Prefix=$profiel->getPrefix();
     $Straat=$profiel->getStraat();
     $Huisnummer=$profiel->getHuisnummer();
-    $Extensie =$profiel->getExtentie();
+    $Extensie =$profiel->getExtensie();
     $Postcode=$profiel->getPostcode();
     $Woonplaats=$profiel->getWoonplaats();
     $Geboortedatum=$profiel->getGeboortedatum()->format('d-m-Y');
@@ -159,7 +159,7 @@ if (isset($_POST["Woonplaats"]) && $_POST["Woonplaats"] =="")
 }
 #endregion
 
-$gbController = new GebruikerController();
+$gbController = new GebruikerController($_SESSION["GebruikerID"]);
 $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
 
@@ -267,8 +267,8 @@ echo "\"/>
  <div class='formcol1'>Status</div>
   <div class='formcol2'>
 <select name=\"Status\">";
-        $Status = new EnumGebruikerStatus();
-        foreach($Status->getConstants() as $st)
+        $EnumStatus = new EnumGebruikerStatus();
+        foreach($EnumStatus->getConstants() as $st)
         {
             echo "<option value=\"$st\">$st</option>";
         }
@@ -306,14 +306,21 @@ if (isset($_POST["delete"]))
 }
 else if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
+    var_dump($Startdatumopleiding);
+    var_dump($Geboortedatum);
     $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School, $Opleiding,
-        strtotime($Startdatumopleiding),  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
+        null,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
          $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
-         $Woonplaats,  $Geboortedatum, $Telefoonnummer);
+         $Woonplaats,  null, $Telefoonnummer);
 
     if ($Profielcontroller->update($profiel))
     {
-        header("Location: View/Profiel/View.php");
+        if ($_SESSION["level"]>=50)
+            //echo "Record opgeslagen";
+            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
+        else
+            echo "Record opgeslagen";
+            //Do nothing you're already there.
     }
     else
     {

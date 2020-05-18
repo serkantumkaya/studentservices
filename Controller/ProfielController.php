@@ -70,29 +70,29 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        $profielmodel = new ProfielController();
-        $Profiel = $profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        $profielmodel = new ProfielModel();
+        $Profiel = $profielmodel->GetById($id)->fetch(PDO::FETCH_ASSOC);
         $schoolcontroller = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
         return new Profiel(
-            $Profiel[0]['ProfielID'],
-            $Profiel[0]['GebruikerID'],
-            $schoolcontroller->getById($Profiel[0]['School']),
-            $opleidingcontroller->getById($Profiel[0]['Opleiding']),
-            new DateTime($Profiel[0]['Startdatumopleiding']),
-            $Profiel[0]['Status'],
-            $Profiel[0]['Achternaam'],
-            $Profiel[0]['Voornaam'],
-            $Profiel[0]['Tussenvoegsel'],
-            $Profiel[0]['Prefix'],
-            $Profiel[0]['Straat'],
-            $Profiel[0]['Huisnummer'],
-            $Profiel[0]['Extentie'],
-            $Profiel[0]['Postcode'],
-            $Profiel[0]['Woonplaats'],
-            new DateTime($Profiel[0]['Geboortedatum']),
-            $Profiel[0]['Telefoonnummer']);
+            $Profiel['ProfielID'],
+            $Profiel['GebruikerID'],
+            $schoolcontroller->getById($Profiel['School']),
+            $opleidingcontroller->getById($Profiel['Opleiding']),
+            new DateTime($Profiel['Startdatumopleiding']),
+            $Profiel['Status'],
+            $Profiel['Achternaam'],
+            $Profiel['Voornaam'],
+            $Profiel['Tussenvoegsel'],
+            $Profiel['Prefix'],
+            $Profiel['Straat'],
+            $Profiel['Huisnummer'],
+            $Profiel['Extentie'],
+            $Profiel['Postcode'],
+            $Profiel['Woonplaats'],
+            new DateTime($Profiel['Geboortedatum']),
+            $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']);
 
     }
 
@@ -101,7 +101,7 @@ class ProfielController
         var_dump($this->gebruikerID);
         $profielmodel = new ProfielModel($this->gebruikerID);
         var_dump($profielmodel);
-        $Profielc =$profielmodel->getByGebruikerID($this->gebruikerID)->fetchAll(PDO::FETCH_ASSOC);
+        $Profielc =$profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
         if (!isset($Profielc) || $Profielc == false)
             return null;//Profile does not exist
         $schoolcontroller = new SchoolController();

@@ -69,38 +69,35 @@ class ProfielModel
         return $sql->execute($parameters);
     }
 
-    function update(int $ProfielID, ?School $School,?Opleiding $Opleiding,string $Startdatumopleiding,string $Status,
-        string $Achternaam,String $Voornaam,string $Tussenvoegsel,string $Prefix,string $Straat,int $Huisnummer,
-        string $Extensie,string $Postcode,string $Woonplaats,string $Geboortedatum,string $Telefoonnummer){
+    function update(Profiel $profiel){
 
         $sql =
 
             $this->conn->prepare("UPDATE Profiel SET 
             School=:School ,Opleiding=:Opleiding ,Startdatumopleiding=:Startdatumopleiding ,Status=:Status,
             Achternaam=:Achternaam ,Voornaam=:Voornaam ,Tussenvoegsel=:Tussenvoegsel,Prefix=:Prefix ,Straat=:Straat ,Huisnummer=:Huisnummer,
-            Extentie=:Extentie ,Postcode=:Postcode ,Woonplaats=:Woonplaats ,Geboortedatum=:Geboortedatum ,Telefoonnummer=:Telefoonnummer)
-            VALUES (:GebruikersID ,:School ,:Opleiding ,:Startdatumopleiding ,:Status,:Achternaam ,:Voornaam ,:Tussenvoegsel,:Prefix ,
+            Extentie=:Extensie ,Postcode=:Postcode ,Woonplaats=:Woonplaats ,Geboortedatum=:Geboortedatum ,Telefoonnummer=:Telefoonnummer
             Where ProfielID=:ProfielID");//let op id geen quotes
 
         $parameters = [
-            'ProfielID' => $ProfielID,
-            'School' => $School,
-            'Opleiding' => $Opleiding,
-            'Startdatumopleiding' => $Startdatumopleiding,
-            'Status' => $Status,
-            'Achternaam' => $Achternaam,
-            'Voornaam' => $Voornaam,
-            'Tussenvoegsel' => $Tussenvoegsel,
-            'Prefix' => $Prefix,
-            'Straat' => $Straat,
-            'Huisnummer' => $Huisnummer,
-            'Extensie' => $Extensie,
-            'Postcode' => $Postcode,
-            'Woonplaats' => $Woonplaats,
-            'Geboortedatum' => $Geboortedatum,
-            'Telefoonnummer' => $Telefoonnummer,
+            'School' => $profiel->getSchool()->getSchoolID(),
+            'Opleiding' => $profiel->getOpleiding()->getOpleidingID(),
+            'Startdatumopleiding' => null,//$profiel->getStartdatumopleiding(),
+            'Status' => $profiel->getStatus(),
+            'Achternaam' => $profiel->getAchternaam(),
+            'Voornaam' => $profiel->getVoornaam(),
+            'Tussenvoegsel' => $profiel->getTussenvoegsel(),
+            'Prefix' => $profiel->getPrefix(),
+            'Straat' => $profiel->getStraat(),
+            'Huisnummer' => $profiel->getHuisnummer(),
+            'Extensie' => $profiel->getExtensie(),
+            'Postcode' => $profiel->getPostcode(),
+            'Woonplaats' => $profiel->getWoonplaats(),
+            'Geboortedatum' => $profiel->getGeboortedatum(),
+            'Telefoonnummer' => null,//$profiel->getTelefoonnummer(),
+            'ProfielID' => $profiel->getProfielID()
         ];
-
+        var_dump($parameters);
         return $sql->execute($parameters);
     }
 
