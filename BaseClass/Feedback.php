@@ -1,5 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+
 class Feedback
 {
 
@@ -11,11 +12,11 @@ class Feedback
     private GebruikerController $gebruikercontroller;
 
     public function __construct(int $FeedbackID, int $GebruikerID, int $ProjectID, int $Cijfer, string $Review){
-        $this->FeedbackID  = $FeedbackID;
-        $this->GebruikerID = $GebruikerID;
-        $this->ProjectID   = $ProjectID;
-        $this->Cijfer      = $Cijfer;
-        $this->Review      = $Review;
+        $this->FeedbackID          = $FeedbackID;
+        $this->GebruikerID         = $GebruikerID;
+        $this->ProjectID           = $ProjectID;
+        $this->Cijfer              = $Cijfer;
+        $this->Review              = $Review;
         $this->gebruikercontroller = new GebruikerController($this->getGebruikerID());
     }
 
@@ -89,16 +90,37 @@ class Feedback
         $this->Review = $Review;
     }
 
+    /**
+     * verkorte versie van de Review teruggeven. past beter op het scherm
+     * @return string
+     */
+
     public function getReviewKort(): string{
         if (strlen($this->Review)>40){
-            return substr($this->Review,0,40)."...";
+            return substr($this->Review, 0, 40) . "...";
         } else{
             return $this->Review;
         }
     }
 
-    public function getGebruikerNaam():string{
+    /**
+     * Gebruikersnaam ophalen aan de hand van het ID.
+     * dit is de persoon die de feedback heeft gegeven
+     *  TODO: Dit moet naar de Controller.
+     * @return string
+     */
+
+    public function getGebruikerNaam(): string {
         return $this->gebruikercontroller->getById();
+    }
+
+    /**
+     * Naam ophalen van degene die het heeft gegeven.
+     * @return string
+     */
+
+    public function getGeversNaam(): string{
+        //TODO: moet denk ik in de controller van de gebruiker??
     }
 
 

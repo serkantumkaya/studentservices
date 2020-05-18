@@ -304,4 +304,6 @@ class Profiel
     public function setTelefoonnummer(string $Telefoonnummer): void{
         $this->Telefoonnummer = $Telefoonnummer;
     }
+
+
 }

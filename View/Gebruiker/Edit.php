@@ -52,7 +52,7 @@ session_start();
 
 if (isset($_GET["ID"]))
 {
-    $gebruikercontroller= new GebruikerController();
+    $gebruikercontroller= new GebruikerController(-1);
     $gebruiker= $gebruikercontroller->getById($_GET["ID"]);
     $_SESSION["CurrentGebruiker"] = $gebruiker;
     $_SESSION["OriginalLoginName"] = $gebruiker->getGebruikersnaam();
@@ -108,7 +108,7 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
 
 if (isset($_POST["delete"]))
 {
-    $gebruikercontroller= new GebruikerController();
+    $gebruikercontroller= new GebruikerController(-1);
     if ($gebruikercontroller->delete($_SESSION["CurrentGebruiker"]->getGebruikerID()))
     {
         header("Location: View.php");
@@ -117,7 +117,7 @@ if (isset($_POST["delete"]))
 }
 else if (!isset($_POST["Delete"]) && isset($_SESSION["Gebruikersnaam"]) && isset($_SESSION["Email"]))
 {
-    $gebruikercontroller= new GebruikerController();
+    $gebruikercontroller= new GebruikerController(-1);
 
     $gebruiker = new Gebruiker($_SESSION["CurrentGebruiker"]->getGebruikerID(),$_SESSION["Gebruikersnaam"] ,"",$_SESSION["Email"]);
     $gebruikercontroller->setOriginalUserName($_SESSION["OriginalLoginName"]);
