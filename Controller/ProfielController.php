@@ -11,8 +11,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolCont
 //hier doe je de crud afvangen vanuit de profiel.
 class ProfielController
 {
-    private ProfielModel $profielmodel;
-    private int $ebruikerID;
+    private $profielmodel;
+    private $gebruikerID;
 
     //link the gebruiker here so you always have a connection to the logged on user.
     public function __construct(int $GebruikerID){
@@ -70,7 +70,8 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        $Profiel = $this->profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        $profielmodel = new ProfielController();
+        $Profiel = $profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
         $schoolcontroller = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
@@ -92,6 +93,38 @@ class ProfielController
             $Profiel[0]['Woonplaats'],
             new DateTime($Profiel[0]['Geboortedatum']),
             $Profiel[0]['Telefoonnummer']);
+
+    }
+
+    function getByGebruikerID()
+    {
+        var_dump($this->gebruikerID);
+        $profielmodel = new ProfielModel($this->gebruikerID);
+        var_dump($profielmodel);
+        $Profielc =$profielmodel->getByGebruikerID($this->gebruikerID)->fetchAll(PDO::FETCH_ASSOC);
+        if (!isset($Profielc) || $Profielc == false)
+            return null;//Profile does not exist
+        $schoolcontroller = new SchoolController();
+        $opleidingcontroller = new OpleidingController();
+
+        return new Profiel(
+            $Profielc['ProfielID'],
+            $Profielc['GebruikerID'],
+            $schoolcontroller->getById($Profielc['School']),
+            $opleidingcontroller->getById($Profielc['Opleiding']),
+            new DateTime($Profielc['Startdatumopleiding']),
+            $Profielc['Status'],
+            $Profielc['Achternaam'],
+            $Profielc['Voornaam'],
+            $Profielc['Tussenvoegsel'],
+            $Profielc['Prefix'],
+            $Profielc['Straat'],
+            $Profielc['Huisnummer'],
+            $Profielc['Extentie'],
+            $Profielc['Postcode'],
+            $Profielc['Woonplaats'],
+            new DateTime($Profielc['Geboortedatum']),
+            $Profielc['Telefoonnummer']);
 
     }
 

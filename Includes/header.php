@@ -2,9 +2,8 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 
 $GC    = new GebruikerController($_SESSION['GebruikerID']);
-$level = $GC->checkRechten();
 
-if ($level>=50){
+if ($_SESSION["level"]>=50){
     $uitvoer = <<<EOD
             <!-- [MENU ITEMS] -->
 <!--            ADMIN heeft admin en normale menu's -->
@@ -23,6 +22,7 @@ if ($level>=50){
             <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
             <li><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>
             <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
+            
             <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
             <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
             <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>

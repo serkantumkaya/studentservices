@@ -8,7 +8,6 @@ class ProfielModel
 {
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
-    private Profiel $profiel;
 
     public function __construct(){
         $this->ConnectDb = new ConnectDb();
@@ -105,8 +104,13 @@ class ProfielModel
         return $sql->execute($parameters);
     }
 
-    function getById(int $ID){
+    function getByID(int $ID){
         $sql = "SELECT *  FROM Profiel WHERE ProfielID =$ID";
+        return $this->conn->query($sql);
+    }
+
+    function getByGebruikerID(int $ID){
+        $sql = "SELECT *  FROM Profiel WHERE GebruikerID =$ID";
         return $this->conn->query($sql);
     }
 }

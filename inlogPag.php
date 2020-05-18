@@ -16,6 +16,8 @@ if (isset($_POST['username']) && $_POST['password']){
     if ($Gebruiker->getGebruikerID() != -1){
         echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
+        $GC    = new GebruikerController($_SESSION['GebruikerID']);
+        $_SESSION["level"] = $GC->checkRechten();
 
         //$_SESSION["Gebruiker"] = $Gebruiker;
         header("Location: index.php");

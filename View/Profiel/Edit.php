@@ -1,5 +1,6 @@
 
 <?php
+//todo: haal deze error meldingen weg bij release
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
@@ -54,10 +55,24 @@ session_start();
 
 <?php
 $GebruikersID =$_SESSION["GebruikerID"];
-if (isset($_GET["ID"]))
+
+if (!isset($_SESSION["CurrentProfiel"]))
 {
+    //Directly from the login. So look for the profile by gebruikersID
     $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
-    $profiel= $profielcontroller->getById($_GET["ID"]);
+    $profiel = $profielcontroller->getByGebruikerID();
+    if ($profiel == null)
+        header("Location: Add.php");
+}
+
+if (isset($_GET["ID"]) || isset($profiel))
+{
+    //als de admin inlogt
+    if (isset($_GET["ID"])){
+        $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        $profiel           = $profielcontroller->getById($_GET["ID"]);
+    }
+
     $_SESSION["CurrentProfiel"] = $profiel;
     $School =$profiel->getSchool();
     $Opleiding=$profiel->getOpleiding();
@@ -249,17 +264,6 @@ echo $Startdatumopleiding;
 echo "\"/>
 </div>
 
-  <!--foto-->
- <div class='formcol1'>Foto</div><input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" class=\"formcol2\">
-  <div class='formcol1'>Huidige foto</div>
-  <div class='formcol2'><div class='formcol3'>
-  
-  <a href='/StudentServices/images/studenten/ss3.png'>
-<img id=\"nieuwestudent\" src=\"/StudentServices/images/studenten/ss3.png\" class=\"studentfoto\"/></a>
-</div>
-</div>
-
-
  <div class='formcol1'>Status</div>
   <div class='formcol2'>
 <select name=\"Status\">";
@@ -278,15 +282,25 @@ echo"</select>
 echo "\"></div> <div class='formcol1'>
        <input type=\"submit\" value=\"submit\" name='submit' > <input type=\"submit\" value=\"delete\" name='delete' ></div> <br><br><br>
     </form >";
-}
+};?>
 
+
+    <form name="frmImage" enctype="multipart/form-data" action=""
+      method="post" class="frmImageUpload">
+    <label>Kies een profielfoto:</label><br />
+    <input name="userImage" type="file"  />
+    <input type="submit" value="SubmitprofilePhoto"  />
+</form>
+
+    <?php
 $Profielcontroller= new ProfielController($GebruikersID);
+
 if (isset($_POST["delete"]))
 {
 
     if ($Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID()))
     {
-        header("Location: View.php");
+        header("Location: Add.php");
     }
 
 }

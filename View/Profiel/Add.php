@@ -92,7 +92,7 @@ if (!isset($_POST["Woonplaats"]) || isset($_POST["Woonplaats"]) =="")
     $noerror = false;
 }
 
-$gbController = new GebruikerController();
+$gbController = new GebruikerController($_SESSION["GebruikerID"]);
 $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
 echo "Profiel aanmaken voor : ".$gebruiker->getGebruikersnaam()."<br>";
@@ -112,7 +112,7 @@ echo "<!--Voornaam-->
 
 echo "<!--Tussenvoegsel-->";
 echo "<div class='profiellabel'>Tussenvoegsel</div>
-         <div class='profielinput'><input type = \"password\" name=\"Tussenvoegsel\" value=\"";
+         <div class='profielinput'><input type = \"text\" name=\"Tussenvoegsel\" value=\"";
 if (isset($_POST["Tussenvoegsel"])) echo $_POST["Tussenvoegsel"];
 echo "\" /></div>";
 
@@ -251,8 +251,12 @@ if ($noerror)//No validation errors
         $_POST["Telefoonnummer"] == null ? "" : $_POST["Telefoonnummer"]
         ))
     {
+        if ($_SESSION["level"]>=50)
         //echo "Record opgeslagen";
-        header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/View.php");
+            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
+        else
+            //echo "Record opgeslagen";
+            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/edit.php");
     }
     else
     {
