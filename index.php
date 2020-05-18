@@ -7,9 +7,21 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"]==-1)
 {
     Header("Location: /StudentServices/inlogPag.php");
 }
-?>
 
-<!DOCTYPE HTML>
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProjectController.php");
+
+$ProjectController = new ProjectController();
+
+$projecten = $ProjectController->getProjecten();
+
+$update =
+
+var_dump($projecten);
+
+
+die();
+
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -41,6 +53,9 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"]==-1)
 
             <ul>
                 <?php
+
+
+
                 $GebrID = 0;//created a temp. dummy. Put Jelle's code back for login later to make this work again.
                 //echo "<li><a href=\"index.php?GebrID=$GebrID\">Home</a></li>";
                 //switch role

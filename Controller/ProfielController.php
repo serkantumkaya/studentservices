@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ProfielModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Opleiding.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/School.php");
-//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Projecten.php");
+//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Project.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 
@@ -12,7 +12,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolCont
 class ProfielController
 {
     private ProfielModel $profielmodel;
-    private int $ebruikerID;
+    private int $GebruikerID;
 
     //link the gebruiker here so you always have a connection to the logged on user.
     public function __construct(int $GebruikerID){
@@ -62,7 +62,7 @@ class ProfielController
         string $Wachtwoord,
         string $Email,
         ?School $School,
-        ?Opleiding $Opleidingg,
+        ?Opleiding $Opleiding,
         ?DateTime $Startdatumopleiding,
         string $Status,
         string $Achternaam,
@@ -80,7 +80,7 @@ class ProfielController
             $Wachtwoord,
             $Email,
             $School,
-            $Opleidingg,
+            $Opleiding,
             $Startdatumopleiding,
             $Status,
             $Achternaam,
