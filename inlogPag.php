@@ -44,6 +44,10 @@ if (isset($_POST['username']) && $_POST['password']){
 </head>
 <body>
 
+<div class="popup" id="test">
+    <span class="popuptext" id="myPopup"></span>
+</div>
+
 <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
     <!--styling is tijdelijk-->

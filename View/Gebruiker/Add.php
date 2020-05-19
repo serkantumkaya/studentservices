@@ -44,6 +44,9 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 </div>
 
 <div class="info">
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
 <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
