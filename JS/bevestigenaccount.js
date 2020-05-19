@@ -10,7 +10,7 @@ function vertifyemaillink() {
     //console.log(email);
     //console.log(username);
     $.ajax({
-        url: '/StudentServices/factory/requestbevestigaccount.php',
+        url: '/StudentServices/Controller/RequestbevestigaccountController.php',
         method: 'POST',
         dataType: 'json',
         data: {
@@ -20,10 +20,12 @@ function vertifyemaillink() {
         }, success: function (response) {
             if (response.status == "success") {
                 console.log(response["response"]);
-                alert(response["response"]);
+             //   alert(response["response"]);
+                window.location.href = "http://localhost/StudentServices/inlogPag.php?action=succes&content=" + response["response"];
             } else {
-                alert(response["response"]);
+               // alert(response["response"]);
                 console.log(response["response"]);
+                window.location.href = "http://localhost/StudentServices/View/Gebruiker/Add.php?action=failed&content=" + response["response"];
             }
         }
     });

@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/GebruikerModel.
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Gebruiker.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/factory/sendEmail.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/sendEmail.php");
 
 //hier doe je de crud afvangen vanuit de gebruiker.
 class GebruikerController
@@ -148,6 +148,12 @@ class GebruikerController
         }
         return $Errorsfound;
     }
+
+    /**
+     *
+     * @param int|null $id
+     * @return gebruiker
+     */
 
     function getById(int $id = null): gebruiker{
         if (isset($this->ID) && $this->ID != -1){

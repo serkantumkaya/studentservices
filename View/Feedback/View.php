@@ -53,13 +53,21 @@ if (empty($_Post) && !isset($_Post["actie"])){
 <form method="post" action="Edit.php">
     <table>
         <tr>
+            <th>Gegeven door</th>
             <th>ProjectID</th>
             <th>Feedback</th>
             <th>Cijfer</th>
         </tr>
         <?php
+
         foreach ($feedbackController->getFeedback() as $feedback){
+
             echo "<tr>
+                    <td>
+                        <input type=\"submit\" value=\"" . $feedback->getGebruikerNaam() .
+                "\" formaction='../Profiel/Edit.php?ID=" . $feedback->getGebruikerID() .
+                "' class=\"table1col\"> 
+                    </td>
                     <td>
                         <input type=\"submit\" value=\"" . $feedback->getProjectID() .
                 "\" formaction='../Project/Edit.php?ID=" . $feedback->getProjectID() .
@@ -72,9 +80,10 @@ if (empty($_Post) && !isset($_Post["actie"])){
                     </td>
                     <td>
                         <input type=\"submit\" value=\"" . $feedback->getCijfer() .
-                "\" formaction='../Project/Edit.php?ID=" . $feedback->getProjectID() .
+                "\" formaction='Edit.php?ID=" . $feedback->getFeedbackID() .
                 "' class=\"table1col\"> 
                     </td>
+                    
                 </tr>";
         }
         ?>

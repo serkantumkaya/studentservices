@@ -44,6 +44,9 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 </div>
 
 <div class="info">
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
 <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
@@ -98,7 +101,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
     if ($answers["Errorsfound"] == "")
     {
         $_SESSION["GebruikerID"] = -1;
-        header("Location:". $_SERVER['DOCUMENT_ROOT']."/StudentServices/Inlogpag.php");
+        header("Location:/StudentServices/Inlogpag.php?action=succes&content= verficatie email verstuurt gelukt");
     }
     else
     {
