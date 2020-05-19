@@ -12,11 +12,11 @@ if (isset($_POST['username']) && $_POST['password']){
     $pwsafe    = $DB->MakeSafe($password);
     $GC        = new GebruikerController(-1);
     $Gebruiker = $GC->Validate($username, $pwsafe);
-    //var_dump($Gebruiker->getGebruikerID());
+
     if ($Gebruiker->getGebruikerID() != -1){
         echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
-        //var_dump("test");
+
         //$_SESSION["Gebruiker"] = $Gebruiker;
         header("Location: index.php");
     } else{
@@ -41,10 +41,6 @@ if (isset($_POST['username']) && $_POST['password']){
     </script>
 </head>
 <body>
-
-<div class="popup" id="test">
-    <span class="popuptext" id="myPopup"></span>
-</div>
 
 <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
@@ -71,6 +67,7 @@ if (isset($_POST['username']) && $_POST['password']){
             echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value = 'Wachtwoord vergeten' />";
         }
         ?>
+
     </div>
 
 </form>

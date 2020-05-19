@@ -23,13 +23,11 @@ class ConnectDB {
 
     }
 
-    public static function makeSafe( $password)
+    public static function makeSafe($password)
     {
-       $salt = "Gue\$This0192893847KGYTRT!";
-
+        $salt = "Gue\$This0192893847KGYTRT!";
         //TODO: toepassen in alles wat wachtwoorden bevat
         return hash("sha256", "{$salt}.{$password}");
-     //   return hash("sha256", $password);
     }
 
     public function GetConnection() : PDO

@@ -1,10 +1,8 @@
 $(document ).ready(function() {
     showSlides();
-    showpopup();
 });
 
 var slideIndex = -1; //standaard geen slides selecteren
-var blockbit  = false;
 
 function showSlides() {
     var i;
@@ -18,7 +16,7 @@ function showSlides() {
     {
         slideIndex = 0
     }
-   // slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
+    slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
     setTimeout(showSlides, 10000); // elke 10 sec wisselen
 }
 
@@ -45,38 +43,3 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-
-
-function showpopup() {
-
-    var queryString = window.location.href;
-    var readdata = new URL(queryString);
-    if(!(readdata.searchParams.get('action') == "failed") ^ (readdata.searchParams.get('action') == "succes")){
-        document.getElementById("test").style.margin = "0";
-       // console.log((readdata.searchParams.get('action') == "failed") ^ (readdata.searchParams.get('action') == "succes"));
-    }
-    if(readdata.searchParams.get('action') == "succes"){
-        var popup = document.getElementById("myPopup");
-        document.getElementById("myPopup").innerHTML = readdata.searchParams.get('content');
-        document.getElementById("myPopup").style.backgroundColor = "green";
-        popup.classList.toggle("show");
-    }
-    if(readdata.searchParams.get('action') == "failed"){
-        var popup = document.getElementById("myPopup");
-        document.getElementById("myPopup").innerHTML = readdata.searchParams.get('content');
-        document.getElementById("myPopup").style.backgroundColor = "red";
-        popup.classList.toggle("show");
-    }
-    if(!blockbit) {
-        setTimeout(showpopup, 5000);
-        blockbit = true;
-
-
-    }
-    else{
-        document.getElementById("test").style.margin = "0";
-    }
-}
-
-

@@ -3,6 +3,7 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -43,12 +44,9 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 </div>
 
 <div class="info">
-    <div class="popup" id="test">
-        <span class="popuptext" id="myPopup"></span>
-    </div>
+<!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
-    <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
-    <?php
+<?php
 $NaamErr = "";
 $EmailErr = "";
 $WachtwoordErr = "";
@@ -58,7 +56,7 @@ $WachtwoordCheckErr = "";
 //dus de invoer checken met javascript maar ook in de controler controleren serverside.
 
 echo "<h1 > Aanmaken login gegevens</h1 ><br>
-<form method = \"post\" >
+<form action = \"Add.php\" method = \"post\" >
 
     <div class='gebruikerlabel'>Gebruikersnaam *</div>
         <div class='gebruikerinput'><input type = \"text\" name=\"GebruikersNaam\" value=\"";
@@ -99,8 +97,8 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
 
     if ($answers["Errorsfound"] == "")
     {
-       $_SESSION["GebruikerID"] = -1;
-        header("Location: /StudentServices/Inlogpag.php?action=succes&content=Email%20is%20verstuurd.");
+        $_SESSION["GebruikerID"] = -1;
+        header("Location:". $_SERVER['DOCUMENT_ROOT']."/StudentServices/Inlogpag.php");
     }
     else
     {
@@ -115,6 +113,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
         if ($WachtwoordErr != "") echo "<br>".$WachtwoordErr;
     }
 }
+
 ?>
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </div>
@@ -123,6 +122,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
         <?php
         $GebrID = 1;
         echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
+
         ?>
     </div>
 </div>

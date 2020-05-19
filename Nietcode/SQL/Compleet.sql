@@ -134,16 +134,6 @@ FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
 FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
 
- CREATE TABLE TOACTIVATEUSERS(
-                   UserID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                   Username varchar(50) NOT NULL UNIQUE,
-                  Wachtwoord varchar(90) NOT NULL,
-                   Email varchar(50) NOT NULL,
-                   Timestamp varchar(50) NOT NULL,
-                   Activationcode varchar(30) NOT NULL);
-
-                   ALTER TABLE TOACTIVATEUSERS AUTO_INCREMENT = 1000;
-
 INSERT INTO SCHOOL (schoolnaam) values('Avans Hogeschool'),
 ('Aeres Hogeschool'),
 ('Amsterdamse Hogeschool voor de Kunsten'),

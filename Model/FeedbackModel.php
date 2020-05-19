@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Feedback.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
-class  FeedbackModel
+class FeedbackModel
 {
 
     private PDO $conn;//current connection
