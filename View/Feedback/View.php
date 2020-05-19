@@ -7,6 +7,7 @@ session_start();
 if (empty($_Post) && !isset($_Post["actie"])){
     $feedbackController = new FeedbackController();
 }
+
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>

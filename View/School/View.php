@@ -4,7 +4,6 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 session_start();
 
-
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -33,9 +32,7 @@ session_start();
         <!-- [THE HAMBURGER] -->
         <label for="hamburger">&#9776;</label>
         <input type="checkbox" id="hamburger"/>
-
         <!-- [MENU ITEMS] -->
-
         <ul>
             <?php
             echo "<li>
