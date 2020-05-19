@@ -1,9 +1,7 @@
-
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 session_start();
-?>
-<!DOCTYPE HTML>
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -18,9 +16,6 @@ session_start();
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-
-</head>
-
 <body>
 
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
@@ -45,41 +40,38 @@ session_start();
 <div class="info">
     <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
-<h1>Wijzigen school</h1>
-<?php
+    <h1>Wijzigen school</h1>
+    <?php
+    if (isset($_GET["ID"])){
+        $schoolcontroller          = new SchoolController();
+        $school                    = $schoolcontroller->getById($_GET["ID"]);
+        $_SESSION["CurrentSchool"] = $school;
+    }
 
+    if (isset($_POST["SchoolNaam"])){
+        $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
+    }
 
-if (isset($_GET["ID"]))
-{
-    $schoolcontroller= new SchoolController();
-    $school = $schoolcontroller->getById($_GET["ID"]);
-    $_SESSION["CurrentSchool"] = $school;
-}
+    if ($_SESSION["CurrentSchool"] != null){
+        $school = $_SESSION["CurrentSchool"];
+    }
 
-if (isset($_POST["SchoolNaam"]))
-{
-    $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
-}
+    ?>
 
-if ( $_SESSION["CurrentSchool"] != null)
-{
-    $school = $_SESSION["CurrentSchool"];
-}
+    <?php
+    $value = "";
+    if (isset($_POST["Post"])){
+        $value = $_SESSION["CurrentNaam"];
+    } else{
+        if (isset($_GET["ID"])){
+            $value = $school->getSchoolnaam();
+        } else{
+            $value = $_POST["SchoolNaam"];
+        }
+    }
 
-?>
-
-<?php
-$value = "";
-if (isset($_POST["Post"]))
-    $value =  $_SESSION["CurrentNaam"];
-else if (isset($_GET["ID"]))
-    $value =  $school->getSchoolnaam();
-else
-    $value =  $_POST["SchoolNaam"];
-
-if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
-{
-    echo "<form action=\"Edit.php\" method=\"post\">
+    if (!isset($_POST["Delete"]) && isset($_GET["ID"])){
+        echo "<form action=\"Edit.php\" method=\"post\">
     School:
     <input type=\"text\" name=\"SchoolNaam\" value=\"" . $value . "\"/>
 
@@ -87,34 +79,28 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"]))
             <input type=\"submit\" value=\"delete\" name=\"delete\" class=\"ssbutton\">
     </form>";
 
-}
-
-if (isset($_POST["delete"]))
-{
-    $schoolcontroller= new SchoolController();
-    if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())) {
-        header("Location: View.php");
     }
 
-}
-else if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"]))
-{
-    $schoolcontroller= new SchoolController();
-    if ($_SESSION["CurrentNaam"])
-    {
-        $school = new School( $_SESSION["CurrentSchool"]->getSchoolID(),$_SESSION["CurrentNaam"]);
-    }
+    if (isset($_POST["delete"])){
+        $schoolcontroller = new SchoolController();
+        if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())){
+            header("Location: View.php");
+        }
+    } else{
+        if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"])){
+            $schoolcontroller = new SchoolController();
+            if ($_SESSION["CurrentNaam"]){
+                $school = new School($_SESSION["CurrentSchool"]->getSchoolID(), $_SESSION["CurrentNaam"]);
+            }
 
-    if ($schoolcontroller->update($school))
-    {
-        header("Location: View.php");
+            if ($schoolcontroller->update($school)){
+                header("Location: View.php");
+            } else{
+                echo "Record niet opgeslagen";
+            }
+        }
     }
-    else
-    {
-        echo "Record niet opgeslagen";
-    }
-}
-?>
+    ?>
     <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </div>
 <div class="footer">

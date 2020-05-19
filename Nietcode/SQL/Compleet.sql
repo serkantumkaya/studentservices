@@ -1,17 +1,20 @@
 CREATE DATABASE IF NOT EXISTS StudentServices;
 USE StudentServices;
 
+DROP TABLE IF EXISTS ADMIN;
 DROP TABLE IF EXISTS FEEDBACK;
 DROP TABLE IF EXISTS REACTIE;
 DROP TABLE IF EXISTS BESCHIKBAARHEID;
 DROP TABLE IF EXISTS PROJECT;
 DROP TABLE IF EXISTS PROFIEL;
 DROP TABLE IF EXISTS GEBRUIKER;
-DROP TABLE IF EXISTS SELECTIECATEGORIE;
-DROP TABLE IF EXISTS SELECTIEOPLEIDING;
+DROP TABLE IF EXISTS Categorie;
+DROP TABLE IF EXISTS Opleiding;
 DROP TABLE IF EXISTS SCHOOL;
-DROP VIEW if EXISTS leeftijden;
+DROP VIEW IF EXISTS leeftijden;
 DROP VIEW IF EXISTS Projecten_leeftijdcategorie;
+
+
 
 CREATE TABLE SCHOOL(
 	SchoolID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -22,17 +25,17 @@ CREATE TABLE SCHOOL(
 
 ALTER TABLE SCHOOL AUTO_INCREMENT = 1000;
 
-CREATE TABLE SELECTIEOPLEIDING (
+CREATE TABLE Opleiding (
 OpleidingID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 Naamopleiding varchar(100) NOT NULL,
 Voltijd_deeltijd ENUM('Voltijd', 'Duaal', 'Deeltijd') NOT NULL
 );
 
-ALTER TABLE SELECTIEOPLEIDING MODIFY Naamopleiding varchar(100) NOT NULL;
+ALTER TABLE Opleiding MODIFY Naamopleiding varchar(100) NOT NULL;
 
-ALTER TABLE  SELECTIEOPLEIDING AUTO_INCREMENT = 1000;
+ALTER TABLE  Opleiding AUTO_INCREMENT = 1000;
 
-CREATE TABLE SELECTIECATEGORIE (
+CREATE TABLE Categorie (
 CategorieID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 Categorienaam varchar(30) NOT NULL
 );
@@ -45,6 +48,12 @@ Email varchar(50) NOT NULL
 );
 
 ALTER TABLE GEBRUIKER AUTO_INCREMENT = 1000;
+
+CREATE TABLE admin(
+    GebruikerID int NOT NULL PRIMARY KEY,
+	Level int NOT NULL DEFAULT 1,
+	FOREIGN KEY(GebruikerID) REFERENCES Gebruiker(GebruikerID) ON UPDATE CASCADE
+	);
 
 CREATE TABLE PROFIEL(
 GebruikerID int NOT NULL ,
@@ -67,7 +76,7 @@ Geboortedatum date NULL,
 Telefoonnummer varchar(15) NULL,
 FOREIGN KEY(GebruikerID) REFERENCES Gebruiker(GebruikerID) ON UPDATE CASCADE,
 FOREIGN KEY(School) REFERENCES School(SchoolID) ON UPDATE CASCADE,
-FOREIGN KEY(Opleiding) REFERENCES SELECTIEOPLEIDING(OpleidingID) ON UPDATE CASCADE
+FOREIGN KEY(Opleiding) REFERENCES Opleiding(OpleidingID) ON UPDATE CASCADE
 );
 
 ALTER TABLE PROFIEL CHANGE Tussenvoegsel Tussenvoegsel varchar(10) NULL;
@@ -79,8 +88,8 @@ ALTER TABLE PROFIEL AUTO_INCREMENT = 1000;
 CREATE TABLE PROJECT (
 ProjectID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 GebruikerID int NOT NULL,
-Type1 varchar(15) NOT NULL,
 Titel varchar(70) NOT NULL,
+Type1 varchar(15) NOT NULL,
 Beschrijving varchar(500) NOT NULL,
 CategorieID int NOT NULL,
 Datumaangemaakt TIMESTAMP NOT NULL,
@@ -88,7 +97,7 @@ Deadline datetime NULL,
 Status BOOLEAN DEFAULT TRUE,
 Locatie varchar(40) REFERENCES SCHOOL(Locatie),
 Verwijderd BOOLEAN NOT NULL DEFAULT 0,
-FOREIGN KEY(CategorieID) REFERENCES SELECTIECATEGORIE(CategorieID) ON UPDATE CASCADE,
+FOREIGN KEY(CategorieID) REFERENCES Categorie(CategorieID) ON UPDATE CASCADE,
 FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
 
@@ -125,8 +134,15 @@ FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
 FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
 
+ CREATE TABLE TOACTIVATEUSERS(
+                   UserID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                   Username varchar(50) NOT NULL UNIQUE,
+                  Wachtwoord varchar(90) NOT NULL,
+                   Email varchar(50) NOT NULL,
+                   Timestamp varchar(50) NOT NULL,
+                   Activationcode varchar(30) NOT NULL);
 
-
+                   ALTER TABLE TOACTIVATEUSERS AUTO_INCREMENT = 1000;
 
 INSERT INTO SCHOOL (schoolnaam) values('Avans Hogeschool'),
 ('Aeres Hogeschool'),
@@ -165,7 +181,7 @@ INSERT INTO SCHOOL (schoolnaam) values('Avans Hogeschool'),
 ('Windesheim'),
 ('Zuyd Hogeschool');
 
-Insert into selectieopleiding (Naamopleiding,Voltijd_deeltijd)
+Insert into Opleiding (Naamopleiding,Voltijd_deeltijd)
 values('Accountancy','Voltijd'),
 ('Accountancy','Voltijd'),
 ('Accountancy','Duaal'),
@@ -273,7 +289,7 @@ values('Accountancy','Voltijd'),
 ('Werktuigbouwkunde','Voltijd'),
 ('Werktuigbouwkunde','Deeltijd');
 
-Insert into selectieCategorie (Categorienaam) Values
+Insert into Categorie (Categorienaam) Values
 ('Kleien'),
 ('Fotograferen'),
 ('Rapporteren'),
@@ -305,35 +321,41 @@ INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Peter','psmets
 INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('Miky','mikydebeer@gmail.com','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
 INSERT INTO gebruiker(Gebruikersnaam, Email, Wachtwoord) VALUES ('MariskaRaamsdonk','MariskaRaamsdonk@gmail.com','7e7e7a0a675370333a8a03af31aeda27caf0c742e8edf263ccf84893af59a540');
 
+INSERT INTO ADMIN (`GebruikerID`, `Level`) VALUES
+    ('1002', '100'),
+    ('1004', '100'),
+    ('1003', '100'),
+    ('1000', '100'),
+    ('1001', '100');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats)
 VALUES (1000,'Patrick','Ruijter','de', (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,
-(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
+(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
 '2019-08-31', 'Hoge donk',1, '1234RD', 'Breda');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum)
-Values (1001, 'Serkan','Tumkaya',null, (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Oosterhoutseweg',1212, '4940QW', 'Oosterhout', '1997-07-12');
+Values (1001, 'Serkan','Tumkaya',null, (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Oosterhoutseweg',1212, '4940QW', 'Oosterhout', '1997-07-12');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum)
-VALUES (1002, 'Dirk','Vliet','van der',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Hertogshoef',234, '4951ZZ', 'Raamsdonksveer', '1980-12-22');
+VALUES (1002, 'Dirk','Vliet','van der',(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Hertogshoef',234, '4951ZZ', 'Raamsdonksveer', '1980-12-22');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel,School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum)
-VALUES (1003, 'Joost','Sadeleer','de',(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Rivierdijk',12, '3372RD', 'Hardinxveld-Giessendam', '1976-01-24');
+VALUES (1003, 'Joost','Sadeleer','de',(Select schoolid from school where schoolnaam = 'Hogeschool Rotterdam' LIMIT 1) ,(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Rivierdijk',12, '3372RD', 'Hardinxveld-Giessendam', '1976-01-24');
 
 INSERT INTO PROFIEL(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum)
-VALUES (1004, 'Jelle','Ruiter','de', (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Brabanderlaan',100, '4534RD', 'Breda', '1988-10-30');
+VALUES (1004, 'Jelle','Ruiter','de', (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Brabanderlaan',100, '4534RD', 'Breda', '1988-10-30');
 
 INSERT INTO PROFIEL(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats,Geboortedatum)
-VALUES (1005, 'Pieter','Smets',null,(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Ing.Metz hof', 67,'1344IJ', 'Raamsdonksveer', '1999-05-01');
+VALUES (1005, 'Pieter','Smets',null,(Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),'2019-08-31', 'Ing.Metz hof', 67,'1344IJ', 'Raamsdonksveer', '1999-05-01');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats)
 VALUES (1006,'miky','beer','de', (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,
-(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
+(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
 '2019-08-31', 'Hoge donk',1, '1234RD', 'Breda');
 
 INSERT INTO profiel(GebruikerID, Voornaam, Achternaam, Tussenvoegsel, School, Opleiding, Startdatumopleiding, Straat,Huisnummer,Postcode,Woonplaats)
 VALUES (1006,'Mariska','Raamsdonk',Null, (Select schoolid from school where schoolnaam = 'Avans Hogeschool' LIMIT 1) ,
-(SELECT OpleidingID FROM selectieopleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
+(SELECT OpleidingID FROM Opleiding WHERE Naamopleiding = 'Informatica' and Voltijd_deeltijd = 'Voltijd' LIMIT 1),
 '2019-08-31', 'Hoge donk',1, '1234RD', 'Breda');
 
 
@@ -349,7 +371,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), '1', 'Hulp nodig bij fotografie',
 'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
-(Select CategorieID from selectiecategorie where Categorienaam ='Fotograferen' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
 , '2019-12-19', '2020-06-24', 0,
 'Bij mij thuis in Breda', 'false') ;
 
@@ -357,7 +379,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), '1', 'Rapporteren lessen gemist',
 'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
-(Select CategorieID from selectiecategorie where Categorienaam ='Rapporteren' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
 , '2019-12-19', '2020-02-12', 0,
 'Op school lovensedijk?', 'false') ;
 
@@ -365,7 +387,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), '2', 'Bied hulp aan bij Kleien',
 'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
-(Select CategorieID from selectiecategorie where Categorienaam ='Kleien' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
 , '2019-12-19', '2020-06-24', 1,
 'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
 
@@ -374,7 +396,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), '2', 'Hulp aangeboden bij Sofware schrijven.',
 'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
-(Select CategorieID from selectiecategorie where Categorienaam ='Sofware' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
 , '2019-12-19', '2020-06-24', 1,
 'Waar jij wil.', 'false') ;
 
@@ -382,7 +404,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), '1', 'Brabants afleren.',
 'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
-(Select CategorieID from selectiecategorie where Categorienaam ='Luisteren' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
 , '2019-12-19', '2020-06-24', 0,
 'Het hart van Breda', 'false');
 
@@ -390,7 +412,7 @@ INSERT INTO project
 (GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
 values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), '2', 'Wie kan mij helpen met designpatterns',
 'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
-(Select CategorieID from selectiecategorie where Categorienaam ='Sofware' Limit 1)
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
 , '2019-12-19', '2020-06-24', 1,
 'Waar jij wil.', 'false') ;
 

@@ -44,6 +44,9 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 </div>
 
 <div class="info">
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
 <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
@@ -85,7 +88,7 @@ echo "\" /></div>
 if (isset( $_POST["GebruikersNaam"]) && isset( $_POST["Wachtwoord"]) &&
 isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation errors
 {
-    $gebruikercontroller= new GebruikerController();
+    $gebruikercontroller= new GebruikerController(-1);
 
     $answers = $gebruikercontroller->Add(
 
@@ -97,8 +100,8 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
 
     if ($answers["Errorsfound"] == "")
     {
-
-        header("Location: View.php");
+        $_SESSION["GebruikerID"] = -1;
+        header("Location:/StudentServices/Inlogpag.php?action=succes&content= verficatie email verstuurt gelukt");
     }
     else
     {

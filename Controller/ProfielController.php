@@ -4,15 +4,15 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ProfielModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Opleiding.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/School.php");
-//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Project.php");
+//require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Projecten.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
 
 //hier doe je de crud afvangen vanuit de profiel.
 class ProfielController
 {
-    private ProfielModel $profielmodel;
-    private int $GebruikerID;
+    private $profielmodel;
+    private $gebruikerID;
 
     //link the gebruiker here so you always have a connection to the logged on user.
     public function __construct(int $GebruikerID){
@@ -39,7 +39,7 @@ class ProfielController
                 $profiel['Tussenvoegsel'] == null ? "" : $profiel['Tussenvoegsel'],
                 $profiel['Prefix'] == null ? "" : $profiel['Prefix'],
                 $profiel['Straat'] ?? "",
-                $profiel['Huisnummer'] ?? 0,
+                $profiel['Huisnummer'] ?? "",
                 $profiel['Extentie'] ?? "",
                 $profiel['Postcode'] ?? "",
                 $profiel['Woonplaats'] ?? "",
@@ -50,49 +50,13 @@ class ProfielController
         return $ProfielArray;
     }
 
-    function CreateNewUser(string $Profielsnaam, string $Wachtwoord,
-        string $Email){
-        return $this->profielmodel->CreateNewUser($Profielsnaam,
-            $Wachtwoord,
-            $Email);
-    }
-
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Profielsnaam,
-        string $Wachtwoord,
-        string $Email,
-        ?School $School,
-        ?Opleiding $Opleiding,
-        ?DateTime $Startdatumopleiding,
-        string $Status,
-        string $Achternaam,
-        string $Voornaam,
-        string $Tussenvoegsel,
-        string $Prefix,
-        string $Straat,
-        int $Huisnummer,
-        string $Extentie,
-        string $Postcode,
-        string $Woonplaats,
-        ?DateTime $Geboortedatum,
+    function add(int $GebruikerID, ?School $School, ?Opleiding $Opleiding, string $Startdatumopleiding, string $Status,
+        string $Achternaam, string $Voornaam, string $Tussenvoegsel, string $Prefix, string $Straat, int $Huisnummer,
+        string $Extentie, string $Postcode, string $Woonplaats, string $Geboortedatum,
         string $Telefoonnummer){
-        return $this->profielmodel->Add($Profielsnaam,
-            $Wachtwoord,
-            $Email,
-            $School,
-            $Opleiding,
-            $Startdatumopleiding,
-            $Status,
-            $Achternaam,
-            $Voornaam,
-            $Tussenvoegsel,
-            $Prefix,
-            $Straat,
-            $Huisnummer,
-            $Extentie,
-            $Postcode,
-            $Woonplaats,
-            $Geboortedatum,
+        return $this->profielmodel->Add($GebruikerID, $School, $Opleiding, $Startdatumopleiding, $Status, $Achternaam,
+            $Voornaam, $Tussenvoegsel, $Prefix, $Straat, $Huisnummer, $Extentie, $Postcode, $Woonplaats, $Geboortedatum,
             $Telefoonnummer);
     }
 
@@ -105,27 +69,62 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        $Profiel = $this->profielmodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        $profielmodel        = new ProfielModel();
+        $Profiel             = $profielmodel->GetById($id)->fetch(PDO::FETCH_ASSOC);
+        $schoolcontroller    = new SchoolController();
+        $opleidingcontroller = new OpleidingController();
+
         return new Profiel(
-            $Profiel[0]['ProfielID'],
-            $Profiel[0]['Wachtwoord'],
-            $Profiel[0]['Email'],
-            $Profiel[0]['School'],
-            $Profiel[0]['Opleiding'],
-            $Profiel[0]['Startdatumopleiding'],
-            $Profiel[0]['Foto'],
-            $Profiel[0]['Status'],
-            $Profiel[0]['Achternaam'],
-            $Profiel[0]['Voornaam'],
-            $Profiel[0]['Tussenvoegsel'],
-            $Profiel[0]['Prefix'],
-            $Profiel[0]['Straat'],
-            $Profiel[0]['Huisnummer'],
-            $Profiel[0]['Extentie'],
-            $Profiel[0]['Postcode'],
-            $Profiel[0]['Woonplaats'],
-            $Profiel[0]['Geboortedatum'],
-            $Profiel[0]['Telefoonnummer']);
+            $Profiel['ProfielID'],
+            $Profiel['GebruikerID'],
+            $schoolcontroller->getById($Profiel['School']),
+            $opleidingcontroller->getById($Profiel['Opleiding']),
+            new DateTime($Profiel['Startdatumopleiding']),
+            $Profiel['Status'],
+            $Profiel['Achternaam'],
+            $Profiel['Voornaam'],
+            $Profiel['Tussenvoegsel'],
+            $Profiel['Prefix'],
+            $Profiel['Straat'],
+            $Profiel['Huisnummer'],
+            $Profiel['Extentie'],
+            $Profiel['Postcode'],
+            $Profiel['Woonplaats'],
+            new DateTime($Profiel['Geboortedatum']),
+            $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']);
+
+    }
+
+    function getByGebruikerID(){
+        var_dump($this->gebruikerID);
+        $profielmodel = new ProfielModel($this->gebruikerID);
+        var_dump($profielmodel);
+        $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
+        if (!isset($Profielc) || $Profielc == false){
+            return null;
+        }//Profile does not exist
+        $schoolcontroller    = new SchoolController();
+        $opleidingcontroller = new OpleidingController();
+
+        return new Profiel(
+            $Profielc['ProfielID'],
+            $Profielc['GebruikerID'],
+            $schoolcontroller->getById($Profielc['School']),
+            $opleidingcontroller->getById($Profielc['Opleiding']),
+            new DateTime($Profielc['Startdatumopleiding']),
+            $Profielc['Status'],
+            $Profielc['Achternaam'],
+            $Profielc['Voornaam'],
+            $Profielc['Tussenvoegsel'],
+            $Profielc['Prefix'],
+            $Profielc['Straat'],
+            $Profielc['Huisnummer'],
+            $Profielc['Extentie'],
+            $Profielc['Postcode'],
+            $Profielc['Woonplaats'],
+            new DateTime($Profielc['Geboortedatum']),
+            $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer']
+            );
 
     }
 

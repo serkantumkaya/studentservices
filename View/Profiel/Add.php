@@ -1,13 +1,11 @@
 <?php
-//Create gebruiker en create login in 1 screen, because some fields of the gebruiker object are required.
-//that's why you can't seperate the screens. Otherwise you will have to split the tables into login en gebruiker.
-//DON'T fill in empty strings in required fields just to fill them. This is against all rules of integrity!
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 ?>
 <!DOCTYPE HTML>
@@ -15,7 +13,7 @@ session_start();
 <head>
     <meta charset="utf-8">
     <title>Student Services</title>
-    <meta name="Toevoegen gebruiker" content="index">
+    <meta name="Toevoegen profiel" content="index">
     <meta name="author" content="The big 5">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--The viewport is the user's visible area of a web page.-->
@@ -39,7 +37,7 @@ session_start();
         <!-- [MENU ITEMS] -->
 <ul>
     <li>
-        <a href="/StudentServices/inlogPag.php">Terug</a>
+        <a href="/StudentServices/View.php">Terug</a>
     </li>
 </ul>
     </nav>
@@ -63,33 +61,6 @@ $PostcodeErr = "";
 $WoonplaatsErr = "";
 $noerror = true;
 
-//dit moet javascript worden?
-if (isset($_POST["WachtwoordCheck"]) && isset($_POST["Wachtwoord"]) && $_POST["WachtwoordCheck"] != isset($_POST["Wachtwoord"]))
-{
-    $WachtwoordErr = "Wachtwoorden zijn niet gelijk";
-    $WachtwoordCheckErr = "Wachtwoorden zijn niet gelijk";
-    $noerror = false;
-}
-if (!isset($_POST[""]) || isset($_POST["Gebruikersnaam"]) =="")
-{
-    $WachtwoordCheckErr = "Gebruikersnaam is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["Email"]) || isset($_POST["Email"]) =="")
-{
-    $WachtwoordCheckErr = "Email is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["WachtwoordCheck"]) || isset($_POST["WachtwoordCheck"]) =="")
-{
-    $WachtwoordCheckErr = "Wachtwoord check is verplicht.";
-    $noerror = false;
-}
-if (!isset($_POST["Wachtwoord"]) || isset($_POST["Wachtwoord"]) =="")
-{
-    $WachtwoordCheckErr = "Wacthwoord is verplicht.";
-    $noerror = false;
-}
 if (!isset($_POST["Voornaam"]) || isset($_POST["Voornaam"]) =="")
 {
     $VoornaamErr = "Voornaam is verplicht.";
@@ -121,91 +92,86 @@ if (!isset($_POST["Woonplaats"]) || isset($_POST["Woonplaats"]) =="")
     $noerror = false;
 }
 
+$gbController = new GebruikerController($_SESSION["GebruikerID"]);
+$gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
-echo "<h1 > Aanmaken login gegevens</h1 ><br>
-<form action = \"Add.php\" method = \"post\" >
+echo "Profiel aanmaken voor : ".$gebruiker->getGebruikersnaam()."<br>";
 
-    <div class='gebruikerlabel'>Gebruikersnaam *</div>
-        <div class='gebruikerinput'><input type = \"text\" name=\"GebruikersNaam\" value=\"";
-if (isset($_POST["GebruikersNaam"])) echo $_POST["GebruikersNaam"];
-echo "\"/>
-        </div><span class='gebruikersinput'>$NaamErr</span>
-    <div class='gebruikerlabel'>Email *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Email\" value=\"";
-if (isset($_POST["Email"])) echo $_POST["Email"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$EmailErr</span>
-    <div class='gebruikerlabel'>Wachtwoord *</div>
-         <div class='gebruikerinput'><input type = \"password\" name=\"Wachtwoord\" value=\"";
-if (isset($_POST["Wachtwoord"])) echo $_POST["Wachtwoord"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$WachtwoordErr</span>
-    <div class='gebruikerlabel'>Wachtwoord controle *</div>
-         <div class='gebruikerinput'><input type = \"password\" name=\"WachtwoordCheck\" value=\"";
-if (isset($_POST["WachtwoordCheck"])) echo $_POST["WachtwoordCheck"];
-echo "\" /></div>
-         <span class='gebruikersinput'>$WachtwoordCheckErr</span>    
-         <!--Voornaam-->
-    <div class='gebruikerlabel'>Voornaam *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Voornaam\" value=\"";
-if (isset($_POST["Voornaam"])) echo $_POST["Voornaam"];
-echo "\"/></div>
-         <span class='gebruikersinput'>$VoornaamErr</span>
-         <!--Tussenvoegsel-->
-<div class='gebruikerlabel'>Tussenvoegsel</div>
-         <div class='gebruikerinput'><input type = \"password\" name=\"Tussenvoegsel\" value=\"";
+    //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
+   // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
+
+
+echo "<h1 > Koppelen profiel</h1 ><br>
+<form action = \"Add.php\" method = \"post\" >";
+
+echo "<!--Voornaam-->
+    <div class='profiellabel'>Voornaam *</div>
+    <div class='profielinput'><input type = \"text\" name=\"Voornaam\" value=\""; if (isset($_POST["Voornaam"]))
+            echo $_POST["Voornaam"];echo "\"/></div>
+         <span class='profielsinput'>$VoornaamErr</span>";
+
+echo "<!--Tussenvoegsel-->";
+echo "<div class='profiellabel'>Tussenvoegsel</div>
+         <div class='profielinput'><input type = \"text\" name=\"Tussenvoegsel\" value=\"";
 if (isset($_POST["Tussenvoegsel"])) echo $_POST["Tussenvoegsel"];
+echo "\" /></div>";
+
+echo "<!--Prefix-->";
+echo "<div class='profiellabel'>Prefix</div>
+         <div class='profielinput'><input type = \"text\" name=\"Prefix\" value=\"";
+if (isset($_POST["Prefix"])) echo $_POST["Prefix"];
 echo "\" /></div>
+
          <!--Achternaam-->
-    <div class='gebruikerlabel'>Achternaam *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Achternaam\" value=\"";
+    <div class='profiellabel'>Achternaam *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Achternaam\" value=\"";
 if (isset($_POST["Achternaam"])) echo $_POST["Achternaam"];
 echo "\"/></div>
-         <span class='gebruikersinput'>$AchternaamErr</span>   
+         <span class='profielsinput'>$AchternaamErr</span>   
     <!--Straat-->
- <div class='gebruikerlabel'>Straat *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Straat\" value=\"";
+ <div class='profiellabel'>Straat *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Straat\" value=\"";
 if (isset($_POST["Straat"])) echo $_POST["Straat"];
 echo "\"/></div>
-         <span class='gebruikersinput'>$StraatErr</span>
+         <span class='profielsinput'>$StraatErr</span>
          
     <!--Huisnummer-->
- <div class='gebruikerlabel'>Huisnummer *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Huisnummer\" value=\"";
+ <div class='profiellabel'>Huisnummer *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Huisnummer\" value=\"";
 if (isset($_POST["Huisnummer"])) echo $_POST["Huisnummer"];
 echo "\"/></div>
-         <span class='gebruikersinput'>$HuisnummerErr</span>
+         <span class='profielsinput'>$HuisnummerErr</span>
 
         <!--Extentie-->
- <div class='gebruikerlabel'>Extentie</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Extentie\" value=\"";
+ <div class='profiellabel'>Extensie</div>
+         <div class='profielinput'><input type = \"text\" name=\"Extentie\" value=\"";
 if (isset($_POST["Extentie"])) echo $_POST["Extentie"];
 echo "\"/></div>
          
 
 <!--Postcode-->
- <div class='gebruikerlabel'>Postcode *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Postcode\" value=\"";
+ <div class='profiellabel'>Postcode *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Postcode\" value=\"";
 if (isset($_POST["Postcode"])) echo $_POST["Postcode"];
 echo "\"/></div>
-         <span class='gebruikersinput'>$PostcodeErr</span>
+         <span class='profielsinput'>$PostcodeErr</span>
          
      <!--Woonplaats-->
- <div class='gebruikerlabel'>Woonplaats *</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Woonplaats\" value=\"";
+ <div class='profiellabel'>Woonplaats *</div>
+         <div class='profielinput'><input type = \"text\" name=\"Woonplaats\" value=\"";
 if (isset($_POST["Woonplaats"])) echo $_POST["Woonplaats"];
 echo "\"/></div>
-         <span class='gebruikersinput'>$WoonplaatsErr</span>
+         <span class='profielsinput'>$WoonplaatsErr</span>
         
                 <!--Geboortedatum-->
- <div class='gebruikerlabel'>Geboortedatum</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Geboortedatum\" value=\"";
+ <div class='profiellabel'>Geboortedatum</div>
+         <div class='profielinput'><input type = \"text\" name=\"Geboortedatum\" value=\"";
 if (isset($_POST["Geboortedatum"])) echo $_POST["Geboortedatum"];
 echo "\"/></div>
          
     <!--School-->
- <div class='gebruikerlabel'>School</div>
-    <select name=\"School\" class='gebruikerinput'>";
+ <div class='profiellabel'>School</div>
+    <select name=\"School\" class='profielinput'>";
         $School = new SchoolController();
         foreach($School->GetScholen() as $sh)
         {
@@ -216,8 +182,8 @@ echo "\"/></div>
    echo"</select>
     
     <!--Opleiding-->
-     <div class='gebruikerlabel'>Opleiding</div>
-    <select name=\"Opleiding\" class='gebruikerinput'>";
+     <div class='profiellabel'>Opleiding</div>
+    <select name=\"Opleiding\" class='profielinput'>";
         $Opleiding = new OpleidingController();
         foreach($Opleiding->GetOpleidingen() as $op)
         {
@@ -227,22 +193,22 @@ echo "\"/></div>
         }
    echo"</select>
                    <!--Startdatumopleiding-->
- <div class='gebruikerlabel'>Startdatumopleiding</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Startdatumopleiding\" value=\"";
+ <div class='profiellabel'>Startdatumopleiding</div>
+         <div class='profielinput'><input type = \"text\" name=\"Startdatumopleiding\" value=\"";
 if (isset($_POST["Startdatumopleiding"])) echo $_POST["Startdatumopleiding"];
 
 echo "\"/>
 </div>
 
   <!--foto-->
- <div class='gebruikerlabel'>Foto</div><input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" class=\"gebruikerinput\">
-  <div class='gebruikerlabel'>Huidige foto</div>
+ <div class='profiellabel'>Foto</div><input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" class=\"profielinput\">
+  <div class='profiellabel'>Huidige foto</div>
 <img id=\"nieuwestudent\" src=\"/StudentServices/images/sgtest.jpg\" class=\"studentfoto\"/>
 
 
 
 
- <div class='gebruikerlabel'>Status</div>
+ <div class='profiellabel'>Status</div>
 <select name=\"Status\">";
         $Status = new EnumGebruikerStatus();
         foreach($Status->getConstants() as $st)
@@ -252,22 +218,24 @@ echo "\"/>
 echo"</select>
     
  <!--Telefoonnummer-->
- <div class='gebruikerlabel'>Telefoonnummer</div>
-         <div class='gebruikerinput'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
+ <div class='profiellabel'>Telefoonnummer</div>
+         <div class='profielinput'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
         if (isset($_POST["Telefoonnummer"])) echo $_POST["Telefoonnummer"];
 echo "\"></div>
        <input type=\"submit\" >  <br><br><br>
     </form >";
+
 if ($noerror)//No validation errors
 {
-    $gebruikercontroller= new GebruikerController();
 
-    if ($gebruikercontroller->Add(
-        $_POST["Gebruikersnaam"],
-        $_POST["Wachtwoord"],
-        $_POST["Email"],
-        $_POST["School"],
-        $_POST["Opleiding"],
+    $profielcontroller= new ProfielController($gebruiker->getGebruikerID());
+    $schoolcontroller= new SchoolController();
+    $opleidingcontroller= new OpleidingController();
+
+    if ($profielcontroller->Add(
+        $gebruiker->getGebruikerID(),
+        $schoolcontroller->getById($_POST["School"]) ,
+        $opleidingcontroller->getById($_POST["Opleiding"]),
         $_POST["Startdatumopleiding"],
         $_POST["Status"],
         $_POST["Achternaam"],
@@ -280,11 +248,15 @@ if ($noerror)//No validation errors
         $_POST["Postcode"],
         $_POST["Woonplaats"],
         $_POST["Geboortedatum"],
-        $_POST["Telefoonnummer"]
+        $_POST["Telefoonnummer"] == null ? "" : $_POST["Telefoonnummer"]
         ))
     {
-        echo "Record opgeslagen";
-        //header("Location: /StudentServices/InlogPag.php");
+        if ($_SESSION["level"]>=50)
+        //echo "Record opgeslagen";
+            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
+        else
+            //echo "Record opgeslagen";
+            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/edit.php");
     }
     else
     {

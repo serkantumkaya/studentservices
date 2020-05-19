@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/School.php");
-require_once  ($_SERVER['DOCUMENT_ROOT']."/StudentServices/includes/DB.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/School.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
 class SchoolModel
 {
@@ -11,14 +11,12 @@ class SchoolModel
     private ConnectDB $ConnectDb;//current connection
     private School $school;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->ConnectDb = new ConnectDb();
-        $this->conn = $this->ConnectDb->GetConnection();
+        $this->conn      = $this->ConnectDb->GetConnection();
     }
 
-    public function GetScholen()
-    {
+    public function GetScholen(){
         $sql = "SELECT SchoolID,Schoolnaam FROM School";
         return $this->conn->query($sql);
 
@@ -27,8 +25,8 @@ class SchoolModel
         $result = $stmt->fetch()->fetchAll(PDO::FETCH_ASSOC);
 
     }
-    function add(string $schoolNaam)
-    {
+
+    function add(string $schoolNaam){
         $statement = $this->conn->prepare("INSERT INTO School (SchoolNaam) VALUES (:Naam)");
         $statement->execute([
             'Naam' => $schoolNaam
@@ -36,7 +34,7 @@ class SchoolModel
         return true;
     }
 
-    function delete(int $ID) {
+    function delete(int $ID){
         //delete school
         $sql = $this->conn->prepare("DELETE FROM School WHERE SCHOOLID  =:SID");
 
@@ -44,33 +42,28 @@ class SchoolModel
             'SID' => $ID
         ];
 
-        if ($sql->execute($parameters) == TRUE)
-        {
+        if ($sql->execute($parameters) == true){
             return "Record verwijderd";
-        }
-        else
-        {
+        } else{
             echo "Error: " . $sql . "<br>" . $this->conn->error;
         }
 
     }
 
-    function update(School $school)
-    {
-
-        $sql = $this->conn->prepare("UPDATE SCHOOL SET Schoolnaam=:SN Where SchoolID =:SID");//let op id geen quotes
+    function update(School $school){
+        $sql        =
+            $this->conn->prepare("UPDATE SCHOOL SET Schoolnaam=:SN Where SchoolID =:SID");//let op id geen quotes
         $schoolnaam = $school->getSchoolnaam();
-        $id = $school->getSchoolID();
+        $id         = $school->getSchoolID();
         $parameters = [
             'SN' => $schoolnaam,
             'SID' => $id
         ];
 
-        return $sql->execute($parameters) ;
+        return $sql->execute($parameters);
     }
 
-    function get(int $ID)
-    {
+    function get(int $ID){
         $sql = "Select SchoolID,Schoolnaam from SCHOOL WHERE SCHOOLID =$ID";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
 

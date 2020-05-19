@@ -140,14 +140,14 @@ class Profiel
     /**
      * @return GebruikerStatus
      */
-    public function getStatus(): GebruikerStatus{
+    public function getStatus(): string{
         return $this->Status;
     }
 
     /**
      * @param GebruikerStatus $Status
      */
-    public function setStatus(GebruikerStatus $Status): void{
+    public function setStatus(string $Status): void{
         $this->Status = $Status;
     }
 
@@ -238,14 +238,14 @@ class Profiel
     /**
      * @return string
      */
-    public function getExtentie(): string{
+    public function getExtensie(): string{
         return $this->Extentie;
     }
 
     /**
      * @param string $Extentie
      */
-    public function setExtentie(string $Extentie): void{
+    public function setExtensie(string $Extentie): void{
         $this->Extentie = $Extentie;
     }
 
@@ -304,4 +304,6 @@ class Profiel
     public function setTelefoonnummer(string $Telefoonnummer): void{
         $this->Telefoonnummer = $Telefoonnummer;
     }
+
+
 }
