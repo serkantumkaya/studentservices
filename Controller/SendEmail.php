@@ -1,8 +1,7 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/PHPMailer/PHPMailer.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/PHPMailer/SMTP.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/PHPMailer/Exception.php");
+
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/vendor/autoload.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/VerficatieModel.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
