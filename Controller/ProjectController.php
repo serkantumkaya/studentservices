@@ -63,6 +63,7 @@ class ProjectController{
     function getById(int $id): project{
         $Project = $this->projectModel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
         return new Project(
+<<<<<<< Updated upstream
             $Project[0]['ProjectID'],
             $Project[0]['GebruikerID'],
             $Project[0]['Type'],
@@ -74,6 +75,19 @@ class ProjectController{
             $Project[0]['Status'],
             $Project[0]['Locatie'],
             $Project[0]['Verwijderd'];
+=======
+            $Project['ProjectID'],
+            $Project['GebruikerID'],
+            $Project['Type'],
+            $Project['Titel'],
+            $Project['Beschrijving'],
+            $Project['CategorieID'],
+            $Project['Datumaangemaakt'],
+            $Project['Deadline'],
+            $Project['Status'],
+            $Project['Locatie'],
+            $Project['Verwijderd'];
+>>>>>>> Stashed changes
 
     }
 }
