@@ -64,6 +64,14 @@ if (!isset($_SESSION["CurrentProfiel"]))
     if ($profiel == null)
         header("Location: Add.php");
 }
+else if (isset($_SESSION["GebruikerID"]))
+{
+    //Directly from the login. So look for the profile by gebruikersID
+    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
+    $profiel = $profielcontroller->getByGebruikerID();
+    if ($profiel == null)
+        header("Location: Add.php");
+}
 
 if (isset($_GET["ID"]) || isset($profiel))
 {
@@ -167,14 +175,14 @@ $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session z
    // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
 {
  echo "<h1 > Profiel wijzigen voor : ".$gebruiker->getGebruikersnaam()."</h1 ><br>
-<form action = \"Edit.php\" method = \"post\" >";
+<form action = \"Edit.php\" method = \"post\" style='width:50%' >";
 
 echo "<!--Voornaam-->
     <div class='formcol1'>Voornaam *</div>
     <div class='formcol2'><input type = \"text\" name=\"Voornaam\" value=\"";
             echo $Voornaam;
             echo "\"/></div>
-         <span class='formcolerror'>$VoornaamErr</span>";
+<div class='formcol3'> <span >$VoornaamErr</span></div>";
 
 echo "<!--Tussenvoegsel-->";
 echo "<div class='formcol1'>Tussenvoegsel</div>
@@ -193,20 +201,20 @@ echo "\" /></div>
          <div class='formcol2'><input type = \"text\" name=\"Achternaam\" value=\"";
 echo $Achternaam;
 echo "\"/></div>
-         <span class='formcolerror'>$AchternaamErr</span>   
+<div class='formcol3'> <span >$AchternaamErr</span>   
     <!--Straat-->
  <div class='formcol1'>Straat *</div>
          <div class='formcol2'><input type = \"text\" name=\"Straat\" value=\"";
 echo $Straat;
 echo "\"/></div>
-         <span class='formcolerror'>$StraatErr</span>
+<div class='formcol3'> <span >$StraatErr</span>
          
     <!--Huisnummer-->
  <div class='formcol1'>Huisnummer *</div>
          <div class='formcol2'><input type = \"text\" name=\"Huisnummer\" value=\"";
 echo $Huisnummer;
 echo "\"/></div>
-         <span class='formcolerror'>$HuisnummerErr</span>
+         <span class='formcol3'>$HuisnummerErr</span>
 
         <!--Extentie-->
  <div class='formcol1'>Extensie</div>
@@ -220,14 +228,14 @@ echo "\"/></div>
          <div class='formcol2'><input type = \"text\" name=\"Postcode\" value=\"";
 echo $Postcode;
 echo "\"/></div>
-         <span class='formcolerror'>$PostcodeErr</span>
+         <span class='formcol3'>$PostcodeErr</span>
          
      <!--Woonplaats-->
  <div class='formcol1'>Woonplaats *</div>
          <div class='formcol2'><input type = \"text\" name=\"Woonplaats\" value=\"";
 echo $Woonplaats;
 echo "\"/></div>
-         <span class='formcolerror'>$WoonplaatsErr</span>";
+         <span class='formcol3'>$WoonplaatsErr</span>";
 
 echo "<!--Geboortedatum-->";
 echo "<div class='formcol1'>Geboortedatum</div>";
@@ -284,14 +292,15 @@ echo "\"></div> <div class='formcol1'>
     </form >";
 };?>
 
-
+    <div class='formcol1'>
+Popupmaken
     <form name="frmImage" enctype="multipart/form-data" action=""
       method="post" class="frmImageUpload">
     <label>Kies een profielfoto:</label><br />
     <input name="userImage" type="file"  />
     <input type="submit" value="SubmitprofilePhoto"  />
 </form>
-
+    </div>
     <?php
 $Profielcontroller= new ProfielController($GebruikersID);
 

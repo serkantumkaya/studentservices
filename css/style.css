@@ -96,9 +96,15 @@ input[type=submit]:active {
 .formcol1 {
     width: 200px;
     float: left;
+    ;
 }
 
 .formcol2 {
+    width: 300px;
+    float: left;
+}
+
+.formcol3 {
     width: 300px;
     float: left;
 }

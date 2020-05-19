@@ -124,7 +124,8 @@ class ProfielController
             $Profielc['Postcode'],
             $Profielc['Woonplaats'],
             new DateTime($Profielc['Geboortedatum']),
-            $Profielc['Telefoonnummer']);
+            $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer']
+            );
 
     }
 
