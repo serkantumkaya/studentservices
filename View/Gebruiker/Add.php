@@ -101,7 +101,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
     if ($answers["Errorsfound"] == "")
     {
         $_SESSION["GebruikerID"] = -1;
-        header("Location:". $_SERVER['DOCUMENT_ROOT']."/StudentServices/Inlogpag.php");
+        header("Location:/StudentServices/Inlogpag.php");
     }
     else
     {
