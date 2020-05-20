@@ -16,8 +16,12 @@ class FeedbackController
     public function getFeedback(){
         $feedbacklijst = array();
         foreach ($this->Feedbackmodel->getFeedback() as $feedback){
-            $feedbackObj     = new Feedback($feedback['FeedbackID'], $feedback['GebruikerID'], $feedback['ProjectID'],
-                $feedback['Cijfer'], $feedback['Review']);
+            $feedbackObj     = new Feedback(
+                $feedback['FeedbackID'],
+                $feedback['GebruikerID'],
+                $feedback['ProjectID'],
+                $feedback['Cijfer'],
+                $feedback['Review']);
             $feedbacklijst[] = $feedbackObj;
         }
         return $feedbacklijst;
@@ -43,8 +47,12 @@ class FeedbackController
 
     public function getById(int $FeedbackID): Feedback{
         $feedback = $this->Feedbackmodel->get($FeedbackID);
-        return new Feedback($feedback['FeedbackID'], $feedback['GebruikerID'], $feedback['ProjectID'],
-            $feedback['Cijfer'], $feedback['Review']);
+        return new Feedback(
+            $feedback['FeedbackID'],
+            $feedback['GebruikerID'],
+            $feedback['ProjectID'],
+            $feedback['Cijfer'],
+            $feedback['Review']);
     }
 
     /**

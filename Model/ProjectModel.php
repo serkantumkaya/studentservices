@@ -37,4 +37,11 @@ class ProjectModel{
             Verwijderd FROM Project";
         return $this->conn->query($sql);
     }
+
+    public function getById(int $ID){
+        $sql = "Select * FROM Project WHERE ProjectID = '$ID'";
+        return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }

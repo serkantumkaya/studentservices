@@ -91,6 +91,7 @@ class Feedback
     }
 
     /**
+     * TODO: naar controller
      * verkorte versie van de Review teruggeven. past beter op het scherm
      * @return string
      */

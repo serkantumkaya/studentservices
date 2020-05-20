@@ -1,19 +1,20 @@
-<html lang="en">
+<?php
+session_start();
+
+?><html lang="en">
 <head>
 
     <title>Contact</title>
     <meta name="description" content="index">
-    <meta name="author" content="The big 5">
+    <meta name="author" content="StudentServices">
     <script src="contactformulier.js"></script>
-
-
 
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 ?>
 
-
+</head> <!-- staat hier, omdat anders PHPstorm ging janken -->
 
 <div class="row">
 

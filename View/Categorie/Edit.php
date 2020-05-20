@@ -1,8 +1,7 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CategorieController.php");
 session_start();
-?>
-<!DOCTYPE HTML>
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -101,7 +100,7 @@ session_start();
         $categoriecontroller= new CategorieController();
         if ($_SESSION["CurrentNaam"])
         {
-            $categorie = new Categorie( $_SESSION["CurrentCategorie"]->getCategorielID(),$_SESSION["CurrentNaam"]);
+            $categorie = new Categorie( $_SESSION["CurrentCategorie"]->getCategorieID(),$_SESSION["CurrentNaam"]);
         }
 
         if ($categoriecontroller->update($categorie))
