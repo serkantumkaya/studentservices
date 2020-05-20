@@ -18,7 +18,7 @@ function showSlides() {
     {
         slideIndex = 0
     }
-   // slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
+    slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
     setTimeout(showSlides, 10000); // elke 10 sec wisselen
 }
 
@@ -53,7 +53,7 @@ function showpopup() {
     var queryString = window.location.href;
     var readdata = new URL(queryString);
     if(!(readdata.searchParams.get('action') == "failed") ^ (readdata.searchParams.get('action') == "succes")){
-        document.getElementById("test").style.margin = "0";
+//TODO:        document.getElementById("test").style.margin = "0";
        // console.log((readdata.searchParams.get('action') == "failed") ^ (readdata.searchParams.get('action') == "succes"));
     }
     if(readdata.searchParams.get('action') == "succes"){
@@ -75,7 +75,7 @@ function showpopup() {
 
     }
     else{
-        document.getElementById("test").style.margin = "0";
+     //TODO:   document.getElementById("test").style.margin = "0";
     }
 }
 
