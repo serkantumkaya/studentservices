@@ -42,7 +42,27 @@ if (isset($_POST['username']) && $_POST['password']){
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-<body>
+<body onload="showSlides(); timeevents();">
+
+<div class="grid-container">
+
+    <div class="itemslider">
+        <div class="mySlides fade">
+            <img src="/StudentServices/images/9.png" class="sliderimage">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/StudentServices/images/11.png" class="sliderimage">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/StudentServices/images/12.png" class="sliderimage">
+        </div>
+
+        <div class="mySlides fade">
+            <img src="/StudentServices/images/13.png" class="sliderimage">
+        </div>
+    </div>
 
 <div class="popup" id="test">
     <span class="popuptext" id="myPopup"></span>
