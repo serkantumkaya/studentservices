@@ -5,39 +5,38 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ProjectModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Project.php");
 
-class ProjectController{
+class ProjectController
+{
 
-    private ProfielModel $projectmodel;
+    private ProjectModel $projectmodel;
 
-    public function __construct()
-    {
-        $this->projectModel = new ProjectModel();
+    public function __construct(){
+        $this->projectmodel = new ProjectModel();
     }
 
-   public function GetProjecten()
-    {
+    public function getProjecten(){
         $ProjectArray = [];
-        foreach ($this->projectModel->GetProjecten() as $project)
-        {
-            $projectObject = new Project($project['ProjectID'],$project['GebruikerID'],$project['Type'],$project['Titel'],$project['Beschrijving'],$project['CategorieID'],$project['Datumaangemaakt'],$project['Deadline'],$project['Status'],$project['Locatie'],$project['Verwijderd']);
+        foreach ($this->projectmodel->getProjecten() as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
         }
         return $ProjectArray;
     }
 
-
-    function add(int $ProjectID,
-                 int $GebruikerID,
-                 string $Type,
-                 string $Titel,
-                 string $Beschrijving,
-                 int $CategorieID,
-                 int $Datumaangemaakt,
-                 int $Deadline,
-                 int $Status,
-                 string $Locatie,
-                 int $Verwijderd) {
-        return $this->projectmodel->Add($ProjectID,
+    function add(int $GebruikerID,
+        string $Type,
+        string $Titel,
+        string $Beschrijving,
+        int $CategorieID,
+        string $Datumaangemaakt,
+        string $Deadline,
+        string $Status,
+        string $Locatie
+        ){
+        return $this->projectmodel->Add(
             $GebruikerID,
             $Type,
             $Titel,
@@ -46,36 +45,21 @@ class ProjectController{
             $Datumaangemaakt,
             $Deadline,
             $Status,
-            $Locatie,
-            $Verwijderd);
+            $Locatie
+            );
     }
 
-    function delete(int $Id)
-    {
-        return $this->projectmodel->Delete($Id);
+    function delete(int $ProjectID){
+        return $this->projectmodel->Delete($ProjectID);
     }
 
-    function update(Project $Project)
-    {
+    function update(Project $Project){
         return $this->projectmodel->Update($Project);
     }
 
-    function getById(int $id): project{
-        $Project = $this->projectModel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+    function getById(int $ProjectID): project{
+        $Project = $this->projectmodel->getById($ProjectID);
         return new Project(
-<<<<<<< Updated upstream
-            $Project[0]['ProjectID'],
-            $Project[0]['GebruikerID'],
-            $Project[0]['Type'],
-            $Project[0]['Titel'],
-            $Project[0]['Beschrijving'],
-            $Project[0]['CategorieID'],
-            $Project[0]['Datumaangemaakt'],
-            $Project[0]['Deadline'],
-            $Project[0]['Status'],
-            $Project[0]['Locatie'],
-            $Project[0]['Verwijderd'];
-=======
             $Project['ProjectID'],
             $Project['GebruikerID'],
             $Project['Type'],
@@ -86,8 +70,19 @@ class ProjectController{
             $Project['Deadline'],
             $Project['Status'],
             $Project['Locatie'],
-            $Project['Verwijderd'];
->>>>>>> Stashed changes
+            $Project['Verwijderd']);
+    }
 
+
+    function getALLByGebruikerID(int $gebruikerID){
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getALLByGebruikerID($gebruikerID) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
+        }
+        return $ProjectArray;
     }
 }
