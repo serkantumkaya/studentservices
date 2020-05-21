@@ -92,35 +92,40 @@ input[type=submit]:active {
     margin-bottom: 10px;
 }
 
-
-.formcol1 {
+.formlabel {
+    display: inline-block;
     width: 200px;
-    float: left;
-    ;
-}
+    text-align: left;
+    margin-top:2px;
+}​
 
-.formcol2 {
-    width: 300px;
-    float: left;
-}
+ .formlabel {
+     display: inline-block;
+     width: auto;
+     text-align: left;
+     margin-top:2px;
+ }​
 
-.formcol3 {
-    width: 300px;
-    float: left;
-}
+.formerrorlabel {
+     display: inline-block;
+     width: 200px;
+     text-align: left;
+       margin-top:2px;
+ }​
 
 .formouter {
-    border-radius: 25px;
-    border: 1px solid #00008B;
-    position: relative;
-    text-align: right;
-    height: 440px;
-    width: 500px;
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-left: 20px;
-    margin-left: 20px;
-    margin-bottom: 20px;
+     border-radius: 25px;
+     border: 1px solid #00008B;
+    background-color: pink;
+     /*position: relative;*/
+     /*text-align: right;*/
+     /*height: 440px;*/
+     /*width: 500px;*/
+     margin-top: 20px;
+     padding-top: 20px;
+     padding-left: 20px;
+     margin-left: 20px;
+     margin-bottom: 20px;
 }
 
 #validation {
@@ -130,6 +135,20 @@ input[type=submit]:active {
 
 textarea {
     resize: none;
+}
+.profielfotoform
+{
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    margin-bottom: auto;
+    z-index: 0;
+    left:500px;
+    position:fixed;
+    top:75px;
 }
 
 .studentfoto {
@@ -476,6 +495,22 @@ a.button {
         border: none;
         width: 99%;
     }
+    .profielfotoform
+    {
+        border-radius: 25px;
+        border: 1px solid #00008B;
+        padding: 20px;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        margin-bottom: auto;
+        z-index: 0;
+        position:unset;
+        left:0px;
+        top:auto;
+    }
+
+
 
     #page-nav label {
         position: fixed;
@@ -673,6 +708,21 @@ a.button {
 @media only screen and (max-height: 375px) /* om landscape responsive leesbaar te maken*/ {
     .grid-container {
         grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+    }
+
+    .profielfotoform
+    {
+        border-radius: 25px;
+        border: 1px solid #00008B;
+        padding: 20px;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        margin-bottom: auto;
+        z-index: 0;
+        position: unset;
+        left:0px;
+        top:auto;
     }
 
     .itemslider {

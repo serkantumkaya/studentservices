@@ -11,7 +11,7 @@ class Profiel
     private ?School $School;
     private ?Opleiding $Opleiding;
     private ?string $Startdatumopleiding;
-    private ?string $Foto;
+    private $Foto;
     private string $Status;
     private string $Achternaam;
     private string $Voornaam;
@@ -125,19 +125,21 @@ class Profiel
     /**
      * @return string
      */
-    public function getFoto(): string{
+    public function getFoto(){
+
         if (!empty($this->Foto) || !isset($this->Foto) || $this->Foto == null || $this->Foto == "")
             return "";
-        var_dump($this->Foto);
-        return $this->$this->base64_decode($this->Foto);
+        return base64_decode($this->Foto);
     }
 
     /**
-     * @param string $Foto
+     * @param $Foto
      */
     public function setFoto(string $Foto): void{
+
         if ($Foto == null || $Foto == "") $this->Foto = "";
-        else $this->Foto = base64_encode($Foto);
+        else $this->Foto = $Foto;
+//wordt omgezet naar 64encode dus tot zover goed.
     }
 
     /**

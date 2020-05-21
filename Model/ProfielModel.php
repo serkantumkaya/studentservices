@@ -71,9 +71,7 @@ class ProfielModel
 
     function update(Profiel $profiel){
 
-        $sql =
-
-            $this->conn->prepare("UPDATE Profiel SET 
+        $sql = $this->conn->prepare("UPDATE Profiel SET 
             School=:School ,Opleiding=:Opleiding ,Startdatumopleiding=:Startdatumopleiding ,Status=:Status,
             Achternaam=:Achternaam ,Voornaam=:Voornaam ,Tussenvoegsel=:Tussenvoegsel,Prefix=:Prefix ,Straat=:Straat ,Huisnummer=:Huisnummer,
             Extentie=:Extensie ,Postcode=:Postcode ,Woonplaats=:Woonplaats ,Geboortedatum=:Geboortedatum ,Telefoonnummer=:Telefoonnummer

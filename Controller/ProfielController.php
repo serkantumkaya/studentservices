@@ -129,6 +129,7 @@ class ProfielController
             $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer'],
 
             );
+//hier zit ergens de fout. Binaire string wordt opgehaald maar niet in property gezet!
         $ProfielObject->setFoto($Profielc['Foto']== null ? "" : $Profielc['Foto']);
         return $ProfielObject;
     }
