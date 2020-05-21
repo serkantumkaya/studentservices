@@ -63,6 +63,8 @@ if (empty($_Post) && !isset($_Post["actie"])){
         </tr>
         <?php
 
+        //TODO: misschien wat meer uitbreideen
+
         foreach ($projectController->getProjecten() as $project){
 
             echo "<tr>

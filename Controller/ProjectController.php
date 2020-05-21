@@ -26,18 +26,17 @@ class ProjectController
         return $ProjectArray;
     }
 
-    function add(int $ProjectID,
-        int $GebruikerID,
+    function add(int $GebruikerID,
         string $Type,
         string $Titel,
         string $Beschrijving,
         int $CategorieID,
-        int $Datumaangemaakt,
-        int $Deadline,
-        int $Status,
-        string $Locatie,
-        int $Verwijderd){
-        return $this->projectmodel->Add($ProjectID,
+        string $Datumaangemaakt,
+        string $Deadline,
+        string $Status,
+        string $Locatie
+        ){
+        return $this->projectmodel->Add(
             $GebruikerID,
             $Type,
             $Titel,
@@ -46,12 +45,12 @@ class ProjectController
             $Datumaangemaakt,
             $Deadline,
             $Status,
-            $Locatie,
-            $Verwijderd);
+            $Locatie
+            );
     }
 
-    function delete(int $Id){
-        return $this->projectmodel->Delete($Id);
+    function delete(int $ProjectID){
+        return $this->projectmodel->Delete($ProjectID);
     }
 
     function update(Project $Project){

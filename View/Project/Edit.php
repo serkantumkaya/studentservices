@@ -11,32 +11,43 @@ if (isset($_GET["ID"])){
     $project           = $projectController->getById($_GET["ID"]);
 }
 
-/*if ($_POST){
-    $feedbackController = new FeedbackController();
+if ($_POST){
+    $ProjectController = new ProjectController();
     if (isset($_POST['Wijzig'])){
-        $feedback = new Feedback($feedback->getFeedbackID(), $_POST['GebruikerID'], $_POST['ProjectID'],
-            $_POST['Cijfer'], $_POST['Review']);
-        $feedbackController->update($feedback);
+        $deadline = makeDeadline($_POST['Deadline']);
+
+        $project = new Project($project->getProjectID(), $_POST['GebruikerID'], $_POST['Type'], $_POST['Titel'],
+            $_POST['Beschrijving'], $_POST['CategorieID'], $_POST['Datumaangemaakt'],
+            $deadline, $_POST['Status'], $_POST['Locatie'], $_POST['Verwijderd']);
+
+        $projectController->update($project);
         header('Location: View.php');
     }
     if (isset($_POST['Verwijder'])){
-        $feedbackController->delete($feedback->getFeedbackID());
+        $ProjectController->delete($project->getProjectID());
         header('Location: View.php');
     }
-}*/
-
+}
+function makeDeadline($deadline){
+    $deadline = explode("T", $deadline);
+    return $deadline[0] . " " . $deadline[1];
+}
 //Ja, dit kon beter....
 //TODO: Locatie en verwijderd
 function getUitvoer(Project $project){
-    $gebruikertext = getUitvoerGebruiker($project);
-    $titel         = $project->getTitel();
-    $omschrijving  = $project->getBeschrijving();
-    $projectID     = $project->getProjectID();
-    $type          = getUitvoerType($project);
-    $categorie     = getUitvoerCategorie($project);
-    $deadline      = getUitvoerDeadline($project);
-    $status        = getUitvoerStatus($project);
-    $uitvoer       = <<<EOD
+    $gebruikertext   = getUitvoerGebruiker($project);
+    $titel           = $project->getTitel();
+    $beschrijving    = $project->getBeschrijving();
+    $projectID       = $project->getProjectID();
+    $type            = getUitvoerType($project);
+    $categorie       = getUitvoerCategorie($project);
+    $deadline        = getUitvoerDeadline($project);
+    $status          = getUitvoerStatus($project);
+    $datumaangemaakt = $project->getDatumaangemaakt();
+    $locatie         = $project->getLocatie();
+    $verwijderd      = getVerwijderdUitvoer($project);
+
+    $uitvoer = <<<EOD
 <table>
     <form action = "Edit.php?ID=$projectID" method="post" >
     <tr>
@@ -45,33 +56,44 @@ function getUitvoer(Project $project){
     </tr>
     <tr>
         <td>Titel</td>
-        <td><input type="text" value="$titel" maxlength="70"/></td>
+        <td><textarea maxlength="70" name="Titel" cols="30" rows="2"
+        required>$titel</textarea></td>
     </tr>
     <tr>
         <td>Omschrijving</td>
-        <td><textarea maxlength="500" name="Review" cols="40" rows="6"
-        placeholder="Max 500 characters" required>$omschrijving</textarea></td>
+        <td><textarea maxlength="500" name="Beschrijving" cols="40" rows="6"
+        placeholder="Max 500 characters" required>$beschrijving</textarea></td>
     </tr>
     <tr>
         <td>Type</td>
         <td>$type</td>
-    </tr>    
+    </tr>
     <tr>
         <td>Categorie</td>
         <td>$categorie</td>
     </tr>    
     <tr>
         <td>Deadline</td>
-        <td>$deadline</td>
+        <td><input type="datetime-local" name="Deadline" value="$deadline"/></td>
     </tr>    
     <tr>
         <td>Status</td>
         <td>$status</td>
     </tr>  
     <tr>
+        <td>Locatie</td>
+        <td><input type="text" name="Locatie" value="$locatie" /></td>
+    </tr>  
+    <tr>
+        <td>Verwijderd</td>
+        <td>$verwijderd</td>
+    </tr>  
+    <input type="hidden" name="Datumaangemaakt" value="$datumaangemaakt"/>
+    <tr>
         <td><input type="submit" name="Wijzig" value="Wijzigen"/></td>
         <td><input type="submit" name="Verwijder" value="Verwijder"/></td>
     </tr>
+    
     
     </form >
 </table>
@@ -117,7 +139,7 @@ function getUitvoerCategorie(Project $project){
     $categorieController = new CategorieController();
     $categorieen         = $categorieController->getCategorieen();
 
-    $text = "<select id=\"Categorie\" name=\"Categorie\">";
+    $text = "<select id=\"Categorie\" name=\"CategorieID\">";
     foreach ($categorieen as $categorie){
         if ($project->getCategorieID() == $categorie->getCategorieID()){
             $text .= "<option selected='selected' value='" . $categorie->getCategorieID() . "'>" .
@@ -132,17 +154,32 @@ function getUitvoerCategorie(Project $project){
 
 function getUitvoerDeadline(Project $project){
     $deadline = $project->getDeadline();
-
-    //var_dump($deadline);
-    return "Nog doen";
+    $time     = new DateTime($deadline);
+    $deadline = $time->format("Y-m-d H:i");
+    $deadline = explode(" ", $deadline);
+    return $deadline[0] . "T" . $deadline[1];
 }
 
 function getUitvoerStatus(Project $project){
     $huidigestatus = $project->getStatus();
-    $statussen     = array(0 => 'Mee bezig', 1 => 'Klaar');
-    $text          = "<select id=\"Type\" name=\"Type\">";
+    $statussen = array(0 => 'Mee bezig', 1 => 'Klaar');
+    $text      = "<select id=\"Status\" name=\"Status\">";
     foreach ($statussen as $key => $value){
         if ($huidigestatus == $key){
+            $text .= "<option selected='selected' value='" . $value . "'>$value</option>";
+        } else{
+            $text .= "<option value='" . $value . "'>$value</option>";
+        }
+    }
+    return $text;
+}
+
+function getVerwijderdUitvoer(Project $project){
+    $huidigverwijderd = $project->isVerwijderd();
+    $statussen        = array(0 => 'Niet verwijderd', 1 => 'Verwijderd');
+    $text             = "<select id=\"Verwijderd\" name=\"Verwijderd\">";
+    foreach ($statussen as $key => $value){
+        if ($huidigverwijderd == $key){
             $text .= "<option selected='selected' value='" . $key . "'>$value</option>";
         } else{
             $text .= "<option value='" . $key . "'>$value</option>";
@@ -151,7 +188,9 @@ function getUitvoerStatus(Project $project){
     return $text;
 }
 
+
 $uitvoer = getUitvoer($project);
+
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>

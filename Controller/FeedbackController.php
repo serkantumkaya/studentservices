@@ -46,7 +46,7 @@ class FeedbackController
      */
 
     public function getById(int $FeedbackID): Feedback{
-        $feedback = $this->Feedbackmodel->get($FeedbackID);
+        $feedback = $this->Feedbackmodel->getById($FeedbackID);
         return new Feedback(
             $feedback['FeedbackID'],
             $feedback['GebruikerID'],

@@ -19,13 +19,13 @@ class Project
     private int $CategorieID;
     private string $Datumaangemaakt;
     private string $Deadline;
-    private bool $Status;
+    private string $Status;
     private string $Locatie;
     private bool $Verwijderd;
 
 
     function __construct(int $ProjectID, int $GebruikerID, string $Type, string $Titel, string $Beschrijving,
-        int $CategorieID, string $Datumaangemaakt, string $Deadline, bool $Status, string $Locatie,
+        int $CategorieID, string $Datumaangemaakt, string $Deadline, string $Status, string $Locatie,
         bool $Verwijderd){
         $this->ProjectID       = $ProjectID;
         $this->GebruikerID     = $GebruikerID;
@@ -177,7 +177,7 @@ class Project
     /**
      * @return bool
      */
-    public function getStatus(): bool{
+    public function getStatus(): string{
         return $this->Status;
     }
 
