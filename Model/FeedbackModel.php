@@ -70,6 +70,11 @@ class FeedbackModel
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getByProjectID(int $ID): array{
+        $sql = "SELECT * FROM FEEDBACK WHERE ProjectID = $ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+    }
+
     /**
      * haalt een hele hoop feedback op, die een gebruiker heeft gegeven.
      * @param $ID

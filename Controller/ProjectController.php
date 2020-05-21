@@ -74,4 +74,15 @@ class ProjectController
     }
 
 
+    function getALLByGebruikerID(int $gebruikerID){
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getALLByGebruikerID($gebruikerID) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
+        }
+        return $ProjectArray;
+    }
 }

@@ -101,5 +101,10 @@ class ProjectModel
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getALLByGebruikerID(int $ID){
+        $sql = "Select * FROM Project WHERE GebruikerID = '$ID'";
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }

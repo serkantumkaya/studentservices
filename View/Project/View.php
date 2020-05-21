@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerC
 session_start();
 
 if (empty($_Post) && !isset($_Post["actie"])){
-    $projectController = new ProjectController();
+    $projectController   = new ProjectController();
     $gebruikerController = new GebruikerController(-1);
 }
 
@@ -57,25 +57,18 @@ if (empty($_Post) && !isset($_Post["actie"])){
     <table>
         <tr>
             <th>Gemaakt door</th>
-            <th>ProjectID</th>
             <th>Titel</th>
             <th>Omschrijving</th>
+            <th>Type</th>
         </tr>
         <?php
-
-        //TODO: misschien wat meer uitbreideen
 
         foreach ($projectController->getProjecten() as $project){
 
             echo "<tr>
                     <td>
-                        <input type=\"submit\" value=\"" . $gebruikerController->getById($project->getGebruikerID()).
+                        <input type=\"submit\" value=\"" . $gebruikerController->getById($project->getGebruikerID()) .
                 "\" formaction='../Profiel/Edit.php?ID=" . $project->getGebruikerID() .
-                "' class=\"table1col\"> 
-                    </td>
-                    <td>
-                        <input type=\"submit\" value=\"" . $project->getProjectID() .
-                "\" formaction='../Project/Edit.php?ID=" . $project->getProjectID() .
                 "' class=\"table1col\"> 
                     </td>
                     <td>
@@ -87,6 +80,11 @@ if (empty($_Post) && !isset($_Post["actie"])){
                         <input type=\"submit\" value=\"" . $project->getBeschrijving() .
                 "\" formaction='Edit.php?ID=" . $project->getProjectID() .
                 "' class=\"table1col\"> 
+                    </td>
+                    <td>
+                        <input type=\"submit\" value=\"" . $project->getType() .
+                "\" formaction='Edit.php?ID=" . $project->getProjectID() .
+                "' class=\"table1col\">
                     </td>
                     
                 </tr>";

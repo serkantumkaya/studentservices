@@ -90,39 +90,4 @@ class Feedback
         $this->Review = $Review;
     }
 
-    /**
-     * TODO: naar controller
-     * verkorte versie van de Review teruggeven. past beter op het scherm
-     * @return string
-     */
-
-    public function getReviewKort(): string{
-        if (strlen($this->Review)>40){
-            return substr($this->Review, 0, 40) . "...";
-        } else{
-            return $this->Review;
-        }
-    }
-
-    /**
-     * Gebruikersnaam ophalen aan de hand van het ID.
-     * dit is de persoon die de feedback heeft gegeven
-     *  TODO: Dit moet naar de Controller.
-     * @return string
-     */
-
-    public function getGebruikerNaam(): string {
-        return $this->gebruikercontroller->getById();
-    }
-
-    /**
-     * Naam ophalen van degene die het heeft gegeven.
-     * @return string
-     */
-
-    public function getGeversNaam(): string{
-        //TODO: moet denk ik in de controller van de gebruiker??
-    }
-
-
 }

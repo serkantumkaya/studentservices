@@ -3,14 +3,18 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/FeedbackModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Feedback.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
+
 
 class FeedbackController
 {
 
     private FeedbackModel $Feedbackmodel;
+    private ProjectController $projectcontroller;
 
     public function __construct(){
         $this->Feedbackmodel = new FeedbackModel();
+        $this->ProjectController = new ProjectController();
     }
 
     public function getFeedback(){
@@ -55,6 +59,33 @@ class FeedbackController
             $feedback['Review']);
     }
 
+    public function getByProjectID(int $projectID) :array{
+        $feedbacklijst = array();
+        foreach ($this->Feedbackmodel->getByProjectID($projectID) as $feedback){
+            $feedbackObj     = new Feedback(
+                $feedback['FeedbackID'],
+                $feedback['GebruikerID'],
+                $feedback['ProjectID'],
+                $feedback['Cijfer'],
+                $feedback['Review']);
+            $feedbacklijst[] = $feedbackObj;
+        }
+        return $feedbacklijst;
+    }
+
+    /**
+     * verkorte versie van de Review teruggeven. past beter op het scherm
+     * @return string
+     */
+
+    public function getReviewKort($review): string{
+        if (strlen($review)>40){
+            return substr($review, 0, 40) . "...";
+        } else{
+            return $review;
+        }
+    }
+
     /**
      * Door het GebruikerID , worden ALLE feedback van die gebruiker teruggegeven.
      * dit zijn dus feedback op verschillende projecten.
@@ -93,19 +124,32 @@ class FeedbackController
      * de feedback die jij hebt gegeven
      */
 
-    public function getGekregenFeedback(){
-        //TODO: via de projectcontroller jou projectID (meervoud) ophalen.
-        //  aan de hand daarvan bepalen hoeveel feedback je hebt gekregen.
-        //  ook hiermee kan je dan een gemiddelde maken met hoe de score ongeveer is.
+    public function getGekregenFeedback(int $gebruikerID):array {
+        $feedbacklijst = array();
+        $mijnprojecten = $this->ProjectController->getALLByGebruikerID($gebruikerID);
+
+        foreach ($mijnprojecten as $project){
+            $feedback = $this->getByProjectID($project->getProjectID());
+            foreach ($feedback as $f){
+                $feedbacklijst[] = $f;
+            }
+        }
+        return $feedbacklijst;
     }
 
-    public function getGeversNaam(int $gebruikerID){
-        //zoiets als dit:
-        //  return $this->ProfielController->getById($gebruikerID);
-        // TODO: maken dat je hier dmv projectID de naam van de gever kan ophalen.
-        //  hopelijk kan projectcontroller dat wel regelen.
+    /**
+     * Door middel van het gebruikersID kan hier de score worden opgehaald die hij van andere heeft gekregen.
+     * @param int $gebruikerID
+     * @return float
+     */
+
+    function getGemiddeldeGekregenScore(int $gebruikerID): float{
+        $score = 0;
+        $aantal = count($this->getGekregenFeedback($gebruikerID));
+        foreach($this->getGekregenFeedback($gebruikerID) as $feedback){
+            $score += $feedback->getCijfer();
+        }
+        return round($score/$aantal,1);
     }
-
-
 
 }
