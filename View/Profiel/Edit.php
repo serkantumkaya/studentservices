@@ -1,4 +1,3 @@
-
 <?php
 //todo: haal deze error meldingen weg bij release
 error_reporting(E_ALL);
@@ -63,6 +62,8 @@ if (!isset($_SESSION["CurrentProfiel"]))
     $profiel = $profielcontroller->getByGebruikerID();
     if ($profiel == null)
         header("Location: Add.php");
+    //$Photo = $profiel->getFoto();
+
 }
 else if (isset($_SESSION["GebruikerID"]))
 {
@@ -71,9 +72,10 @@ else if (isset($_SESSION["GebruikerID"]))
     $profiel = $profielcontroller->getByGebruikerID();
     if ($profiel == null)
         header("Location: Add.php");
+    //$Photo = $profiel->getFoto();
 }
 
-if (isset($_GET["ID"]) || isset($profiel))
+if ((isset($_GET["ID"]) || isset($profiel)) && $_SERVER['REQUEST_METHOD'] !='POST')
 {
     $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
     //als de admin inlogt
@@ -84,7 +86,7 @@ if (isset($_GET["ID"]) || isset($profiel))
     $_SESSION["CurrentProfiel"] = $profiel;
     $School =$profiel->getSchool();
     $Opleiding=$profiel->getOpleiding();
-    $Startdatumopleiding=$profiel->getStartdatumopleiding()->format('d-m-Y');
+    $Startdatumopleiding=$profiel->getStartdatumopleiding();
     $Status=$profiel->getStatus();
     $Achternaam=$profiel->getAchternaam();
     $Voornaam=$profiel->getVoornaam();
@@ -95,7 +97,7 @@ if (isset($_GET["ID"]) || isset($profiel))
     $Extensie =$profiel->getExtensie();
     $Postcode=$profiel->getPostcode();
     $Woonplaats=$profiel->getWoonplaats();
-    $Geboortedatum=$profiel->getGeboortedatum()->format('d-m-Y');
+    $Geboortedatum=$profiel->getGeboortedatum();
     $Telefoonnummer=$profiel->getTelefoonnummer();
 }
 else
@@ -118,10 +120,8 @@ else
     $Woonplaats=$_POST["Woonplaats"];
     $Geboortedatum=$_POST["Geboortedatum"];
     $Telefoonnummer=$_POST["Telefoonnummer"];
+    $Photo = $profiel->getFoto();
 }
-
-
-
 #region [errorafhandeling]
 $NaamErr = "";
 $EmailErr = "";
@@ -174,9 +174,12 @@ $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session z
     //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
    // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
 {
- echo "<h1 > Profiel wijzigen voor : ".$gebruiker->getGebruikersnaam()."</h1 ><br>
-<form action = \"Edit.php\" method = \"post\" style='width:50%' >";
+ echo "<h1 > Profiel wijzigen voor : ".$gebruiker->getGebruikersnaam()."</h1 ><br>";
+?>
 
+<form action="Edit.php" method="post" enctype="multipart/form-data">
+
+<?php
 echo "<!--Voornaam-->
     <div class='formcol1'>Voornaam *</div>
     <div class='formcol2'><input type = \"text\" name=\"Voornaam\" value=\"";
@@ -288,21 +291,36 @@ echo"</select>
          <div class='formcol2'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
         if (isset($_POST["Telefoonnummer"])) echo $Telefoonnummer;
 echo "\"></div> <div class='formcol1'>
-       <input type=\"submit\" value=\"submit\" name='submit' > <input type=\"submit\" value=\"delete\" name='delete' ></div> <br><br><br>
-    </form >";
+   ";
 };?>
+    <label>Profielfoto:</label><br />
 
-    <div class='formcol1'>
-Popupmaken
-    <form name="frmImage" enctype="multipart/form-data" action=""
-      method="post" class="frmImageUpload">
-    <label>Kies een profielfoto:</label><br />
-    <input name="userImage" type="file"  />
-    <input type="submit" value="SubmitprofilePhoto"  />
-</form>
-    </div>
     <?php
-$Profielcontroller= new ProfielController($GebruikersID);
+    if (isset($profiel)){
+        $Photo = $profiel->getFoto();
+        var_dumP($Photo);
+        if (isset($Photo)){
+
+            echo "<img src=data:image/jpeg;base64,".$Photo." width=50 height=75 />";
+        }
+    }
+    ?>
+
+    <input type="file" name="ProfilePhoto" value="Upload je profielfoto.">
+
+    <input type="submit" value="submit" name='submit' >
+    <input type="submit" value="delete" name='delete' ></div>
+</form >
+
+<?php
+
+    if(isset($_FILES["ProfilePhoto"]) && $_FILES["ProfilePhoto"]["name"] != "")
+    {
+        $imagename=$_FILES["ProfilePhoto"]["name"];
+        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhoto']['tmp_name']));
+        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        $Profielcontroller->UploadPhoto($imagetmp,$profiel->getProfielID());
+    }
 
 if (isset($_POST["delete"]))
 {
@@ -315,12 +333,14 @@ if (isset($_POST["delete"]))
 }
 else if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-    var_dump($Startdatumopleiding);
-    var_dump($Geboortedatum);
-    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School, $Opleiding,
-        null,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
+    $schoolcontroller = new SchoolController();
+    $opleidingcontroller = new OpleidingController();
+
+    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$schoolcontroller->getById($School),
+        $opleidingcontroller->getById($Opleiding),
+        $Startdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
          $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
-         $Woonplaats,  null, $Telefoonnummer);
+         $Woonplaats,  $Geboortedatum, $Telefoonnummer);
 
     if ($Profielcontroller->update($profiel))
     {

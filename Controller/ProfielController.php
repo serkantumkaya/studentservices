@@ -69,17 +69,18 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
+        echo "1";
         $profielmodel        = new ProfielModel();
-        $Profiel             = $profielmodel->GetById($id)->fetch(PDO::FETCH_ASSOC);
+        $Profiel             = $profielmodel->getByID($id)->fetch(PDO::FETCH_ASSOC);
         $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
-        return new Profiel(
+        $ProfielObject =  new Profiel(
             $Profiel['ProfielID'],
             $Profiel['GebruikerID'],
             $schoolcontroller->getById($Profiel['School']),
             $opleidingcontroller->getById($Profiel['Opleiding']),
-            new DateTime($Profiel['Startdatumopleiding']),
+            $Profiel['Startdatumopleiding'],
             $Profiel['Status'],
             $Profiel['Achternaam'],
             $Profiel['Voornaam'],
@@ -90,15 +91,17 @@ class ProfielController
             $Profiel['Extentie'],
             $Profiel['Postcode'],
             $Profiel['Woonplaats'],
-            new DateTime($Profiel['Geboortedatum']),
-            $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']);
-
+            $Profiel['Geboortedatum'],
+            $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']
+        );
+        $ProfielObject->setFoto($Profiel['Foto']);
+        return $ProfielObject;
     }
 
     function getByGebruikerID(){
-        var_dump($this->gebruikerID);
+
         $profielmodel = new ProfielModel($this->gebruikerID);
-        var_dump($profielmodel);
+
         $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
         if (!isset($Profielc) || $Profielc == false){
             return null;
@@ -106,12 +109,12 @@ class ProfielController
         $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
-        return new Profiel(
+        $ProfielObject = new Profiel(
             $Profielc['ProfielID'],
             $Profielc['GebruikerID'],
             $schoolcontroller->getById($Profielc['School']),
             $opleidingcontroller->getById($Profielc['Opleiding']),
-            new DateTime($Profielc['Startdatumopleiding']),
+            $Profielc['Startdatumopleiding'],
             $Profielc['Status'],
             $Profielc['Achternaam'],
             $Profielc['Voornaam'],
@@ -122,12 +125,18 @@ class ProfielController
             $Profielc['Extentie'],
             $Profielc['Postcode'],
             $Profielc['Woonplaats'],
-            new DateTime($Profielc['Geboortedatum']),
-            $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer']
-            );
+            $Profielc['Geboortedatum'],
+            $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer'],
 
+            );
+        $ProfielObject->setFoto($Profielc['Foto']== null ? "" : $Profielc['Foto']);
+        return $ProfielObject;
     }
 
+    function UploadPhoto($Photo,int $GebruikersId)
+    {
+        $this->profielmodel->UploadPhoto($Photo,$GebruikersId);
+    }
     //todo : maken als projecten af is
     //public function getProjectenByProfiel()
     //{
