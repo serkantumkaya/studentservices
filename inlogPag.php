@@ -13,6 +13,7 @@ $rememberpassword = "off";
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
 
+    //for choosing language
     if ($_POST["EN"])
     {
         $_SESSION["Language"] = "EN";
