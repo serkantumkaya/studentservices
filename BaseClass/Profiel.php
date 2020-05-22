@@ -12,23 +12,23 @@ class Profiel
     private ?Opleiding $Opleiding;
     private ?string $Startdatumopleiding;
     private $Foto;
-    private string $Status;
-    private string $Achternaam;
-    private string $Voornaam;
-    private string $Tussenvoegsel;
-    private string $Prefix;
-    private string $Straat;
-    private int $Huisnummer;
-    private string $Extentie;
-    private string $Postcode;
-    private string $Woonplaats;
+    private ?string $Status;
+    private ?string $Achternaam;
+    private ?string $Voornaam;
+    private ?string $Tussenvoegsel;
+    private ?string $Prefix;
+    private ?string $Straat;
+    private ?int $Huisnummer;
+    private ?string $Extentie;
+    private ?string $Postcode;
+    private ?string $Woonplaats;
     private ?string $Geboortedatum;
-    private string $Telefoonnummer;
+    private ?string $Telefoonnummer;
 
     public function __construct(int $ProfielID, int $GebruikerID, ?School $School, ?Opleiding $Opleiding,
-        ?string $Startdatumopleiding, string $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
-        string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode,
-        string $Woonplaats, ?string $Geboortedatum, string $Telefoonnummer){
+        ?string $Startdatumopleiding, ?string $Status, ?string $Achternaam, ?string $Voornaam, ?string $Tussenvoegsel,
+        ?string $Prefix, ?string $Straat, ?int $Huisnummer, ?string $Extentie, ?string $Postcode,
+        ?string $Woonplaats, ?string $Geboortedatum, ?string $Telefoonnummer){
         $this->ProfielID           = $ProfielID;
         $this->GebruikerID         = $GebruikerID;
         $this->School              = $School;
@@ -126,10 +126,7 @@ class Profiel
      * @return string
      */
     public function getFoto(){
-
-        if (!empty($this->Foto) || !isset($this->Foto) || $this->Foto == null || $this->Foto == "")
-            return "";
-        return base64_decode($this->Foto);
+        return $this->Foto;
     }
 
     /**

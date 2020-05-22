@@ -111,7 +111,6 @@ class ProfielModel
     function UploadPhoto($Photo, int $profielID)
     {
         $sql =
-
             $this->conn->prepare("UPDATE Profiel SET Foto = :Photo 
             Where ProfielID=:ProfielID");//let op id geen quotes
 

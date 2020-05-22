@@ -205,9 +205,6 @@ echo "\"/>
   <div class='profiellabel'>Huidige foto</div>
 <img id=\"nieuwestudent\" src=\"/StudentServices/images/sgtest.jpg\" class=\"studentfoto\"/>
 
-
-
-
  <div class='profiellabel'>Status</div>
 <select name=\"Status\">";
         $Status = new EnumGebruikerStatus();
