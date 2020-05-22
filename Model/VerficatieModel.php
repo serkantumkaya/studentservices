@@ -15,31 +15,6 @@ class verficatieModel
         $this->conn      = $this->ConnectDb->GetConnection();
     }
 
-//todo : GEEN tabbellen aanmaken via code!
-    //private function checkoftabelexsist(){
-    //    $sql    = "SELECT TABLE_NAME
-    //    FROM information_schema.TABLES
-    //    WHERE TABLE_NAME = 'TOACTIVATEUSERS'";
-    //    $result = $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
-    //    if (empty($result)){
-    //        $sql =
-    //            $this->conn->prepare(
-    //                "USE StudentServices;
-    //                CREATE TABLE TOACTIVATEUSERS(
-    //    //                UserID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    //    //                Username varchar(50) NOT NULL UNIQUE,
-    //    //                Wachtwoord varchar(90) NOT NULL,
-    //    //                Email varchar(50) NOT NULL,
-    //    //                Timestamp varchar(50) NOT NULL,
-    //    //                Activationcode varchar(30) NOT NULL);
-    //    //                ALTER TABLE TOACTIVATEUSERS AUTO_INCREMENT = 1000;
-    //    //                "
-    //
-    //            );
-    //        $sql->execute();
-    //    }
-    //}
-
     public function ADD($Gebruikersnaam, $Wachtwoord, $Email, $activationcode){
         date_default_timezone_set(date_default_timezone_get()); //voor het bepalen van de tijd
         $sql        =
