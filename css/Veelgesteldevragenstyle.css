@@ -1,0 +1,62 @@
+.vraag {
+    position: relative;
+    margin-bottom: 1px;
+    width: 100%;
+    color: #fff;
+    overflow: hidden;
+}
+
+input {
+    position: absolute;
+    display: none;    
+}
+
+label.Vraaglabel {
+    position: relative;
+    display: block;
+    padding: 0 0 0px 10px;
+    margin: 5px 5px 5px 0px;
+    background-color: rgba(65, 76, 173, 0.692);
+    font-weight: bold;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.Antwoord {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #999;
+    -webkit-transition: max-height .50s;
+    -moz-transition: max-height .50s;
+    -o-transition: max-height .50s;
+    transition: .50s;
+}
+
+.Antwoord p {
+    margin: 20px;
+}
+
+input:checked ~ .Antwoord {
+    max-height: 100px;
+}
+
+label.vraaglabel::after {
+    position: absolute;
+    right: 0;
+    top:0;
+    display: block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+input [type=checkbox] + label.vraaglabel::after {
+    content: "+";
+}
+
+input [type=checkbox] :checked + label.vraaglabel::after {
+    content: "-";
+}
+
+
