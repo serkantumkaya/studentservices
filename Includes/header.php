@@ -22,6 +22,7 @@
         ?>
     </nav>
     <img id="logo" src="/StudentServices/images/logotrans.png"/>
+
     <img id="NL" src="/StudentServices/images/NL.png" class="flaglanguage"/>
     <img id="EN" src="/StudentServices/images/EN.png" class="flaglanguage"/>
 </div>

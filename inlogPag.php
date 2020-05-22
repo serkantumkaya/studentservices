@@ -3,13 +3,25 @@ error_reporting(E_ALL);//todo :weghalen
 ini_set('display_errors',1);//todo :weghalen
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
-session_start();
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
+
 $wronglogin = "";
 
 //Why on and off? Because it's a checkbox thing.
 $rememberpassword = "off";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+
+    if ($_POST["EN"])
+    {
+        $_SESSION["Language"] = "EN";
+    }
+    else
+    {
+        $_SESSION["Language"] = "NL";
+    }
+
     if (isset($_POST["chkRememberMe"])
         && $_POST["chkRememberMe"] == "on"){
         $rememberpassword = "on";
@@ -71,7 +83,7 @@ if (isset($_POST['username']) && $_POST['password'])
     }
     else
     {
-        $wronglogin = "LoginIncorrect";
+        $wronglogin = Translate::GetTranslation("LoginIncorrect");
     }
 }
 
@@ -95,6 +107,10 @@ if (isset($_POST['username']) && $_POST['password'])
     </script>
 </head>
 <body onload="showSlides(); timeevents();">
+
+    <img id="NL" name="NL" src="/StudentServices/images/NL.png" class="flaglanguage" onclick="form.submit();"/>
+    <img id="EN" name="EN" src="/StudentServices/images/EN.png" class="flaglanguage" onclick="form.submit();"/>
+
 
     <img id="logo" src="/StudentServices/images/logo.png"/>
     <div class="itemslider">
@@ -126,7 +142,7 @@ if (isset($_POST['username']) && $_POST['password'])
     <!--styling is tijdelijk-->
     <div class="container">
         <div style="width:100%">
-            <label for='username' style="width:150px">Gebruikersnaam:</label>
+            <label for='username' style="width:150px"><?php echo Translate::GetTranslation("UserNameLabel") ?></label>
             <input type='text' name='username' style="width:150px"
             <?php
 

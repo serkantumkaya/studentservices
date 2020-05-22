@@ -10,6 +10,7 @@ if ($_SESSION["level"]>=50){
 <!--            ADMIN heeft admin en normale menu's -->
 <nav id='menu'>
             <ul  id="nav">
+                        <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
             <li><a href="/StudentServices/index.php">Home</a></li>
             <li><a href="/StudentServices/View/Beschikbaarheid/View.php">Beschikbaarheid</a></li>  
             
@@ -29,7 +30,7 @@ if ($_SESSION["level"]>=50){
             <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
             <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
              <li><a href="/StudentServices/ClientSide/contact.php">Contact</a></li>
-            <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
+
         </ul>
 </nav>
 EOD;
