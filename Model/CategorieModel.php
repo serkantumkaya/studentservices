@@ -34,9 +34,10 @@ class CategorieModel
     }
 
     function delete(int $ID){
-        $sql        = $this->conn->prepare("DELETE FROM Categorie WHERE CategorieID =:$ID");
+        $sql        = $this->conn->prepare("DELETE FROM Categorie WHERE CategorieID =:CID");
+
         $parameters = [
-            '$ID' => $ID
+            'CID' => $ID
         ];
 
         if ($sql->execute($parameters) == true){
