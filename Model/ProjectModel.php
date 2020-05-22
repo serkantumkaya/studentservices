@@ -1,13 +1,4 @@
 <?php
-// TODO:
-//welke functies minimaal:
-//construct
-//getProjecten() -> dit is voor meervoud, dus alle projecten
-//add()
-//delete()
-//update()
-//get() -> dit is voor één project
-
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Project.php");
@@ -101,7 +92,7 @@ class ProjectModel
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getALLByGebruikerID(int $ID){
+    public function getByGebruikerID(int $ID){
         $sql = "Select * FROM Project WHERE GebruikerID = '$ID'";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }

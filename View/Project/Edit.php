@@ -33,7 +33,7 @@ function makeDeadline($deadline){
     return $deadline[0] . " " . $deadline[1];
 }
 //Ja, dit kon beter....
-//TODO: Locatie en verwijderd
+
 function getUitvoer(Project $project){
     $gebruikertext   = getUitvoerGebruiker($project);
     $titel           = $project->getTitel();

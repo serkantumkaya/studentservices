@@ -126,7 +126,7 @@ class FeedbackController
 
     public function getGekregenFeedback(int $gebruikerID):array {
         $feedbacklijst = array();
-        $mijnprojecten = $this->ProjectController->getALLByGebruikerID($gebruikerID);
+        $mijnprojecten = $this->ProjectController->getByGebruikerID($gebruikerID);
 
         foreach ($mijnprojecten as $project){
             $feedback = $this->getByProjectID($project->getProjectID());
