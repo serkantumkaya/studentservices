@@ -21,6 +21,7 @@
         include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/menu.php");
         ?>
     </nav>
-    <img id=
-         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+    <img id="logo" src="/StudentServices/images/logotrans.png"/>
+    <img id="NL" src="/StudentServices/images/NL.png" class="flaglanguage"/>
+    <img id="EN" src="/StudentServices/images/EN.png" class="flaglanguage"/>
 </div>
