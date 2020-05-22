@@ -50,7 +50,7 @@ class CategorieModel
         $sql           =
             $this->conn->prepare("UPDATE CATEGORIE SET Categorienaam=:CN Where CategorieID =:CID");//let op id geen quotes
         $categorienaam = $categorie->getCategorienaam();
-        $id            = $categorie->getGategorieID();
+        $id            = $categorie->getCategorieID();
         $parameters    = [
             'CN' => $categorienaam,
             'CID' => $id

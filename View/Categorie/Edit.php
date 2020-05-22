@@ -17,8 +17,6 @@ session_start();
     </script>
 </head>
 
-</head>
-
 <body>
 
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
