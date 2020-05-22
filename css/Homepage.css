@@ -1,0 +1,202 @@
+.layout_homepage {
+    grid-template-areas: 'userdata' 'rest';
+    grid-area: slider;
+    grid-gap: 10px;
+    background-color: #FFFFFF;
+    display: grid;
+    padding: 0px; /*geen witte randen*/
+    margin: 0px; /*geen witte randen*/
+    height: 100vh;
+    grid-template-rows: 300px auto;
+}
+
+.head{
+    margin-left: 20px;
+    margin-right: 20px;
+    display: grid;
+    background-color:  #00008B;
+    grid-template-columns: 65% 35%;
+}
+
+
+#title{
+    margin-bottom: 30px;
+    margin-top: 30px;
+    margin-left: 10px;
+    border-radius: 25px;
+    background-color: #17488b; /* Oranje */
+    /*border: none;*/
+    display: block;
+    height: 80%;
+
+}
+
+#foto{
+   margin: 0;
+    display: grid;
+    grid-template-rows: 80% 20%;
+}
+
+#title h1{
+    text-align: center;
+    font-size: 30px;
+    color: #FFB31A;
+}
+
+#title p{
+    /*text-align: center;*/
+    font-size: 20px;
+    color: #FFB31A;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    margin-left: 30%;
+}
+
+#userfoto{
+    height: 200px;
+    float: right;
+    width: auto;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#profiel{
+    margin-right: 10%;
+    border-radius: 25px;
+    background-color: #17488b; /* Oranje */
+    border: none;
+    color: #FFB31A;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 60%;
+    float: right;
+}
+
+.layout_mainpage{
+    margin-left: 20px;
+    margin-right: 20px;
+    grid-area: rest;
+    grid-gap: 10px;
+    background-color: #FFFFFF;
+    display: grid;
+    padding: 0px;
+    grid-template-columns:repeat(3, 1fr);
+}
+
+#layout_project{
+    /*display: block;*/
+    padding: 0px;
+    margin: 0px;
+    background-color: #00008B;
+    display: grid;
+    grid-template-rows: 15% 35% 35% 15%;
+
+}
+
+#title_project h2{
+    font-size: 30px;
+    border: none;
+    color: #FFB31A;
+    text-align: center;
+}
+
+.project_box{
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 25px;
+    background-color: #17488b; /* Oranje */
+    /*border: none;*/
+    display: block;
+    height: 80%;
+    overflow: hidden;
+}
+
+.project_box .subtitle{
+    font-size: 20px;
+    border: none;
+    color: #FFB31A;
+    text-align: center;
+    margin: 5px;
+}
+
+.project_box h4{
+    margin: 2px;
+    font-size: 15px;
+    border: none;
+    color: #FFB31A;
+    text-align: center;
+}
+
+.project_box p{
+    margin: 5px;
+    border: 2px #00008B;
+    text-align: left;
+    font-size: 12px;
+    color: #FFB31A;
+}
+
+#to_project{
+    float: bottom;
+}
+
+#project_button{
+    border-radius: 25px;
+    background-color: #17488b; /* Oranje */
+    border: none;
+    color: #FFB31A;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    /*<!-- display: inline-block;-->*/
+    font-size: 16px;
+    width: 80%;
+    align-items: center;
+    margin-left: 10%;
+}
+
+#layout_reactie{
+    grid-gap: 10px;
+    background-color: #ff1858;
+    display: grid;
+    padding: 0px;
+    margin: 0px;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#layout_feedback{
+    grid-gap: 10px;
+    background-color: #4aff2d;
+    display: grid;
+    padding: 0px;
+    margin: 0px;
+    grid-template-rows: repeat(2, 1fr);
+}
+
+#column1{
+    margin: 10px;
+    display: block;
+    background-color: #FFB31A;
+}
+
+#column2{
+    margin: 10px;
+    display: block;
+    background-color: #FFB31A;
+}
+
+#column3{
+    margin: 10px;
+    display: block;
+    background-color: #FFB31A;
+}
+
+#column4{
+    margin: 10px;
+    display: block;
+    background-color: #FFB31A;
+}
+
+

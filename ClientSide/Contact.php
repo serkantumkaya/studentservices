@@ -16,7 +16,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 </head> <!-- staat hier, omdat anders PHPstorm ging janken -->
 
-<div class="row">
+<div onload="timeevents()" class="row">
 
 
             <div class="contacttekstform" id="rcornersContactform">

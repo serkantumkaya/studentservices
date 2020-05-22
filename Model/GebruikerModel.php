@@ -30,12 +30,12 @@ class GebruikerModel
     function Add(string $Gebruikersnaam, string $Wachtwoord, string $Email){
         $sql      =
             $this->conn->prepare("INSERT INTO Gebruiker (Gebruikersnaam,Wachtwoord,Email) Values(:Gebruikersnaam ,:Wachtwoord,:Email)");
-        $db       = new ConnectDB();
-        $sha256ww = $db->makeSafe($Wachtwoord);
+       // $db       = new ConnectDB();
+      //  $sha256ww = $db->makeSafe($Wachtwoord);
 
         $parameters = ([
             'Gebruikersnaam' => $Gebruikersnaam,
-            'Wachtwoord' => $sha256ww,
+            'Wachtwoord' => $Wachtwoord,
             'Email' => $Email
         ]);
         return $sql->execute($parameters);
