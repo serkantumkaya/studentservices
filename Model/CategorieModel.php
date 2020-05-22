@@ -21,10 +21,14 @@ class CategorieModel
 
     }
 
-    function add(string $categoienNaam){
-        $statement = $this->conn->prepare("INSTERT INTO Categorie (CategorieNaam) VALUES (:Naam)");
+    /**
+     * @param string $categorieNaam
+     * @return bool
+     */
+    function add(string $categorieNaam){
+        $statement = $this->conn->prepare("INSERT INTO Categorie (CategorieNaam) VALUES (:Naam)");
         $statement->execute([
-            'Naam' => $categoienNaam
+            'Naam' => $categorieNaam
         ]);
         return true;
     }
