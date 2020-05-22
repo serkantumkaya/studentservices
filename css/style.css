@@ -96,36 +96,39 @@ input[type=submit]:active {
     display: inline-block;
     width: 200px;
     text-align: left;
-    margin-top:2px;
-}​
+    margin-top: 2px;
+}
 
- .formlabel {
-     display: inline-block;
-     width: auto;
-     text-align: left;
-     margin-top:2px;
- }​
+​
+.formlabel {
+    display: inline-block;
+    width: auto;
+    text-align: left;
+    margin-top: 2px;
+}
 
+​
 .formerrorlabel {
-     display: inline-block;
-     width: 200px;
-     text-align: left;
-       margin-top:2px;
- }​
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin-top: 2px;
+}
 
+​
 .formouter {
-     border-radius: 25px;
-     border: 1px solid #00008B;
+    border-radius: 25px;
+    border: 1px solid #00008B;
     background-color: pink;
-     /*position: relative;*/
-     /*text-align: right;*/
-     /*height: 440px;*/
-     /*width: 500px;*/
-     margin-top: 20px;
-     padding-top: 20px;
-     padding-left: 20px;
-     margin-left: 20px;
-     margin-bottom: 20px;
+    /*position: relative;*/
+    /*text-align: right;*/
+    /*height: 440px;*/
+    /*width: 500px;*/
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 #validation {
@@ -136,8 +139,8 @@ input[type=submit]:active {
 textarea {
     resize: none;
 }
-.profielfotoform
-{
+
+.profielfotoform {
     border-radius: 25px;
     border: 1px solid #00008B;
     padding: 20px;
@@ -146,9 +149,9 @@ textarea {
     margin: 10px;
     margin-bottom: auto;
     z-index: 0;
-    left:500px;
-    position:fixed;
-    top:75px;
+    left: 500px;
+    position: fixed;
+    top: 75px;
 }
 
 .studentfoto {
@@ -185,16 +188,28 @@ textarea {
 
 
 #nav ul {
-    position:absolute;
-    padding:0;
-    left:0;
-    display:none; /* hides sublists */
+    position: absolute;
+    padding: 0;
+    left: 0;
+    display: none; /* hides sublists */
 }
 
-#nav li:hover ul ul {display:none;} /* hides sub-sublists */
+#nav li:hover ul ul {
+    display: none;
+}
 
-#nav li:hover ul ul {display:none;} /* hides sub-sublists */
-#nav li:hover ul {display:block;} /* shows sublist on hover */
+/* hides sub-sublists */
+
+#nav li:hover ul ul {
+    display: none;
+}
+
+/* hides sub-sublists */
+#nav li:hover ul {
+    display: block;
+}
+
+/* shows sublist on hover */
 /*#nav li li:hover ul {*/
 /*    display:block; !* shows sub-sublist on hover *!*/
 /*    margin-left:200px; !* this should be the same width as the parent list item *!*/
@@ -208,7 +223,7 @@ textarea {
     width: 100%;
     overflow: auto;
     margin-bottom: 100px;
-    margin-top:5px;
+    margin-top: 5px;
     /*auto scrollbars bij een grotere wordende tekst*/
 }
 
@@ -333,6 +348,7 @@ ul lisub a:hover {
 lisub:last-child {
     border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
 }
+
 .header {
     grid-area: header;
     height: 40px;
@@ -414,7 +430,6 @@ iframe {
     margin: 0px; /*geen witte randen*/
     height: 100vh;
     grid-template-rows: 40px 100px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-
 }
 
 .grid-containersubs {
@@ -426,7 +441,6 @@ iframe {
     margin: 0px; /*geen witte randen*/
     height: 100vh;
     grid-template-rows: 500px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-
 }
 
 .contactcel {
@@ -488,6 +502,63 @@ a.button {
     width: 140px;
 }
 
+.grid-container-colums {
+    grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
+    grid-gap: 0px;
+    background-color: #FFFFFF;
+    display: grid;
+    padding: 0px; /*geen witte randen*/
+    margin: 0px; /*geen witte randen*/
+    /*height: 100vh;*/
+    grid-template-columns: 100px 220px auto 220px 100px;
+}
+
+#project-row-grid {
+    padding: 10px;
+    display: grid;
+    grid-template-areas: 'project-header' 'project-info' 'project-footer'; /* hier geef je dus je grid componenten op*/
+    grid-gap: 0px;
+    background-color: #FFFFFF;
+    /*padding: 0px; !*geen witte randen*!*/
+    margin: 0px; /*geen witte randen*/
+    grid-template-rows: 60px 50px 20px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+}
+
+#project-row {
+    background-color: #FFB31A;
+}
+
+#project-header{
+    grid-area: project-header;
+    background-color: yellow;
+}
+
+#project-type {
+    background-color: grey;
+    float: left;
+    width: 25%;
+}
+
+#project-titel {
+    background-color: #20c997;
+    float: left;
+    width: 75%;
+}
+
+#project-info{
+    grid-area: project-info;
+    background-color: #c82333;
+    font-size: 22px;
+
+}
+
+#project-footer{
+    grid-area: project-footer;
+    background-color: #9fcdff;
+    text-align: right;
+    padding-right: 10px;
+}
+
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
 @media only screen and (max-width: 820px) {
@@ -495,8 +566,8 @@ a.button {
         border: none;
         width: 99%;
     }
-    .profielfotoform
-    {
+
+    .profielfotoform {
         border-radius: 25px;
         border: 1px solid #00008B;
         padding: 20px;
@@ -505,11 +576,10 @@ a.button {
         margin: 10px;
         margin-bottom: auto;
         z-index: 0;
-        position:unset;
-        left:0px;
-        top:auto;
+        position: unset;
+        left: 0px;
+        top: auto;
     }
-
 
 
     #page-nav label {
@@ -710,8 +780,7 @@ a.button {
         grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
     }
 
-    .profielfotoform
-    {
+    .profielfotoform {
         border-radius: 25px;
         border: 1px solid #00008B;
         padding: 20px;
@@ -721,8 +790,8 @@ a.button {
         margin-bottom: auto;
         z-index: 0;
         position: unset;
-        left:0px;
-        top:auto;
+        left: 0px;
+        top: auto;
     }
 
     .itemslider {
@@ -886,11 +955,19 @@ textarea {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

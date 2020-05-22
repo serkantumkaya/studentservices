@@ -156,9 +156,10 @@ class GebruikerController
      */
 
     function getById(int $id = null): gebruiker{
-        if (isset($this->ID) && $this->ID != -1){
+        if ($id == null && isset($this->ID) && $this->ID != -1){
             $id = $this->ID;
         }
+
         $Gebruiker = $this->gebruikermodel->Get($id);
 
         return new Gebruiker(
