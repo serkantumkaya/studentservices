@@ -5,7 +5,10 @@
  * en het verder verwerken van de gegeven naar een json and e-mail
  * @revisions
  * V1.1 het maken van de eerste versie
+ * V1.2 miste de de juiste werking van de checkboxen actie erop is toevoegen van de check
  */
+
+
 
 
 function validateForm() {
@@ -18,7 +21,6 @@ document.getElementById("error10").innerHTML  = "";
 document.getElementById("error11").innerHTML  = "";
 if (document.forms["contactform"]["firstname"].value ==="")
 {
-    console.log("error");
     document.getElementById("error1").innerHTML  = "De voornaam is niet ingevuld.<br>"
 }
 
@@ -78,7 +80,8 @@ function validateEmail(email) {
 // dit deel van de code is voor het bijhouden van de stand checkboxes
 function timeevents() { //plaats hier de fucnties die met iedere 100ms moeten worden uitgevoerd
     setTimeout(timeevents, 100); //iedere 100ms de functie opnieuw uitvoeren wordt voor de eerste keer aangeroepen bij document.ready
-    checkboxstatus();
+   // checkboxstatus();
+    console.log("test");
 }
 
 
