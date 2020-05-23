@@ -4,18 +4,15 @@ session_start();
 ?><html lang="en">
 <head>
 
-    <title>Contact</title>
+    <title>Veelgestelde Vragen</title>
     <meta name="description" content="index">
     <meta name="author" content="StudentServices">
-    <script src="contactformulier.js"></script>
 
     <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 ?>
 
-    <title>Veelgestelde vragen</title>
-<link rel="stylesheet" type="text/css" href="studentservices\css\veelgesteldevragenstyle.css">
 </head>
 <body>
 <div class="Vraag"> 
