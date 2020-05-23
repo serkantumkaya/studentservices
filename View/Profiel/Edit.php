@@ -8,46 +8,17 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingCo
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
-?>
-<!DOCTYPE HTML>
-<html lang="en">
+
+if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
+    Header("Location: /StudentServices/inlogPag.php");
+}
+
+?><!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Student Services</title>
-    <meta name="Toevoegen opleiding" content="index">
-    <meta name="author" content="The big 5">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--The viewport is the user's visible area of a web page.-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="/StudentServices/css/style.css">
-
-    <script type="text/javascript" src="/StudentServices/JS/script.js">
-    </script>
-</head>
-
-</head>
-
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
-
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
-<div class="header">
-    <nav id="page-nav">
-        <!-- [THE HAMBURGER] -->
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
-
-        <!-- [MENU ITEMS] -->
-        <ul>
-            <li>
-                <a href="../../Index.php">Terug</a>
-            </li>
-        </ul>
-        </form>
-    </nav>
-    <img id=
-         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
-</div>
-
 <div class="info">
 
 <?php
@@ -394,17 +365,6 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 }
 ?>
-    <!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
-<div class="footer">
-    <div>© Student Services, 2020
-        <?php
-        $GebrID = 1;
-        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
-
-        ?>
-    </div>
-</div>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>
