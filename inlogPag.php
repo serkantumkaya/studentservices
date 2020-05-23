@@ -10,11 +10,16 @@ $rememberpassword = "off";
 //for choosing language
 if (isset($_POST["language"]) && $_POST["language"] == "EN")
 {
-    $_SESSION["Language"] = "EN";
+    $doRefresh = $_POST["language"] != $_COOKIE["Language"];
+    setcookie("Language", "EN", time()+(86400 * 365), "/"); // 86400 = 1 day
+
+    if ($doRefresh) header("Refresh:0");
 }
-else
+else if (isset($_POST["language"]))
 {
-    $_SESSION["Language"] = "NL";
+    $doRefresh = $_POST["language"] != $_COOKIE["Language"];
+    setcookie("Language", "NL", time()+(86400 * 365), "/"); // 86400 = 1 day
+    if ($doRefresh) header("Refresh:0");
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')

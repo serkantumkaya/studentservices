@@ -20,9 +20,9 @@ class Translate
 
     public static function GetTranslation(string $key) : string
     {
-        if (!isset($_SESSION["Language"])) $_SESSION["Language"] = "NL";//NL is the default!
-        if ($_SESSION["Language"] == "NL") return self::$Translations[$key][0];
-        if ($_SESSION["Language"] == "EN") return self::$Translations[$key][1];
+        if (!isset($_COOKIE["Language"])) $_COOKIE["Language"] = "NL";//NL is the default!
+        if ($_COOKIE["Language"] == "NL") return self::$Translations[$key][0];
+        if ($_COOKIE["Language"] == "EN") return self::$Translations[$key][1];
     }
 
 
