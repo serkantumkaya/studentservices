@@ -46,11 +46,7 @@ class ProjectModel
             'Status' => $status,
             'Locatie' => $locatie
         ];
-
-
         return $statement->execute($parameters);
-
-
     }
 
     public function delete(int $ID){
@@ -87,15 +83,36 @@ class ProjectModel
         $sql->execute($parameters);
     }
 
-    public function getById(int $ID){
+    /**
+     * @param int $ID
+     * @return array
+     */
+
+    public function getById(int $ID):array{
         $sql = "Select * FROM Project WHERE ProjectID = '$ID'";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getByGebruikerID(int $ID){
+    /**
+     * @param int $ID
+     * @return array
+     */
+
+    public function getByGebruikerID(int $ID):array{
         $sql = "Select * FROM Project WHERE GebruikerID = '$ID'";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Verwijderde projecten niet meenemen
+     * @param int $begin
+     * @param int $limit
+     * @return array
+     */
+
+    public function getPerPagina(int $begin, int $limit):array{
+        $sql = "Select * FROM project WHERE Verwijderd = 0 LIMIT $begin, $limit";
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }

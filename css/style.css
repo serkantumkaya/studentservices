@@ -520,62 +520,9 @@ a.button {
     width: 140px;
 }
 
-.grid-container-colums {
-    grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
-    grid-gap: 0px;
-    background-color: #FFFFFF;
-    display: grid;
-    padding: 0px; /*geen witte randen*/
-    margin: 0px; /*geen witte randen*/
-    /*height: 100vh;*/
-    grid-template-columns: 100px 220px auto 220px 100px;
-}
 
-#project-row-grid {
-    padding: 10px;
-    display: grid;
-    grid-template-areas: 'project-header' 'project-info' 'project-footer'; /* hier geef je dus je grid componenten op*/
-    grid-gap: 0px;
-    background-color: #FFFFFF;
-    /*padding: 0px; !*geen witte randen*!*/
-    margin: 0px; /*geen witte randen*/
-    grid-template-rows: 60px 50px 20px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-}
 
-#project-row {
-    background-color: #FFB31A;
-}
 
-#project-header{
-    grid-area: project-header;
-    background-color: yellow;
-}
-
-#project-type {
-    background-color: grey;
-    float: left;
-    width: 25%;
-}
-
-#project-titel {
-    background-color: #20c997;
-    float: left;
-    width: 75%;
-}
-
-#project-info{
-    grid-area: project-info;
-    background-color: #c82333;
-    font-size: 22px;
-
-}
-
-#project-footer{
-    grid-area: project-footer;
-    background-color: #9fcdff;
-    text-align: right;
-    padding-right: 10px;
-}
 
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
