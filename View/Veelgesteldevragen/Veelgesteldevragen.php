@@ -1,7 +1,20 @@
-<!DOCTYPE html>
-<html>
+<?php
+session_start();
+
+?><html lang="en">
 <head>
-<title>Veelgestelde vragen</title>
+
+    <title>Contact</title>
+    <meta name="description" content="index">
+    <meta name="author" content="StudentServices">
+    <script src="contactformulier.js"></script>
+
+    <?php
+include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
+
+?>
+
+    <title>Veelgestelde vragen</title>
 <link rel="stylesheet" type="text/css" href="studentservices\css\veelgesteldevragenstyle.css">
 </head>
 <body>
