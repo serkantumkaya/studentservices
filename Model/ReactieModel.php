@@ -67,4 +67,9 @@ class ReactieModel
         return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
     }
 
+    function getByGebruikerId(int $ID){
+        $sql = "SELECT *  FROM Reactie WHERE GebruikerID =$ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+    }
+
 }

@@ -44,26 +44,62 @@ class ReactieController
         return $this->reactiemodel->Update($Reactie);
     }
 
-    function getById(int $ReactieID): reactie{
-        $Reactie = $this->reactiemodel->GetById($ReactieID);
-        return new Reactie(
-            $Reactie['ReactieID'],
-            $Reactie['Timestamp'],
-            $Reactie['GebruikerID'],
-            $Reactie['ProjectID'],
-            $Reactie['Reactie']);
-    }
-    public function getByProjectID(int $projectID) :array{
-        $Reactielijst = array();
-        foreach ($this->reactiemodel->getByProjectID($projectID) as $Reactie){
-            $reactieObj     = new Reactie(
-                $Reactie['ReactieID'],
-                $Reactie['Timestamp'],
-                $Reactie['GebruikerID'],
-                $Reactie['ProjectID'],
-                $Reactie['Reactie']);
-            $Reactielijst[] = $reactieObj;
+    function getById(int $id){
+        $Reactie = $this->reactiemodel->GetById($id)->fetchAll(PDO::FETCH_ASSOC);
+        if (!(!isset($Reactie) || $Reactie == false)) {
+            $reactielist = array();
+            foreach ($Reactie as $reactie){
+                $feedbackObj     = new Reactie(
+                    $reactie['ReactieID'],
+                    $reactie['GebruikerID'],
+                    $reactie['ProjectID'],
+                    $reactie['Timestamp'],
+                    $reactie['Reactie']);
+                $reactielist[] = $feedbackObj;
+            }
+            return $reactielist;
         }
-        return $Reactielijst;
+        else{
+            return null;
+        }
+    }
+
+    function getByProjectId(int $id){//deze heb ik voor homepage toegevoegt
+        $Reactie = $this->reactiemodel->GetByProjectId($id)->fetchAll(PDO::FETCH_ASSOC);
+        if (!(!isset($Reactie) || $Reactie == false)) {
+            $reactielist = array();
+            foreach ($Reactie as $reactie){
+                $feedbackObj     = new Reactie(
+                    $reactie['ReactieID'],
+                    $reactie['GebruikerID'],
+                    $reactie['ProjectID'],
+                    $reactie['Timestamp'],
+                    $reactie['Reactie']);
+                $reactielist[] = $feedbackObj;
+            }
+            return $reactielist;
+        }
+        else{
+            return null;
+        }
+    }
+    function getByGebruikerId(int $id){//deze heb ik voor homepage toegevoegt
+        $Reactie = $this->reactiemodel->GetByGebruikerId($id)->fetchAll(PDO::FETCH_ASSOC);
+        if (!(!isset($Reactie) || $Reactie == false)) {
+            $reactielist = array();
+            foreach ($Reactie as $reactie){
+                $reactieObj     = new Reactie(
+                    $reactie['ReactieID'],
+                    $reactie['GebruikerID'],
+                    $reactie['ProjectID'],
+                    $reactie['Timestamp'],
+                    $reactie['Reactie']);
+                $reactielist[] = $reactieObj;
+            }
+            return $reactielist;
+        }
+        else{
+            return null;
+        }
     }
 }
