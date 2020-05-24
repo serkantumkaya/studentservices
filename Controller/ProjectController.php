@@ -27,22 +27,20 @@ class ProjectController
     }
 
     function add(int $GebruikerID,
-        string $Type,
         string $Titel,
+        string $Type,
         string $Beschrijving,
         int $CategorieID,
-        string $Datumaangemaakt,
         string $Deadline,
         string $Status,
         string $Locatie
         ){
         return $this->projectmodel->Add(
             $GebruikerID,
-            $Type,
             $Titel,
+            $Type,
             $Beschrijving,
             $CategorieID,
-            $Datumaangemaakt,
             $Deadline,
             $Status,
             $Locatie

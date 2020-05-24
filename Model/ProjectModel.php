@@ -29,9 +29,9 @@ class ProjectModel
         return $this->conn->query($sql);
     }
 
-    public function add(int $gebruikerID, string $titel, string $type, string $beschrijving, int $categorieID, $datumaangemaakt, string $deadline, string $status, $locatie){
-        $sql = "INSERT INTO Project (GebruikerID, Titel,Type, Beschrijving, CategorieID, Datumaangemaakt,Deadline, Status, Locatie)
-           VALUES(:GebruikerID, :Titel, :Type, :Beschrijving, :CategorieID, :Datumaangemaakt,:Deadline, :Status, :Locatie)";
+    public function add(int $gebruikerID, string $titel, string $type, string $beschrijving, int $categorieID, string $deadline, string $status, $locatie){
+        $sql = "INSERT INTO Project (GebruikerID, Titel,Type, Beschrijving, CategorieID,Deadline, Status, Locatie)
+           VALUES(:GebruikerID, :Titel, :Type, :Beschrijving, :CategorieID,:Deadline, :Status, :Locatie)";
 
         $statement = $this->conn->prepare($sql);
 
@@ -41,7 +41,6 @@ class ProjectModel
             'Type' => $type,
             'Beschrijving' => $beschrijving,
             'CategorieID'=> $categorieID,
-            'Datumaangemaakt' => $datumaangemaakt,
             'Deadline' => $deadline,
             'Status' => $status,
             'Locatie' => $locatie
@@ -61,13 +60,7 @@ class ProjectModel
         }
     }
 
-    public function update(Project $project){
-        //UPDATE `project` SET `GebruikerID` = '1004', `Titel` = 'Hulp nodig bij fotografie2',
-        // `Type` = 'Aanbieden', `Beschrijving` =
-        // 'Ik heb een specialistisch kennis nodig voor het maken van foto\'s van mijn project2',
-        // `CategorieID` = '19', `Datumaangemaakt` = '2020-05-21 10:38:18', `Deadline` = '2020-06-24 00:00:20',
-        // `Status` = 'Mee bezig', `Locatie` = 'Bij mij thuis in Breda2', `Verwijderd` = '1'
-        // WHERE `project`.`ProjectID` = 1;
+    public function update(Project $project):bool{
         $sql = $this->conn->prepare("UPDATE Project SET GebruikerID=:GebruikerID, Titel=:Titel, Type=:Type, Beschrijving=:Beschrijving, CategorieID=:CategorieID, Deadline=:Deadline, Status=:Status, Locatie=:Locatie, Verwijderd=:Verwijderd WHERE ProjectID = ". $project->getProjectID()." ");
         $parameters = [
             'GebruikerID' => $project->getGebruikerID(),
@@ -80,7 +73,7 @@ class ProjectModel
             'Locatie' => $project->getLocatie(),
             'Verwijderd' => $project->isVerwijderd()
             ];
-        $sql->execute($parameters);
+       return $sql->execute($parameters);
     }
 
     /**
