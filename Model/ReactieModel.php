@@ -25,13 +25,12 @@ class ReactieModel
     }
 
     function add(
-        int $GebruikersID,string $Timestamp,int $ProfielID,int $ProjectID,string $Reactie){
+        int $GebruikersID,int $ProjectID,string $Reactie){
 
         $statement =
-            $this->conn->prepare("INSERT INTO Reactie (GebruikerID, Timestamp, ProjectID, Reactie) VALUES (:GebruikerID, :Timestamp, :ProjectID, :Reactie)");
+            $this->conn->prepare("INSERT INTO Reactie (GebruikerID, ProjectID, Reactie) VALUES (:GebruikerID, :ProjectID, :Reactie)");
         return $statement->execute([
             'GebruikersID' => $GebruikersID,
-            'Timestamp' => $Timestamp,
             'PojecctID' => $ProjectID,
             'Reatie' => $Reactie]);
     }
@@ -53,12 +52,11 @@ class ReactieModel
     function update(Reactie $Reactie):void {
 
         $sql =
-            $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID,TIMESTAMP=:Timestamp, Reactie=:SReactie, ProjectID=:ProjectID)
+            $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID, Reactie=:SReactie, ProjectID=:ProjectID)
             WHERE ReactieID= ".$Reactie->getReactieID()." ");
 
         $parameters = [
             'GebruikerID'=>$Reactie->getGebruikerID(),
-            'Timestamp' => $Reactie->getTimestamp(),
             'Reactie' => $Reactie->getReactie(),
             'ProjectID' => $Reactie->getProjectID(),
         ];

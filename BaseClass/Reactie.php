@@ -5,15 +5,15 @@ class Reactie
 {
     private int $ReactieID;
     private string $Timestamp;
-    private int $GebruikersID;
+    private int $GebruikerID;
     private int $ProjectID;
     private string $Reactie;
     private GebruikerController $gebruikercontroller;
 
-    public function __construct(int $ReactieID, string $Timestamp, int $GebruikersID,int $ProjectID,string $Reactie){
+    public function __construct(int $ReactieID, string $Timestamp, int $GebruikerID,int $ProjectID,string $Reactie){
         $this->ReactieID    = $ReactieID;
         $this->Timestamp    = $Timestamp;
-        $this->GebruikersID = $GebruikersID;
+        $this->GebruikerID = $GebruikerID;
         $this->ProjectID    = $ProjectID;
         $this->Reactie      = $Reactie;
         $this->gebruikercontroller = new GebruikerController($this->getGebruikerID());
@@ -50,15 +50,15 @@ class Reactie
     /**
      * @return int
      */
-    public function getGebruikersID(): int{
-        return $this->GebruikersID;
+    public function getGebruikerID(): int{
+        return $this->GebruikerID;
     }
 
     /**
-     * @param int $GebruikersID
+     * @param int $GebruikerID
      */
-    public function setGebruikersID(int $GebruikersID): void{
-        $this->GebruikersID = $GebruikersID;
+    public function setGebruikerID(int $GebruikerID): void{
+        $this->GebruikerID = $GebruikerID;
     }
 
     /**

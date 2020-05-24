@@ -8,7 +8,7 @@ session_start();
 if (isset($_POST['submit'])){
     if (isset($_POST["Review"])){
         $reactiecontroller = new ReactieController();
-        if ($reactiecontroller->add($_POST["ProjectID"], $_POST['GebruikerID'], $_POST['Timestamp'], $_POST['Reactie'])){
+        if ($reactiecontroller->add($_POST["ProjectID"], $_POST['GebruikerID'], $_POST['Tijdstip'], $_POST['Reactie'])){
             //wat doet die hier? waar is dit geod voor?'
             $_SESSION["CurrentNaam"] = $_POST["ProjectID"];
             header("Location: View.php");
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])){
 function getUitvoer(){
     $projecttext = getUitvoerProject();
     $gebruikertext   = getUitvoerGebruiker();
-    $Timestamp = getTimestamp();
+    $Tijdstip = getTijdstip();
     $uitvoer = <<<EOD
     <h1>Toevoegen Reactie</h1>
 <table>
@@ -39,8 +39,8 @@ function getUitvoer(){
         <td>$gebruikertext</td>
     </tr>
     <tr>
-        <td>Timestamp</td>
-        <td>$Timestamp</td>
+        <td>Tijdstip</td>
+        <td>$Tijdstip</td>
     </tr>
     <tr>
         <td>Reactie</td>
@@ -77,8 +77,8 @@ function getUitvoerGebruiker(){
     return $text;
 }
 
-function getTimestamp(){
-    $text = "<select id=\"Timestamp\" name=\"Timestamp\">";
+function getTijdstip(){
+    $text = "<select id=\"Tijdstip\" name=\"Tijdstip\">";
 
     for($i=1;$i<=10;$i++){
         $text .= "<option value='$i'>$i</option>";

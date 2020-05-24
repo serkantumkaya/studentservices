@@ -23,7 +23,7 @@ class ReactieController
             $reactieObject = new Reactie(
                 $reactieObject['ReactieID'],
                 $reactieObject['Timestamp'],
-                $reactieObject['GebruikersID'],
+                $reactieObject['GebruikerID'],
                 $reactieObject['ProjectID'],
                 $reactieObject['Reactie']);
             $Reactielijst [] = $reactieObject;
@@ -32,8 +32,8 @@ class ReactieController
     }
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $Timestamp, int $GebruikerID,int $ProjectID,string $Reactie){
-        return $this->reactiemodel->Add($Timestamp,$GebruikerID,$ProjectID,$Reactie);
+    function add(int $GebruikerID,int $ProjectID,string $Reactie){
+        return $this->reactiemodel->Add($GebruikerID,$ProjectID,$Reactie);
     }
 
     function delete(int $Id){
@@ -49,19 +49,19 @@ class ReactieController
         return new Reactie(
             $Reactie['ReactieID'],
             $Reactie['Timestamp'],
-            $Reactie['GebruikersID'],
+            $Reactie['GebruikerID'],
             $Reactie['ProjectID'],
             $Reactie['Reactie']);
     }
     public function getByProjectID(int $projectID) :array{
         $Reactielijst = array();
-        foreach ($this->Reactiemodel->getByProjectID($projectID) as $Reactie){
+        foreach ($this->reactiemodel->getByProjectID($projectID) as $Reactie){
             $reactieObj     = new Reactie(
-                $Reactie['FeedbackID'],
+                $Reactie['ReactieID'],
+                $Reactie['Timestamp'],
                 $Reactie['GebruikerID'],
                 $Reactie['ProjectID'],
-                $Reactie['Cijfer'],
-                $Reactie['Review']);
+                $Reactie['Reactie']);
             $Reactielijst[] = $reactieObj;
         }
         return $Reactielijst;

@@ -58,11 +58,11 @@ $gebruikercontroller = new GebruikerController(-1);
             <th>Gegeven door</th>
             <th>ProjectID</th>
             <th>Reactie</th>
-            <th>Timestamp</th>
+            <th>Tijdstip</th>
         </tr>
         <?php
 
-        foreach ($reactieController->getReactie() as $Reactie){
+        foreach ($reactiecontroller->getReacties() as $Reactie){
 
             echo "<tr>
                     <td>
@@ -76,7 +76,7 @@ $gebruikercontroller = new GebruikerController(-1);
                 "' class=\"table1col\"> 
                     </td>
                     <td>
-                       <input type=\"submit\" value=\"" . $reactieController->getReactie($Reactie->getReactie()) .
+                       <input type=\"submit\" value=\"" . $Reactie->getReactie() .
                 "\" formaction='Edit.php?ID=" . $Reactie->getReactieID() .
                 "' class=\"table1col\">
                     </td>

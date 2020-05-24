@@ -5,20 +5,20 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieCon
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
 if (isset($_GET["ID"])){
-    $reactieController = new ReactieController();
-    $Reactie           = $reactieController->getById($_GET["ID"]);
+    $reactiecontroller = new ReactieController();
+    $Reactie           = $reactiecontroller->getById($_GET["ID"]);
 }
 
 if ($_POST){
-    $reactieController = new ReactieController();
+    $reactiecontroller = new ReactieController();
     if (isset($_POST['Wijzig'])){
         $Reactie = new Reactie($Reactie->getReactieID(), $_POST['GebruikerID'], $_POST['ProjectID'],
             $_POST['Timestamp'], $_POST['Reactie']);
-        $reactieController->update($Reactie);
+        $reactiecontroller->update($Reactie);
         header('Location: View.php');
     }
     if (isset($_POST['Verwijder'])){
-        $reactieController->delete($Reactie->getReactieID());
+        $reactiecontroller->delete($Reactie->getReactieID());
         header('Location: View.php');
     }
 }
@@ -26,7 +26,7 @@ if ($_POST){
 function getUitvoer(Reactie $Reactie){
     $projecttext     = getUitvoerProject();
     $gebruikertext   = getUitvoerGebruiker($Reactie);
-    $Timestamp       = getUitvoerCijfer($Reactie);
+    $Tijdstip        = getTijdstip($Reactie);
     $Reactie         = getUitvoerReview($Reactie);
     $ReactieID       = $Reactie->getReactieID();
     $uitvoer         = <<<EOD
@@ -41,8 +41,8 @@ function getUitvoer(Reactie $Reactie){
         <td>$gebruikertext</td>
     </tr>
     <tr>
-        <td>Timestamp</td>
-        <td>$Timestamp</td>
+        <td>Tijdstip</td>
+        <td>$Tijdstip</td>
     </tr>
     <tr>
         <td>Reactie</td>
@@ -89,11 +89,11 @@ function getUitvoerGebruiker(Reactie $Reactiek){
     return $text;
 }
 
-function getTimestamp(Reactie $Reactie){
-    $text = "<select id=\"Timestamp\" name=\"Timestamp\">";
+function getTijdstip(Reactie $Reactie){
+    $text = "<select id=\"Tijdstip\" name=\"Tijdstip\">";
 
     for ($i = 1; $i<=10; $i++){
-        if ($i != $Reactie->getTimestamp()){
+        if ($i != $Reactie->getTijdstip()){
             $text .= "<option value='$i'>$i</option>";
         } else{
             $text .= "<option selected='selected'  value='$i'>$i</option>";
