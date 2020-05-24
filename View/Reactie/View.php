@@ -1,12 +1,15 @@
-
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ReactieController.php");
+ini_set('display_errors', 1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
-?>
 
-<!DOCTYPE HTML>
+if (empty($_Post) && !isset($_Post["actie"])){
+    $reactiecontroller = new ReactieController();
+}
+$gebruikercontroller = new GebruikerController(-1);
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,18 +25,13 @@ session_start();
         <?php
         //nu i
         $focus = "";
-        if (isset($_SESSION["CurrentNaam"])) {
+        if (isset($_SESSION["CurrentNaam"])){
             $focus = trim($_SESSION["CurrentNaam"]);
         }
         ?>
-
     </script>
 </head>
-
-</head>
-
 <body>
-
 <div class="header">
     <nav id="page-nav">
         <!-- [THE HAMBURGER] -->
@@ -54,64 +52,45 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
+<form method="post" action="Edit.php">
+    <table>
+        <tr>
+            <th>Gegeven door</th>
+            <th>ProjectID</th>
+            <th>Reactie</th>
+            <th>Timestamp</th>
+        </tr>
+        <?php
 
-<div class="info">
-<form  method="post" action="Add.php">
-    <input type="submit" value="Nieuw"  class="ssbutton">
-    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
+        foreach ($reactieController->getReactie() as $Reactie){
+
+            echo "<tr>
+                    <td>
+                        <input type=\"submit\" value=\"" . $gebruikercontroller->getById($Reactie->getGebruikerID()) .
+                "\" formaction='../Profiel/Edit.php?ID=" . $Reactie->getGebruikerID() .
+                "' class=\"table1col\"> 
+                    </td>
+                    <td>
+                        <input type=\"submit\" value=\"" . $Reactie->getProjectID() .
+                "\" formaction='../Project/Edit.php?ID=" . $Reactie->getProjectID() .
+                "' class=\"table1col\"> 
+                    </td>
+                    <td>
+                       <input type=\"submit\" value=\"" . $reactieController->getReactie($Reactie->getReactie()) .
+                "\" formaction='Edit.php?ID=" . $Reactie->getReactieID() .
+                "' class=\"table1col\">
+                    </td>
+                    <td>
+                        <input type=\"submit\" value=\"" . $Reactie->getTimestamp() .
+                "\" formaction='Edit.php?ID=" . $Reactie->getReactieID() .
+                "' class=\"table1col\"> 
+                    </td>
+                    
+                </tr>";
+        }
+        ?>
+    </table>
 </form>
-<form  method="post" action="Edit.php">
-<table> <tr> <th>School</th> <th></th> <th></th></tr>
-<tr><td>
-    <?php
-
-        //DO NOT USE A BIG IF. If the conditions are not met. Return.
-        if (empty($_Post) && !isset($_Post["actie"]))
-        {
-            LoadList();
-            return;
-        }
-
-
-        switch ($_Post["actie"])//dit mag omdat je boven empty afvraagt anders mag dit niet zo
-        {
-            ////add via add.php en update via edit.php dat is het makkelijkste denk ik
-            //case "add"://want de add stuurt je terug naar dit formulier met de data om toe te voegen
-            //{
-
-            //    break;
-            //}
-             case "delete":
-             {
-                 echo "De te verwijderen ID = ".$_Post("ReactieId");
-                 $this->delete($_Post["ReactieId"]);
-                break;
-             }
-             default:
-             {
-                 Loadlist();//interface maken die loadlist voor iedere index verplicht maakt?
-             }
-        }
-
-        function LoadList()
-        {
-            $reactiecontroller= new ReactieController();
-
-            foreach ($reactiecontroller->getReacties() as $rg)
-            {
-                $reactie = new Reactie($rg['ReactieID'],$rg['Reactie']);
-
-                //echo "<tr> <td > <div id='".$school->getSchoolnaam()."'> ".$school->getSchoolnaam()."</div></td>";
-                echo "<tr> <td> <input type=\"submit\" value=\"".$reactie->getReactie()."\" formaction='Edit.php?ID=".$reactie->getReactieID()."' class=\"selectionrow\"> </td></tr>";
-            }
-        }
-
-    ?>
-    </td>
-</tr>
-</table>
-</form>
-</div>
 </body>
 </html>
 

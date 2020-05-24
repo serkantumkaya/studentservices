@@ -1,8 +1,5 @@
 <?php
-
-require_once "Gebruiker.php";
-require_once "Profiel.php";
-require_once "Projecten.php";
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 
 class Reactie
 {
@@ -11,6 +8,7 @@ class Reactie
     private int $GebruikersID;
     private int $ProjectID;
     private string $Reactie;
+    private GebruikerController $gebruikercontroller;
 
     public function __construct(int $ReactieID, string $Timestamp, int $GebruikersID,int $ProjectID,string $Reactie){
         $this->ReactieID    = $ReactieID;
@@ -18,6 +16,7 @@ class Reactie
         $this->GebruikersID = $GebruikersID;
         $this->ProjectID    = $ProjectID;
         $this->Reactie      = $Reactie;
+        $this->gebruikercontroller = new GebruikerController($this->getGebruikerID());
     }
 
     /**
