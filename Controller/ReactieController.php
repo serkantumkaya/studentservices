@@ -32,8 +32,8 @@ class ReactieController
     }
 
     //voor parameters bindparam gebruiken. Named parameters
-    function add(string $ReactieID, string $Timestamp, int $GebruikerID,int $ProjectID,string $Reactie){
-        return $this->reactiemodel->Add($ReactieID, $Timestamp,$GebruikerID,$ProjectID,$Reactie);
+    function add(string $Timestamp, int $GebruikerID,int $ProjectID,string $Reactie){
+        return $this->reactiemodel->Add($Timestamp,$GebruikerID,$ProjectID,$Reactie);
     }
 
     function delete(int $Id){
