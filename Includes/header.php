@@ -5,14 +5,14 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
     <link rel="stylesheet" href="/StudentServices/css/Homepage.css">
-    <link rel="stylesheet" href="/StudentServices/css/Veelgesteldevragen.css">
+    <link rel="stylesheet" href="/StudentServices/css/Projecten.css">
     <script type="text/javascript" src="/StudentServices/JS/script.js"></script>
     <script type="text/javascript" src="/StudentServices/ClientSide/contactformulier.js"></script>
     <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js"></script>
 
 </head>
 
-<body onload="showSlides(); timeevents();">
+<body>
 <div class="header">
     <nav id="page-nav">
         <!-- [THE HAMBURGER] -->
@@ -23,7 +23,4 @@
         ?>
     </nav>
     <img id="logo" src="/StudentServices/images/logotrans.png"/>
-
-    <img id="NL" src="/StudentServices/images/NL.png" class="flaglanguage"/>
-    <img id="EN" src="/StudentServices/images/EN.png" class="flaglanguage"/>
 </div>

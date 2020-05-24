@@ -1,5 +1,3 @@
-
-
 <div class="layout_homepage">
     <div class="head">
         <div id="title">

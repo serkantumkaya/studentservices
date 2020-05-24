@@ -73,7 +73,6 @@ class ProjectController
             $Project['Verwijderd']);
     }
 
-
     function getByGebruikerID(int $gebruikerID){
         $ProjectArray = [];
         foreach ($this->projectmodel->getByGebruikerID($gebruikerID) as $project){
@@ -85,4 +84,20 @@ class ProjectController
         }
         return $ProjectArray;
     }
+
+    function getPerPagina(int $page):array {
+        $begin = ($page*6)-6;
+        $limit = 6;
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getPerPagina($begin, $limit) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
+        }
+        return $ProjectArray;
+    }
+
+
 }

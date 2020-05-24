@@ -418,6 +418,249 @@ values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1)
 (Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
 , '2019-12-19', '2020-06-24', 'Klaar',
 'Waar jij wil.', 'false') ;
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), 'Vragen', '2. Hulp nodig bij fotografie',
+'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Bij mij thuis in Breda', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), 'Vragen', '2. Rapporteren lessen gemist',
+'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
+, '2019-12-19', '2020-02-12', 'Mee bezig',
+'Op school lovensedijk?', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), 'Aanbieden', '2. Bied hulp aan bij Kleien',
+'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), 'Aanbieden', '2. Hulp aangeboden bij Sofware schrijven.',
+'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), 'Vragen', '2. Brabants afleren.',
+'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Het hart van Breda', 'false');
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), 'Aanbieden', '2. Wie kan mij helpen met designpatterns',
+'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), 'Vragen', '3. Hulp nodig bij fotografie',
+'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Bij mij thuis in Breda', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), 'Vragen', '3. Rapporteren lessen gemist',
+'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
+, '2019-12-19', '2020-02-12', 'Mee bezig',
+'Op school lovensedijk?', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), 'Aanbieden', '3. Bied hulp aan bij Kleien',
+'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), 'Aanbieden', '3. Hulp aangeboden bij Sofware schrijven.',
+'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), 'Vragen', '3. Brabants afleren.',
+'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Het hart van Breda', 'false');
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), 'Aanbieden', '3. Wie kan mij helpen met designpatterns',
+'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), 'Vragen', '3.  nodig bij fotografie',
+'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Bij mij thuis in Breda', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), 'Vragen', '3. Rapporteren lessen gemist',
+'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
+, '2019-12-19', '2020-02-12', 'Mee bezig',
+'Op school lovensedijk?', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), 'Aanbieden', '3. Bied hulp aan bij Kleien',
+'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), 'Aanbieden', '3. Hulp aangeboden bij Sofware schrijven.',
+'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), 'Vragen', '3. Brabants afleren.',
+'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Het hart van Breda', 'false');
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), 'Aanbieden', '3. Wie kan mij helpen met designpatterns',
+'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), 'Vragen', '4. Hulp nodig bij fotografie',
+'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Bij mij thuis in Breda', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), 'Vragen', '4. Rapporteren lessen gemist',
+'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
+, '2019-12-19', '2020-02-12', 'Mee bezig',
+'Op school lovensedijk?', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), 'Aanbieden', '4. Bied hulp aan bij Kleien',
+'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), 'Aanbieden', '4. Hulp aangeboden bij Sofware schrijven.',
+'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), 'Vragen', '4. Brabants afleren.',
+'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Het hart van Breda', 'false');
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), 'Aanbieden', '4. Wie kan mij helpen met designpatterns',
+'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Joost' Limit 1), 'Vragen', '5. Hulp nodig bij fotografie',
+'Ik heb een specialistisch kennis nodig voor het maken van foto''s van mijn project',
+(Select CategorieID from Categorie where Categorienaam ='Fotograferen' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Bij mij thuis in Breda', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Jelle' Limit 1), 'Vragen', '5. Rapporteren lessen gemist',
+'Ik heb de lessen van Marnix Holleman gemist en nu kan ik niet rapporteren wie kan mij helpen',
+(Select CategorieID from Categorie where Categorienaam ='Rapporteren' Limit 1)
+, '2019-12-19', '2020-02-12', 'Mee bezig',
+'Op school lovensedijk?', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1), 'Aanbieden', '5. Bied hulp aan bij Kleien',
+'Bij deze biedt ik mijn hulp aan bij kleien. Als bijna afgestudeerdekunstenaar kan ik heel goed kleien',
+(Select CategorieID from Categorie where Categorienaam ='Kleien' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij de hulp wil hebben. Wel in de buurt van Breda want ik kom op de fiets.', 'false');
+
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Serkan' Limit 1), 'Aanbieden', '5. Hulp aangeboden bij Sofware schrijven.',
+'Ik ben super goed al zeg ik het zelf. En daarom help ik graag met programmeren.',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Dirk' Limit 1), 'Vragen', '5. Brabants afleren.',
+'Ik heb problemen met spreken. Ik probeer van mijn accent af te komen. Wil wil luisteren of ik er van af ben.',
+(Select CategorieID from Categorie where Categorienaam ='Luisteren' Limit 1)
+, '2019-12-19', '2020-06-24', 'Mee bezig',
+'Het hart van Breda', 'false');
+
+INSERT INTO project
+(GebruikerID, Type, Titel, Beschrijving, CategorieID, Datumaangemaakt, Deadline, Status, Locatie, Verwijderd)
+values ((Select GebruikerID from Gebruiker where Gebruikersnaam ='Miky' Limit 1), 'Aanbieden', '5. Wie kan mij helpen met designpatterns',
+'Ik snap het principe van designpatterns alleen heb ik nog moeite met C# wie kan mij helpen?',
+(Select CategorieID from Categorie where Categorienaam ='Sofware' Limit 1)
+, '2019-12-19', '2020-06-24', 'Klaar',
+'Waar jij wil.', 'false') ;
 
 INSERT INTO reactie (GebruikerID,ProjectID,Reactie) Values(
 (Select GebruikerID from Gebruiker where Gebruikersnaam ='MariskaRaamsdonk' Limit 1),

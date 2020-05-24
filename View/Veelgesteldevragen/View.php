@@ -12,7 +12,7 @@ session_start();
 include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 ?>
-
+    <link rel="stylesheet" href="/StudentServices/css/Veelgesteldevragen.css">
 </head>
 <body>
 <div class="Vraag"> 
