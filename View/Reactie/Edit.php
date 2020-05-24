@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 session_start();
 if (isset($_GET["ID"])){
     $reactiecontroller = new ReactieController();
@@ -26,8 +27,6 @@ if ($_POST){
 function getUitvoer(Reactie $Reactie){
     $projecttext     = getUitvoerProject();
     $gebruikertext   = getUitvoerGebruiker($Reactie);
-    $Tijdstip        = getTijdstip($Reactie);
-    $Reactie         = getUitvoerReview($Reactie);
     $ReactieID       = $Reactie->getReactieID();
     $uitvoer         = <<<EOD
 <table>
@@ -41,13 +40,9 @@ function getUitvoer(Reactie $Reactie){
         <td>$gebruikertext</td>
     </tr>
     <tr>
-        <td>Tijdstip</td>
-        <td>$Tijdstip</td>
-    </tr>
-    <tr>
         <td>Reactie</td>
         <td><textarea maxlength="500" name="Reactie" cols="31" 
-        placeholder="Max 500 characters" required>$Reactie</textarea></td>
+        placeholder="Max 500 characters" required></textarea></td>
     </tr>
     <tr>
         <td><input type="submit" name="Wijzig" value="Wijzigen"/></td>
@@ -61,7 +56,13 @@ EOD;
 }
 
 function getUitvoerProject(){
-    //$projectcontroller = new ProjectController();
+    $projectcontroller = new ProjectController();
+    $text = "<select id='PID' name='ProjectID'>";
+    foreach ($projectcontroller->getProjecten() as $project){
+        $text .= "<option value='".$project->getProjectID()."'>".$project->getTitel()."</option>";
+    }
+    return $text;
+
 
     $text = "<select id='PID' name='ProjectID'>";
     for ($i = 1; $i<=10; $i++){
@@ -70,7 +71,7 @@ function getUitvoerProject(){
     return $text;
 }
 
-function getUitvoerGebruiker(Reactie $Reactiek){
+function getUitvoerGebruiker(Reactie $Reactie){
     $gebruikercontroller = new GebruikerController($Reactie->getGebruikerID());
     $huidigenaam         = $gebruikercontroller->getById()->getGebruikersnaam();
 
@@ -87,20 +88,6 @@ function getUitvoerGebruiker(Reactie $Reactiek){
     }
 
     return $text;
-}
-
-function getTijdstip(Reactie $Reactie){
-    $text = "<select id=\"Tijdstip\" name=\"Tijdstip\">";
-
-    for ($i = 1; $i<=10; $i++){
-        if ($i != $Reactie->getTijdstip()){
-            $text .= "<option value='$i'>$i</option>";
-        } else{
-            $text .= "<option selected='selected'  value='$i'>$i</option>";
-        }
-    }
-    return $text;
-}
 }
 
 $uitvoer = getUitvoer($Reactie);
