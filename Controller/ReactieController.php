@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ReactieModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Reactie.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
@@ -22,9 +22,11 @@ class ReactieController
         foreach ($this->reactiemodel->getReacties() as $reactieObject){
             $reactieObject = new Reactie(
                 $reactieObject['ReactieID'],
+
                 $reactieObject['Timestamp'],
                 $reactieObject['GebruikerID'],
                 $reactieObject['ProjectID'],
+
                 $reactieObject['Reactie']);
             $Reactielijst [] = $reactieObject;
         }
@@ -32,6 +34,7 @@ class ReactieController
     }
 
     //voor parameters bindparam gebruiken. Named parameters
+
     function add(int $GebruikerID,int $ProjectID,string $Reactie){
         return $this->reactiemodel->Add($GebruikerID,$ProjectID,$Reactie);
     }

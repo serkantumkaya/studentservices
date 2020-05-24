@@ -108,12 +108,12 @@ ALTER TABLE project Change Type Type ENUM('Vragen','Aanbieden','Onbekend') DEFAU
 
 CREATE TABLE REACTIE (
 ReactieID INT PRIMARY KEY AUTO_INCREMENT,
-GebruikerID INT,
-ProjectID INT,
-Timestamp varchar(50) NOT NULL,
+GebruikerID INT NOT NULL,
+ProjectID INT NOT NULL,
+Timestamp TIMESTAMP NOT NULL,
 Reactie varchar(500) DEFAULT NULL,
-FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE,
-FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE
+FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
 
 CREATE TABLE BESCHIKBAARHEID (
@@ -679,7 +679,7 @@ INSERT INTO reactie (GebruikerID,ProjectID,Reactie) Values(
 
 INSERT INTO reactie (GebruikerID,ProjectID,Reactie) Values(
 (Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1),
-(Select ProjectID from project where Titel = 'Wie kan mij helpen met designpatterns.' Limit 1),
+7,
 'Ik ben de beste in C# in mijn bescheidenheid. Ik wil je wel helpen. Schut ik zo uit mijn mouw.');
 
 INSERT INTO BESCHIKBAARHEID (
