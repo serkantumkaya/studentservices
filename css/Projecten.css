@@ -47,11 +47,6 @@
         font-size: 23px;
     }
 
-    #project-row {
-        /*background-color: #FFB31A;*/
-
-    }
-
     #projecten-header {
         grid-area: project-header;
     }
@@ -147,19 +142,6 @@
         padding-left:10px;
     }
 
-    #nieuw-project{
-        width: 140px;
-        margin-left: 5%;
-        background-color: #FFB31A;
-        color: black;
-        padding: 10px;
-    }
-
-    #project-nieuw-button{
-        text-decoration: none;
-        font-size: 23px;
-    }
-
     #projecten-row {
         /*background-color: #FFB31A;*/
 
@@ -236,12 +218,37 @@
         grid-gap: 0px;
         background-color: #FFFFFF;
         margin: 10px;
-        grid-template-rows: 60px 500px 20px;  /*Drie lagen, dit zijn de hoogtes*/
+        grid-template-rows: 60px 500px 50px;  /*Drie lagen, dit zijn de hoogtes*/
         border: 1px solid #00008B;
     }
 
     #project-header {
         grid-area: project-header;
+    }
+
+    #nieuw-project{
+        width: 140px;
+        margin-left: 5%;
+        background-color: #FFB31A;
+        color: black;
+        padding: 10px;
+    }
+
+    #project-nieuw-button{
+        text-decoration: none;
+        font-size: 23px;
+    }
+
+    #project-button {
+        width: 140px;
+        background-color: #FFB31A;
+        color: black;
+        padding: 10px;
+        font-size: 23px;
+    }
+
+    #project-wijzig-button{
+        text-decoration: none;
     }
 
     #project-aanbieder {
@@ -317,6 +324,14 @@
         border: 1px solid #00008B;
         border-radius: 1%;
         height: 100px;
+    }
+
+    #colum1{
+        background-color: #9fcdff;
+    }
+
+    #colum2{
+        background-color: #FFB31A;
     }
 
 }
