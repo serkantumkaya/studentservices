@@ -8,86 +8,82 @@ session_start();
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 
-
-?><!DOCTYPE html>
-<!DOCTYPE HTML>
+$pagina = $_GET['Page'];
+$vorige = $pagina-1;
+$volgende = $pagina+1;
+$maxpagina = ceil(count($projectController->getProjecten()) / 6);
+?><!DOCTYPE HTML>
 <html>
-<?php
-include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
+<!--<head>-->
+    <title>Projecten</title>
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
-?>
-<div class="grid-container-colums">
-    <div>
-        Over
-    </div>
-    <div id="sub-menu" style="background-color: #2ca02c ">
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-        hier moeten de verschillende categorie filters komen.
-    </div>
+    ?>
+    <div id="projectpagina">
+        <div class="grid-projecten-colums">
+            <div>
 
+            </div>
 
-    <div id="main" style="background-color: #007bff">
-        <div id="project-row">
-           <!-- <div id="project-kader-grid">
-                <div id=\"project-header\">
-                    <div id=\"project-type\"><h3>VRAAG/AANBOD</h3></div>
-                    <div id=\"project-titel\">
-                        <h3>Titel: Helpen bij maken van Taart</h3>
-                    </div>
+            <div id="filter-projecten">
+                <div id="nieuw-project">
+                    <a href="../View/Project/Add.php" id="project-nieuw-button">Nieuw Project</a>
                 </div>
-                <div id=\"project-info\">
-                    ik heb hulp nodig voor bla bal bal bla ik heb hulp nodig voor bla bal bal blaik heb hulp nodig
-                    voor bla bal bal blaik heb hulp nodig voor bla bal bal blaik heb hulp nodig voor bla bal bal bla
-                </div>
-                <div id=\"project-footer\">
-                    gemaakt door:
-                </div>
-            </div>-->
+                <div id="filter-projecten2">
+                    <h3>Filteren</h3>
 
-            <?php
-                $i=0;
-                 foreach ($projectController->getProjecten() as $project){
-                     echo "
-                     <div id=\"project-row-grid\">
-                         <div id=\"project-header\">
-                             <div id=\"project-type\">
-                                <h3>". $project->getType() ."</h3>
+                </div>
+            </div>
+
+            <div id="main">
+                <div id="projecten-row">
+                    <?php
+                    /*<h3><input type=\"submit\" value=\"" .$project->getTitel() . "\" formaction='../Profiel/Edit.php?ID="  .$project->getProjectID(). "' id=\"project-link\"></h3>*/
+                    foreach ($projectController->getPerpagina($pagina) as $project){
+                        echo "
+                     <div id=\"projecten-row-grid\">
+                         
+                         <div id=\"projecten-header\">
+                             <div id=\"projecten-type\">
+                                <div id=\"projecten-type-text\">
+                                    <h3>" . $project->getType() . "</h3>
+                                </div>
                              </div>
-                             <div id=\"project-titel\">
-                                 <h3>". $project->getTitel(). "</h3>
+                             <a href=\"Project.php?ID=" . $project->getProjectID() . "\">
+                             <div id=\"projecten-titel\">
+                                 <h3>" . $project->getTitel() . "</h3>
                              </div>
+                            </a>
                          </div>
-                         <div id=\"project-info\">
-                         ". $project->getBeschrijvingKort() ."
+                         
+                         <div id=\"projecten-info\">
+                         " . $project->getBeschrijvingKort() . "
                          </div>
-                         <div id=\"project-footer\">
-                         gemaakt door: ". $gebruikersController->getById($project->getGebruikerID())  ."
+                         
+                         <div id=\"projecten-footer\">
+                         gemaakt door: " . $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
-             }
-            ?>
+                    }
+
+                    echo "<div id=\"projecten-buttons\">";
+                    if ($pagina>1){
+                        echo "        
+            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">&laquo; Vorige</a>";
+                    }
+                    if ($pagina<$maxpagina){
+                        echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">Volgende &raquo;</a>";
+                    }
+                    echo "</div>";
+                    ?>
+                </div>
+            </div>
+            <div id="reclame">
+
+            </div>
         </div>
+        <?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
     </div>
-
-
-    <div id="reclame" style="background-color: #721c24">
-        Hier kan de reclame
-    </div>
-
-
-</div>
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
-</body>
+    </body>
 </html>
