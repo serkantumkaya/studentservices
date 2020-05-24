@@ -50,7 +50,7 @@ $maxpagina = ceil(count($projectController->getProjecten()) / 6);
                                     <h3>" . $project->getType() . "</h3>
                                 </div>
                              </div>
-                             <a href=\"Project.php?ID=" . $project->getProjectID() . "\">
+                             <a href=\"Project.php?ProjectID=" . $project->getProjectID() . "\">
                              <div id=\"projecten-titel\">
                                  <h3>" . $project->getTitel() . "</h3>
                              </div>

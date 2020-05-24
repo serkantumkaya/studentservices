@@ -24,21 +24,17 @@ class ReactieModel
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);;
     }
 
-    function add(int $GebruikerID,int $ProjectID,string $Reactie){
-
+    function add(int $GebruikerID,int $ProjectID,string $Reactie): bool{
         $statement =
             $this->conn->prepare("INSERT INTO `reactie` (`ReactieID`, `GebruikerID`, `ProjectID`, `Timestamp`, `Reactie`) VALUES(NULL, :GebruikerID, :ProjectID, current_timestamp(), :Reactie);");
         return $statement->execute([
-
             'GebruikerID' => $GebruikerID,
             'ProjectID' => $ProjectID,
             'Reactie' => $Reactie]);
     }
 
     function delete(int $ID){
-
         $sql = $this->conn->prepare("DELETE FROM Reactie WHERE ReactieID=:RID");
-
         $parameters = [
             'RID' => $ID
         ];
@@ -49,8 +45,7 @@ class ReactieModel
         }
     }
 
-    function update(Reactie $Reactie):void {
-
+    function update(Reactie $Reactie):bool {
         $sql =
             $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID, Reactie=:SReactie, ProjectID=:ProjectID)
             WHERE ReactieID= ".$Reactie->getReactieID()." ");
@@ -60,7 +55,7 @@ class ReactieModel
             'Reactie' => $Reactie->getReactie(),
             'ProjectID' => $Reactie->getProjectID(),
         ];
-        $sql->execute($parameters);
+        return $sql->execute($parameters);
     }
 
     function getById(int $ID){

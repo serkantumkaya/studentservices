@@ -1,9 +1,10 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
+
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 session_start();
 print_r($_POST);
 
@@ -11,9 +12,10 @@ print_r($_POST);
 if (isset($_POST['submit'])){
     if (isset($_POST["Reactie"])){
         $reactiecontroller = new ReactieController();
-        if ($reactiecontroller->add($_POST["ProjectID"], $_POST['GebruikerID'], $_POST['Reactie'])){
+
+        if ($reactiecontroller->add($_POST['GebruikerID'],$_POST["ProjectID"], $_POST['Reactie'])){
             //wat doet die hier? waar is dit geod voor?'
-            $_SESSION["CurrentNaam"] = $_POST["ProjectID"];
+            //$_SESSION["CurrentNaam"] = $_POST["ProjectID"];
             header("Location: View.php");
             //echo "Record opgeslagen. Klik op terug om naar het overzicht te gaan.";
             //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";

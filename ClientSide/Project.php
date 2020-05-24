@@ -8,16 +8,18 @@ session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
+$reactiecontroller = new ReactieController();
 
+$projectID = $_GET['ProjectID'];
 
 if ($_POST){
     if (isset($_POST['submitReactie'])){
-        verstuurreactie();
+        verstuurreactie($reactiecontroller,$projectID);
     }
 }
 
-function verstuurreactie(){
-
+function verstuurreactie(ReactieController $reactiecontroller,$projectID){
+    $reactiecontroller->add($_SESSION['GebruikerID'], $projectID, $_POST['Reactie']);
 }
 
 ?><!DOCTYPE HTML>
@@ -44,7 +46,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
             <div id="project-row">
                 <?php
-                $project = $projectController->getById($_GET['ID']);
+                $project = $projectController->getById($_GET['ProjectID']);
                 echo "
                      <div id=\"project-row-grid\">
                          <div id=\"project-header\">
@@ -80,39 +82,30 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="reacties">
                 <div id="reacties-scroll">
                     <div id="reactie-venster">
-                        <form action="Project.php" method="post">
+                        <form action="Project.php?ProjectID=<?php echo $projectID;?>" method="post">
                             <label for="Reactie"><h3>Nieuwe reactie:</h3></label>
                             <textarea maxlength="500" name="Reactie" cols="1" rows="5"
                                       placeholder="Max 500 characters" required></textarea>
                             <input type="submit" name="submitReactie" value="Plaatsen">
                         </form>
                     </div>
+                    <?php
 
-                    <!-- vanaf hier de overige reacties -->
 
-                    <div id="reactie-venster">
-                        <h3>Gegeven door: </h3>
-                        <div id="inhoud">
-                        Inhoud:fds afsda fsdaf dasf dsfdsf sdf sdf af asdf fasdf sadfsda fsadf ads f
-                        </div>
-                    </div>
-                    <div id="reactie-venster">
-                        Gegeven door: <br>
-                        Inhoud:
-                    </div>
-                    <div id="reactie-venster">
-                        Gegeven door: <br>
-                        Inhoud:
-                    </div>
-                    <div id="reactie-venster">
-                        Gegeven door: <br>
-                        Inhoud:
-                    </div>
-                    <div id="reactie-venster">
-                        Gegeven door: <br>
-                        Inhoud:
-                    </div>
 
+                    foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
+                        echo "                    
+                        <div id=\"reactie-venster\">
+                            <h3>Gegeven door: ". $gebruikersController->getById($reactie->getGebruikerID()) ."</h3>
+                            <div id=\"inhoud\">
+                               ". $reactie->getReactie() ."
+                            </div>
+                            <div id=\"inhoud-footer\">
+                                mail deze gebruiker: 
+                            </div>
+                    </div>";
+                    }
+                    ?>
                 </div>
             </div>
         </div>
