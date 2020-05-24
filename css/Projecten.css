@@ -294,23 +294,29 @@
     }
 
 
-
     #reacties{
-        margin-top: 5px;
-        margin-left: 110px;
-        margin-right: 290px;
+        margin-right: auto;
+        margin-left: 10px;
     }
 
     #reacties-scroll {
-        background-color: #333;
-        overflow: auto;
-        white-space: nowrap;
+        width: auto;
     }
 
-    #reactie-venster {
-        display: inline-block;
-        color: white;
-        padding: 14px;
-        text-decoration: none;
+    #reactie-venster{
+        border: 1px solid #00008B;
+        background-color: #FFB31A;
+        height: 200px;
+        width: 49%;
+        float: left;
     }
+
+    #inhoud{
+        margin: 2px;
+        padding: 10px;
+        border: 1px solid #00008B;
+        border-radius: 1%;
+        height: 100px;
+    }
+
 }

@@ -1,9 +1,5 @@
 <?php
 
-require_once "Gebruiker.php";
-require_once "Profiel.php";
-require_once "Projecten.php";
-
 class Reactie
 {
     private int $ReactieID;
