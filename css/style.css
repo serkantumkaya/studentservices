@@ -184,6 +184,16 @@ textarea {
 {
     width:30px;
     heigt:20px;
+    margin:0px;
+}
+
+.flaglanguagebutton
+{
+    width:32px; !important;
+    heigt:22px;!important;
+    padding:0px;!important;
+    border:0;!important;
+    background-color: transparent;
 }
 
 #page-nav {

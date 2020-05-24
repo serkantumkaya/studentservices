@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);//todo :weghalen
-ini_set('display_errors',1);//todo :weghalen
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
@@ -9,19 +7,23 @@ $wronglogin = "";
 
 //Why on and off? Because it's a checkbox thing.
 $rememberpassword = "off";
+//for choosing language
+if (isset($_POST["language"]) && $_POST["language"] == "EN")
+{
+    $doRefresh = $_POST["language"] != $_COOKIE["Language"];
+    setcookie("Language", "EN", time()+(86400 * 365), "/"); // 86400 = 1 day
+
+    if ($doRefresh) header("Refresh:0");
+}
+else if (isset($_POST["language"]))
+{
+    $doRefresh = $_POST["language"] != $_COOKIE["Language"];
+    setcookie("Language", "NL", time()+(86400 * 365), "/"); // 86400 = 1 day
+    if ($doRefresh) header("Refresh:0");
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
-
-    //for choosing language
-    if ($_POST["EN"])
-    {
-        $_SESSION["Language"] = "EN";
-    }
-    else
-    {
-        $_SESSION["Language"] = "NL";
-    }
 
     if (isset($_POST["chkRememberMe"])
         && $_POST["chkRememberMe"] == "on"){
@@ -76,7 +78,7 @@ if (isset($_POST['username']) && $_POST['password'])
     $Gebruiker = $GC->Validate($username, $pwsafe);
 
     if ($Gebruiker->getGebruikerID() != -1){
-        echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
+        echo Translate::GetTranslation("inlogPagGoodButNoLogin");
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
         $GC    = new GebruikerController($_SESSION['GebruikerID']);
         $_SESSION["level"] = $GC->checkRechten();
@@ -84,7 +86,7 @@ if (isset($_POST['username']) && $_POST['password'])
     }
     else
     {
-        $wronglogin = Translate::GetTranslation("LoginIncorrect");
+        $wronglogin = Translate::GetTranslation("inlogPagLoginIncorrect");
     }
 }
 
@@ -109,9 +111,12 @@ if (isset($_POST['username']) && $_POST['password'])
 </head>
 <body onload="showSlides(); timeevents();">
 
-    <img id="NL" name="NL" src="/StudentServices/images/NL.png" class="flaglanguage" onclick="form.submit();"/>
-    <img id="EN" name="EN" src="/StudentServices/images/EN.png" class="flaglanguage" onclick="form.submit();"/>
-
+    <form method="post" action="inlogPag.php">
+        <button type="submit" name="language" value="NL" class="flaglanguagebutton">
+            <img src="/StudentServices/images/NL.png" alt="NL" class="flaglanguage"></button>
+        <button type="submit" name="language" value="EN" class="flaglanguagebutton">
+            <img src="/StudentServices/images/EN.png" alt="EN" class="flaglanguage"></button>
+    </form>
 
     <img id="logo" src="/StudentServices/images/logo.png"/>
     <div class="itemslider">
@@ -143,7 +148,7 @@ if (isset($_POST['username']) && $_POST['password'])
     <!--styling is tijdelijk-->
     <div class="container">
         <div style="width:100%">
-            <label for='username' style="width:150px"><?php echo Translate::GetTranslation("UserNameLabel") ?></label>
+            <label for='username' style="width:150px"><?php echo Translate::GetTranslation("inlogPagUserNameLabel") ?></label>
             <input type='text' name='username' style="width:150px"
             <?php
 
@@ -158,7 +163,7 @@ if (isset($_POST['username']) && $_POST['password'])
             ?>"/>
         </div>
         <div style="width:100%;padding-top: 5px">
-            <label style="width:150px">Wachtwoord:</label>
+            <label style="width:150px"><?php echo Translate::GetTranslation("inlogPagPasswordLabel") ?></label>
             <input type='password' style="width:150px" name='password'
             <?php
             if($rememberpassword == "on" && isset($_COOKIE[$cookie_name2]))
@@ -176,12 +181,6 @@ if (isset($_POST['username']) && $_POST['password'])
         ?>
         <br><br>
 
-        <?php
-
-            echo $rememberpassword;
-
-        ?>
-
         <input type="checkbox" id="chkRememberMe" name="chkRememberMe"
           <?php
             if($rememberpassword == "on")
@@ -190,12 +189,13 @@ if (isset($_POST['username']) && $_POST['password'])
             }
             ?>
          />
-        <label>Onthoudt mij</label>
+        <label><?php echo Translate::GetTranslation("inlogPagRememberMe")?></label>
         <br>
-        <input type='submit' name='Submit' value='Submit'/>
+        <input type='submit' name='Submit' value='<?php echo Translate::GetTranslation("inlogSubmit") ?>'/>
         <?php
         if ($wronglogin != ""){
-            echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value = 'Wachtwoord vergeten' />";
+            echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value ='".
+            Translate::GetTranslation("inlogPagForgotPassword")."'/>";
         }
         ?>
 
@@ -205,7 +205,7 @@ if (isset($_POST['username']) && $_POST['password'])
 
 <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
     <div class="container">
-        <input type='submit' name='Add' value='Registreren'/>
+        <input type='submit' name='Add' value='<?php echo Translate::GetTranslation("inlogRegister") ?>'/>
     </div>
 </form>
 
@@ -213,3 +213,6 @@ if (isset($_POST['username']) && $_POST['password'])
 
 </body>
 </html>
+<?php
+
+    ?>
