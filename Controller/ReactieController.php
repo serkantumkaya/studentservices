@@ -3,9 +3,6 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ReactieModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Reactie.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Gebruiker.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Profiel.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Projecten.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
@@ -14,25 +11,22 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectCon
 class ReactieController
 {
     private ReactieModel $reactiemodel;
-    private int $GebruikerID;
 
-    public function __construct(int $GebruikerID){
+    public function __construct(){
         $this->reactiemodel = new ReactieModel();
-        $this->gebruikersID = $GebruikerID;
     }
 
     public function getReacties(){
         $ReactieArray = [];
         foreach ($this->reactiemodel->getReacties()->fetchAll(PDO::FETCH_ASSOC) as $reactieObject){
-            $gebruikersc = new GebruikerController();
-            $profielc    = new ProfielController();
+            $gebruikersc = new GebruikerController(-1);
+            $profielc    = new ProfielController(-1);
             $projectc    = new ProjectController();
-
             $reactieObject = new Reactie(
                 $reactieObject['ReactieID'],
+                $reactieObject['Timestamp'],
                 $reactieObject['GebruikersID'] == null?null:$gebruikersc->getById($reactieObject['GebruikersID']),
                 $reactieObject['ProjectID'] == null?null:$projectc->getById($reactieObject['ProjectID']),
-                $reactieObject['ProfielID'] == null?null:$profielc->getById($reactieObject['ProfielID']),
                 $reactieObject['Reactie']);
 
             $ReactieArray [] = $reactieObject;

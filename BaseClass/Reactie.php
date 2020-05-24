@@ -7,15 +7,31 @@ require_once "Projecten.php";
 class Reactie
 {
     private int $ReactieID;
+    private string $Timestamp;
     private int $GebruikersID;
     private int $ProjectID;
     private string $Reactie;
 
-    public function __construct(int $ReactieID,int $GebruikersID,int $ProjectID,string $Reactie){
+    public function __construct(int $ReactieID, string $Timestamp, int $GebruikersID,int $ProjectID,string $Reactie){
         $this->ReactieID    = $ReactieID;
+        $this->Timestamp    = $Timestamp;
         $this->GebruikersID = $GebruikersID;
         $this->ProjectID    = $ProjectID;
         $this->Reactie      = $Reactie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimestamp(): string{
+        return $this->Timestamp;
+    }
+
+    /**
+     * @param string $Timestamp
+     */
+    public function setTimestamp(string $Timestamp): void{
+        $this->Timestamp = $Timestamp;
     }
 
     /**
