@@ -3,15 +3,31 @@
 class Reactie
 {
     private int $ReactieID;
-    private int $GebruikersID;
+    private string $Timestamp;
+    private int $GebruikerID;
     private int $ProjectID;
     private string $Reactie;
 
-    public function __construct(int $ReactieID,int $GebruikersID,int $ProjectID,string $Reactie){
+    public function __construct(int $ReactieID, string $Timestamp, int $GebruikerID,int $ProjectID,string $Reactie){
         $this->ReactieID    = $ReactieID;
-        $this->GebruikersID = $GebruikersID;
+        $this->Timestamp    = $Timestamp;
+        $this->GebruikerID = $GebruikerID;
         $this->ProjectID    = $ProjectID;
         $this->Reactie      = $Reactie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimestamp(): string{
+        return $this->Timestamp;
+    }
+
+    /**
+     * @param string $Timestamp
+     */
+    public function setTimestamp(string $Timestamp): void{
+        $this->Timestamp = $Timestamp;
     }
 
     /**
@@ -31,15 +47,15 @@ class Reactie
     /**
      * @return int
      */
-    public function getGebruikersID(): int{
-        return $this->GebruikersID;
+    public function getGebruikerID(): int{
+        return $this->GebruikerID;
     }
 
     /**
-     * @param int $GebruikersID
+     * @param int $GebruikerID
      */
-    public function setGebruikersID(int $GebruikersID): void{
-        $this->GebruikersID = $GebruikersID;
+    public function setGebruikerID(int $GebruikerID): void{
+        $this->GebruikerID = $GebruikerID;
     }
 
     /**

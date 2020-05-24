@@ -23,6 +23,7 @@ if ($_SESSION["level"]>=50){
             </li>
             <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
             <li><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
+            <li><a href="/StudentServices/View/Reactie/View.php">Reactie</a></li>
             <li><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>
            <!-- tijdelijk even 2x projecten neergezet, een voor de gebruiker, een voor de admin. -->
             <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
