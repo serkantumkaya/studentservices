@@ -318,11 +318,17 @@ echo "\">
         $Photo = $profiel->getFoto();
         //echo $Photo;
         if (isset($Photo)){
-            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto"/>';
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto" 
+            name="ProfileImage" ID="ProfileImage"/>';
+        }
+        else
+        {
+            echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
         }
     }
     ?>
-    <input type="file" name="ProfilePhoto" value="Upload je profielfoto.">
+    <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
+           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);";>
 
 <?php echo "</div>" ?>
 <div class="block">
@@ -334,12 +340,13 @@ echo "\">
 </div>
 <?php
 
-    if(isset($_FILES["ProfilePhoto"]) && $_FILES["ProfilePhoto"]["name"] != "")
+    if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
     {
-        $imagename=$_FILES["ProfilePhoto"]["name"];
-        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhoto']['tmp_name']));
+        $imagename=$_FILES["ProfilePhotoFile"]["name"];
+        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']));
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhoto']['tmp_name']),$profiel->getProfielID());
+        $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
+
     }
 
 if (isset($_POST["delete"]))
@@ -377,6 +384,23 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 }
 ?>
+<!--script here because input will cause errors in a global file.-->
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ProfileImage')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>
