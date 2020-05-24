@@ -73,9 +73,11 @@ else
 {
     $profiel = $_SESSION["CurrentProfiel"];
     $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
+    $schoolcontroller =new SchoolController();
+    $opleidingcontroller=new OpleidingController();
     $_SESSION["CurrentProfiel"] = $profiel;
-    $School =$_POST["School"];
-    $Opleiding=$_POST["Opleiding"];
+    $School = $schoolcontroller->getById($_POST["School"]);
+    $Opleiding= $opleidingcontroller->getById($_POST["Opleiding"]);
     $Startdatumopleiding= $_POST["Startdatumopleiding"];
     $Status=$_POST["Status"];
     $Achternaam=$_POST["Achternaam"];
@@ -242,6 +244,7 @@ foreach($Schoolcontroller->GetScholen() as $sh)
 {
     $schoolid = $sh->getSchoolID();
     $schoolnaam = $sh->getSchoolnaam();
+
     if (isset($School) && $School->getSchoolID() == $schoolid)
         echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
     else
@@ -304,14 +307,23 @@ echo "\">
 
     <?php
 
+    function data_uri($file)
+    {
+        $contents = file_get_contents($file);
+        $base64   = base64_encode($contents);
+        return ('data:"image/jpeg";base64,' .  $base64);
+    }
+
     if (isset($profiel)){
         $Photo = $profiel->getFoto();
+        //echo $Photo;
         if (isset($Photo)){
-            echo "<img src=data:image/gif;base64,".$Photo." class=\"studentfoto\" />";
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto"/>';
         }
     }
     ?>
     <input type="file" name="ProfilePhoto" value="Upload je profielfoto.">
+
 <?php echo "</div>" ?>
 <div class="block">
 
@@ -327,7 +339,7 @@ echo "\">
         $imagename=$_FILES["ProfilePhoto"]["name"];
         $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhoto']['tmp_name']));
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $Profielcontroller->UploadPhoto($imagetmp,$profiel->getProfielID());
+        $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhoto']['tmp_name']),$profiel->getProfielID());
     }
 
 if (isset($_POST["delete"]))
@@ -344,8 +356,8 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $schoolcontroller = new SchoolController();
     $opleidingcontroller = new OpleidingController();
     $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$schoolcontroller->getById($School),
-        $opleidingcontroller->getById($Opleiding),
+    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School,
+        $Opleiding,
         $Startdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
          $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
          $Woonplaats,  $Geboortedatum, $Telefoonnummer);
