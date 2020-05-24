@@ -24,15 +24,15 @@ class ReactieModel
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);;
     }
 
-    function add(
-        int $GebruikersID,int $ProjectID,string $Reactie){
+    function add(int $GebruikerID,int $ProjectID,string $Reactie){
 
         $statement =
-            $this->conn->prepare("INSERT INTO Reactie (GebruikerID, ProjectID, Reactie) VALUES (:GebruikerID, :ProjectID, :Reactie)");
+            $this->conn->prepare("INSERT INTO `reactie` (`ReactieID`, `GebruikerID`, `ProjectID`, `Timestamp`, `Reactie`) VALUES(NULL, :GebruikerID, :ProjectID, current_timestamp(), :Reactie);");
         return $statement->execute([
-            'GebruikersID' => $GebruikersID,
-            'PojecctID' => $ProjectID,
-            'Reatie' => $Reactie]);
+
+            'GebruikerID' => $GebruikerID,
+            'ProjectID' => $ProjectID,
+            'Reactie' => $Reactie]);
     }
 
     function delete(int $ID){

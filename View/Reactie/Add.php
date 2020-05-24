@@ -3,12 +3,15 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 session_start();
-//print_r($_POST);
+print_r($_POST);
+
+
 if (isset($_POST['submit'])){
-    if (isset($_POST["Review"])){
+    if (isset($_POST["Reactie"])){
         $reactiecontroller = new ReactieController();
-        if ($reactiecontroller->add($_POST["ProjectID"], $_POST['GebruikerID'], $_POST['Tijdstip'], $_POST['Reactie'])){
+        if ($reactiecontroller->add($_POST["ProjectID"], $_POST['GebruikerID'], $_POST['Reactie'])){
             //wat doet die hier? waar is dit geod voor?'
             $_SESSION["CurrentNaam"] = $_POST["ProjectID"];
             header("Location: View.php");
@@ -25,7 +28,6 @@ if (isset($_POST['submit'])){
 function getUitvoer(){
     $projecttext = getUitvoerProject();
     $gebruikertext   = getUitvoerGebruiker();
-    $Tijdstip = getTijdstip();
     $uitvoer = <<<EOD
     <h1>Toevoegen Reactie</h1>
 <table>
@@ -37,10 +39,6 @@ function getUitvoer(){
     <tr>
         <td>Gebruiker</td>
         <td>$gebruikertext</td>
-    </tr>
-    <tr>
-        <td>Tijdstip</td>
-        <td>$Tijdstip</td>
     </tr>
     <tr>
         <td>Reactie</td>
@@ -58,7 +56,13 @@ EOD;
 }
 
 function getUitvoerProject(){
-    //$projectcontroller = new ProjectController();
+    $projectcontroller = new ProjectController();
+    $text = "<select id='PID' name='ProjectID'>";
+    foreach ($projectcontroller->getProjecten() as $project){
+        $text .= "<option value='".$project->getProjectID()."'>".$project->getTitel()."</option>";
+    }
+    return $text;
+
 
     $text = "<select id='PID' name='ProjectID'>";
     for ($i=1;$i<=10;$i++){
@@ -72,16 +76,6 @@ function getUitvoerGebruiker(){
     $text = "<select id=\"GebrID\" name=\"GebruikerID\">";
     foreach ($gebruikercontroller->getGebruikers() as $gebruiker){
         $text .= "<option value='".$gebruiker->getGebruikerID()."'>".$gebruiker->getGebruikersnaam()."</option>";
-    }
-
-    return $text;
-}
-
-function getTijdstip(){
-    $text = "<select id=\"Tijdstip\" name=\"Tijdstip\">";
-
-    for($i=1;$i<=10;$i++){
-        $text .= "<option value='$i'>$i</option>";
     }
 
     return $text;
