@@ -32,7 +32,7 @@ class ProfielController
                 $profiel['GebruikerID'],
                 $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
                 $profiel['Opleiding'] == null ? null : $opleidingc->getById($profiel['Opleiding']),
-                new DateTime($profiel['Startdatumopleiding']),
+                $profiel['Startdatumopleiding'],
                 $profiel['Status'] = null ? "onbekend" : $profiel['Status'],
                 $profiel['Achternaam'] ?? "",
                 $profiel['Voornaam'] ?? "",
@@ -43,7 +43,7 @@ class ProfielController
                 $profiel['Extentie'] ?? "",
                 $profiel['Postcode'] ?? "",
                 $profiel['Woonplaats'] ?? "",
-                new DateTime($profiel['Geboortedatum']),
+                $profiel['Geboortedatum'],
                 $profiel['Telefoonnummer'] == null ? "" : $profiel['Telefoonnummer']);
             $ProfielArray [] = $profiel;
         }
@@ -94,7 +94,8 @@ class ProfielController
             $Profiel['Geboortedatum'],
             $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']
         );
-        $ProfielObject->setFoto($Profiel['Foto']);
+        if (isset($Profiel['Foto']))
+            $ProfielObject->setFoto($Profiel['Foto']);
         return $ProfielObject;
     }
 

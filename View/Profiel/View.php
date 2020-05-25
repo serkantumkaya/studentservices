@@ -84,45 +84,7 @@ session_start();
 </div>
 <div>
 
-<!-- vanaf hier -->
-    <!-- ik weet niet welke images je precies mag uploaden, maar ik kon een JPG iid laten zien-->
-
-    <?php
-    $profiel = $profielcontroller->getById(1000); //->patrick
-
-    var_dump($profiel);
-
-    print_r($_POST); echo "<BR>";
-    print_r($_FILES);
-
-    //foto om te uploaden, gewoon als string kan dit de database in.
-    // dit komt uit het stukje POST hier onder.
-    $foto = base64_encode(file_get_contents($_FILES['fileToUpload']['tmp_name'])); echo "<br>";
-    $profielcontroller->UploadPhoto($foto);
-    //print de foto als blob
-    #print_r($foto);
-
-    //echo "<br>";
-    echo '<img class="profielfoto" src="data:image/jpeg;base64,' . base64_encode($profiel->getFoto()) . '"/>';
-    //echo "<br>";
-
-    ?>
-    <form action="view.php" method="post" enctype="multipart/form-data">
-  Select image to upload:
-  <input type="file" name="fileToUpload" id="fileToUpload"><br>
-  <input type="submit" value="Upload Image" name="submit">
-</form>
-<!-- tot hier kan je het overnemen -->
-
-    <div class="footer">
-        <div>© Student Services, 2020
-            <?php
-            $GebrID = 1;
-            echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
-
-            ?>
-        </div>
-    </div>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>
 
