@@ -8,6 +8,8 @@ session_start();
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 
+var_dump($_SESSION);
+
 $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
