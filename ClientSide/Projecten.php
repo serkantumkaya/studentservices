@@ -12,26 +12,47 @@ $categorieController = new CategorieController();
 //var_dump($_SESSION);
 var_dump($_POST);
 
-
 $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
 $maxpagina = ceil(count($projectController->getProjecten()) / 6);
 
-
-$statusKlaar= "unchecked=''";
-$statusMeeBezig = "unchecked=''";
+$statusKlaar= "";
+$statusMeeBezig = "";
 
 if ($_POST){
-    if ($_POST['Status'] == 'Klaar'){
-    $statusKlaar = "checked='checked'";
+    if (isset($_POST['status']['StatusK']) && $_POST['status']['StatusK'] == 'Klaar'){
+    $statusKlaar = "checked";
     }
-    if ($_POST['Status'] == 'MeeBezig'){
-        $statusMeeBezig = "checked='checked'";
+    if (isset($_POST['status']['StatusMB']) && $_POST['status']['StatusMB'] == 'Mee Bezig'){
+        $statusMeeBezig = "checked";
     }
+    $filter = createFilter();
+}
 
+//SELECT * FROM `project` WHERE ProjectID >= 1 AND Status = "Mee Bezig"
+//SELECT * FROM `project` WHERE ProjectID >= 1 AND Status = "Mee Bezig" AND CategorieID = (SELECT CategorieID from categorie where categorieNaam = "Kleien")
 
+    //TODO: dit in de controller plaatsen,
+    // telling meesturen of het AND of OR moet zijn....
 
+function createFilter(){
+    $statusSQL = getStatusSQL();
+    var_dump($statusSQL);
+
+    $categorieSQL = getCategorieSQL();
+}
+
+function getStatusSQL(){
+    $SQL = "";
+    foreach ($_POST['status'] as $key => $value){
+            $SQL .= "AND STATUS LIKE '%$value%'";
+    }
+    return $SQL;
+}
+
+function getCategorieSQL(){
+    return " ";
 }
 
 
@@ -57,13 +78,31 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <h3>Filteren</h3>
 
                 <form action="" method="post">
+                    <div id="filter-projecten-status">
                     Status:<br>
-                    <input type="checkbox" id="Klaar" name="Status" value="Klaar" onclick=if(this.checked){this.form.submit();} <?php echo $statusKlaar; ?>/>
+<!--                    <input type="checkbox" id="Klaar" name="StatusK" value="Klaar" <?php /*echo $statusKlaar; */?> onclick=if(this.checked){this.form.submit();}else{unsetValue('StatusK')} />
+-->                    <input type="checkbox" id="Klaar" name="status[StatusK]" value="Klaar" <?php echo $statusKlaar; ?> onchange=this.form.submit() />
                     <label for="Klaar">Klaar</label><br>
-                    <input type="checkbox" id="MeeBezig" name="Status" value="MeeBezig" onclick=if(this.checked){this.form.submit();} <?php echo $statusMeeBezig; ?>/>
+                    <input type="checkbox" id="MeeBezig" name="status[StatusMB]" value="Mee Bezig" <?php echo $statusMeeBezig; ?> onchange=this.form.submit() />
                     <label for="MeeBezig">Mee Bezig</label><br>
+                    </div>
+                    <div id="filter-projecten-categorie">
                     Categorie:<br>
-
+                    <?php
+                        foreach ($categorieController->getCategorieen() as $categorie){
+                            $categorienaam = $categorie->getCategorieNaam();
+                            $checker = $categorienaam."checked";
+                            $status = "";
+                            if (isset($_POST['categorie'][$categorienaam])){
+                                if ($_POST['categorie'][$categorienaam] === $checker){
+                                    $status = "checked";
+                                }
+                            }
+                            echo "<input type=\"checkbox\" id=$categorienaam name=\"categorie[$categorienaam]\" value=$checker $status onchange=this.form.submit() />";
+                            echo "<label for=\"$categorienaam\">$categorienaam</label><br>";
+                        }
+                    ?>
+                    </div>
 
                 </form>
 
@@ -125,6 +164,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </div>
+
+<script>
+function unsetValue(){
+
+}
+</script>
 
 </body>
 </html>
