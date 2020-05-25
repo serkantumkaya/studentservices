@@ -1,12 +1,18 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/HomepageController.php");
+$homepagina = new HomepageController($_SESSION['GebruikerID']);
+//var_dump($homepagina->getprojectnameVR());
+?>
+
 <div class="layout_homepage">
     <div class="head">
         <div id="title">
-            <h1>Hallo Dirk van der vliet</h1>
-            <p> acount status actief</p>
-            <p> Emailadres:  Dirk van der Vliet</p>
+            <h1>Hallo<?=$homepagina->getfullname()?></h1>
+            <p> acount status <?=$homepagina->getaccountstatus()?></p>
+            <p> Emailadres:  <?=$homepagina->getemail()?></p>
         </div>
         <div id="foto">
-           <div><img id="userfoto" src="images/no_user_pic.png"></div>
+           <div> <img id="userfoto" src=<?=$homepagina->getfoto()?>></div>
            <div><button id="profiel">bewerk profiel</button></div>
         </div>
     </div>
@@ -18,15 +24,15 @@
             <div class="content_box">
                 <div>
                     <h3 class="subtitle">mijn aanbiedende projecten</h3>
-                    <h4>title project</h4>
-                    <p>test</p>
+                    <h4><?=$homepagina->getprojectnameAB()?></h4>
+                    <p><?=$homepagina->getprojecttextAB()?></p>
                 </div>
             </div>
             <div class="content_box">
                 <div>
                     <h3 class="subtitle">mijn vragende projecten</h3>
-                    <h4>title project</h4>
-                    <p> test</p>
+                    <h4><?=$homepagina->getprojectnameVR()?></h4>
+                    <p><?=$homepagina->getprojecttextVR()?></p>
                 </div>
             </div>
             <div id="to_project">
@@ -40,16 +46,16 @@
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">reactie op project:  Fietsen maken</h3>
-                    <h4>verzonden door heil hitler om 22-5-20 om 18:28:37</h4>
-                    <p>test</p>
+                    <h3 class="subtitle">reactie op jouw project: <?=$homepagina->getprojecttitlebyreactie()?></h3>
+                    <h4>verzonden door <?=$homepagina->getusernamebyreactie()?> om <?=$homepagina->gettimestampbyreactie()?></h4>
+                    <p><?=$homepagina->getreactietext()?></p>
                 </div>
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">reactie op project:  Fietsen Slopen</h3>
-                    <h4>verzonden door heil hitler om 22-5-20 om 18:28:37</h4>
-                    <p> test</p>
+                    <h3 class="subtitle">jouw reactie op project:  <?=$homepagina->getprojecttitlebyreactie($_SESSION['GebruikerID'])?></h3>
+                    <h4>verzonden door <?=$homepagina->getusernamebyreactie($_SESSION['GebruikerID'])?> om <?=$homepagina->gettimestampbyreactie($_SESSION['GebruikerID'])?></h4>
+                    <p><?=$homepagina->getreactietext($_SESSION['GebruikerID'])?></p>
                 </div>
             </div>
             <div id="to_project">

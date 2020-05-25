@@ -21,7 +21,7 @@ class ReactieModel
             Timestamp, 
             ProjectID,
             Reactie FROM Reactie";
-        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);;
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function add(int $GebruikerID,int $ProjectID,string $Reactie): bool{
@@ -64,6 +64,11 @@ class ReactieModel
     }
     public function getByProjectID(int $ID): array{
         $sql = "SELECT * FROM Reactie WHERE ProjectID = $ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+    }
+
+    function getByGebruikerId(int $ID){
+        $sql = "SELECT *  FROM Reactie WHERE GebruikerID =$ID";
         return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
     }
 

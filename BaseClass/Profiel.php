@@ -184,7 +184,7 @@ class Profiel
     /**
      * @return string
      */
-    public function getTussenvoegsel(): string{
+    public function getTussenvoegsel(){
         return $this->Tussenvoegsel;
     }
 
