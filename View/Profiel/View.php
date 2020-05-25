@@ -83,7 +83,6 @@ session_start();
     </form>
 </div>
 <div>
-
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>

@@ -106,7 +106,8 @@ class ProfielController
         $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
         if (!isset($Profielc) || $Profielc == false){
             return null;
-        }//Profile does not exist
+        }
+        //Profile does not exist
         $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 
