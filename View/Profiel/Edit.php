@@ -73,9 +73,11 @@ else
 {
     $profiel = $_SESSION["CurrentProfiel"];
     $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
+    $schoolcontroller =new SchoolController();
+    $opleidingcontroller=new OpleidingController();
     $_SESSION["CurrentProfiel"] = $profiel;
-    $School =$_POST["School"];
-    $Opleiding=$_POST["Opleiding"];
+    $School = $schoolcontroller->getById($_POST["School"]);
+    $Opleiding= $opleidingcontroller->getById($_POST["Opleiding"]);
     $Startdatumopleiding= $_POST["Startdatumopleiding"];
     $Status=$_POST["Status"];
     $Achternaam=$_POST["Achternaam"];
@@ -242,6 +244,7 @@ foreach($Schoolcontroller->GetScholen() as $sh)
 {
     $schoolid = $sh->getSchoolID();
     $schoolnaam = $sh->getSchoolnaam();
+
     if (isset($School) && $School->getSchoolID() == $schoolid)
         echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
     else
@@ -304,14 +307,29 @@ echo "\">
 
     <?php
 
+    function data_uri($file)
+    {
+        $contents = file_get_contents($file);
+        $base64   = base64_encode($contents);
+        return ('data:"image/jpeg";base64,' .  $base64);
+    }
+
     if (isset($profiel)){
         $Photo = $profiel->getFoto();
+        //echo $Photo;
         if (isset($Photo)){
-            echo "<img src=data:image/gif;base64,".$Photo." class=\"studentfoto\" />";
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto" 
+            name="ProfileImage" ID="ProfileImage"/>';
+        }
+        else
+        {
+            echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
         }
     }
     ?>
-    <input type="file" name="ProfilePhoto" value="Upload je profielfoto.">
+    <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
+           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);";>
+
 <?php echo "</div>" ?>
 <div class="block">
 
@@ -322,12 +340,13 @@ echo "\">
 </div>
 <?php
 
-    if(isset($_FILES["ProfilePhoto"]) && $_FILES["ProfilePhoto"]["name"] != "")
+    if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
     {
-        $imagename=$_FILES["ProfilePhoto"]["name"];
-        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhoto']['tmp_name']));
+        $imagename=$_FILES["ProfilePhotoFile"]["name"];
+        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']));
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $Profielcontroller->UploadPhoto($imagetmp,$profiel->getProfielID());
+        $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
+
     }
 
 if (isset($_POST["delete"]))
@@ -344,8 +363,8 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $schoolcontroller = new SchoolController();
     $opleidingcontroller = new OpleidingController();
     $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$schoolcontroller->getById($School),
-        $opleidingcontroller->getById($Opleiding),
+    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School,
+        $Opleiding,
         $Startdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
          $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
          $Woonplaats,  $Geboortedatum, $Telefoonnummer);
@@ -365,6 +384,23 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 }
 ?>
+<!--script here because input will cause errors in a global file.-->
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ProfileImage')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>

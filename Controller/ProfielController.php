@@ -32,7 +32,7 @@ class ProfielController
                 $profiel['GebruikerID'],
                 $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
                 $profiel['Opleiding'] == null ? null : $opleidingc->getById($profiel['Opleiding']),
-                ($profiel['Startdatumopleiding']),
+                $profiel['Startdatumopleiding'],
                 $profiel['Status'] = null ? "onbekend" : $profiel['Status'],
                 $profiel['Achternaam'] ?? "",
                 $profiel['Voornaam'] ?? "",
@@ -43,7 +43,7 @@ class ProfielController
                 $profiel['Extentie'] ?? "",
                 $profiel['Postcode'] ?? "",
                 $profiel['Woonplaats'] ?? "",
-                ($profiel['Geboortedatum']),
+                $profiel['Geboortedatum'],
                 $profiel['Telefoonnummer'] == null ? "" : $profiel['Telefoonnummer']);
             $ProfielArray [] = $profiel;
         }
@@ -69,7 +69,7 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        //echo "1";
+        echo "1";
         $profielmodel        = new ProfielModel();
         $Profiel             = $profielmodel->getByID($id)->fetch(PDO::FETCH_ASSOC);
         $schoolcontroller    = new SchoolController();
@@ -94,7 +94,8 @@ class ProfielController
             $Profiel['Geboortedatum'],
             $Profiel['Telefoonnummer'] == null ? "" : $Profiel['Telefoonnummer']
         );
-        $ProfielObject->setFoto($Profiel['Foto']);
+        if (isset($Profiel['Foto']))
+            $ProfielObject->setFoto($Profiel['Foto']);
         return $ProfielObject;
     }
 
@@ -105,7 +106,8 @@ class ProfielController
         $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
         if (!isset($Profielc) || $Profielc == false){
             return null;
-        }//Profile does not exist
+        }
+        //Profile does not exist
         $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
 

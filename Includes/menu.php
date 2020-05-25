@@ -38,7 +38,7 @@ EOD;
             <!-- [MENU ITEMS] -->
             <ul>
                 <li><a href="/StudentServices/View/Profiel/Edit.php">Mijn profiel</a></li>
-                <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
+                <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">ProjectenGebr</a></li>
                 <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
                 <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
                 <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>

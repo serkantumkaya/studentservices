@@ -3,47 +3,79 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
+$categorieController = new CategorieController();
+//var_dump($_SESSION);
+var_dump($_POST);
 
-var_dump($_SESSION);
 
 $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
 $maxpagina = ceil(count($projectController->getProjecten()) / 6);
+
+
+$statusKlaar= "unchecked=''";
+$statusMeeBezig = "unchecked=''";
+
+if ($_POST){
+    if ($_POST['Status'] == 'Klaar'){
+    $statusKlaar = "checked='checked'";
+    }
+    if ($_POST['Status'] == 'MeeBezig'){
+        $statusMeeBezig = "checked='checked'";
+    }
+
+
+
+}
+
+
 ?><!DOCTYPE HTML>
 <html>
 <!--<head>-->
-    <title>Projecten</title>
-    <?php
-    include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
+<title>Projecten</title>
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
-    ?>
-    <div id="projectpagina">
-        <div class="grid-projecten-colums">
-            <div>
+?>
+<div id="projectpagina">
+    <div class="grid-projecten-colums">
+        <div>
+
+        </div>
+
+        <div id="filter-projecten">
+            <div id="nieuw-project">
+                <a href="./Project.php?view=add" id="project-nieuw-button">Nieuw Project</a>
+            </div>
+            <div id="filter-projecten2">
+                <h3>Filteren</h3>
+
+                <form action="" method="post">
+                    Status:<br>
+                    <input type="checkbox" id="Klaar" name="Status" value="Klaar" onclick=if(this.checked){this.form.submit();} <?php echo $statusKlaar; ?>/>
+                    <label for="Klaar">Klaar</label><br>
+                    <input type="checkbox" id="MeeBezig" name="Status" value="MeeBezig" onclick=if(this.checked){this.form.submit();} <?php echo $statusMeeBezig; ?>/>
+                    <label for="MeeBezig">Mee Bezig</label><br>
+                    Categorie:<br>
+
+
+                </form>
 
             </div>
+        </div>
 
-            <div id="filter-projecten">
-                <div id="nieuw-project">
-                    <a href="../View/Project/Add.php" id="project-nieuw-button">Nieuw Project</a>
-                </div>
-                <div id="filter-projecten2">
-                    <h3>Filteren</h3>
-
-                </div>
-            </div>
-
-            <div id="main">
-                <div id="projecten-row">
-                    <?php
-                    /*<h3><input type=\"submit\" value=\"" .$project->getTitel() . "\" formaction='../Profiel/Edit.php?ID="  .$project->getProjectID(). "' id=\"project-link\"></h3>*/
-                    foreach ($projectController->getPerpagina($pagina) as $project){
-                        echo "
+        <div id="main">
+            <div id="projecten-row">
+                <?php
+                /*<h3><input type=\"submit\" value=\"" .$project->getTitel() . "\" formaction='../Profiel/Edit.php?ID="  .$project->getProjectID(). "' id=\"project-link\"></h3>*/
+                foreach ($projectController->getPerpagina($pagina) as $project){
+                    echo "
                      <div id=\"projecten-row-grid\">
                          
                          <div id=\"projecten-header\">
@@ -52,7 +84,7 @@ $maxpagina = ceil(count($projectController->getProjecten()) / 6);
                                     <h3>" . $project->getType() . "</h3>
                                 </div>
                              </div>
-                             <a href=\"Project.php?ProjectID=" . $project->getProjectID() . "\">
+                             <a href=\"Project.php?view=detail&ProjectID=" . $project->getProjectID() . "\">
                              <div id=\"projecten-titel\">
                                  <h3>" . $project->getTitel() . "</h3>
                              </div>
@@ -60,32 +92,39 @@ $maxpagina = ceil(count($projectController->getProjecten()) / 6);
                          </div>
                          
                          <div id=\"projecten-info\">
-                         " . $project->getBeschrijvingKort() . "
+                             <div id=\"projecten-status\">" .
+                        $project->getStatus() .
+                        "</div>
+                             <div id=\"projecten-beschrijving\">
+                            " . $project->getBeschrijvingKort() . "
+                            </div>
                          </div>
                          
                          <div id=\"projecten-footer\">
                          gemaakt door: " . $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
-                    }
+                }
 
-                    echo "<div id=\"projecten-buttons\">";
-                    if ($pagina>1){
-                        echo "        
+                echo "<div id=\"projecten-buttons\">";
+                if ($pagina>1){
+                    echo "        
             <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">&laquo; Vorige</a>";
-                    }
-                    if ($pagina<$maxpagina){
-                        echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">Volgende &raquo;</a>";
-                    }
-                    echo "</div>";
-                    ?>
-                </div>
-            </div>
-            <div id="reclame">
-
+                }
+                if ($pagina<$maxpagina){
+                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">Volgende &raquo;</a>";
+                }
+                echo "</div>";
+                ?>
             </div>
         </div>
-        <?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
+        <div id="reclame">
+
+        </div>
     </div>
-    </body>
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
+</div>
+
+</body>
 </html>
