@@ -21,7 +21,7 @@ class ReactieModel
             Timestamp, 
             ProjectID,
             Reactie FROM Reactie";
-        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);;
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function add(int $GebruikerID,int $ProjectID,string $Reactie): bool{

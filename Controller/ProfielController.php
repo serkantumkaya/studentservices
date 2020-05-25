@@ -32,7 +32,7 @@ class ProfielController
                 $profiel['GebruikerID'],
                 $profiel['School'] == null ? null : $schoolc->getById($profiel['School']),
                 $profiel['Opleiding'] == null ? null : $opleidingc->getById($profiel['Opleiding']),
-                new DateTime($profiel['Startdatumopleiding']),
+                ($profiel['Startdatumopleiding']),
                 $profiel['Status'] = null ? "onbekend" : $profiel['Status'],
                 $profiel['Achternaam'] ?? "",
                 $profiel['Voornaam'] ?? "",
@@ -43,7 +43,7 @@ class ProfielController
                 $profiel['Extentie'] ?? "",
                 $profiel['Postcode'] ?? "",
                 $profiel['Woonplaats'] ?? "",
-                new DateTime($profiel['Geboortedatum']),
+                ($profiel['Geboortedatum']),
                 $profiel['Telefoonnummer'] == null ? "" : $profiel['Telefoonnummer']);
             $ProfielArray [] = $profiel;
         }
@@ -69,7 +69,7 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        echo "1";
+        //echo "1";
         $profielmodel        = new ProfielModel();
         $Profiel             = $profielmodel->getByID($id)->fetch(PDO::FETCH_ASSOC);
         $schoolcontroller    = new SchoolController();

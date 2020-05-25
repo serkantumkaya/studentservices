@@ -90,22 +90,24 @@ session_start();
     <?php
     $profiel = $profielcontroller->getById(1000); //->patrick
 
-    var_dump($profiel);
+   // var_dump($profiel);
 
     print_r($_POST); echo "<BR>";
     print_r($_FILES);
-
+if(!(empty($_POST) || empty($_FILES))) {
     //foto om te uploaden, gewoon als string kan dit de database in.
     // dit komt uit het stukje POST hier onder.
-    $foto = base64_encode(file_get_contents($_FILES['fileToUpload']['tmp_name'])); echo "<br>";
+    var_dump($_FILES);
+    $foto = base64_encode(file_get_contents($_FILES['fileToUpload']['tmp_name']));
+    echo "<br>";
     $profielcontroller->UploadPhoto($foto);
     //print de foto als blob
-    #print_r($foto);
+//    print_r($foto);
 
     //echo "<br>";
     echo '<img class="profielfoto" src="data:image/jpeg;base64,' . base64_encode($profiel->getFoto()) . '"/>';
     //echo "<br>";
-
+}
     ?>
     <form action="view.php" method="post" enctype="multipart/form-data">
   Select image to upload:

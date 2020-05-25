@@ -19,8 +19,6 @@ class HomepageController
     private ReactieController $reactiecontroller;
     private $reactiegegeven = null;
     private $reactiegekregen;
-    private $reactiegegevenexsist = false;
-    private $reactiegekregenexsist = false;
     private FeedbackController $feedbackcontroller;
     private $feedbackgegeven = null;
     private $feedbackgekregen = null;
@@ -43,17 +41,24 @@ class HomepageController
             $this->projectexsist = true;
         }
         $this->reactiecontroller = new ReactieController($this->gebruikersid);
-        foreach($this->project as $projectnumber){
-            foreach ($this->reactiecontroller->getByProjectId($projectnumber->getProjectID()) as $_reactie){
-                if (!(!isset($_reactie) || $_reactie == false)) {
-                    if($_reactie->getGebruikersID()!=$this->gebruikersid){
-                        $this->reactiegekregen[] = $_reactie;
+        $this->reactiegegeven = $this->reactiecontroller->GetByGebruikerId($this->gebruikersid);
+        if (!(!isset($this->project) || $this->project == false)) { //gebruiker kan geen projecten hebben.
+            foreach ($this->project as $projectnumber) {
+                $reacties = $this->reactiecontroller->getByProjectId($projectnumber->getProjectID());
+                if(!(!isset($this->reacties) || $this->reacties == false)) {
+                    foreach ($this->reactiecontroller->getByProjectId($projectnumber->getProjectID()) as $_reactie) {
+                        if (!(!isset($_reactie) || $_reactie == false)) {
+                            if ($_reactie->getGebruikerID() != $this->gebruikersid) {
+                                $this->reactiegekregen[] = $_reactie;
+                            }
+                        }
                     }
                 }
             }
         }
         $this->feedbackcontroller = new FeedbackController();
         $this->feedbackgegeven = $this->feedbackcontroller->getGegevenFeedback($this->gebruikersid);
+
         $this->feedbackgekregen = $this->feedbackcontroller->getGekregenFeedback($this->gebruikersid);
         if (!(!isset($this->feedbackgegeven) || $this->feedbackgegeven == false)){ //gebruiker kan geen feedback gegeven hebben.
             $this->feedbackgegevenexsist = true;
@@ -66,7 +71,7 @@ class HomepageController
     public function getfoto(){
         if($this->profielexsist) {
             $result = "data:image/jpeg;base64," . base64_encode($this->profiel->getFoto());
-            $result != false || $result!= null?$result:"/StudentServices/images/no_user_pic.png";
+            $result != false || $result!= null || !empty($result)?$result:"/StudentServices/images/no_user_pic.png";
             return $result;
         }
         return "/StudentServices/images/no_user_pic.png";
@@ -74,14 +79,18 @@ class HomepageController
 
     public function getfullname(){
         if($this->profielexsist) {
-            return (" ".$this->profiel->getVoornaam(). " ". $this->profiel->getTussenvoegsel(). " ". $this->profiel->getAchternaam());
+            $voornaam = $this->profiel->getVoornaam();
+            $tussenvoegsel = $this->profiel->getTussenvoegsel();
+            $achternaam = $this->profiel->getAchternaam();
+            return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
         }
         return (" ". $this->gebruiker->getEmail());
     }
 
     public function getaccountstatus(){
         if($this->profielexsist) {
-            return (" " . $this->profiel->getStatus());
+            $status =  $this->profiel->getStatus();
+            return (" " .($status != false || $status != null || !empty($status)  ? $status: "" ));
         }
         return "Onbekend";
     }
@@ -144,46 +153,120 @@ class HomepageController
         }
     }
 
-    public function getreactietext(){
-        if(!empty($this->reactiegekregen)) {
-            if(!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie())){
-                return $this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie();
+    public function getreactietext(int $id = null){
+        if($id != null){
+            if (!empty($this->reactiegegeven)){
+                if (!empty( $this->reactiegegeven[count($this->reactiegegeven) - 1]->getReactie())) {
+                    return $this->reactiegegeven[count($this->reactiegegeven) - 1]->getReactie();
+                }
+            } else {
+                return "geen reactie gevonden";
             }
         }
         else{
-            return "geen reactie gevonden";
+            if (!empty($this->reactiegekregen)) {
+                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie())) {
+                    return $this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie();
+                }
+            } else {
+                return "geen reactie gevonden";
+            }
         }
     }
 
-    public function getprojecttitlebyreactie(){
-        if(!empty($this->reactiegekregen)) {
-            if(!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())){
-                foreach ($this->project as $projects){
-                    if($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]-> getProjectID()){
-                        return $projects->getTitel();
+    public function getprojecttitlebyreactie(int $id = null){
+        if($id != null){
+            if (!empty($this->reactiegegeven)){
+                if (!empty($this->reactiegegeven[count($this->reactiegegeven) - 1]->getGebruikerID())) {
+                    $projecten = $this->projectcontroller->getById($this->reactiegegeven[count($this->reactiegegeven) - 1]->getprojectID());
+                    if (!(!isset($projecten) || $projecten == false)){ //gebruiker kan geen projecten hebben.
+                            if ($projecten->getProjectID() == $this->reactiegegeven[count($this->reactiegegeven) - 1]->getProjectID()) {
+                                return $projecten->getTitel();
+                            }
+                    }
+                    else{
+                        return "......";
                     }
                 }
+            } else {
+                return "....";
             }
         }
-        else{
-            return "....";
+        else {
+            if (!empty($this->reactiegekregen)) {
+                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
+                    foreach ($this->project as $projects) {
+                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
+                            return $projects->getTitel();
+                        }
+                    }
+                }
+            } else {
+                return "....";
+            }
         }
     }
 
-    /*public function getusernamebyreactie(){
-        if(!empty($this->reactiegekregen)) {
-            if(!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikersID()())){
-                foreach ($this->project as $projects){
-                    if($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikersID()()){
-                        return $projects->getTitel();
+    public function getusernamebyreactie(int $id = null){
+        if($id != null){
+           return $this->getfullname();
+        }
+        else {
+            if (!empty($this->reactiegekregen)) {
+                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
+                    foreach ($this->project as $projects) {
+                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
+                            $this->profielcontroller = new ProfielController($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
+                            if (!empty($this->profielcontroller->getByGebruikerID() != null)) {
+                                $getprofielreactieuser = $this->profielcontroller->getById($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
+                                return (" " . $getprofielreactieuser->getVoornaam() . " " . $getprofielreactieuser->getTussenvoegsel() . " " . $getprofielreactieuser->getAchternaam());
+                            } else {
+                                $getuserreactieuser = $this->gebruikercontroller->getById($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
+                                return (" " . $getuserreactieuser->getEmail());
+                            }
+                        }
                     }
                 }
+            } else {
+                return "....";
             }
         }
-        else{
-            return "....";
+    }
+
+    public function gettimestampbyreactie(int $id = null){
+        if($id != null){
+            if (!empty($this->reactiegegeven)){
+                if ($this->reactiegegeven[count($this->reactiegegeven) - 1]->getTimestamp()){
+                    return $this->reactiegegeven[count($this->reactiegegeven) - 1]->getTimestamp();
+                }
+                else {
+                    return "00-00-00 00:00:00";
+                }
+            }
+            else {
+                return "00-00-00 00:00:00";
+            }
         }
-    }*/
+        else {
+            if (!empty($this->reactiegekregen)) {
+                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
+                    foreach ($this->project as $projects) {
+                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
+                            if ($this->reactiegekregen[count($this->reactiegekregen) - 1]->getTimestamp()) {
+                                return $this->reactiegekregen[count($this->reactiegekregen) - 1]->getTimestamp();
+                            } else {
+                                return "00-00-00 00:00:00";
+                            }
+                        }
+                    }
+                }
+            } else {
+                return "00-00-00 00:00:00";
+            }
+        }
+    }
+
+
 
 
 
