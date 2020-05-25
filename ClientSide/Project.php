@@ -4,21 +4,23 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
+
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $reactiecontroller = new ReactieController();
-
+$categoriecontroller = new CategorieController();
 $projectID = $_GET['ProjectID'];
 
 if ($_POST){
     if (isset($_POST['submitReactie'])){
-        verstuurreactie($reactiecontroller,$projectID);
+        verstuurReactie($reactiecontroller,$projectID);
     }
 }
 
-function verstuurreactie(ReactieController $reactiecontroller,$projectID){
+function verstuurReactie(ReactieController $reactiecontroller,$projectID){
     $reactiecontroller->add($_SESSION['GebruikerID'], $projectID, $_POST['Reactie']);
 }
 
@@ -61,10 +63,11 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                              </div>
                          </div>
                          
-                         <div id='project-info'>
+                          <div id='project-info'>
                             <div id=\"project-info-grid\">
                                 <div id=\"project-parameters\">
-                                    HFJDKSFHKJ SDHFSKJDHASKL DHAKS 
+                                    Gemaakt op: " . substr($project->getDatumaangemaakt(),0,10) . "<br>
+                                    Categorie: ".  $categoriecontroller->getById($project->getCategorieID()) ."
                                 </div>                         
                                 <div id=\"project-beschrijving\">
                                     " . $project->getBeschrijving() . "
@@ -74,7 +77,15 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          
                          
                          <div id=\"project-footer\">
-                         Aangemaakt op: " . $project->getDatumaangemaakt() . "
+                         ";
+                            if ($project->getGebruikerID() == $_SESSION['GebruikerID']){
+                                echo "<div id='project-button'>
+                                <a href=\"../View/Project/GebruikerEdit.php?ProjectID=$projectID\" id=\"project-wijzig-button\">Wijzig project</a>               
+                            </div>";
+                         } else {
+                            echo "";
+                         }
+                        echo "
                          </div>
                      </div>";
                 ?>
