@@ -1,19 +1,40 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
-
+$categorieController = new CategorieController();
 //var_dump($_SESSION);
+var_dump($_POST);
+
 
 $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
-$maxpagina = ceil(count($projectController->getProjecten())/6);
+$maxpagina = ceil(count($projectController->getProjecten()) / 6);
+
+
+$statusKlaar= "unchecked=''";
+$statusMeeBezig = "unchecked=''";
+
+if ($_POST){
+    if ($_POST['Status'] == 'Klaar'){
+    $statusKlaar = "checked='checked'";
+    }
+    if ($_POST['Status'] == 'MeeBezig'){
+        $statusMeeBezig = "checked='checked'";
+    }
+
+
+
+}
+
+
 ?><!DOCTYPE HTML>
 <html>
 <!--<head>-->
@@ -36,10 +57,13 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <h3>Filteren</h3>
 
                 <form action="" method="post">
+                    Status:<br>
+                    <input type="checkbox" id="Klaar" name="Status" value="Klaar" onclick=if(this.checked){this.form.submit();} <?php echo $statusKlaar; ?>/>
+                    <label for="Klaar">Klaar</label><br>
+                    <input type="checkbox" id="MeeBezig" name="Status" value="MeeBezig" onclick=if(this.checked){this.form.submit();} <?php echo $statusMeeBezig; ?>/>
+                    <label for="MeeBezig">Mee Bezig</label><br>
+                    Categorie:<br>
 
-                        <input type="radio" name="joke" value="bed"/> A Bed<br>
-                        <input type="radio" name="joke" value="clock"/> A Clock<br>
-                        <input type="radio" name="joke" value="snake"/> A Snake<br>
 
                 </form>
 
@@ -101,19 +125,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </div>
-<script type="text/javascript">
-    function ValidatePetSelection() {
-        var checkboxes = document.getElementsByName("favorite_pet");
-        var numberOfCheckedItems = 0;
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked)
-                numberOfCheckedItems++;
-        }
-        if (numberOfCheckedItems > 2) {
-            alert("You can't select more than two favorite pets!");
-            return false;
-        }
-    }
-</script>
+
 </body>
 </html>
