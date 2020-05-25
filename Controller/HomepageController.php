@@ -45,8 +45,8 @@ class HomepageController
         if (!(!isset($this->project) || $this->project == false)) { //gebruiker kan geen projecten hebben.
             foreach ($this->project as $projectnumber) {
                 $reacties = $this->reactiecontroller->getByProjectId($projectnumber->getProjectID());
-                if(!(!isset($this->reacties) || $this->reacties == false)) {
-                    foreach ($this->reactiecontroller->getByProjectId($projectnumber->getProjectID()) as $_reactie) {
+                if(!(!isset($reacties) || $reacties == false)) {
+                    foreach ($reacties as $_reactie) {
                         if (!(!isset($_reactie) || $_reactie == false)) {
                             if ($_reactie->getGebruikerID() != $this->gebruikersid) {
                                 $this->reactiegekregen[] = $_reactie;
@@ -58,7 +58,7 @@ class HomepageController
         }
         $this->feedbackcontroller = new FeedbackController();
         $this->feedbackgegeven = $this->feedbackcontroller->getGegevenFeedback($this->gebruikersid);
-
+       // var_dump($this->feedbackcontroller->getGegevenFeedback($this->gebruikersid));
         $this->feedbackgekregen = $this->feedbackcontroller->getGekregenFeedback($this->gebruikersid);
         if (!(!isset($this->feedbackgegeven) || $this->feedbackgegeven == false)){ //gebruiker kan geen feedback gegeven hebben.
             $this->feedbackgegevenexsist = true;
