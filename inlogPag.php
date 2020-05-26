@@ -90,7 +90,7 @@ if (isset($_POST['username']) && $_POST['password']){
     <!--styling is tijdelijk-->
     <div class="container" >
         <div style="width:100%">
-            <label for='username' style="width:150px">Gebruikersnaam:</label>
+            <label for='username' style="width:150px">Gebruikersnaamm:</label>
             <input type='text' name='username' style="width:150px;padding-left:50px"/>
         </div>
 
