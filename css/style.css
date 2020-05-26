@@ -443,13 +443,13 @@ iframe {
     overflow: hidden; /*hier geen scrollbars*/
     background-color: transparent;
     width: 100%;
-<<<<<<< Updated upstream
+
     height:1px;
     top:0px;
-=======
+
     height:350px;
     padding: auto;
->>>>>>> Stashed changes
+/*>>>>>>> Stashed changes*/
     border-bottom: 1px solid #00008B;
 }
 

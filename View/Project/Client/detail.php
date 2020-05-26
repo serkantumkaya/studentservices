@@ -103,7 +103,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         echo "                    
                         <div id=\"reactie-venster\">
                             <h3>Gegeven door: ". $gebruikersController->getById($reactie->getGebruikerID()) ."</h3>
-                            <div id=\"inhoud\">
+                            <div id=\"reactie-inhoud\">
                                ". $reactie->getReactie() ."
                             </div>
                             <div id=\"inhoud-footer\">
