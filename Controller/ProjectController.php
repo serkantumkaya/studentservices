@@ -55,8 +55,9 @@ class ProjectController
         return $this->projectmodel->Update($Project);
     }
 
-    function getById(int $ProjectID): project{
+    function getById(int $ProjectID): project{//geeft losse objecten terug heb ik een andere functie voor gemaakt die een array van objecten terug geeft
         $Project = $this->projectmodel->getById($ProjectID);
+        //var_dump($Project);
         return new Project(
             $Project['ProjectID'],
             $Project['GebruikerID'],
@@ -74,6 +75,18 @@ class ProjectController
     function getByGebruikerID(int $gebruikerID){
         $ProjectArray = [];
         foreach ($this->projectmodel->getByGebruikerID($gebruikerID) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
+        }
+        return $ProjectArray;
+    }
+
+    function getByProjectID(int $ProjectID){
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getByID($ProjectID) as $project){
             $projectObject   =
                 new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
