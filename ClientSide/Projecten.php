@@ -110,7 +110,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 $projecten = $projectController->getPerpagina($sql, $pagina);
                 if (empty($projecten)){
                         echo "
-                        <div id='projecten-geen-project' style='background-color: white; font-size: 23px; margin: 20px;'>
+                        <div id='projecten-geen-project'>
                         Er zijn geen projecten gevonden aan de hand van de opgegeven criteria.
                         </div>
                      
@@ -168,12 +168,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </div>
-
-<script>
-    function unsetValue() {
-
-    }
-</script>
 
 </body>
 </html>
