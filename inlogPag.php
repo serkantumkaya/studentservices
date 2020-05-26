@@ -75,7 +75,7 @@ if (isset($_POST['username']) && $_POST['password']){
 
     </div>
     <div class="footer">
-        <div>© Student Services, 2020
+        <div>© Student Services, 2020.
         </div>
     </div>
 
