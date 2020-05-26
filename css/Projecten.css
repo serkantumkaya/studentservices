@@ -112,7 +112,8 @@
 /*Laptops / grote tablets*/
 @media only screen and (min-width: 820px) {
     #projectpagina{
-        height: 95vh;
+        min-height: 95vh;
+        height: 100%;
         background-color: #004085;
     }
 
@@ -175,6 +176,16 @@
         grid-area: projecten-info;
         font-size: 22px;
         background-color: #9fcdff;
+    }
+
+    #projecten-status{
+        width: 25%;
+        float:left;
+    }
+
+    #projecten-beschrijving{
+        float:left;
+        width: 75%;
     }
 
     #projecten-footer {
@@ -249,6 +260,11 @@
 
     #project-wijzig-button{
         text-decoration: none;
+    }
+
+    #project-klaar {
+        color:red;
+        background-color: aqua;
     }
 
     #project-aanbieder {
@@ -332,6 +348,11 @@
 
     #colum2{
         background-color: #FFB31A;
+    }
+
+    #filter-projecten-kop{
+        font-size: 20px;
+        font-weight: bold;
     }
 
 }

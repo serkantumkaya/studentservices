@@ -118,7 +118,16 @@ if (isset($_POST['username']) && $_POST['password'])
             <img src="/StudentServices/images/EN.png" alt="EN" class="flaglanguage"></button>
     </form>
 
+<<<<<<< Updated upstream:inlogPag.php
     <img id="logo" src="/StudentServices/images/logo.png"/>
+=======
+    <div class="header">
+
+        <img id=
+             <a href="index.html"><img id="logo" src="images/logotrans.png"/></a>
+    </div>
+
+>>>>>>> Stashed changes:inlogPagSerkan.php
     <div class="itemslider">
         <div class="mySlides fade">
             <img src="/StudentServices/images/9.png" class="sliderimage">
@@ -137,17 +146,35 @@ if (isset($_POST['username']) && $_POST['password'])
         </div>
     </div>
 
+<<<<<<< Updated upstream:inlogPag.php
 
 
 
 <div class="infologin">
+=======
+    <div class="info">
 
-<form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
+
+    </div>
+    <div class="footer">
+        <div>© Student Services, 2020
+        </div>
+    </div>
+
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+
+
+>>>>>>> Stashed changes:inlogPagSerkan.php
+
+<form id="login" action="inlogPagSerkan.php" method="POST"><!-No not verwerklogin-->
 
 
     <!--styling is tijdelijk-->
-    <div class="container">
+    <div class="container" >
         <div style="width:100%">
+<<<<<<< Updated upstream:inlogPag.php
             <label for='username' style="width:150px"><?php echo Translate::GetTranslation("inlogPagUserNameLabel") ?></label>
             <input type='text' name='username' style="width:150px"
             <?php
@@ -161,8 +188,14 @@ if (isset($_POST['username']) && $_POST['password'])
                 echo '';
             }
             ?>"/>
+=======
+            <label for='username' style="width:150px">Gebruikersnaam:</label>
+            <input type='text' name='username' style="width:150px;padding-left:50px"/>
+>>>>>>> Stashed changes:inlogPagSerkan.php
         </div>
+
         <div style="width:100%;padding-top: 5px">
+<<<<<<< Updated upstream:inlogPag.php
             <label style="width:150px"><?php echo Translate::GetTranslation("inlogPagPasswordLabel") ?></label>
             <input type='password' style="width:150px" name='password'
             <?php
@@ -175,10 +208,15 @@ if (isset($_POST['username']) && $_POST['password'])
                 echo '';
             }
             ?>"/>
+=======
+            <label for='password' style="width:150px">Wachtwoord:</label>
+            <input type='password' style="width:150px;padding-left:15px" name='password'/>
+>>>>>>> Stashed changes:inlogPagSerkan.php
         </div>
         <?php
         echo $wronglogin
         ?>
+<<<<<<< Updated upstream:inlogPag.php
         <br><br>
 
         <input type="checkbox" id="chkRememberMe" name="chkRememberMe"
@@ -190,6 +228,11 @@ if (isset($_POST['username']) && $_POST['password'])
             ?>
          />
         <label><?php echo Translate::GetTranslation("inlogPagRememberMe")?></label>
+=======
+
+        <div style="font-size: x-small"> <input type="checkbox" style="width: 78px;" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Onthoud mij (werkt nog niet)</label><br>
+>>>>>>> Stashed changes:inlogPagSerkan.php
         <br>
         <input type='submit' name='Submit' value='<?php echo Translate::GetTranslation("inlogSubmit") ?>'/>
         <?php
@@ -198,14 +241,22 @@ if (isset($_POST['username']) && $_POST['password'])
             Translate::GetTranslation("inlogPagForgotPassword")."'/>";
         }
         ?>
+        </div>
 
     </div>
 
 </form>
 
 <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
+<<<<<<< Updated upstream:inlogPag.php
     <div class="container">
         <input type='submit' name='Add' value='<?php echo Translate::GetTranslation("inlogRegister") ?>'/>
+=======
+    <div class="container-register">
+        <label for='submit'> Nog geen account ?</label>
+        <input type='submit' name='Add' value='Registreren'/>
+
+>>>>>>> Stashed changes:inlogPagSerkan.php
     </div>
 </form>
 
