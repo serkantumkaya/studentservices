@@ -13,8 +13,7 @@ if (isset($_GET["ID"])){
 if ($_POST){
     $reactiecontroller = new ReactieController();
     if (isset($_POST['Wijzig'])){
-        $Reactie = new Reactie($Reactie->getReactieID(), $_POST['GebruikerID'], $_POST['ProjectID'],
-            $_POST['Timestamp'], $_POST['Reactie']);
+        $Reactie = new Reactie($Reactie->getReactieID(), $Reactie->getTimestamp(), $_POST['GebruikerID'], $_POST['ProjectID'], $_POST['Reactie']);
         $reactiecontroller->update($Reactie);
         header('Location: View.php');
     }
@@ -28,6 +27,7 @@ function getUitvoer(Reactie $Reactie){
     $projecttext     = getUitvoerProject();
     $gebruikertext   = getUitvoerGebruiker($Reactie);
     $ReactieID       = $Reactie->getReactieID();
+    $Reactie         = $Reactie->getReactie();
     $uitvoer         = <<<EOD
 <table>
     <form action = "Edit.php?ID=$ReactieID" method="post" >
@@ -42,7 +42,7 @@ function getUitvoer(Reactie $Reactie){
     <tr>
         <td>Reactie</td>
         <td><textarea maxlength="500" name="Reactie" cols="31" 
-        placeholder="Max 500 characters" required></textarea></td>
+        required>$Reactie</textarea></td>
     </tr>
     <tr>
         <td><input type="submit" name="Wijzig" value="Wijzigen"/></td>

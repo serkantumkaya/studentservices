@@ -47,7 +47,7 @@ class ReactieModel
 
     function update(Reactie $Reactie):bool {
         $sql =
-            $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID, Reactie=:SReactie, ProjectID=:ProjectID)
+            $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID, Reactie=:Reactie, ProjectID=:ProjectID
             WHERE ReactieID= ".$Reactie->getReactieID()." ");
 
         $parameters = [

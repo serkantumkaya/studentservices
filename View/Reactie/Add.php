@@ -6,8 +6,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerC
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 session_start();
-print_r($_POST);
-
 
 if (isset($_POST['submit'])){
     if (isset($_POST["Reactie"])){
