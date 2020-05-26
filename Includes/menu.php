@@ -23,6 +23,7 @@ if ($_SESSION["level"]>=50){
             </li>
             <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
             <li><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
+<li><a href="/StudentServices/View/Beschikbaarheid/View.php">BeschikbaarheidAdmin</a></li>
             <li><a href="/StudentServices/View/Reactie/View.php">Reactie</a></li>
             <li><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>
            <!-- tijdelijk even 2x projecten neergezet, een voor de gebruiker, een voor de admin. -->
@@ -39,6 +40,9 @@ EOD;
             <ul>
                 <li><a href="/StudentServices/index.php">Home</a></li>
                 <li><a href="/StudentServices/View/Profiel/Edit.php">Mijn profiel</a></li>
+                <li><a href="/StudentServices/View/Categorie/View.php">Projecten</a></li>
+                 <li><a href="/StudentServices/View/Opleiding/View.php">FAQ</a></li>
+                <li><a href="/StudentServices/View/Gebruiker/View.php">IETS</a></li>
                 <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">ProjectenGebr</a></li>
                 <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">FAQ</a></li>
                 <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>

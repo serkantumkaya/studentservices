@@ -4,10 +4,25 @@ p {
 }
 
 body {
+    background-color: #0A0849;
     height: 100%;
     padding: 0px;
     margin: 0px;
 }
+
+
+
+
+.info {
+    width: 100%;
+    overflow: auto;
+    padding-left : 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-bottom : 10px;
+}
+
+
 
 .table1col {
     display: inline-block;
@@ -92,17 +107,16 @@ input[type=submit]:active {
     margin-bottom: 10px;
 }
 
-.formlabel {
+.forminput {
     display: inline-block;
-    width: 200px;
+    width: auto;
     text-align: left;
     margin-top: 2px;
 }
 
-​
 .formlabel {
     display: inline-block;
-    width: auto;
+    width: 200px;
     text-align: left;
     margin-top: 2px;
 }
@@ -129,6 +143,7 @@ input[type=submit]:active {
     padding-left: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
+    float:left;
 }
 
 #validation {
@@ -140,24 +155,9 @@ textarea {
     resize: none;
 }
 
-.profielfotoform {
-    border-radius: 25px;
-    border: 1px solid #00008B;
-    padding: 20px;
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    margin-bottom: auto;
-    z-index: 0;
-    left: 500px;
-    position: fixed;
-    top: 75px;
-}
 
-.studentfoto {
-    height: 150px;
-    width: 100px;
-}
+
+
 
 #logo {
     position: fixed; /*Logo altijd in de hoek*/
@@ -229,6 +229,7 @@ textarea {
 /*    display:block; !* shows sub-sublist on hover *!*/
 /*    margin-left:200px; !* this should be the same width as the parent list item *!*/
 /*    margin-top:-35px; !* aligns top of sub menu with top of list item *!*/
+
 
 .info {
     grid-area: info;
@@ -528,10 +529,6 @@ a.button {
     font-size: 16px;
     width: 140px;
 }
-
-
-
-
 
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
