@@ -350,4 +350,9 @@
         background-color: #FFB31A;
     }
 
+    #filter-projecten-kop{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
 }

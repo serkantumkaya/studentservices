@@ -10,51 +10,34 @@ $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $categorieController = new CategorieController();
 //var_dump($_SESSION);
-var_dump($_POST);
+//var_dump($_POST);
 
 $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
-$maxpagina = ceil(count($projectController->getProjecten()) / 6);
 
-$statusKlaar= "";
-$statusMeeBezig = "";
 
+$statusKlaar = null;
+$statusMeeBezig = null;
+$typeVraag = "";
+$typeAanbod = "";
 if ($_POST){
     if (isset($_POST['status']['StatusK']) && $_POST['status']['StatusK'] == 'Klaar'){
-    $statusKlaar = "checked";
+        $statusKlaar = "checked";
     }
-    if (isset($_POST['status']['StatusMB']) && $_POST['status']['StatusMB'] == 'Mee Bezig'){
+    if (isset($_POST['type']['StatusMB']) && $_POST['status']['StatusMB'] == 'Mee Bezig'){
         $statusMeeBezig = "checked";
     }
-    $filter = createFilter();
-}
-
-//SELECT * FROM `project` WHERE ProjectID >= 1 AND Status = "Mee Bezig"
-//SELECT * FROM `project` WHERE ProjectID >= 1 AND Status = "Mee Bezig" AND CategorieID = (SELECT CategorieID from categorie where categorieNaam = "Kleien")
-
-    //TODO: dit in de controller plaatsen,
-    // telling meesturen of het AND of OR moet zijn....
-
-function createFilter(){
-    $statusSQL = getStatusSQL();
-    var_dump($statusSQL);
-
-    $categorieSQL = getCategorieSQL();
-}
-
-function getStatusSQL(){
-    $SQL = "";
-    foreach ($_POST['status'] as $key => $value){
-            $SQL .= "AND STATUS LIKE '%$value%'";
+    if (isset($_POST['type']['vraag']) && $_POST['type']['vraag'] == 'vragen'){
+        $typeVraag = "checked";
     }
-    return $SQL;
+    if (isset($_POST['type']['aanbod']) && $_POST['type']['aanbod'] == 'aanbieden'){
+        $typeAanbod = "checked";
+    }
 }
 
-function getCategorieSQL(){
-    return " ";
-}
-
+$sql = $projectController->createFilter($_POST);
+$maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
 <html>
@@ -79,31 +62,42 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
                 <form action="" method="post">
                     <div id="filter-projecten-status">
-                    Status:<br>
-<!--                    <input type="checkbox" id="Klaar" name="StatusK" value="Klaar" <?php /*echo $statusKlaar; */?> onclick=if(this.checked){this.form.submit();}else{unsetValue('StatusK')} />
--->                    <input type="checkbox" id="Klaar" name="status[StatusK]" value="Klaar" <?php echo $statusKlaar; ?> onchange=this.form.submit() />
-                    <label for="Klaar">Klaar</label><br>
-                    <input type="checkbox" id="MeeBezig" name="status[StatusMB]" value="Mee Bezig" <?php echo $statusMeeBezig; ?> onchange=this.form.submit() />
-                    <label for="MeeBezig">Mee Bezig</label><br>
+                        <div id="filter-projecten-kop">Status:</div>
+                        <input type="checkbox" id="Klaar" name="status[StatusK]"
+                               value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
+                        <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
+                        <label for="Klaar">Klaar</label><br>
+                        <input type="checkbox" id="MeeBezig" name="status[StatusMB]"
+                               value="Mee Bezig" onchange=this.form.submit() <?php echo $statusMeeBezig; ?> />
+                        <label for="MeeBezig">Mee Bezig</label><br>
                     </div>
                     <div id="filter-projecten-categorie">
-                    Categorie:<br>
-                    <?php
+                        <div id="filter-projecten-kop">Categorie:</div>
+                        <?php
                         foreach ($categorieController->getCategorieen() as $categorie){
                             $categorienaam = $categorie->getCategorieNaam();
-                            $checker = $categorienaam."checked";
-                            $status = "";
+                            $checker       = $categorienaam . "checked";
+                            $status        = "";
                             if (isset($_POST['categorie'][$categorienaam])){
-                                if ($_POST['categorie'][$categorienaam] === $checker){
+                                if ($_POST['categorie'][$categorienaam] === $categorienaam){
                                     $status = "checked";
                                 }
                             }
-                            echo "<input type=\"checkbox\" id=$categorienaam name=\"categorie[$categorienaam]\" value=$checker $status onchange=this.form.submit() />";
+                            echo "<input type=\"checkbox\" id=$categorienaam name=\"categorie[$categorienaam]\" value=$categorienaam $status onchange=this.form.submit() />";
                             echo "<label for=\"$categorienaam\">$categorienaam</label><br>";
                         }
-                    ?>
+                        ?>
                     </div>
-
+                    <div id="filter-projecten-type">
+                        <div id="filter-projecten-kop">Type:</div>
+                        <input type="checkbox" id="vraag" name="type[vraag]"
+                               value="vragen" onchange=this.form.submit() <?php echo $typeVraag; ?> />
+                        <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
+                        <label for="Klaar">Gevraagd</label><br>
+                        <input type="checkbox" id="aanbod" name="type[aanbod]"
+                               value="aanbieden" onchange=this.form.submit() <?php echo $typeAanbod; ?> />
+                        <label for="aanbod">Aangeboden</label><br>
+                    </div>
                 </form>
 
             </div>
@@ -113,8 +107,18 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="projecten-row">
                 <?php
                 /*<h3><input type=\"submit\" value=\"" .$project->getTitel() . "\" formaction='../Profiel/Edit.php?ID="  .$project->getProjectID(). "' id=\"project-link\"></h3>*/
-                foreach ($projectController->getPerpagina($pagina) as $project){
-                    echo "
+                $projecten = $projectController->getPerpagina($sql, $pagina);
+                if (empty($projecten)){
+                        echo "
+                        <div id='projecten-geen-project' style='background-color: white; font-size: 23px; margin: 20px;'>
+                        Er zijn geen projecten gevonden aan de hand van de opgegeven criteria.
+                        </div>
+                     
+                     ";
+
+                } else{
+                    foreach ($projecten as $project){
+                        echo "
                      <div id=\"projecten-row-grid\">
                          
                          <div id=\"projecten-header\">
@@ -132,8 +136,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          
                          <div id=\"projecten-info\">
                              <div id=\"projecten-status\">" .
-                        $project->getStatus() .
-                        "</div>
+                            $project->getStatus() .
+                            "</div>
                              <div id=\"projecten-beschrijving\">
                             " . $project->getBeschrijvingKort() . "
                             </div>
@@ -143,8 +147,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          gemaakt door: " . $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
+                    }
                 }
-
                 echo "<div id=\"projecten-buttons\">";
                 if ($pagina>1){
                     echo "        
@@ -166,9 +170,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 </div>
 
 <script>
-function unsetValue(){
+    function unsetValue() {
 
-}
+    }
 </script>
 
 </body>
