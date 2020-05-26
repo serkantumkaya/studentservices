@@ -50,13 +50,13 @@ class ReactieController
         if (!(!isset($Reactie) || $Reactie == false)) {
             $reactielist = array();
             foreach ($Reactie as $reactie){
-                $feedbackObj     = new Reactie(
+                $reactieObj     = new Reactie(
                     $reactie['ReactieID'],
                     $reactie['Timestamp'],
                     $reactie['GebruikerID'],
                     $reactie['ProjectID'],
                     $reactie['Reactie']);
-                $reactielist[] = $feedbackObj;
+                $reactielist[] = $reactieObj;
             }
             return $reactielist;
         }
@@ -70,13 +70,13 @@ class ReactieController
         if (!(!isset($Reactie) || $Reactie == false)) {
             $reactielist = array();
             foreach ($Reactie as $reactie){
-                $feedbackObj     = new Reactie(
+                $reactieObj     = new Reactie(
                     $reactie['ReactieID'],
                     $reactie['Timestamp'],
                     $reactie['GebruikerID'],
                     $reactie['ProjectID'],
                     $reactie['Reactie']);
-                $reactielist[] = $feedbackObj;
+                $reactielist[] = $reactieObj;
             }
             return $reactielist;
         }
