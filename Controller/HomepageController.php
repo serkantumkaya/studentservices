@@ -491,7 +491,8 @@ class HomepageController
 
 
     public function geticoonfeedback(int $id = null){
-        if($id != null){
+        $urlimage = "";
+      if($id != null){
             $lastfeedbackId = 0;
             if (!empty($this->feedbackgegeven)){
                 foreach ($this->feedbackgegeven as $feedback){
@@ -502,22 +503,24 @@ class HomepageController
                 if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer())){
                     if (round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2) == 0) {
                     $string =  $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2;
-                    var_dump( round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2));
-                        return( "images/Feedback_smile_2.png");
+
+                        $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
+                        //var_dump($urlimage);
+
                     } else {
                         $string =  round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
-                        var_dump( round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2));
-                        return("images/Feedback_smile_2.png");
-                       // images/Feedback_smile_2.png
+                        //var_dump( round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2));
+                        $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
+                        //var_dump($urlimage);
                     }
 
                 }
                 else {
-                    return "geen cijfer gevonden";
+                    $urlimage = "/StudentServices/images/Feedback_smile_5.png";
                 }
             }
             else {
-                return "geen cijfer gevonden";
+                $urlimage = "/StudentServices/images/Feedback_smile_5.png";
             }
         }
         else {
@@ -531,17 +534,26 @@ class HomepageController
                 foreach ($this->project as $projects) {
                     if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
                         if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer())) {
-                            return $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer();
+                            if (round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2) == 0) {
+                                $string =  $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2;
+                                $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
+                               // var_dump($urlimage);
+                            } else {
+                                $string =  round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
+                                $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
+                               // var_dump($urlimage);
+                            }
                         } else {
-                            return "geen cijfer gevonden";
+                            return  "/StudentServices/images/Feedback_smile_5.png";
                         }
                     }
                 }
             }
             else {
-                return "geen cijfer gevonden";
+                return  "/StudentServices/images/Feedback_smile_5.png";
             }
         }
+        return $urlimage;
     }
 
 

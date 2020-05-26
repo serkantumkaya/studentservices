@@ -69,32 +69,32 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">Feedback op project stappenmotor aansturing</h3>
-                    <h4>feedback door heil himler om 18:20:35</h4>
+                    <h3 class="subtitle">Feedback op project <?=$homepagina->getprojecttitlebyreactie()?></h3>
+                    <h4>feedback door <?=$homepagina->getusernamebyreactie()?> om <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
-                            <img id="symbool_feedback" src="images/Feedback_smile_2.png">
+                            <img id="symbool_feedback" src=<?=$homepagina->geticoonfeedback()?>>
                             <p>gegeven cijfer</p>
-                            <p>2</p>
+                            <p><?=$homepagina->getcijferfeedback()?></p>
                         </div>
                         <div id="message">
-                            <p>test</p>
+                            <p><?=$homepagina->getfeedbacktext()?></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">jouw Feedback op project Dc motor aansturing</h3>
-                    <h4>jouw feedback door heil himler om 18:20:35</h4>
+                    <h3 class="subtitle">jouw Feedback op project  <?=$homepagina->getprojecttitlebyreactie($_SESSION['GebruikerID'])?> aansturing</h3>
+                    <h4>jouw feedback door <?=$homepagina->getusernamebyreactie($_SESSION['GebruikerID'])?> om <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
-                            <img id='symbool_feedback' src="<?=$homepagina->geticoonfeedback($_SESSION['GebruikerID'])?>">
+                            <img id='symbool_feedback' src=<?=$homepagina->geticoonfeedback($_SESSION['GebruikerID'])?>>
                             <p>gegeven cijfer</p>
-                            <p>2</p>
+                            <p><?=$homepagina->getcijferfeedback($_SESSION['GebruikerID'])?></p>
                         </div>
                         <div id="message">
-                            <p>was een asociale kwast en werken stond niet in het woordenboek van hem</p>
+                            <p><?=$homepagina->getfeedbacktext($_SESSION['GebruikerID'])?></p>
                         </div>
                     </div>
                 </div>
