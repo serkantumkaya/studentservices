@@ -107,7 +107,7 @@ if (isset($_POST['username']) && $_POST['password']){
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-<body onload="showSlides(); timeevents();">
+<body onload="showSlides();">
 
 <div class="grid-container">
 
