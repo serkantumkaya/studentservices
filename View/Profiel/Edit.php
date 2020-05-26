@@ -9,6 +9,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 
+
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
     Header("Location: /StudentServices/inlogPag.php");
 }
@@ -16,10 +17,10 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
 ?><!DOCTYPE HTML>
 <html>
 <head>
-<?php
-include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
+
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
-<div class="info">
 
 <?php
 $GebruikersID =$_SESSION["GebruikerID"];
@@ -142,63 +143,63 @@ $gbController = new GebruikerController($_SESSION["GebruikerID"]);
 $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
 
-    //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
-   // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
+//$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
+// echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
 {
- echo "<h1 > Profiel : ".$gebruiker->getGebruikersnaam()."</h1 ><br>";
+echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1 ><br>";
 ?>
 
-<div class="formouter">
-<form action="Edit.php" method="post" enctype="multipart/form-data" >
+<div class="divprofiel">
+    <form action="Edit.php" method="post" class="profielform" enctype="multipart/form-data"   >
 
-<?php
-echo "<!--Voornaam-->
+        <?php
+        echo "<!--Voornaam-->
 <div class=\"block\">
 <label class=\"formlabel\">Voornaam *</label>
-<input type = \"text\" name=\"Voornaam\" value=\"";
-    echo $Voornaam;
-    echo "\"/>
+<input type = \"text\" name=\"Voornaam\" Required value=\"";
+        echo $Voornaam;
+        echo "\" class=\"formInput\"/>
 <label class=\"formerrorlabel\">$VoornaamErr</label>
 </div>";
 
-echo "<!--Tussenvoegsel-->";
-echo "<div class=\"block\">
+        echo "<!--Tussenvoegsel-->";
+        echo "<div class=\"block\">
 <label class=\"formlabel\">Tussenvoegsel</label>
 <input type = \"text\" name=\"Tussenvoegsel\" value=\"";
-echo $Tussenvoegsel;
-echo "\" />
+        echo $Tussenvoegsel;
+        echo "\" />
 
 <!--Prefix-->
 <div class=\"block\">
 <label class=\"formlabel\">Prefix</label>
 <input type = \"text\" name=\"Prefix\" value=\"";
-    echo $Prefix;
-echo "\" /></div>
+        echo $Prefix;
+        echo "\" /></div>
 
 <!--Achternaam-->
 <div class=\"block\">
 <label class=\"formlabel\">Achternaam *</label>
-<input type = \"text\" name=\"Achternaam\" value=\"";
-    echo $Achternaam;
-    echo "\"/>
+<input type = \"text\" name=\"Achternaam\" Required value=\"";
+        echo $Achternaam;
+        echo "\"/>
 <label class=\"formerrorlabel\"> <span >$AchternaamErr</label>  
 </div>
 
 <!--Straat-->
 <div class=\"block\">
 <label class=\"formlabel\">Straat *</label>
-<input type = \"text\" name=\"Straat\" value=\"";
-    echo $Straat;
-    echo "\"/>
+<input type = \"text\" name=\"Straat\" Required value=\"";
+        echo $Straat;
+        echo "\"/>
 <label class=\"formerrorlabel\">$StraatErr</label>
 </div>
   
 <!--Huisnummer-->       
 <div class=\"block\">
 <label class=\"formlabel\">Huisnummer *</label>
-<input type = \"text\" name=\"Huisnummer\" value=\"";
-    echo $Huisnummer;
-    echo "\"/>
+<input type = \"text\" name=\"Huisnummer\" Required value=\"";
+        echo $Huisnummer;
+        echo "\"/>
 <label class=\"formerrorlabel\">$HuisnummerErr</label>
 </div>
 
@@ -206,113 +207,114 @@ echo "\" /></div>
 <div class=\"block\">
 <label class=\"formlabel\">Extensie</label>
 <input type = \"text\" name=\"Extensie\" value=\"";
-    echo $Extensie;
-    echo "\"/>
+        echo $Extensie;
+        echo "\"/>
 <div class=\"block\">
 </div>
 
 
 <!--Postcode-->
 <label class=\"formlabel\">Postcode *</label>
-<input type = \"text\" name=\"Postcode\" value=\"";
-echo $Postcode;
-echo "\"/>
+<input type = \"text\" name=\"Postcode\" Required value=\"";
+        echo $Postcode;
+        echo "\"/>
 <label class=\"formerrorlabel\">$PostcodeErr</label>
 </div>
   
 <div class=\"block\">      
 <!--Woonplaats-->
 <label class=\"formlabel\">Woonplaats *</label>
-<input type = \"text\" name=\"Woonplaats\" value=\"";
-    echo $Woonplaats;
-    echo "\"/>
+<input type = \"text\" name=\"Woonplaats\" Required value=\"";
+        echo $Woonplaats;
+        echo "\"/>
 <label class=\"formerrorlabel\">$WoonplaatsErr</label>
 </div>";
 
-echo "<div class=\"block\">";
-echo "<!--Geboortedatum-->";
-echo "<label class=\"formlabel\">Geboortedatum</label>";
-echo "<input type = \"text\" name=\"Geboortedatum\" value=\"".$Geboortedatum."\">";
-echo "</div>";
+        echo "<div class=\"block\">";
+        echo "<!--Geboortedatum-->";
+        echo "<label class=\"formlabel\">Geboortedatum</label>";
+        echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
+        $time     = new DateTime($Geboortedatum);
+        $newTime = $time->format("d-m-Y");
+        echo    $newTime."\">";
+        echo "</div>";
 
-echo "<div class=\"block\">";
-echo "    <!--School-->
+        echo "<div class=\"block\">";
+        echo "    <!--School-->
 <label class=\"formlabel\">School</label>";
-echo "<select name=\"School\">";
-$Schoolcontroller = new SchoolController();
-foreach($Schoolcontroller->GetScholen() as $sh)
-{
-    $schoolid = $sh->getSchoolID();
-    $schoolnaam = $sh->getSchoolnaam();
+        echo "<select name=\"School\">";
+        $Schoolcontroller = new SchoolController();
+        foreach($Schoolcontroller->GetScholen() as $sh)
+        {
+            $schoolid = $sh->getSchoolID();
+            $schoolnaam = $sh->getSchoolnaam();
 
-    if (isset($School) && $School->getSchoolID() == $schoolid)
-        echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
-    else
-        echo "<option value=\"$schoolid\">$schoolnaam</option>";
-}
-echo"</select></div>
+            if (isset($School) && $School->getSchoolID() == $schoolid)
+                echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
+            else
+                echo "<option value=\"$schoolid\">$schoolnaam</option>";
+        }
+        echo"</select></div>
+
 
 
 <div class=\"block\">
 <!--Opleiding-->
 <label class=\"formlabel\">Opleiding</label>
 <select name=\"Opleiding\">";
-$Opleidingcontroller = new OpleidingController();
-foreach($Opleidingcontroller->GetOpleidingen() as $op)
-{
-    $opleidingid = $op->getOpleidingID();
+        $Opleidingcontroller = new OpleidingController();
+        foreach($Opleidingcontroller->GetOpleidingen() as $op)
+        {
+            $opleidingid = $op->getOpleidingID();
 
-    $naamopleiding = $op->getNaamopleiding();
-    if (isset($Opleiding) && $Opleiding->getOpleidingID() == $opleidingid)
-        echo "<option value=\"$opleidingid\" selected>$naamopleiding</option>";
-    else
-        echo "<option value=\"$opleidingid\">$naamopleiding</option>";
-}
-echo"</select></div>
+            $naamopleiding = $op->getNaamopleiding();
+            if (isset($Opleiding) && $Opleiding->getOpleidingID() == $opleidingid)
+                echo "<option value=\"$opleidingid\" selected>$naamopleiding</option>";
+            else
+                echo "<option value=\"$opleidingid\">$naamopleiding</option>";
+        }
+        echo"</select></div>
  
 <!--Startdatumopleiding-->
-<div class=\"block\">
+<div class=\"formrow\">
 <label class=\"formlabel\">Startdatumopleiding</label>
-<input type = \"text\" name=\"Startdatumopleiding\" value=\"";
-    echo $Startdatumopleiding;
-    echo "\"/>
+<input class=\"forminput\" type = \"text\" name=\"Startdatumopleiding\" value=\"";
+        $time     = new DateTime($Startdatumopleiding);
+        $newTime = $time->format("d-m-Y");
+
+        echo $newTime;
+        echo "\"/>
 </div>
 
 <div class=\"block\">
 <label class=\"formlabel\">Status</label>
 <select name=\"Status\">";
-$EnumStatus = new EnumGebruikerStatus();
-foreach($EnumStatus->getConstants() as $st)
-{
-    if (isset($Status) && $Status == $st)
-        echo "<option value=\"$st\" selected>$st</option>";
-    else
-        echo "<option value=\"$st\">$st</option>";
-}
-echo"</select>
+        $EnumStatus = new EnumGebruikerStatus();
+        foreach($EnumStatus->getConstants() as $st)
+        {
+            if (isset($Status) && $Status == $st)
+                echo "<option value=\"$st\" selected>$st</option>";
+            else
+                echo "<option value=\"$st\">$st</option>";
+        }
+        echo"</select>
 </div>
     
 <!--Telefoonnummer-->    
 <div class=\"block\">
 <label class=\"formlabel\">Telefoonnummer</label>
-<input type = \"text\" name=\"Telefoonnummer\" value=\"";
-if (isset($_POST["Telefoonnummer"])) echo $Telefoonnummer;
-echo "\">
-</div> 
+<input type=\"text\" name=\"Telefoonnummer\" value=\"";
 
-<!--Profielfoto-->    
-<div class=\"profielfotoform\">";
-};?>
-    <label class="formlabel">Profielfoto:</label><br />
+        if (isset($_POST["Telefoonnummer"])) echo $Telefoonnummer;
 
-    <?php
+        echo "\"></div>";
+        }?>
 
-    function data_uri($file)
-    {
-        $contents = file_get_contents($file);
-        $base64   = base64_encode($contents);
-        return ('data:"image/jpeg";base64,' .  $base64);
-    }
+
+        <label class="formlabel">Profielfoto:</label><br />
+
+        <?php
+
 
     if (isset($profiel)){
         $Photo = $profiel->getFoto();
@@ -332,13 +334,31 @@ echo "\">
 
 <?php echo "</div>" ?>
 <div class="block">
+        if (isset($profiel)){
+            $Photo = $profiel->getFoto();
+            //echo $Photo;
+            if (isset($Photo)){
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto" 
+            name="ProfileImage" ID="ProfileImage"/>';
+            }
+            else
+            {
+                echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
+            }
+        }
+        ?><br>
+        <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
+               accept="image/gif, image/jpeg, image/png" onchange="readURL(this);" ;>
 
-    <input type="submit" value="submit" name='submit' >
-    <input type="submit" value="delete" name='delete' >
-</div>
-</form >
-</div>
-<?php
+        <?php echo "</div>" ?>
+        <div class="block">
+            <br>
+            <input type="submit" value="submit" name='submit' >
+            <input type="submit" value="delete" name='delete' >
+        </div>
+    </form >
+
+    <?php
 
     if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
     {
@@ -347,44 +367,57 @@ echo "\">
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
         $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
 
+
     }
 
-if (isset($_POST["delete"]))
-{
 
-    if ($Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID()))
+    if (isset($_POST["delete"]))
+
     {
-        header("Location: Add.php");
+
+        if ($Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID()))
+        {
+            header("Location: Add.php");
+        }
+
     }
-
-}
-else if ($_SERVER['REQUEST_METHOD'] === 'POST')
-{
-    $schoolcontroller = new SchoolController();
-    $opleidingcontroller = new OpleidingController();
-    $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-    $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School,
-        $Opleiding,
-        $Startdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
-         $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
-         $Woonplaats,  $Geboortedatum, $Telefoonnummer);
-
-    if ($Profielcontroller->update($profiel))
+    else if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        if ($_SESSION["level"]>=50)
-            //echo "Record opgeslagen";
-            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
-        else
-            echo "Record opgeslagen";
+        $schoolcontroller = new SchoolController();
+        $opleidingcontroller = new OpleidingController();
+        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+
+        $timegb     = new DateTime($Geboortedatum);
+        $newGeboortedatum = $timegb->format("Y-m-d");
+        $timesd     = new DateTime($Startdatumopleiding);
+        $newStartdatumopleiding = $timesd->format("Y-m-d");
+
+        $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School,
+            $Opleiding,
+            $newStartdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
+            $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
+            $Woonplaats,  $newGeboortedatum, $Telefoonnummer);
+
+        if ($Profielcontroller->update($profiel))
+        {
+            if ($_SESSION["level"]>=50)
+                //echo "Record opgeslagen";
+                header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
+            else
+                echo "Record opgeslagen";
             //Do nothing you're already there.
+        }
+        else
+        {
+            echo "Record niet opgeslagen";
+        }
     }
-    else
-    {
-        echo "Record niet opgeslagen";
-    }
-}
-?>
-<!--script here because input will cause errors in a global file.-->
+
+    ?>
+</div>
+
+
+
 <script>
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -401,6 +434,8 @@ else if ($_SERVER['REQUEST_METHOD'] === 'POST')
         }
     }
 </script>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
+
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
+
 </body>
 </html>

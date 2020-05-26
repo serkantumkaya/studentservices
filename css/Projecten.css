@@ -113,7 +113,7 @@
 @media only screen and (min-width: 820px) {
     #projectpagina{
         min-height: 95vh;
-        height: 100%;
+        /*max-height: 100%;*/
         background-color: #004085;
     }
 
@@ -145,7 +145,13 @@
 
     #projecten-row {
         /*background-color: #FFB31A;*/
+    }
 
+    #projecten-geen-project{
+        text-align: center;
+        background-color: #9fcdff;
+        font-size: 23px;
+        margin:1px;
     }
 
     #projecten-header {
@@ -269,22 +275,35 @@
 
     #project-aanbieder {
         grid-area: project-header;
+        height: 60px;
         color: #FFB31A;
         background-color: #00008B;
         text-align: center;
         float: left;
-        width: 25%;
+        width: 35%;
         border-bottom: 1px solid #00008B;
+
     }
 
     #project-titel {
         grid-area: project-header;
+        height: 60px;
         text-align: center;
         background-color: #FFFFFF;
         float: left;
-        width: 75%;
+        width: 65%;
         border-bottom: 1px solid #00008B;
         color: black; /*Puur voor de link/titel*/
+    }
+
+    #project-titel textarea{
+        float: left;
+        margin: 2px;
+        font-size: 25px;
+    }
+
+    #project-type{
+        font-size: 20px;
     }
 
     #project-info {
@@ -296,17 +315,25 @@
     #project-info-grid{
         display: grid;
         grid-template-areas: 'Parameters' 'beschrijving';
-        grid-template-columns: 25% 75%;
-        background-color: #c82333;
+        grid-template-columns: 35% 65%;
+        background-color: #9fcdff;
     }
 
     #project-parameters{
         grid-area: Parameters;
         background-color: #9fcdff;
+
     }
 
-    #project-parameters li {
-        float:none;
+    #parameter-tekstvak{
+        width: 50%;
+        float: left;
+    }
+
+    #project-beschrijving textarea{
+        alignment: center;
+        margin: 2px;
+        font-size: 21px;
     }
 
     #project-footer {
@@ -315,7 +342,6 @@
         text-align: right;
         padding-right: 10px;
     }
-
 
     #reacties{
         margin-right: auto;
@@ -334,7 +360,7 @@
         float: left;
     }
 
-    #inhoud{
+    #reactie-inhoud{
         margin: 2px;
         padding: 10px;
         border: 1px solid #00008B;
@@ -348,6 +374,11 @@
 
     #colum2{
         background-color: #FFB31A;
+    }
+
+    #filter-projecten-kop{
+        font-size: 20px;
+        font-weight: bold;
     }
 
 }

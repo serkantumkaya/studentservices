@@ -19,10 +19,7 @@ class SchoolModel
     public function GetScholen(){
         $sql = "SELECT SchoolID,Schoolnaam FROM School";
         return $this->conn->query($sql);
-
-        $stmt = $db->prepare('SELECT price, quantity FROM stock');
-        $stmt->setFetchMode(PDO::FETCH_CLASS,'School');
-        $result = $stmt->fetch()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

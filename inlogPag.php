@@ -1,8 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
-
+session_start();
 $wronglogin = "";
  
 //Why on and off? Because it's a checkbox thing.
@@ -71,6 +70,10 @@ else
 //Do not let google remember your password.
 if (isset($_POST['username']) && $_POST['password'])
 {
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
     $DB       = new ConnectDB();
     //$password   = hash('sha256',$password);//
     $pwsafe    = $DB->MakeSafe($password);
@@ -78,29 +81,26 @@ if (isset($_POST['username']) && $_POST['password'])
     $Gebruiker = $GC->Validate($username, $pwsafe);
 
     if ($Gebruiker->getGebruikerID() != -1){
-        echo Translate::GetTranslation("inlogPagGoodButNoLogin");
+        echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
         $GC    = new GebruikerController($_SESSION['GebruikerID']);
         $_SESSION["level"] = $GC->checkRechten();
-       Header("Location: index.php");
-    }
-    else
-    {
-        $wronglogin = Translate::GetTranslation("inlogPagLoginIncorrect");
+
+        //$_SESSION["Gebruiker"] = $Gebruiker;
+        header("Location: index.php");
+    } else{
+        $wronglogin = "De combinatie van gebruiker en/of wachtwoord is onjuist.";
     }
 }
 
-
-
-?>
-<!DOCTYPE HTML>
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <link rel="shortcut icon" type="image/x-icon" href="images/studentservices.ico"/>
     <meta charset="utf-8">
     <title>Student Services</title>
     <meta name="Inloggen" content="index">
-    <meta name="author" content="Student Services">
+    <meta name="author" content="The big 5">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
@@ -111,14 +111,14 @@ if (isset($_POST['username']) && $_POST['password'])
 </head>
 <body onload="showSlides(); timeevents();">
 
-    <form method="post" action="inlogPag.php">
-        <button type="submit" name="language" value="NL" class="flaglanguagebutton">
-            <img src="/StudentServices/images/NL.png" alt="NL" class="flaglanguage"></button>
-        <button type="submit" name="language" value="EN" class="flaglanguagebutton">
-            <img src="/StudentServices/images/EN.png" alt="EN" class="flaglanguage"></button>
-    </form>
+<div class="grid-container">
 
-    <img id="logo" src="/StudentServices/images/logo.png"/>
+    <div class="header">
+
+        <img id=
+             <a href="index.html"><img id="logo" src="images/logotrans.png"/></a>
+    </div>
+
     <div class="itemslider">
         <div class="mySlides fade">
             <img src="/StudentServices/images/9.png" class="sliderimage">
@@ -137,82 +137,60 @@ if (isset($_POST['username']) && $_POST['password'])
         </div>
     </div>
 
+    <div class="info">
 
 
+    </div>
+    <div class="footer">
+        <div>© Student Services, 2020
+        </div>
+    </div>
 
-<div class="infologin">
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+
+
 
 <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
-
     <!--styling is tijdelijk-->
-    <div class="container">
+    <div class="container" >
         <div style="width:100%">
-            <label for='username' style="width:150px"><?php echo Translate::GetTranslation("inlogPagUserNameLabel") ?></label>
-            <input type='text' name='username' style="width:150px"
-            <?php
-
-            if($rememberpassword == "on" && isset($_COOKIE[$cookie_name1]))
-            {
-                echo "value=\"".$_COOKIE[$cookie_name1]."\"";
-            }
-            else
-            {
-                echo '';
-            }
-            ?>"/>
+            <label for='username' style="width:150px">Gebruikersnaam:</label>
+            <input type='text' name='username' style="width:150px;padding-left:50px"/>
         </div>
+
         <div style="width:100%;padding-top: 5px">
-            <label style="width:150px"><?php echo Translate::GetTranslation("inlogPagPasswordLabel") ?></label>
-            <input type='password' style="width:150px" name='password'
-            <?php
-            if($rememberpassword == "on" && isset($_COOKIE[$cookie_name2]))
-            {
-                echo "value=\"".$_COOKIE[$cookie_name2]."\"";
-            }
-            else
-            {
-                echo '';
-            }
-            ?>"/>
+            <label for='password' style="width:150px">Wachtwoord:</label>
+            <input type='password' style="width:150px;padding-left:15px" name='password'/>
         </div>
         <?php
         echo $wronglogin
         ?>
-        <br><br>
 
-        <input type="checkbox" id="chkRememberMe" name="chkRememberMe"
-          <?php
-            if($rememberpassword == "on")
-            {
-                echo "checked";
-            }
-            ?>
-         />
-        <label><?php echo Translate::GetTranslation("inlogPagRememberMe")?></label>
+        <div style="font-size: x-small"> <input type="checkbox" style="width: 78px;" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Onthoud mij (werkt nog niet)</label><br>
         <br>
-        <input type='submit' name='Submit' value='<?php echo Translate::GetTranslation("inlogSubmit") ?>'/>
+        <input type='submit' name='Submit' value='Submit'/>
         <?php
         if ($wronglogin != ""){
-            echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value ='".
-            Translate::GetTranslation("inlogPagForgotPassword")."'/>";
+            echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value = 'Wachtwoord vergeten' />";
         }
         ?>
+        </div>
 
     </div>
 
 </form>
 
 <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
-    <div class="container">
-        <input type='submit' name='Add' value='<?php echo Translate::GetTranslation("inlogRegister") ?>'/>
+    <div class="container-register">
+        <label for='submit'> Nog geen account ?</label>
+        <input type='submit' name='Add' value='Registreren'/>
+
     </div>
 </form>
 
-</div>
-
 </body>
 </html>
-<?php
-
-    ?>

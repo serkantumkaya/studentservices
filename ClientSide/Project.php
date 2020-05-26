@@ -23,9 +23,6 @@ switch ($view){
 }
 
 
-
-
-
 /*
 if ($view === 'overzicht'){
     require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/View/Project/detail.php");
