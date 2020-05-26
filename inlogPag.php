@@ -46,6 +46,12 @@ if (isset($_POST['username']) && $_POST['password']){
 
 <div class="grid-container">
 
+    <div class="header">
+
+        <img id=
+             <a href="index.html"><img id="logo" src="images/logotrans.png"/></a>
+    </div>
+
     <div class="itemslider">
         <div class="mySlides fade">
             <img src="/StudentServices/images/9.png" class="sliderimage">
@@ -64,28 +70,40 @@ if (isset($_POST['username']) && $_POST['password']){
         </div>
     </div>
 
-<div class="popup" id="test">
-    <span class="popuptext" id="myPopup"></span>
-</div>
+    <div class="info">
+
+
+    </div>
+    <div class="footer">
+        <div>© Student Services, 2020
+        </div>
+    </div>
+
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+
+
 
 <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
     <!--styling is tijdelijk-->
-    <div class="container">
+    <div class="container" >
         <div style="width:100%">
             <label for='username' style="width:150px">Gebruikersnaam:</label>
-            <input type='text' name='username' style="width:150px"/>
+            <input type='text' name='username' style="width:150px;padding-left:50px"/>
         </div>
+
         <div style="width:100%;padding-top: 5px">
             <label for='password' style="width:150px">Wachtwoord:</label>
-            <input type='password' style="width:150px" name='password'/>
+            <input type='password' style="width:150px;padding-left:15px" name='password'/>
         </div>
         <?php
         echo $wronglogin
         ?>
-        <br><br>
-        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
-        <label for="remember_me">Onthoudt mij(werkt nog niet dus niet appen)</label>
+
+        <div style="font-size: x-small"> <input type="checkbox" style="width: 78px;" id="remember_me" name="_remember_me" checked/>
+        <label for="remember_me">Onthoud mij (werkt nog niet)</label><br>
         <br>
         <input type='submit' name='Submit' value='Submit'/>
         <?php
@@ -93,14 +111,17 @@ if (isset($_POST['username']) && $_POST['password']){
             echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value = 'Wachtwoord vergeten' />";
         }
         ?>
+        </div>
 
     </div>
 
 </form>
 
 <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
-    <div class="container">
+    <div class="container-register">
+        <label for='submit'> Nog geen account ?</label>
         <input type='submit' name='Add' value='Registreren'/>
+
     </div>
 </form>
 
