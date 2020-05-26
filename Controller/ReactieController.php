@@ -45,24 +45,21 @@ class ReactieController
         return $this->reactiemodel->Update($Reactie);
     }
 
-    function getById(int $id){
-        $Reactie = $this->reactiemodel->GetById($id);
-        if (!(!isset($Reactie) || $Reactie == false)) {
-            $reactielist = array();
-            foreach ($Reactie as $reactie){
-                $reactieObj     = new Reactie(
-                    $reactie['ReactieID'],
-                    $reactie['Timestamp'],
-                    $reactie['GebruikerID'],
-                    $reactie['ProjectID'],
-                    $reactie['Reactie']);
-                $reactielist[] = $reactieObj;
+
+    function getById(int $id){//kan maar een object return reactieid uniekesleutel
+            $Reactie = $this->reactiemodel->GetById($id);
+            if (!(!isset($Reactie) || $Reactie == false)) {
+                    $reactieObj     = new Reactie(
+                        $Reactie['ReactieID'],
+                        $Reactie['Timestamp'],
+                        $Reactie['GebruikerID'],
+                        $Reactie['ProjectID'],
+                        $Reactie['Reactie']);
+                return $reactieObj;
             }
-            return $reactielist;
-        }
-        else{
-            return null;
-        }
+            else{
+                return null;
+            }
     }
 
     function getByProjectId(int $id){//deze heb ik voor homepage toegevoegt

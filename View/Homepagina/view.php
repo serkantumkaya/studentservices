@@ -13,7 +13,6 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
         </div>
         <div id="foto">
            <div> <img id="userfoto" src=<?=$homepagina->getfoto()?>></div>
-           <div><button id="profiel">bewerk profiel</button></div>
         </div>
     </div>
     <div class="layout_mainpage">
@@ -35,9 +34,6 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
                     <p><?=$homepagina->getprojecttextVR()?></p>
                 </div>
             </div>
-            <div id="to_project">
-                <div><button id="button">naar projecten</button></div>
-            </div>
         </div>
         <div id="layout_sub">
             <div id="title_project">
@@ -58,9 +54,6 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
                     <p><?=$homepagina->getreactietext($_SESSION['GebruikerID'])?></p>
                 </div>
             </div>
-            <div id="to_project">
-                <div><button id="button">naar Berichten</button></div>
-            </div>
         </div>
         <div id="layout_sub">
             <div id="title_project">
@@ -69,13 +62,13 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">Feedback op project <?=$homepagina->getprojecttitlebyreactie()?></h3>
-                    <h4>feedback door <?=$homepagina->getusernamebyreactie()?> om <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
+                    <h3 class="subtitle">Feedback op project <?=$homepagina->getprojecttitlebyfeedback()?></h3>
+                    <h4>feedback door <?=$homepagina->getusernamebyfeedback()?> om <?=$homepagina->gettimestampbyfeedback()?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
-                            <img id="symbool_feedback" src=<?=$homepagina->geticoonfeedback()?>>
-                            <p>gegeven cijfer</p>
-                            <p><?=$homepagina->getcijferfeedback()?></p>
+                            <div><img id="symbool_feedback" src=<?=$homepagina->geticoonfeedback()?>></div>
+                            <div><p>gegeven cijfer</p>
+                                <p><?=$homepagina->getcijferfeedback()?></p></div>
                         </div>
                         <div id="message">
                             <p><?=$homepagina->getfeedbacktext()?></p>
@@ -85,22 +78,19 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
             </div>
             <div class="content_box">
                 <div>
-                    <h3 class="subtitle">jouw Feedback op project  <?=$homepagina->getprojecttitlebyreactie($_SESSION['GebruikerID'])?> aansturing</h3>
-                    <h4>jouw feedback door <?=$homepagina->getusernamebyreactie($_SESSION['GebruikerID'])?> om <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
+                    <h3 class="subtitle">jouw Feedback op project  <?=$homepagina->getprojecttitlebyfeedback($_SESSION['GebruikerID'])?></h3>
+                    <h4>jouw feedback door <?=$homepagina->getusernamebyfeedback($_SESSION['GebruikerID'])?> om <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
-                            <img id='symbool_feedback' src=<?=$homepagina->geticoonfeedback($_SESSION['GebruikerID'])?>>
-                            <p>gegeven cijfer</p>
+                           <div><img id='symbool_feedback' src=<?=$homepagina->geticoonfeedback($_SESSION['GebruikerID'])?>></div>
+                            <div><p>gegeven cijfer</p>
                             <p><?=$homepagina->getcijferfeedback($_SESSION['GebruikerID'])?></p>
-                        </div>
+                            </div>
+                    </div>
                         <div id="message">
                             <p><?=$homepagina->getfeedbacktext($_SESSION['GebruikerID'])?></p>
                         </div>
-                    </div>
                 </div>
-            </div>
-            <div id="to_project">
-                <div><button id="button">naar Feedback</button></div>
             </div>
         </div>
     </div>
