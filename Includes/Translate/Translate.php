@@ -11,7 +11,7 @@ class Translate
             "Your credentials were correct. Only the next page is not responding.!"],
         "inlogPagLoginIncorrect" => ["De combinatie van gebruiker en/of wachtwoord is onjuist.",
             "De combination of user and/or password is incorrect."],
-        "inlogPagUserNameLabel" => ["Gebruikersnaam:","User:"],
+        "inlogPagUserNameLabel" => ["Gebruikersnaam:","Username:"],
         "inlogPagPasswordLabel" => ["Wachtwoord:","Password:"],
         "inlogPagForgotPassword" => ["Wachtwoord vergeten","Forgot password"],
         "inlogRegister" => ["Registreren","Register"],
