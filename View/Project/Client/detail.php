@@ -96,20 +96,20 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         </form>
                     </div>
                     <?php
-
-
-
-                    foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
-                        echo "                    
+                    $reacties = $reactiecontroller->getByProjectID($projectID);
+                    if ($reacties!= null){
+                        foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
+                            echo "                    
                         <div id=\"reactie-venster\">
-                            <h3>Gegeven door: ". $gebruikersController->getById($reactie->getGebruikerID()) ."</h3>
+                            <h3>Gegeven door: " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
                             <div id=\"reactie-inhoud\">
-                               ". $reactie->getReactie() ."
+                               " . $reactie->getReactie() . "
                             </div>
                             <div id=\"inhoud-footer\">
                                 mail deze gebruiker: 
                             </div>
                     </div>";
+                        }
                     }
                     ?>
                 </div>
@@ -119,6 +119,15 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
         <div id="reclame">
+
+                <div id="project-beschikbaarheid">
+                    //TODO: Patrick moet hier zijn werk inbouwen
+                    beschikbaarheid
+                </div>
+                <div id="project-feedback">
+                    //TODO: Dirk moet hier zijn werk inbouwen
+                    Feedback
+                </div>
 
         </div>
 

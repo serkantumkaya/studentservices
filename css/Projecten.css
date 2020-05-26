@@ -123,7 +123,7 @@
         display: grid;
         padding: 0px; /*geen witte randen*/
         margin: 0px; /*geen witte randen*/
-        grid-template-columns: 110px 220px auto 180px 100px;
+        grid-template-columns: 100px 220px auto 250px 80px;
     }
 
     #projecten-row-grid {
@@ -139,6 +139,7 @@
 
     #filter-projecten{
         background-color: #9fcdff;
+        margin-top: 10px;
         padding-top: 30px;
         padding-left:10px;
     }
@@ -368,17 +369,38 @@
         height: 100px;
     }
 
-    #colum1{
+
+    /*laat heel even staan, weet niet mer waar dit van was.
+/*    #colum1{
         background-color: #9fcdff;
     }
 
     #colum2{
         background-color: #FFB31A;
-    }
+    }*/
 
     #filter-projecten-kop{
         font-size: 20px;
         font-weight: bold;
+    }
+
+    #reclame{
+        display: grid;
+        grid-template-areas: 'project-beschikbaarheid' 'project-feedback';
+        grid-template-rows: 50% 50%;
+
+    }
+
+    #project-beschikbaarheid{
+        display: grid;
+        height: 100%;
+        background-color: #c82333;
+    }
+
+    #project-feedback{
+        display: grid;
+        height: 100%;
+        background-color: turquoise;
     }
 
 }
