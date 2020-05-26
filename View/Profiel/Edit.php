@@ -1,14 +1,10 @@
 <?php
-//todo: haal deze error meldingen weg bij release
-error_reporting(E_ALL);
-ini_set('display_errors',1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
-
 
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
     Header("Location: /StudentServices/inlogPag.php");
@@ -18,8 +14,7 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
 <html>
 <head>
 
-    <?php
-    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 
 <?php
@@ -145,14 +140,13 @@ $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session z
 
 //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
 // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
-{
 echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1 ><br>";
 ?>
 
 <div class="divprofiel">
     <form action="Edit.php" method="post" class="profielform" enctype="multipart/form-data"   >
 
-        <?php
+<?php
         echo "<!--Voornaam-->
 <div class=\"block\">
 <label class=\"formlabel\">Voornaam *</label>
@@ -304,61 +298,41 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <div class=\"block\">
 <label class=\"formlabel\">Telefoonnummer</label>
 <input type=\"text\" name=\"Telefoonnummer\" value=\"";
+    echo $Telefoonnummer;
+    echo "\"/></div>";
 
-        if (isset($_POST["Telefoonnummer"])) echo $Telefoonnummer;
+echo "<label class=\"formlabel\">Profielfoto:</label><br />";
 
-        echo "\"></div>";
-        }?>
-
-
-        <label class="formlabel">Profielfoto:</label><br />
-
-        <?php
-
-
-    if (isset($profiel)){
+    if (isset($profiel))
+    {
         $Photo = $profiel->getFoto();
         //echo $Photo;
-        if (isset($Photo)){
-            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto" 
+        if (isset($Photo))
+        {
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto" 
             name="ProfileImage" ID="ProfileImage"/>';
         }
         else
         {
-            echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
+            echo '<img src="#" class="studentfoto" name="ProfileImage" ID="ProfileImage"/>';
         }
     }
     ?>
+        <br><br>
     <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
-           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);";>
+           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);">
 
-<?php echo "</div>" ?>
+</div>
 <div class="block">
-        if (isset($profiel)){
-            $Photo = $profiel->getFoto();
-            //echo $Photo;
-            if (isset($Photo)){
-                echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto" 
-            name="ProfileImage" ID="ProfileImage"/>';
-            }
-            else
-            {
-                echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
-            }
-        }
-        ?><br>
-        <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
-               accept="image/gif, image/jpeg, image/png" onchange="readURL(this);" ;>
 
-        <?php echo "</div>" ?>
-        <div class="block">
+        </div><div class="block">
             <br>
             <input type="submit" value="submit" name='submit' >
             <input type="submit" value="delete" name='delete' >
         </div>
     </form >
 
-    <?php
+<?php
 
     if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
     {
@@ -367,18 +341,14 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
         $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
 
-
     }
 
-
     if (isset($_POST["delete"]))
-
     {
+        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        $Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID());
 
-        if ($Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID()))
-        {
-            header("Location: Add.php");
-        }
+            echo("<script>window.location.assign('/StudentServices/inlogPag.php');</script>");
 
     }
     else if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -404,7 +374,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
                 //echo "Record opgeslagen";
                 header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
             else
-                echo "Record opgeslagen";
+                echo("<script>window.location.assign('/StudentServices/View/Profiel/edit.php');</script>");
             //Do nothing you're already there.
         }
         else
@@ -413,7 +383,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         }
     }
 
-    ?>
+?>
 </div>
 
 

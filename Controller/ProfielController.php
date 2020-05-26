@@ -55,9 +55,10 @@ class ProfielController
         string $Achternaam, string $Voornaam, string $Tussenvoegsel, string $Prefix, string $Straat, int $Huisnummer,
         string $Extentie, string $Postcode, string $Woonplaats, string $Geboortedatum,
         string $Telefoonnummer){
-        return $this->profielmodel->Add($GebruikerID, $School, $Opleiding, $Startdatumopleiding, $Status, $Achternaam,
+        $this->profielmodel->Add($GebruikerID, $School, $Opleiding, $Startdatumopleiding, $Status, $Achternaam,
             $Voornaam, $Tussenvoegsel, $Prefix, $Straat, $Huisnummer, $Extentie, $Postcode, $Woonplaats, $Geboortedatum,
             $Telefoonnummer);
+        return true;
     }
 
     function delete(int $Id){
@@ -128,7 +129,7 @@ class ProfielController
             $Profielc['Postcode'],
             $Profielc['Woonplaats'],
             $Profielc['Geboortedatum'],
-            $Profielc['Telefoonnummer'] == null ? "" : $Profielc['Telefoonnummer'],
+            $Profielc['Telefoonnummer'] == null || $Profielc['Telefoonnummer'] == "" ? "" : $Profielc['Telefoonnummer'],
 
             );
 //hier zit ergens de fout. Binaire string wordt opgehaald maar niet in property gezet!

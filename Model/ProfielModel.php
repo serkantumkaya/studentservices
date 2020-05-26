@@ -66,7 +66,7 @@ class ProfielModel
             'SID' => $ID
         ];
 
-        return $sql->execute($parameters);
+        $sql->execute($parameters);
     }
 
     function update(Profiel $profiel){

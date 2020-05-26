@@ -9,46 +9,79 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebr
 session_start();
 ?>
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>Student Services</title>
-    <meta name="Toevoegen profiel" content="index">
-    <meta name="author" content="The big 5">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--The viewport is the user's visible area of a web page.-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="/StudentServices/css/style.css">
 
-    <script type="text/javascript" src="/StudentServices/JS/script.js">
-    </script>
-</head>
-
-</head>
-
-
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
-<div class="header">
-    <nav id="page-nav">
-        <!-- [THE HAMBURGER] -->
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
-
-        <!-- [MENU ITEMS] -->
-<ul>
-    <li>
-        <a href="/StudentServices/View.php">Terug</a>
-    </li>
-</ul>
-    </nav>
-    <img id=
-         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
-</div>
-
-<div class="info">
-<!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
+
+$booladded = false;
+$School = "";
+$Opleiding= "";
+$Startdatumopleiding= "";
+$Status= "";
+$Achternaam= "";
+$Voornaam= "";
+$Tussenvoegsel= "";
+$Prefix= "";
+$Straat= "";
+$Huisnummer= "";
+$Extensie= "";
+$Postcode= "";
+$Woonplaats= "";;
+$Geboortedatum= "";
+$Telefoonnummer= "";
+$Photo = "";
+
+
+if ((isset($_GET["ID"]) || isset($profiel)) && $_SERVER['REQUEST_METHOD'] !='POST')
+{
+}
+else{
+
+    $profiel = $_SESSION["CurrentProfiel"];
+    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
+    $schoolcontroller =new SchoolController();
+    $opleidingcontroller=new OpleidingController();
+    if (isset($profiel))
+        $_SESSION["CurrentProfiel"] = $profiel;
+    if (isset($_POST["School"]))
+        $School = $schoolcontroller->getById($_POST["School"]);
+    if (isset($_POST["Opleiding"]))
+        $Opleiding= $opleidingcontroller->getById($_POST["Opleiding"]);
+    if (isset($_POST["Startdatumopleiding"]))
+        $Startdatumopleiding= $_POST["Startdatumopleiding"];
+    if (isset($_POST["Status"]))
+        $Status=$_POST["Status"];
+    if (isset($_POST["Achternaam"]))
+        $Achternaam=$_POST["Achternaam"];
+    if (isset($_POST["Voornaam"]))
+        $Voornaam=$_POST["Voornaam"];
+    if (isset($_POST["Tussenvoegsel"]))
+        $Tussenvoegsel=$_POST["Tussenvoegsel"];
+    if (isset($_POST["Prefix"]))
+        $Prefix=$_POST["Prefix"];
+    if (isset($_POST["Straat"]))
+        $Straat=$_POST["Straat"];
+    if (isset($_POST["Huisnummer"]))
+        $Huisnummer=$_POST["Huisnummer"];
+    if (isset($_POST["Extensie"]))
+        $Extensie =$_POST["Extensie"];
+    if (isset($_POST["Postcode"]))
+        $Postcode=$_POST["Postcode"];
+    if (isset($_POST["Woonplaats"]))
+        $Woonplaats=$_POST["Woonplaats"];
+    if (isset($_POST["Geboortedatum"]))
+        $Geboortedatum=$_POST["Geboortedatum"];
+    if (isset($_POST["Telefoonnummer"]))
+        $Telefoonnummer=$_POST["Telefoonnummer"];
+    if (isset($profiel))
+        $Photo = $profiel->getFoto();
+}
+
 $NaamErr = "";
 $EmailErr = "";
 $WachtwoordErr = "";
@@ -95,183 +128,282 @@ if (!isset($_POST["Woonplaats"]) || isset($_POST["Woonplaats"]) =="")
 $gbController = new GebruikerController($_SESSION["GebruikerID"]);
 $gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
-echo "Profiel aanmaken voor : ".$gebruiker->getGebruikersnaam()."<br>";
-
     //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
    // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
 
 
-echo "<h1 > Koppelen profiel</h1 ><br>
-<form action = \"Add.php\" method = \"post\" >";
+echo "<h1 > Koppelen profiel</h1 ><br>";
+?>
 
-echo "<!--Voornaam-->
-    <div class='profiellabel'>Voornaam *</div>
-    <div class='profielinput'><input type = \"text\" name=\"Voornaam\" value=\""; if (isset($_POST["Voornaam"]))
-            echo $_POST["Voornaam"];echo "\"/></div>
-         <span class='profielsinput'>$VoornaamErr</span>";
+<div class="divprofiel">
+    <form action="Add.php" method="post" class="profielform" enctype="multipart/form-data"   >
 
-echo "<!--Tussenvoegsel-->";
-echo "<div class='profiellabel'>Tussenvoegsel</div>
-         <div class='profielinput'><input type = \"text\" name=\"Tussenvoegsel\" value=\"";
-if (isset($_POST["Tussenvoegsel"])) echo $_POST["Tussenvoegsel"];
-echo "\" /></div>";
+        <?php
+        echo "<!--Voornaam-->
+<div class=\"block\">
+<label class=\"formlabel\">Voornaam *</label>
+<input type = \"text\" name=\"Voornaam\" Required value=\"";
+        echo $Voornaam;
+        echo "\" class=\"formInput\"/>
+<label class=\"formerrorlabel\">$VoornaamErr</label>
+</div>";
 
-echo "<!--Prefix-->";
-echo "<div class='profiellabel'>Prefix</div>
-         <div class='profielinput'><input type = \"text\" name=\"Prefix\" value=\"";
-if (isset($_POST["Prefix"])) echo $_POST["Prefix"];
-echo "\" /></div>
+        echo "<!--Tussenvoegsel-->";
+        echo "<div class=\"block\">
+<label class=\"formlabel\">Tussenvoegsel</label>
+<input type = \"text\" name=\"Tussenvoegsel\" value=\"";
+        echo $Tussenvoegsel;
+        echo "\" />
 
-         <!--Achternaam-->
-    <div class='profiellabel'>Achternaam *</div>
-         <div class='profielinput'><input type = \"text\" name=\"Achternaam\" value=\"";
-if (isset($_POST["Achternaam"])) echo $_POST["Achternaam"];
-echo "\"/></div>
-         <span class='profielsinput'>$AchternaamErr</span>   
-    <!--Straat-->
- <div class='profiellabel'>Straat *</div>
-         <div class='profielinput'><input type = \"text\" name=\"Straat\" value=\"";
-if (isset($_POST["Straat"])) echo $_POST["Straat"];
-echo "\"/></div>
-         <span class='profielsinput'>$StraatErr</span>
-         
-    <!--Huisnummer-->
- <div class='profiellabel'>Huisnummer *</div>
-         <div class='profielinput'><input type = \"text\" name=\"Huisnummer\" value=\"";
-if (isset($_POST["Huisnummer"])) echo $_POST["Huisnummer"];
-echo "\"/></div>
-         <span class='profielsinput'>$HuisnummerErr</span>
+<!--Prefix-->
+<div class=\"block\">
+<label class=\"formlabel\">Prefix</label>
+<input type = \"text\" name=\"Prefix\" value=\"";
+        echo $Prefix;
+        echo "\" /></div>
 
-        <!--Extentie-->
- <div class='profiellabel'>Extensie</div>
-         <div class='profielinput'><input type = \"text\" name=\"Extentie\" value=\"";
-if (isset($_POST["Extentie"])) echo $_POST["Extentie"];
-echo "\"/></div>
-         
+<!--Achternaam-->
+<div class=\"block\">
+<label class=\"formlabel\">Achternaam *</label>
+<input type = \"text\" name=\"Achternaam\" Required value=\"";
+        echo $Achternaam;
+        echo "\"/>
+<label class=\"formerrorlabel\"> <span >$AchternaamErr</label>  
+</div>
+
+<!--Straat-->
+<div class=\"block\">
+<label class=\"formlabel\">Straat *</label>
+<input type = \"text\" name=\"Straat\" Required value=\"";
+        echo $Straat;
+        echo "\"/>
+<label class=\"formerrorlabel\">$StraatErr</label>
+</div>
+  
+<!--Huisnummer-->       
+<div class=\"block\">
+<label class=\"formlabel\">Huisnummer *</label>
+<input type = \"text\" name=\"Huisnummer\" Required value=\"";
+        echo $Huisnummer;
+        echo "\"/>
+<label class=\"formerrorlabel\">$HuisnummerErr</label>
+</div>
+
+<!--Extentie-->
+<div class=\"block\">
+<label class=\"formlabel\">Extensie</label>
+<input type = \"text\" name=\"Extensie\" value=\"";
+        echo $Extensie;
+        echo "\"/>
+<div class=\"block\">
+</div>
+
 
 <!--Postcode-->
- <div class='profiellabel'>Postcode *</div>
-         <div class='profielinput'><input type = \"text\" name=\"Postcode\" value=\"";
-if (isset($_POST["Postcode"])) echo $_POST["Postcode"];
-echo "\"/></div>
-         <span class='profielsinput'>$PostcodeErr</span>
-         
-     <!--Woonplaats-->
- <div class='profiellabel'>Woonplaats *</div>
-         <div class='profielinput'><input type = \"text\" name=\"Woonplaats\" value=\"";
-if (isset($_POST["Woonplaats"])) echo $_POST["Woonplaats"];
-echo "\"/></div>
-         <span class='profielsinput'>$WoonplaatsErr</span>
-        
-                <!--Geboortedatum-->
- <div class='profiellabel'>Geboortedatum</div>
-         <div class='profielinput'><input type = \"text\" name=\"Geboortedatum\" value=\"";
-if (isset($_POST["Geboortedatum"])) echo $_POST["Geboortedatum"];
-echo "\"/></div>
-         
-    <!--School-->
- <div class='profiellabel'>School</div>
-    <select name=\"School\" class='profielinput'>";
-        $School = new SchoolController();
-        foreach($School->GetScholen() as $sh)
+<label class=\"formlabel\">Postcode *</label>
+<input type = \"text\" name=\"Postcode\" Required value=\"";
+        echo $Postcode;
+        echo "\"/>
+<label class=\"formerrorlabel\">$PostcodeErr</label>
+</div>
+  
+<div class=\"block\">      
+<!--Woonplaats-->
+<label class=\"formlabel\">Woonplaats *</label>
+<input type = \"text\" name=\"Woonplaats\" Required value=\"";
+        echo $Woonplaats;
+        echo "\"/>
+<label class=\"formerrorlabel\">$WoonplaatsErr</label>
+</div>";
+
+        echo "<div class=\"block\">";
+        echo "<!--Geboortedatum-->";
+        echo "<label class=\"formlabel\">Geboortedatum</label>";
+        echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
+        $time     = new DateTime($Geboortedatum);
+        $newTime = $time->format("d-m-Y");
+        echo    $newTime."\">";
+        echo "</div>";
+
+        echo "<div class=\"block\">";
+        echo "    <!--School-->
+<label class=\"formlabel\">School</label>";
+        echo "<select name=\"School\">";
+        $Schoolcontroller = new SchoolController();
+        foreach($Schoolcontroller->GetScholen() as $sh)
         {
             $schoolid = $sh->getSchoolID();
             $schoolnaam = $sh->getSchoolnaam();
-            echo "<option value=\"$schoolid\">$schoolnaam</option>";
+
+            if ($School != "" && isset($School) && $School->getSchoolID() == $schoolid)
+                echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
+            else
+                echo "<option value=\"$schoolid\">$schoolnaam</option>";
         }
-   echo"</select>
-    
-    <!--Opleiding-->
-     <div class='profiellabel'>Opleiding</div>
-    <select name=\"Opleiding\" class='profielinput'>";
-        $Opleiding = new OpleidingController();
-        foreach($Opleiding->GetOpleidingen() as $op)
+        echo"</select></div>
+
+
+
+<div class=\"block\">
+<!--Opleiding-->
+<label class=\"formlabel\">Opleiding</label>
+<select name=\"Opleiding\">";
+        $Opleidingcontroller = new OpleidingController();
+        foreach($Opleidingcontroller->GetOpleidingen() as $op)
         {
             $opleidingid = $op->getOpleidingID();
-            $naamopleiding = $op->getNaamopleiding();
-            echo "<option value=\"$opleidingid\">$naamopleiding</option>";
-        }
-   echo"</select>
-                   <!--Startdatumopleiding-->
- <div class='profiellabel'>Startdatumopleiding</div>
-         <div class='profielinput'><input type = \"text\" name=\"Startdatumopleiding\" value=\"";
-if (isset($_POST["Startdatumopleiding"])) echo $_POST["Startdatumopleiding"];
 
-echo "\"/>
+            $naamopleiding = $op->getNaamopleiding();
+            if ($Opleiding != "" && isset($Opleiding) && $Opleiding->getOpleidingID() == $opleidingid)
+                echo "<option value=\"$opleidingid\" selected>$naamopleiding</option>";
+            else
+                echo "<option value=\"$opleidingid\">$naamopleiding</option>";
+        }
+        echo"</select></div>
+ 
+<!--Startdatumopleiding-->
+<div class=\"formrow\">
+<label class=\"formlabel\">Startdatumopleiding</label>
+<input class=\"forminput\" type = \"text\" name=\"Startdatumopleiding\" value=\"";
+        $time     = new DateTime($Startdatumopleiding);
+        $newTime = $time->format("d-m-Y");
+
+        echo $newTime;
+        echo "\"/>
 </div>
 
-  <!--foto-->
- <div class='profiellabel'>Foto</div><input type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\" class=\"profielinput\">
-  <div class='profiellabel'>Huidige foto</div>
-<img id=\"nieuwestudent\" src=\"/StudentServices/images/sgtest.jpg\" class=\"studentfoto\"/>
-
- <div class='profiellabel'>Status</div>
+<div class=\"block\">
+<label class=\"formlabel\">Status</label>
 <select name=\"Status\">";
-        $Status = new EnumGebruikerStatus();
-        foreach($Status->getConstants() as $st)
+        $EnumStatus = new EnumGebruikerStatus();
+        foreach($EnumStatus->getConstants() as $st)
         {
-            echo "<option value=\"$st\">$st</option>";
+            if (isset($Status) && $Status == $st)
+                echo "<option value=\"$st\" selected>$st</option>";
+            else
+                echo "<option value=\"$st\">$st</option>";
         }
-echo"</select>
+        echo"</select>
+</div>
     
- <!--Telefoonnummer-->
- <div class='profiellabel'>Telefoonnummer</div>
-         <div class='profielinput'><input type = \"text\" name=\"Telefoonnummer\" value=\"";
-        if (isset($_POST["Telefoonnummer"])) echo $_POST["Telefoonnummer"];
-echo "\"></div>
-       <input type=\"submit\" >  <br><br><br>
-    </form >";
+<!--Telefoonnummer-->    
+<div class=\"block\">
+<label class=\"formlabel\">Telefoonnummer</label>
+<input type=\"text\" name=\"Telefoonnummer\" value='";
+if (isset($_POST["Telefoonnummer"]))
+    echo $Telefoonnummer;
+echo "'></div>";
+?>
 
-if ($noerror)//No validation errors
+<label class="formlabel">Profielfoto:</label><br />
+
+</div>
+<div class="block">
+    <?php
+    //echo "<label class=\"formlabel\">Profielfoto:</label><br />";
+
+    //if (isset($profiel))
+    //{
+    //    $Photo = $profiel->getFoto();
+    //    //echo $Photo;
+    //    if (isset($Photo))
+    //    {
+    //        echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto"
+    //        name="ProfileImage" ID="ProfileImage"/>';
+    //    }
+    //    else
+    //    {
+    //        echo '<img src="#" class="studentfoto" name="ProfileImage" ID="ProfileImage"/>';
+    //    }
+    //}
+    //?>
+    <!--<br><br>-->
+    <!--<input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."-->
+    <!--       accept="image/gif, image/jpeg, image/png" onchange="readURL(this);">-->
+
+</div>
+        <div class="block">
+            <br>
+            <input type="submit" value="submit" name='submit' >
+        </div>
+    </form >
+<?php
+
+if ($noerror && $_SERVER['REQUEST_METHOD'] != "GET")//No validation errors
 {
+    $schoolcontroller = new SchoolController();
+    $opleidingcontroller = new OpleidingController();
+    $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
 
-    $profielcontroller= new ProfielController($gebruiker->getGebruikerID());
-    $schoolcontroller= new SchoolController();
-    $opleidingcontroller= new OpleidingController();
+    $timegb     = new DateTime($Geboortedatum);
+    $newGeboortedatum = $timegb->format("Y-m-d");
+    $timesd     = new DateTime($Startdatumopleiding);
+    $newStartdatumopleiding = $timesd->format("Y-m-d");
+
 
     if ($profielcontroller->Add(
         $gebruiker->getGebruikerID(),
         $schoolcontroller->getById($_POST["School"]) ,
         $opleidingcontroller->getById($_POST["Opleiding"]),
-        $_POST["Startdatumopleiding"],
-        $_POST["Status"],
-        $_POST["Achternaam"],
-        $_POST["Voornaam"],
-        $_POST["Tussenvoegsel"],
-        $_POST["Prefix"],
-        $_POST["Straat"],
-        $_POST["Huisnummer"],
-        $_POST["Extentie"],
-        $_POST["Postcode"],
-        $_POST["Woonplaats"],
-        $_POST["Geboortedatum"],
-        $_POST["Telefoonnummer"] == null ? "" : $_POST["Telefoonnummer"]
+        $newStartdatumopleiding,
+        $Status,
+        $Achternaam,
+        $Voornaam,
+        $Tussenvoegsel,
+        $Prefix,
+        $Straat,
+        $Huisnummer,
+        $Extensie,
+        $Postcode,
+        $Woonplaats,
+        $newGeboortedatum,
+        $Telefoonnummer
         ))
     {
-        if ($_SESSION["level"]>=50)
-        //echo "Record opgeslagen";
-            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
-        else
-            //echo "Record opgeslagen";
-            header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/edit.php");
+        //if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
+        //{
+        //    $imagename=$_FILES["ProfilePhotoFile"]["name"];
+        //    $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']));
+        //    $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        //    $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
+        //
+        //}
+        $booladded = true;
     }
     else
     {
         echo "Record niet opgeslagen";
     }
 }
-?>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
-<div class="footer">
-    <div>© Student Services, 2020
-        <?php
-        $GebrID = 1;
-        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
 
-        ?>
-    </div>
+    ?>
 </div>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#ProfileImage')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+<?php
+if (!$booladded)
+    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php");
+
+if ($booladded){
+    echo("<script>window.location.assign('/StudentServices/View/Profiel/Edit.php');</script>");
+}
+    ?>
+
 </body>
 </html>
