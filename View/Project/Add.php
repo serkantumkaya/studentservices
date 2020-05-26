@@ -7,22 +7,29 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectCon
 
 session_start();
 
-var_dump($_POST);
+//var_dump($_POST);
+
+$deadline = '';
+
 
 if (isset($_POST['submit'])){
     if (isset($_POST["Beschrijving"]) && isset($_POST['Titel']) && isset($_POST['Type'])){
         $projectController = new ProjectController();
-        $deadline = convert($_POST['Deadline']);
-        $datumaangemaakt = convert($_POST['Datumaangemaakt']);
+        if (isset($_POST['NietBekend']) && $_POST['NietBekend'] == 'on'){
+            $deadline == 'NULL';
+        } else{
+            $deadline = convert($_POST['Deadline']);
+        }
 
-       if($projectController->add(intval($_POST['GebruikerID']), $_POST['Titel'], $_POST['Type'],
-            $_POST['Beschrijving'], intval($_POST['CategorieID']), $datumaangemaakt,
-            $deadline, $_POST['Status'], $_POST['Locatie'], $_POST['Verwijderd'])){
+        if ($projectController->add(intval($_POST['GebruikerID']), $_POST['Titel'], $_POST['Type'],
+            $_POST['Beschrijving'], intval($_POST['CategorieID']),
+            $deadline, $_POST['Status'], $_POST['Locatie'])){
+
             header('Location: View.php');
-       }else {
-           echo "Record niet opgeslagen";
-       }
-    } else {
+        } else{
+            echo "Record niet opgeslagen";
+        }
+    } else{
         echo "Er gaat iets mis, probeer nogmaals <br>";
     }
 }
@@ -35,10 +42,10 @@ function convert($datum){
 $uitvoer = getUitvoer();
 
 function getUitvoer(){
-    $gebruikertext   = getUitvoerGebruiker();
-    $type            = getUitvoerType();
-    $categorie       = getUitvoerCategorie();
-    $status          = getUitvoerStatus();
+    $gebruikertext = getUitvoerGebruiker();
+    $type          = getUitvoerType();
+    $categorie     = getUitvoerCategorie();
+    $status        = getUitvoerStatus();
 
     $uitvoer = <<<EOD
 <table>
@@ -66,12 +73,8 @@ function getUitvoer(){
         <td>$categorie</td>
     </tr>   
     <tr>
-        <td>Datumaangemaakt</td>
-        <td><input type="datetime-local" name="Datumaangemaakt"/></td>
-    </tr> 
-    <tr>
         <td>Deadline</td>
-        <td><input type="datetime-local" name="Deadline"/></td>
+        <td><input type="datetime-local" name="Deadline"/></td><td><input type="checkbox" name="NietBekend"/>Niet Bekend</td>
     </tr>    
     
     <tr>
@@ -100,7 +103,7 @@ EOD;
 
 function getUitvoerGebruiker(){
     $gebruikercontroller = new GebruikerController(-1);
-    $text = "<select id=\"GebrID\" name=\"GebruikerID\">";
+    $text                = "<select id=\"GebrID\" name=\"GebruikerID\">";
     foreach ($gebruikercontroller->getGebruikers() as $gebruiker){
         $text .= "<option value='" . $gebruiker->getGebruikerID() . "'>" . $gebruiker->getGebruikersnaam() .
             "</option>";
@@ -122,7 +125,7 @@ function getUitvoerType(){
 function getUitvoerCategorie(){
     $categorieController = new CategorieController();
     $categorieen         = $categorieController->getCategorieen();
-    $text = "<select id=\"Categorie\" name=\"CategorieID\">";
+    $text                = "<select id=\"Categorie\" name=\"CategorieID\">";
     foreach ($categorieen as $categorie){
         $text .= "<option value='" . $categorie->getCategorieID() . "'>" . $categorie->getCategorieNaam() .
             "</option>";

@@ -170,9 +170,7 @@ textarea {
 
 .sliderimage {
     width: 100%;
-    height: 100px;
-    position: fixed;
-    top: 40px;
+    height: 350px;
 }
 
 /* Hide Hamburger */
@@ -233,6 +231,17 @@ textarea {
 /*    margin-top:-35px; !* aligns top of sub menu with top of list item *!*/
 
 
+.info {
+    grid-area: info;
+    /*top:150px;/*
+    height: auto;
+    /*position:fixed;*/
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 100px;
+    padding-top: 202px;
+    /*auto scrollbars bij een grotere wordende tekst*/
+}
 
 .infologin {
     grid-area: info;
@@ -242,7 +251,7 @@ textarea {
     width: 100%;
     overflow: auto;
     margin-bottom: 100px;
-    margin-top:5px;
+    padding-top: 202px ;
     /*auto scrollbars bij een grotere wordende tekst*/
 }
 
@@ -263,6 +272,7 @@ dt {
     height: auto;
     margin: 10px;
     margin-bottom: auto;
+    margin-top: auto;
     text-align: center;
     z-index: 0;
 }
@@ -369,7 +379,7 @@ lisub:last-child {
 
 .header {
     grid-area: header;
-    height: 40px;
+    height: 100px;
     border-bottom: 1px solid #00008B; /*blauwe lijn onderaan om de header af te sluiten*/
     z-index: 1; /*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
     background-color: #FFFFFF;
@@ -434,8 +444,8 @@ iframe {
     overflow: hidden; /*hier geen scrollbars*/
     background-color: transparent;
     width: 100%;
-    height:1px;
-    top:0px;
+    height:350px;
+    padding: auto;
     border-bottom: 1px solid #00008B;
 }
 
@@ -509,7 +519,7 @@ a.button {
 
 .formbutton {
     border-radius: 25px;
-    background-color: #00008B; /* Oranje */
+    background-color: #00008B; /* oOranje */
     border: none;
     color: #FFB31A;
     padding: 15px 32px;
@@ -519,10 +529,6 @@ a.button {
     font-size: 16px;
     width: 140px;
 }
-
-
-
-
 
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
@@ -631,10 +637,11 @@ a.button {
     }
 
     .grid-container2 {
-        display: block;
+        display: grid;
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+
     }
 
     .header {
@@ -671,7 +678,7 @@ a.button {
 
     /*let op een mobiel device heeft GEEN hover*/
     .sliderimage {
-        height: 50px;
+        height: 100px;
         position: fixed;
         top: 0px;
     }
@@ -802,16 +809,30 @@ textarea {
 }
 
 .container {
+    font-family: Verdana;
     grid-area: invulform;
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    margin: 20px;
+    border-radius: 25px;
+    background-color: #ffffff;
+    margin: 10px;
     padding: 20px;
-    border: 5px #00008B;
-
-
+    border: 5px solid #00008B;
+    width: auto;
+    height: auto;
+    text-align: center;
 }
 
+.container-register {
+    font-family: Verdana;
+    grid-area: invulform;
+    border-radius: 25px;
+    background-color: #ffffff;
+    margin: 35px;
+    padding: 20px;
+    border: 5px solid #00008B;
+    width: auto;
+    height: auto;
+    text-align: center;
+}
 .gridcontainer {
     grid-template-areas: 'header' 'invulform' 'terug';
     background-color: white;

@@ -1,0 +1,384 @@
+/*mobile first dus daar mee beginnen*/
+@media only screen and (max-width: 820px){
+    #projectpagina{
+        height: 100vh;
+        background-color: #004085;
+    }
+    .grid-projecten-colums {
+        grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
+        grid-gap: 0px;
+        display: grid;
+        padding: 0px; /*geen witte randen*/
+        margin: 0px; /*geen witte randen*/
+        /*height: 100vh;*/
+        grid-template-rows: 1px 220px auto 220px 1px;
+    }
+
+    #projecten-row-grid {
+        padding: 10px;
+        display: grid;
+        grid-template-areas: 'project-header' 'projecten-info' 'project-footer'; /* hier geef je dus je grid componenten op*/
+        grid-gap: 0px;
+        background-color: #FFFFFF;
+        /*padding: 0px; !*geen witte randen*!*/
+        margin: 0px; /*geen witte randen*/
+        grid-template-rows: 60px auto 20px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
+        border: 1px solid #00008B;
+    }
+
+    #filter-projecten{
+        background-color: #9fcdff;
+        padding-top: 30px;
+        padding-left:10px;
+    }
+
+    #nieuw-project{
+        float: right;
+        margin-right: 5%;
+        width: 140px;
+        margin-left: 5%;
+        background-color: #FFB31A;
+        color: black;
+        padding: 10px;
+    }
+
+    #project-nieuw-button{
+        text-decoration: none;
+        font-size: 23px;
+    }
+
+    #projecten-header {
+        grid-area: project-header;
+    }
+
+    #projecten-type {
+        color: #FFB31A;
+        background-color: #00008B;
+        text-align: center;
+        float: left;
+        width: 25%;
+        border-bottom: 1px solid #00008B;
+    }
+
+    #projecten-titel {
+        grid-area: project-header;
+        text-align: center;
+        background-color: #FFFFFF;
+        float: left;
+        width: 75%;
+        border-bottom: 1px solid #00008B;
+        color: black; /*Puur voor de link/titel*/
+    }
+
+    #projecten-info {
+        grid-area: project-info;
+        font-size: 22px;
+        background-color: #9fcdff;
+    }
+
+    #projecten-footer {
+        grid-area: project-footer;
+        background-color: #9fcdff;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    #projecten-buttons{
+        width: 100%;
+        display: inline-block;
+        font-size: 23px;
+    }
+
+    #projecten-previous{
+        float: left;
+        margin-left: 10%;
+        background-color: #FFB31A;
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    #projecten-next{
+        float: right;
+        margin-right: 10%;
+        background-color: #FFB31A;
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+}
+
+/*Laptops / grote tablets*/
+@media only screen and (min-width: 820px) {
+    #projectpagina{
+        min-height: 95vh;
+        /*max-height: 100%;*/
+        background-color: #004085;
+    }
+
+    .grid-projecten-colums {
+        grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
+        grid-gap: 0px;
+        display: grid;
+        padding: 0px; /*geen witte randen*/
+        margin: 0px; /*geen witte randen*/
+        grid-template-columns: 110px 220px auto 180px 100px;
+    }
+
+    #projecten-row-grid {
+        padding: 0px;
+        display: grid;
+        grid-template-areas: 'projecten-header' 'projecten-info' 'projecten-footer'; /*hier geef je dus je grid componenten op*/
+        grid-gap: 0px;
+        background-color: #FFFFFF;
+        margin: 10px;
+        grid-template-rows: 60px auto 20px;  /*Drie lagen, dit zijn de hoogtes*/
+        border: 1px solid #00008B;
+    }
+
+    #filter-projecten{
+        background-color: #9fcdff;
+        padding-top: 30px;
+        padding-left:10px;
+    }
+
+    #projecten-row {
+        /*background-color: #FFB31A;*/
+    }
+
+    #projecten-geen-project{
+        text-align: center;
+        background-color: #9fcdff;
+        font-size: 23px;
+        margin:1px;
+    }
+
+    #projecten-header {
+        grid-area: projecten-header;
+    }
+
+    #projecten-type {
+        grid-area: projecten-header;
+        color: #FFB31A;
+        background-color: #00008B;
+        text-align: center;
+        float: left;
+        width: 25%;
+        border-bottom: 1px solid #00008B;
+    }
+
+    #projecten-titel {
+        grid-area: projecten-header;
+        text-align: center;
+        background-color: #FFFFFF;
+        float: left;
+        width: 75%;
+        border-bottom: 1px solid #00008B;
+        color: black; /*Puur voor de link/titel*/
+    }
+
+    #projecten-info {
+        grid-area: projecten-info;
+        font-size: 22px;
+        background-color: #9fcdff;
+    }
+
+    #projecten-status{
+        width: 25%;
+        float:left;
+    }
+
+    #projecten-beschrijving{
+        float:left;
+        width: 75%;
+    }
+
+    #projecten-footer {
+        grid-area: projecten-footer;
+        background-color: #9fcdff;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    #projecten-buttons{
+        width: 100%;
+        display: inline-block;
+        font-size: 23px;
+    }
+
+    #projecten-previous{
+        float: left;
+        margin-left: 10%;
+        background-color: #FFB31A;
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+    #projecten-next{
+        float: right;
+        margin-right: 10%;
+        background-color: #FFB31A;
+        color: black;
+        text-decoration: none;
+        padding: 10px;
+    }
+
+
+    /*vanaf hier voor de detailpagina project*/
+
+    #project-row-grid {
+        padding: 0px;
+        display: grid;
+        grid-template-areas: 'project-header' 'project-info' 'project-footer'; /*hier geef je dus je grid componenten op*/
+        grid-gap: 0px;
+        background-color: #FFFFFF;
+        margin: 10px;
+        grid-template-rows: 60px 500px 50px;  /*Drie lagen, dit zijn de hoogtes*/
+        border: 1px solid #00008B;
+    }
+
+    #project-header {
+        grid-area: project-header;
+    }
+
+    #nieuw-project{
+        width: 140px;
+        margin-left: 5%;
+        background-color: #FFB31A;
+        color: black;
+        padding: 10px;
+    }
+
+    #project-nieuw-button{
+        text-decoration: none;
+        font-size: 23px;
+    }
+
+    #project-button {
+        width: 140px;
+        background-color: #FFB31A;
+        color: black;
+        padding: 10px;
+        font-size: 23px;
+    }
+
+    #project-wijzig-button{
+        text-decoration: none;
+    }
+
+    #project-klaar {
+        color:red;
+        background-color: aqua;
+    }
+
+    #project-aanbieder {
+        grid-area: project-header;
+        height: 60px;
+        color: #FFB31A;
+        background-color: #00008B;
+        text-align: center;
+        float: left;
+        width: 35%;
+        border-bottom: 1px solid #00008B;
+
+    }
+
+    #project-titel {
+        grid-area: project-header;
+        height: 60px;
+        text-align: center;
+        background-color: #FFFFFF;
+        float: left;
+        width: 65%;
+        border-bottom: 1px solid #00008B;
+        color: black; /*Puur voor de link/titel*/
+    }
+
+    #project-titel textarea{
+        float: left;
+        margin: 2px;
+        font-size: 25px;
+    }
+
+    #project-type{
+        font-size: 20px;
+    }
+
+    #project-info {
+        grid-area: project-info;
+        font-size: 22px;
+        background-color: green;
+    }
+
+    #project-info-grid{
+        display: grid;
+        grid-template-areas: 'Parameters' 'beschrijving';
+        grid-template-columns: 35% 65%;
+        background-color: #9fcdff;
+    }
+
+    #project-parameters{
+        grid-area: Parameters;
+        background-color: #9fcdff;
+
+    }
+
+    #parameter-tekstvak{
+        width: 50%;
+        float: left;
+    }
+
+    #project-beschrijving textarea{
+        alignment: center;
+        margin: 2px;
+        font-size: 21px;
+    }
+
+    #project-footer {
+        grid-area: project-footer;
+        background-color: #9fcdff;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    #reacties{
+        margin-right: auto;
+        margin-left: 10px;
+    }
+
+    #reacties-scroll {
+        width: auto;
+    }
+
+    #reactie-venster{
+        border: 1px solid #00008B;
+        background-color: #FFB31A;
+        height: 200px;
+        width: 49%;
+        float: left;
+    }
+
+    #reactie-inhoud{
+        margin: 2px;
+        padding: 10px;
+        border: 1px solid #00008B;
+        border-radius: 1%;
+        height: 100px;
+    }
+
+    #colum1{
+        background-color: #9fcdff;
+    }
+
+    #colum2{
+        background-color: #FFB31A;
+    }
+
+    #filter-projecten-kop{
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+}

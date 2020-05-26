@@ -19,7 +19,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");
 <!--overige knoppen-->
 
 
-<div class="grid-container">
+<div class="info">
       <?php require_once ($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/View/Homepagina/view.php");?>
 </div>
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>

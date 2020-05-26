@@ -28,7 +28,6 @@
     /*border: none;*/
     display: block;
     height: 80%;
-
 }
 
 #foto{
@@ -92,7 +91,7 @@
     margin: 0px;
     background-color: #00008B;
     display: grid;
-    grid-template-rows: 15% 35% 35% 15%;
+    grid-template-rows: 15% 35% 35% 10%;
 
 }
 

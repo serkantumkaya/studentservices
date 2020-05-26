@@ -103,7 +103,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
     }
     else
     {
-        header("Location: /StudentServices/View/gebruiker/Add.php?action=failed&content= verficatie email versturen niet gelukt");
+        //header("Location: /StudentServices/View/gebruiker/Add.php?action=failed&content= verficatie email versturen niet gelukt");
         $NaamErr = $answers["Gebruikersnaam"];
         $EmailErr = $answers["Email"];
         $WachtwoordErr = $answers["Wachtwoord"];

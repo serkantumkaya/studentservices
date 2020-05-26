@@ -9,6 +9,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 
+
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
     Header("Location: /StudentServices/inlogPag.php");
 }
@@ -20,6 +21,7 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
+
 <?php
 $GebruikersID =$_SESSION["GebruikerID"];
 
@@ -255,6 +257,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         echo"</select></div>
 
 
+
 <div class=\"block\">
 <!--Opleiding-->
 <label class=\"formlabel\">Opleiding</label>
@@ -312,13 +315,25 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 
         <?php
 
-        function data_uri($file)
-        {
-            $contents = file_get_contents($file);
-            $base64   = base64_encode($contents);
-            return ('data:"image/jpeg";base64,' .  $base64);
-        }
 
+    if (isset($profiel)){
+        $Photo = $profiel->getFoto();
+        //echo $Photo;
+        if (isset($Photo)){
+            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="ProfilePhoto" 
+            name="ProfileImage" ID="ProfileImage"/>';
+        }
+        else
+        {
+            echo '<img src="#" class="ProfilePhoto" name="ProfileImage" ID="ProfileImage"/>';
+        }
+    }
+    ?>
+    <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
+           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);";>
+
+<?php echo "</div>" ?>
+<div class="block">
         if (isset($profiel)){
             $Photo = $profiel->getFoto();
             //echo $Photo;
@@ -352,9 +367,12 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
         $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
 
+
     }
 
+
     if (isset($_POST["delete"]))
+
     {
 
         if ($Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID()))
@@ -394,8 +412,11 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
             echo "Record niet opgeslagen";
         }
     }
+
     ?>
 </div>
+
+
 
 <script>
     function readURL(input) {
@@ -413,6 +434,8 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         }
     }
 </script>
+
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
+
 </body>
 </html>
