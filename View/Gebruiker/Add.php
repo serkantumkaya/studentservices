@@ -17,7 +17,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
-
+    <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js"></script>
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
@@ -105,7 +105,7 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
     }
     else
     {
-        header("Location: /StudentServices/View/gebruiker/Add.php?action=failed&content= verficatie email versturen niet gelukt");
+        //header("Location: /StudentServices/View/gebruiker/Add.php?action=failed&content= verficatie email versturen niet gelukt");
         $NaamErr = $answers["Gebruikersnaam"];
         $EmailErr = $answers["Email"];
         $WachtwoordErr = $answers["Wachtwoord"];

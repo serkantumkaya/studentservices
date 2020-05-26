@@ -21,18 +21,23 @@ class CategorieModel
 
     }
 
-    function add(string $categoienNaam){
-        $statement = $this->conn->prepare("INSTERT INTO Categorie (CategorieNaam) VALUES (:Naam)");
+    /**
+     * @param string $categorieNaam
+     * @return bool
+     */
+    function add(string $categorieNaam){
+        $statement = $this->conn->prepare("INSERT INTO Categorie (CategorieNaam) VALUES (:Naam)");
         $statement->execute([
-            'Naam' => $categoienNaam
+            'Naam' => $categorieNaam
         ]);
         return true;
     }
 
     function delete(int $ID){
-        $sql        = $this->conn->prepare("DELETE FROM Categorie WHERE CATEGORIEID =:$ID");
+        $sql        = $this->conn->prepare("DELETE FROM Categorie WHERE CategorieID =:CID");
+
         $parameters = [
-            '$ID' => $ID
+            'CID' => $ID
         ];
 
         if ($sql->execute($parameters) == true){
@@ -46,7 +51,7 @@ class CategorieModel
         $sql           =
             $this->conn->prepare("UPDATE CATEGORIE SET Categorienaam=:CN Where CategorieID =:CID");//let op id geen quotes
         $categorienaam = $categorie->getCategorienaam();
-        $id            = $categorie->getGategorieID();
+        $id            = $categorie->getCategorieID();
         $parameters    = [
             'CN' => $categorienaam,
             'CID' => $id

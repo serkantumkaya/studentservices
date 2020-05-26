@@ -18,7 +18,7 @@ function showSlides() {
     {
         slideIndex = 0
     }
-    slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
+  //  slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
     setTimeout(showSlides, 10000); // elke 10 sec wisselen
 }
 
@@ -49,6 +49,7 @@ window.onclick = function(event) {
 
 
 function showpopup() {
+    console.log("test");
 
     var queryString = window.location.href;
     var readdata = new URL(queryString);

@@ -71,9 +71,7 @@ class ProfielModel
 
     function update(Profiel $profiel){
 
-        $sql =
-
-            $this->conn->prepare("UPDATE Profiel SET 
+        $sql = $this->conn->prepare("UPDATE Profiel SET 
             School=:School ,Opleiding=:Opleiding ,Startdatumopleiding=:Startdatumopleiding ,Status=:Status,
             Achternaam=:Achternaam ,Voornaam=:Voornaam ,Tussenvoegsel=:Tussenvoegsel,Prefix=:Prefix ,Straat=:Straat ,Huisnummer=:Huisnummer,
             Extentie=:Extensie ,Postcode=:Postcode ,Woonplaats=:Woonplaats ,Geboortedatum=:Geboortedatum ,Telefoonnummer=:Telefoonnummer
@@ -82,7 +80,7 @@ class ProfielModel
         $parameters = [
             'School' => $profiel->getSchool()->getSchoolID(),
             'Opleiding' => $profiel->getOpleiding()->getOpleidingID(),
-            'Startdatumopleiding' => null,//$profiel->getStartdatumopleiding(),
+            'Startdatumopleiding' => $profiel->getStartdatumopleiding(),
             'Status' => $profiel->getStatus(),
             'Achternaam' => $profiel->getAchternaam(),
             'Voornaam' => $profiel->getVoornaam(),
@@ -94,10 +92,9 @@ class ProfielModel
             'Postcode' => $profiel->getPostcode(),
             'Woonplaats' => $profiel->getWoonplaats(),
             'Geboortedatum' => $profiel->getGeboortedatum(),
-            'Telefoonnummer' => null,//$profiel->getTelefoonnummer(),
+            'Telefoonnummer' => $profiel->getTelefoonnummer(),
             'ProfielID' => $profiel->getProfielID()
         ];
-        var_dump($parameters);
         return $sql->execute($parameters);
     }
 
@@ -109,6 +106,19 @@ class ProfielModel
     function getByGebruikerID(int $ID){
         $sql = "SELECT *  FROM Profiel WHERE GebruikerID =$ID";
         return $this->conn->query($sql);
+    }
+
+    function UploadPhoto($Photo, int $profielID)
+    {
+        $sql =
+            $this->conn->prepare("UPDATE Profiel SET Foto = :Photo 
+            Where ProfielID=:ProfielID");//let op id geen quotes
+
+        $parameters = [
+            'Photo' => $Photo,
+            'ProfielID' => $profielID,
+        ];
+        return $sql->execute($parameters);
     }
 }
 

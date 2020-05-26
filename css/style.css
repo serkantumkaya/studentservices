@@ -92,30 +92,38 @@ input[type=submit]:active {
     margin-bottom: 10px;
 }
 
-
-.formcol1 {
+.formlabel {
+    display: inline-block;
     width: 200px;
-    float: left;
-    ;
+    text-align: left;
+    margin-top: 2px;
 }
 
-.formcol2 {
-    width: 300px;
-    float: left;
+​
+.formlabel {
+    display: inline-block;
+    width: auto;
+    text-align: left;
+    margin-top: 2px;
 }
 
-.formcol3 {
-    width: 300px;
-    float: left;
+​
+.formerrorlabel {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin-top: 2px;
 }
 
+​
 .formouter {
     border-radius: 25px;
     border: 1px solid #00008B;
-    position: relative;
-    text-align: right;
-    height: 440px;
-    width: 500px;
+    background-color: pink;
+    /*position: relative;*/
+    /*text-align: right;*/
+    /*height: 440px;*/
+    /*width: 500px;*/
     margin-top: 20px;
     padding-top: 20px;
     padding-left: 20px;
@@ -132,6 +140,20 @@ textarea {
     resize: none;
 }
 
+.profielfotoform {
+    border-radius: 25px;
+    border: 1px solid #00008B;
+    padding: 20px;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    margin-bottom: auto;
+    z-index: 0;
+    left: 500px;
+    position: fixed;
+    top: 75px;
+}
+
 .studentfoto {
     height: 150px;
     width: 100px;
@@ -143,6 +165,7 @@ textarea {
     top: 0px;
     height: 100px;
     width: 100px;
+    z-Index:999;
 }
 
 .sliderimage {
@@ -155,6 +178,22 @@ textarea {
     display: none;
 }
 
+.flaglanguage
+{
+    width:30px;
+    heigt:20px;
+    margin:0px;
+}
+
+.flaglanguagebutton
+{
+    width:32px; !important;
+    heigt:22px;!important;
+    padding:0px;!important;
+    border:0;!important;
+    background-color: transparent;
+}
+
 #page-nav {
     width: 100%;
     position: fixed;
@@ -164,16 +203,28 @@ textarea {
 
 
 #nav ul {
-    position:absolute;
-    padding:0;
-    left:0;
-    display:none; /* hides sublists */
+    position: absolute;
+    padding: 0;
+    left: 0;
+    display: none; /* hides sublists */
 }
 
-#nav li:hover ul ul {display:none;} /* hides sub-sublists */
+#nav li:hover ul ul {
+    display: none;
+}
 
-#nav li:hover ul ul {display:none;} /* hides sub-sublists */
-#nav li:hover ul {display:block;} /* shows sublist on hover */
+/* hides sub-sublists */
+
+#nav li:hover ul ul {
+    display: none;
+}
+
+/* hides sub-sublists */
+#nav li:hover ul {
+    display: block;
+}
+
+/* shows sublist on hover */
 /*#nav li li:hover ul {*/
 /*    display:block; !* shows sub-sublist on hover *!*/
 /*    margin-left:200px; !* this should be the same width as the parent list item *!*/
@@ -183,6 +234,18 @@ textarea {
     grid-area: info;
     /*top:150px;/*
     height: auto;
+    /*position:fixed;*/
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 100px;
+    padding-top: 202px;
+    /*auto scrollbars bij een grotere wordende tekst*/
+}
+
+.infologin {
+    grid-area: info;
+    top:150px;
+    /*height: auto;
     /*position:fixed;*/
     width: 100%;
     overflow: auto;
@@ -233,9 +296,8 @@ dt {
     width: 82%;
     height: auto;
     margin: 100px;
-    margin-bottom: auto;
     text-align: center;
-    maring-bottom: 20px;
+    margin-bottom: 20px;
     z-index: 0;
 }
 
@@ -313,6 +375,7 @@ ul lisub a:hover {
 lisub:last-child {
     border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
 }
+
 .header {
     grid-area: header;
     height: 100px;
@@ -394,7 +457,6 @@ iframe {
     margin: 0px; /*geen witte randen*/
     height: 100vh;
     grid-template-rows: 40px 100px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-
 }
 
 .grid-containersubs {
@@ -406,7 +468,6 @@ iframe {
     margin: 0px; /*geen witte randen*/
     height: 100vh;
     grid-template-rows: 500px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-
 }
 
 .contactcel {
@@ -468,6 +529,10 @@ a.button {
     width: 140px;
 }
 
+
+
+
+
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
 @media only screen and (max-width: 820px) {
@@ -475,6 +540,21 @@ a.button {
         border: none;
         width: 99%;
     }
+
+    .profielfotoform {
+        border-radius: 25px;
+        border: 1px solid #00008B;
+        padding: 20px;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        margin-bottom: auto;
+        z-index: 0;
+        position: unset;
+        left: 0px;
+        top: auto;
+    }
+
 
     #page-nav label {
         position: fixed;
@@ -675,6 +755,20 @@ a.button {
         grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
     }
 
+    .profielfotoform {
+        border-radius: 25px;
+        border: 1px solid #00008B;
+        padding: 20px;
+        width: 200px;
+        height: 200px;
+        margin: 10px;
+        margin-bottom: auto;
+        z-index: 0;
+        position: unset;
+        left: 0px;
+        top: auto;
+    }
+
     .itemslider {
         display: none;
     }
@@ -850,11 +944,19 @@ textarea {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

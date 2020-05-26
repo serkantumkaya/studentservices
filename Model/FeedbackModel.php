@@ -34,9 +34,9 @@ class FeedbackModel
 
     public function delete(int $ID){
         //delete feedback
-        $sql = $this->conn->prepare("DELETE FROM Feedback WHERE FeedbackID  =:SID");
+        $sql = $this->conn->prepare("DELETE FROM Feedback WHERE FeedbackID  =:FeedbackID");
         $parameters = [
-            'SID' => $ID
+            'FeedbackID' => $ID
         ];
         if ($sql->execute($parameters) == true){
             return "Record verwijderd";
@@ -65,9 +65,14 @@ class FeedbackModel
      * @return array
      */
 
-    public function get(int $ID): array {
+    public function getById(int $ID): array {
         $sql = "SELECT * FROM FEEDBACK WHERE FeedbackID = $ID";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getByProjectID(int $ID): array{
+        $sql = "SELECT * FROM FEEDBACK WHERE ProjectID = $ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
     }
 
     /**

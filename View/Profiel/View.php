@@ -1,12 +1,9 @@
-
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
+ini_set('display_errors', 1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
 session_start();
-?>
-
-<!DOCTYPE HTML>
+?><!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -22,7 +19,7 @@ session_start();
         <?php
         //nu i
         $focus = "";
-        if (isset($_SESSION["CurrentNaam"])) {
+        if (isset($_SESSION["CurrentNaam"])){
             $focus = trim($_SESSION["CurrentNaam"]);
         }
         ?>
@@ -34,60 +31,59 @@ session_start();
 
 <body>
 
-    <div class="header">
-        <nav id="page-nav">
-            <!-- [THE HAMBURGER] -->
-            <label for="hamburger">&#9776;</label>
-            <input type="checkbox" id="hamburger"/>
+<div class="header">
+    <nav id="page-nav">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
 
-            <!-- [MENU ITEMS] -->
+        <!-- [MENU ITEMS] -->
 
-<ul>
-    <?php
-    echo "<li>
+        <ul>
+            <?php
+            echo "<li>
             <a href=\"Add.php\">Nieuw</a>
         </li>";
-    echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
-    ?>
-</ul>
-        </nav>
-        <img id=
-             <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
-    </div>
+            echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
+            ?>
+        </ul>
+    </nav>
+    <img id=
+         <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
+</div>
 
 <div class="info">
-<form  method="post" action="Edit.php">
-<table> <tr> <th>Profiel</th> <th></th> <th></th></tr>
-<tr><td>
-    <?php
+    <form method="post" action="Edit.php">
+        <table>
+            <tr>
+                <th>Profiel</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    <?php
 
-    //DO NOT USE A BIG IF. If the conditions are not met. Return.
-    if (empty($_Post) && !isset($_Post["actie"]))
-    {
-        //todo : wijzigen naar $_SESSION["GebruikerID"]
-        $profielcontroller= new ProfielController(1000);
+                    //DO NOT USE A BIG IF. If the conditions are not met. Return.
+                    if (empty($_Post) && !isset($_Post["actie"])){
+                        //todo : wijzigen naar $_SESSION["GebruikerID"]
+                        $profielcontroller = new ProfielController(1005);
 
-        foreach ($profielcontroller->GetProfielen() as $profiel)
-        {
-            echo "<tr> <td> <input type=\"submit\" value=\"".$profiel->getVoornaam()."\" formaction='Edit.php?ID=".$profiel->getProfielId()."' class=\"table1col\"> </td></tr>";
-        }
-    }
+                        foreach ($profielcontroller->GetProfielen() as $profiel){
+                            echo "<tr> <td> <input type=\"submit\" value=\"" . $profiel->getVoornaam() .
+                                "\" formaction='Edit.php?ID=" . $profiel->getProfielId() .
+                                "' class=\"table1col\"> </td></tr>";
+                        }
+                    }
 
-    ?>
-    </td>
-</tr>
-</table>
-</form>
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </form>
 </div>
-<div class="footer">
-    <div>© Student Services, 2020
-        <?php
-        $GebrID = 1;
-        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
-
-        ?>
-    </div>
-</div>
+<div>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>
 

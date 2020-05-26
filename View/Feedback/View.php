@@ -2,12 +2,13 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/FeedbackController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
 
 if (empty($_Post) && !isset($_Post["actie"])){
     $feedbackController = new FeedbackController();
 }
-
+$gebruikercontroller = new GebruikerController(-1);
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -65,7 +66,7 @@ if (empty($_Post) && !isset($_Post["actie"])){
 
             echo "<tr>
                     <td>
-                        <input type=\"submit\" value=\"" . $feedback->getGebruikerNaam() .
+                        <input type=\"submit\" value=\"" . $gebruikercontroller->getById($feedback->getGebruikerID()) .
                 "\" formaction='../Profiel/Edit.php?ID=" . $feedback->getGebruikerID() .
                 "' class=\"table1col\"> 
                     </td>
@@ -75,7 +76,7 @@ if (empty($_Post) && !isset($_Post["actie"])){
                 "' class=\"table1col\"> 
                     </td>
                     <td>
-                       <input type=\"submit\" value=\"" . $feedback->getReviewKort() .
+                       <input type=\"submit\" value=\"" . $feedbackController->getReviewKort($feedback->getReview()) .
                 "\" formaction='Edit.php?ID=" . $feedback->getFeedbackID() .
                 "' class=\"table1col\">
                     </td>

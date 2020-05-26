@@ -1,7 +1,6 @@
 <?php
-
-// Hier is patrick nog mee bezig
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once "School.php";
 require_once "Opleiding.php";
 
@@ -11,25 +10,25 @@ class Profiel
     private int $GebruikerID;
     private ?School $School;
     private ?Opleiding $Opleiding;
-    private ?DateTime $Startdatumopleiding;
-    private ?imagejpeg $Foto;
-    private string $Status;
-    private string $Achternaam;
-    private string $Voornaam;
-    private string $Tussenvoegsel;
-    private string $Prefix;
-    private string $Straat;
-    private int $Huisnummer;
-    private string $Extentie;
-    private string $Postcode;
-    private string $Woonplaats;
-    private ?DateTime $Geboortedatum;
-    private string $Telefoonnummer;
+    private ?string $Startdatumopleiding;
+    private $Foto;
+    private ?string $Status;
+    private ?string $Achternaam;
+    private ?string $Voornaam;
+    private ?string $Tussenvoegsel;
+    private ?string $Prefix;
+    private ?string $Straat;
+    private ?int $Huisnummer;
+    private ?string $Extentie;
+    private ?string $Postcode;
+    private ?string $Woonplaats;
+    private ?string $Geboortedatum;
+    private ?string $Telefoonnummer;
 
     public function __construct(int $ProfielID, int $GebruikerID, ?School $School, ?Opleiding $Opleiding,
-        ?DateTime $Startdatumopleiding, string $Status, string $Achternaam, string $Voornaam, string $Tussenvoegsel,
-        string $Prefix, string $Straat, int $Huisnummer, string $Extentie, string $Postcode,
-        string $Woonplaats, ?DateTime $Geboortedatum, string $Telefoonnummer){
+        ?string $Startdatumopleiding, ?string $Status, ?string $Achternaam, ?string $Voornaam, ?string $Tussenvoegsel,
+        ?string $Prefix, ?string $Straat, ?int $Huisnummer, ?string $Extentie, ?string $Postcode,
+        ?string $Woonplaats, ?string $Geboortedatum, ?string $Telefoonnummer){
         $this->ProfielID           = $ProfielID;
         $this->GebruikerID         = $GebruikerID;
         $this->School              = $School;
@@ -110,31 +109,34 @@ class Profiel
     }
 
     /**
-     * @return ?DateTime
+     * @return ?string
      */
-    public function getStartdatumopleiding(): ?DateTime{
+    public function getStartdatumopleiding(): ?string{
         return $this->Startdatumopleiding;
     }
 
     /**
-     * @param DateTime $Startdatumopleiding
+     * @param string $Startdatumopleiding
      */
-    public function setStartdatumopleiding(DateTime $Startdatumopleiding): void{
+    public function setStartdatumopleiding(string $Startdatumopleiding): void{
         $this->Startdatumopleiding = $Startdatumopleiding;
     }
 
     /**
-     * @return imagejpeg
+     * @return string
      */
-    public function getFoto(): imagejpeg{
+    public function getFoto(){
         return $this->Foto;
     }
 
     /**
-     * @param imagejpeg $Foto
+     * @param $Foto
      */
-    public function setFoto(imagejpeg $Foto): void{
-        $this->Foto = $Foto;
+    public function setFoto(string $Foto): void{
+
+        if ($Foto == null || $Foto == "") $this->Foto = "";
+        else $this->Foto = $Foto;
+//wordt omgezet naar 64encode dus tot zover goed.
     }
 
     /**
@@ -182,7 +184,7 @@ class Profiel
     /**
      * @return string
      */
-    public function getTussenvoegsel(): string{
+    public function getTussenvoegsel(){
         return $this->Tussenvoegsel;
     }
 
@@ -278,16 +280,16 @@ class Profiel
     }
 
     /**
-     * @return ?DateTime
+     * @return ?string
      */
-    public function getGeboortedatum(): ?DateTime{
+    public function getGeboortedatum(): ?string{
         return $this->Geboortedatum;
     }
 
     /**
-     * @param DateTime $Geboortedatum
+     * @param string $Geboortedatum
      */
-    public function setGeboortedatum(DateTime $Geboortedatum): void{
+    public function setGeboortedatum(string $Geboortedatum): void{
         $this->Geboortedatum = $Geboortedatum;
     }
 

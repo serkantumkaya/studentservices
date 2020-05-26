@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors',1);
+
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Reactie.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
 
@@ -8,60 +9,67 @@ class ReactieModel
 {
     private PDO $conn;//current connection
     private ConnectDB $ConnectDb;//current connection
-    private Reactie $reactie;
 
     public function __construct(){
         $this->ConnectDb = new ConnectDb();
         $this->conn      = $this->ConnectDb->GetConnection();
     }
 
-    public function getReacties(){
-        $sql = "SELECT ReactieID ,
+    public function getReacties(): array{
+        $sql = "SELECT ReactieID,
             GebruikerID,
-            ProfielID,
+            Timestamp, 
             ProjectID,
             Reactie FROM Reactie";
-        return $this->conn->query($sql);
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function add(
-        int $GebruikersID, int $ProfielID, int $ProjectID, string $Reactie){
-
+    function add(int $GebruikerID,int $ProjectID,string $Reactie): bool{
         $statement =
-            $this->conn->prepare("INSERT INTO Reactie (GebruikerID, ProfielID, ProjectID, Reactie) VALUES (:GebruikerID, :ProfielID, :ProjectID, :Reactie)");
-        $statement->execute(['GebruikersID' => $GebruikersID, 'ProfielID' => $ProfielID->getProfielID(),
-            'PojecctID' => $ProjectID->getProjectID(),
-            'Reatie' => $Reactie]);
-        return true;
+            $this->conn->prepare("INSERT INTO `reactie` (`ReactieID`, `GebruikerID`, `ProjectID`, `Timestamp`, `Reactie`) VALUES(NULL, :GebruikerID, :ProjectID, current_timestamp(), :Reactie);");
+        return $statement->execute([
+            'GebruikerID' => $GebruikerID,
+            'ProjectID' => $ProjectID,
+            'Reactie' => $Reactie]);
     }
 
     function delete(int $ID){
-
         $sql = $this->conn->prepare("DELETE FROM Reactie WHERE ReactieID=:RID");
-
         $parameters = [
             'RID' => $ID
         ];
-
-        return $sql->execute($parameters);
+        if ($sql->execute($parameters) == true){
+            return "Record verwijderd";
+        } else{
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
     }
 
-    function update(int $ProfielID, int $ProjectID, string $Reactie){
-
+    function update(Reactie $Reactie):bool {
         $sql =
-
-            $this->conn->prepare("UPDATE Reactie SET 
-            Reactie=:SReactie)
-            VALUES (:GebruikersID ,:ProfielID ,:ProjectID ,:Reactie Where ReactieID=:ReactieID");//let op id geen quotes
+            $this->conn->prepare("UPDATE Reactie SET GebruikerID=:GebruikerID, Reactie=:SReactie, ProjectID=:ProjectID)
+            WHERE ReactieID= ".$Reactie->getReactieID()." ");
 
         $parameters = [
-            'Reactie' => $Reactie];
-
+            'GebruikerID'=>$Reactie->getGebruikerID(),
+            'Reactie' => $Reactie->getReactie(),
+            'ProjectID' => $Reactie->getProjectID(),
+        ];
         return $sql->execute($parameters);
     }
 
     function getById(int $ID){
         $sql = "SELECT *  FROM Reactie WHERE ReactieID =$ID";
-        return $this->conn->query($sql);
+        return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
+    public function getByProjectID(int $ID): array{
+        $sql = "SELECT * FROM Reactie WHERE ProjectID = $ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+    }
+
+    function getByGebruikerId(int $ID){
+        $sql = "SELECT *  FROM Reactie WHERE GebruikerID =$ID";
+        return $this->conn->query($sql)->fetchALL(PDO::FETCH_ASSOC);
+    }
+
 }

@@ -13,20 +13,15 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
 ?><!DOCTYPE HTML>
 <html>
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");
 
 ?>
 <!--overige knoppen-->
 
 
-<div class="grid-container">
-    <div class="info">
-        <p>Hier moet nog iets komen. waarschijnlijk een projectenoverzicht of jouw profiel van de ingelogde
-            gebruiker<br>
-            Zoeken moet nog worden verwerkt.
-            de links bovenin vanaf 'mijn profiel' werken nog niet.</p>
-    </div>
+<div class="info">
+      <?php require_once ($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/View/Homepagina/view.php");?>
 </div>
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
 </body>
 </html>

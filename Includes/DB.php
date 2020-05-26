@@ -26,7 +26,6 @@ class ConnectDB {
     public static function makeSafe($password)
     {
         $salt = "Gue\$This0192893847KGYTRT!";
-        //TODO: toepassen in alles wat wachtwoorden bevat
         return hash("sha256", "{$salt}.{$password}");
     }
 
