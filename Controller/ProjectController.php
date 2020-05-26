@@ -14,9 +14,9 @@ class ProjectController
         $this->projectmodel = new ProjectModel();
     }
 
-    public function getProjecten($sql = null){
+    public function getProjecten(){
         $ProjectArray = [];
-        foreach ($this->projectmodel->getProjecten($sql) as $project){
+        foreach ($this->projectmodel->getProjecten() as $project){
             $projectObject   =
                 new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
@@ -84,7 +84,6 @@ class ProjectController
         return $ProjectArray;
     }
 
-<<<<<<< HEAD
     function getByProjectID(int $ProjectID){
         $ProjectArray = [];
         foreach ($this->projectmodel->getByID($ProjectID) as $project){
@@ -98,13 +97,10 @@ class ProjectController
     }
 
     function getPerPagina(int $page):array {
-=======
-    function getPerPagina(string $sql,int $page):array {
->>>>>>> 161df6cde79144b048b2db3ba9134e2e5727440b
         $begin = ($page*6)-6;
         $limit = 6;
         $ProjectArray = [];
-        foreach ($this->projectmodel->getPerPagina($sql, $begin, $limit) as $project){
+        foreach ($this->projectmodel->getPerPagina($begin, $limit) as $project){
             $projectObject   =
                 new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
@@ -115,45 +111,4 @@ class ProjectController
     }
 
 
-    function createFilter($filters = null):string {
-        $SQL = "SELECT * FROM `project` WHERE ProjectID >= 1 ";
-        if (isset($filters['status'])){
-            $SQL .= $this->getFilter($filters['status'], "STATUS");
-        }
-        if (isset($filters['categorie'])){
-            $SQL .= $this->getFilterCategorie($filters['categorie']);
-        }
-        if (isset($filters['type'])){
-            $SQL .= $this->getFilter($filters['type'],"TYPE");
-        }
-        return $SQL;
-    }
-
-    function getFilter(array $zoekwoorden,string $filter):string {
-        $i   = 0;
-        $SQL = "";
-        foreach ($zoekwoorden as $key => $value){
-            $i++;
-            if ($i == 1){
-                $SQL .= "AND $filter LIKE '%$value%' ";
-            }else{
-                $SQL .= "OR $filter LIKE '%$value%' ";
-            }
-        }
-        return $SQL;
-    }
-//SELECT * from project where ProjectID > 1 and CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'Kleien') or CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'fotograferen')
-    function getFilterCategorie(array $zoekwoorden):string {
-        $i   = 0;
-        $SQL = "";
-        foreach ($zoekwoorden as $key => $value){
-            $i++;
-            if ($i == 1){
-                $SQL .= "AND CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = '$value') ";
-            }else{
-                $SQL .= "OR CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = '$value') ";
-            }
-        }
-        return $SQL;
-    }
 }
