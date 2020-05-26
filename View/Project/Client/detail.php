@@ -88,7 +88,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="reacties">
                 <div id="reacties-scroll">
                     <div id="reactie-venster">
-                        <form action="../../ClientSide/Project.php?ProjectID=<?php echo $projectID;?>" method="post">
+                        <form action="/StudentServices/ClientSide/Project.php?view=detail&ProjectID=<?php echo $projectID;?>" method="post">
                             <label for="Reactie"><h3>Nieuwe reactie:</h3></label>
                             <textarea maxlength="500" name="Reactie" cols="1" rows="5"
                                       placeholder="Max 500 characters" required></textarea>
