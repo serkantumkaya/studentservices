@@ -6,8 +6,8 @@
     display: grid;
     padding: 0px; /*geen witte randen*/
     margin: 0px; /*geen witte randen*/
-    height: 100vh;
-    grid-template-rows: 300px auto;
+    height: 90vh;
+    grid-template-rows: 250px auto;
 }
 
 .head{
@@ -91,7 +91,7 @@
     margin: 0px;
     background-color: #00008B;
     display: grid;
-    grid-template-rows: 15% 35% 35% 10%;
+    grid-template-rows: 20% 40% 40%;
 
 }
 
