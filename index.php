@@ -7,7 +7,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielCon
 
 session_start();
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
-    Header("Location: /StudentServices/inlogPag.php");
+    Header("Location: /StudentServices/inlogPagSerkan.php");
 }
 
 ?><!DOCTYPE HTML>
