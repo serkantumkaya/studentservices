@@ -69,7 +69,7 @@ class ProfielController
     }
 
     function getById(int $id): profiel{
-        echo "1";
+        //echo "1";
         $profielmodel        = new ProfielModel();
         $Profiel             = $profielmodel->getByID($id)->fetch(PDO::FETCH_ASSOC);
         $schoolcontroller    = new SchoolController();
