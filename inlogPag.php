@@ -4,7 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerC
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 
 $wronglogin = "";
-
+ 
 //Why on and off? Because it's a checkbox thing.
 $rememberpassword = "off";
 //for choosing language
