@@ -18,14 +18,14 @@ function vertifyemaillink() {
             email: email,
             username: username
         }, success: function (response) {
-            if (response.status == "success") {
-                console.log(response["response"]);
-             //   alert(response["response"]);
-                window.location.href = "http://localhost/StudentServices/inlogPag.php?action=succes&content=" + response["response"];
-            } else {
-               // alert(response["response"]);
-                console.log(response["response"]);
-                window.location.href = "http://localhost/StudentServices/View/Gebruiker/Add.php?action=failed&content=" + response["response"];
+            if(!(response === undefined || response == null)){
+                if (response.status == "success") {
+                    console.log(response["response"]);
+                    window.location.href = "http://localhost/StudentServices/inlogPag.php?action=succes&content=" + response["response"];
+                } else {
+                    console.log(response["response"]);
+                    window.location.href = "http://localhost/StudentServices/View/Gebruiker/Add.php?action=failed&content=" + response["response"];
+                }
             }
         }
     });
