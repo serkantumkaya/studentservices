@@ -66,8 +66,6 @@ else
     setcookie($cookie_name3, "", time()-86400, "/"); // 86400 = 1 day
     $rememberpassword == "off";
 }
-
-
 //Even if you uncheck remember me and tell google to remember your password and user
 //the credentials will still be visible. So if you want to test this right.
 //Do not let google remember your password.
@@ -96,6 +94,8 @@ if (isset($_POST['username']) && $_POST['password'])
     }
 }
 
+
+
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -115,10 +115,7 @@ if (isset($_POST['username']) && $_POST['password'])
 <body onload="showSlides();">
 
 
-<div class="grid-container">
-
-
-
+<div class="inlogpag">
     <div class="header">
         <form method="post" action="inlogPag.php">
             <button type="submit" name="language" value="NL" class="flaglanguagebutton">
@@ -129,7 +126,6 @@ if (isset($_POST['username']) && $_POST['password'])
     <img id=
          <a href="index.html"><img id="logo" src="images/logotrans.png"/></a>
 </div>
-
     <div class="itemslider">
         <div class="mySlides fade">
             <img src="/StudentServices/images/9.png" class="sliderimage">
@@ -147,18 +143,11 @@ if (isset($_POST['username']) && $_POST['password'])
             <img src="/StudentServices/images/13.png" class="sliderimage">
         </div>
     </div>
-         <div class="info">
-    </div>
-
-    <div class="footer">
-        <div>© Student Services, 2020
-        </div>
-    </div>
 
     <div class="popup" id="test">
         <span class="popuptext" id="myPopup"></span>
     </div>
-
+<div class="login">
     <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
         <!--styling is tijdelijk-->
@@ -213,7 +202,7 @@ if (isset($_POST['username']) && $_POST['password'])
                 <input type='submit' name='Submit' value='Submit'/>
                 <?php
                 if ($wronglogin != ""){
-                    echo "<input type = 'submit' name = 'ikbenmijnwwvergeten' value = 'Wachtwoord vergeten' />";
+                    echo "<a href='?action=resetpassword'>reset password</a>";
                 }
                 ?>
 
@@ -221,6 +210,7 @@ if (isset($_POST['username']) && $_POST['password'])
         </div>
 
     </form>
+</div>
 
     <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
         <div class="container-register">
@@ -229,6 +219,11 @@ if (isset($_POST['username']) && $_POST['password'])
 
         </div>
     </form>
+
+    <div class="footer">
+        <div>© Student Services, 2020
+        </div>
+    </div>
 </div>
 </body>
 </html>
