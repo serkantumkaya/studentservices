@@ -6,18 +6,18 @@ session_start();
 ?>
 <html>
 <body>
-<h1>Wijzigen school</h1>
+<h1>Wijzigen beschikbaarheid</h1>
 <?php
 
 
 if (isset($_GET["ID"])){
-    $schoolcontroller = new SchoolController();
-    $sg               = $schoolcontroller->getById($_GET["ID"]);
+    $beschikbaarheidcontroller = new BeschikbaarheidController();
+    $sg               = $beschikbaarheidcontroller->getById($_GET["ID"]);
 
     if (isset($sg)){
-        $school                      = new School($sg['SchoolID'], $sg['Schoolnaam']);
-        $_SESSION["CurrentSchool"]   = $school;
-        $_SESSION["CurrentSchoolid"] = $school->getSchoolID();
+        $beschikbaarheid                     = new Beschikbaarheid($sg['SchoolID'], $sg['Schoolnaam']);
+        $_SESSION["CurrentSchool"]   = $beschikbaarheid;
+        $_SESSION["CurrentSchoolid"] = $beschikbaarheid->getSchoolID();
 
     }
 }
@@ -27,7 +27,7 @@ if (isset($_POST["SchoolNaam"])){
 }
 
 if ($_SESSION["CurrentSchool"] != null){
-    $school = $_SESSION["CurrentSchool"];
+    $beschikbaarheid = $_SESSION["CurrentSchool"];
 
 }
 
@@ -39,7 +39,7 @@ if (isset($_POST["Post"])){
     $value = $_SESSION["CurrentNaam"];
 } else{
     if (isset($_GET["ID"])){
-        $value = $school->getSchoolnaam();
+        $value = $beschikbaarheidl->getSchoolnaam();
     } else{
         $value = $_POST["SchoolNaam"];
     }
@@ -56,8 +56,8 @@ if (!isset($_POST["Delete"]) && isset($_GET["ID"])){
 }
 
 if (isset($_POST["delete"])){
-    $schoolcontroller = new SchoolController();
-    if ($schoolcontroller->delete($_SESSION["CurrentSchoolid"])){
+    $beschikbaarheidcontroller = new BeschikbaarheidController();
+    if ($beschikbaarheidcontroller->delete($_SESSION["CurrentSchoolid"])){
         header("Location: View.php");
         //echo "Record verwijderd";
         //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
@@ -67,15 +67,15 @@ if (isset($_POST["delete"])){
     if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) &&
         isset($_SESSION["CurrentSchoolid"]))//post van maken dit is niet goed,.
     {
-        $schoolcontroller = new SchoolController();
+        $beschikbaarheidcontroller = new BeschikbaarheidController();
         if ($_SESSION["CurrentNaam"]){
-            $school = new School($_SESSION["CurrentSchoolid"], $_SESSION["CurrentNaam"]);
+            $beschikbaarheid = new School($_SESSION["CurrentSchoolid"], $_SESSION["CurrentNaam"]);
         }
 
-        if ($schoolcontroller->update($school)){
-            $_SESSION["CurrentSchool"]   = $school;
-            $_SESSION["CurrentNaam"]     = $school->getSchoolnaam();
-            $_SESSION["CurrentSchoolid"] = $school->getSchoolID();
+        if ($beschikbaarheidcontroller->update($beschikbaarheid)){
+            $_SESSION["CurrentSchool"]   = $beschikbaarheid;
+            $_SESSION["CurrentNaam"]     = $beschikbaarheid->getSchoolnaam();
+            $_SESSION["CurrentSchoolid"] = $beschikbaarheid->getSchoolID();
             header("Location: View.php");
             //echo "Record opgeslagen.";
             //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
