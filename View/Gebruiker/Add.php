@@ -17,6 +17,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
+    <link rel="stylesheet" href="/StudentServices/css/Profiel.css">
     <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js"></script>
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
@@ -44,10 +45,6 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 </div>
 
 <div class="info">
-    <div class="popup" id="test">
-        <span class="popuptext" id="myPopup"></span>
-    </div>
-<!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
 
 <?php
 $NaamErr = "";
@@ -58,8 +55,9 @@ $WachtwoordCheckErr = "";
 //validatie client and serverside. https://stackoverflow.com/questions/8780436/user-input-validation-client-side-or-server-side-php-js?
 //dus de invoer checken met javascript maar ook in de controler controleren serverside.
 
-echo "<h1 > Aanmaken login gegevens</h1 ><br>
-<form action = \"Add.php\" method = \"post\" >
+echo "<h1 class=\"h1profiel\"> Aanmaken login gegevens</h1 ><br>
+<div class=\"divprofiel\">
+<form action = \"Add.php\" method = \"post\" class=\"profielform\" >
 
     <div class='gebruikerlabel'>Gebruikersnaam *</div>
         <div class='gebruikerinput'><input type = \"text\" name=\"GebruikersNaam\" value=\"";
@@ -83,7 +81,7 @@ echo "\" /></div>
          <span class='gebruikersinput'>$WachtwoordCheckErr</span>    
 
        <input type=\"submit\" >  <br><br><br>
-    </form >";
+    </form ></div>";
 
 if (isset( $_POST["GebruikersNaam"]) && isset( $_POST["Wachtwoord"]) &&
 isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation errors

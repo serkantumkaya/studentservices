@@ -4,10 +4,25 @@ p {
 }
 
 body {
+    background-color: #0A0849;
     height: 100%;
     padding: 0px;
     margin: 0px;
 }
+
+
+
+
+.info {
+    width: 100%;
+    overflow: auto;
+    padding-left : 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-bottom : 10px;
+}
+
+
 
 .table1col {
     display: inline-block;
@@ -92,17 +107,16 @@ input[type=submit]:active {
     margin-bottom: 10px;
 }
 
-.formlabel {
+.forminput {
     display: inline-block;
-    width: 200px;
+    width: auto;
     text-align: left;
     margin-top: 2px;
 }
 
-​
 .formlabel {
     display: inline-block;
-    width: auto;
+    width: 200px;
     text-align: left;
     margin-top: 2px;
 }
@@ -129,6 +143,7 @@ input[type=submit]:active {
     padding-left: 20px;
     margin-left: 20px;
     margin-bottom: 20px;
+    float:left;
 }
 
 #validation {
@@ -140,24 +155,9 @@ textarea {
     resize: none;
 }
 
-.profielfotoform {
-    border-radius: 25px;
-    border: 1px solid #00008B;
-    padding: 20px;
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    margin-bottom: auto;
-    z-index: 0;
-    left: 500px;
-    position: fixed;
-    top: 75px;
-}
 
-.studentfoto {
-    height: 150px;
-    width: 100px;
-}
+
+
 
 #logo {
     position: fixed; /*Logo altijd in de hoek*/
@@ -184,6 +184,16 @@ textarea {
 {
     width:30px;
     heigt:20px;
+    margin:0px;
+}
+
+.flaglanguagebutton
+{
+    width:32px; !important;
+    heigt:22px;!important;
+    padding:0px;!important;
+    border:0;!important;
+    background-color: transparent;
 }
 
 #page-nav {
@@ -222,17 +232,7 @@ textarea {
 /*    margin-left:200px; !* this should be the same width as the parent list item *!*/
 /*    margin-top:-35px; !* aligns top of sub menu with top of list item *!*/
 
-.info {
-    grid-area: info;
-    /*top:150px;/*
-    height: auto;
-    /*position:fixed;*/
-    width: 100%;
-    overflow: auto;
-    margin-bottom: 100px;
-    margin-top: 5px;
-    /*auto scrollbars bij een grotere wordende tekst*/
-}
+
 
 .infologin {
     grid-area: info;
@@ -434,7 +434,7 @@ iframe {
     overflow: hidden; /*hier geen scrollbars*/
     background-color: transparent;
     width: 100%;
-    height:100px;
+    height:1px;
     top:0px;
     border-bottom: 1px solid #00008B;
 }
@@ -520,62 +520,9 @@ a.button {
     width: 140px;
 }
 
-.grid-container-colums {
-    grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
-    grid-gap: 0px;
-    background-color: #FFFFFF;
-    display: grid;
-    padding: 0px; /*geen witte randen*/
-    margin: 0px; /*geen witte randen*/
-    /*height: 100vh;*/
-    grid-template-columns: 100px 220px auto 220px 100px;
-}
 
-#project-row-grid {
-    padding: 10px;
-    display: grid;
-    grid-template-areas: 'project-header' 'project-info' 'project-footer'; /* hier geef je dus je grid componenten op*/
-    grid-gap: 0px;
-    background-color: #FFFFFF;
-    /*padding: 0px; !*geen witte randen*!*/
-    margin: 0px; /*geen witte randen*/
-    grid-template-rows: 60px 50px 20px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-}
 
-#project-row {
-    background-color: #FFB31A;
-}
 
-#project-header{
-    grid-area: project-header;
-    background-color: yellow;
-}
-
-#project-type {
-    background-color: grey;
-    float: left;
-    width: 25%;
-}
-
-#project-titel {
-    background-color: #20c997;
-    float: left;
-    width: 75%;
-}
-
-#project-info{
-    grid-area: project-info;
-    background-color: #c82333;
-    font-size: 22px;
-
-}
-
-#project-footer{
-    grid-area: project-footer;
-    background-color: #9fcdff;
-    text-align: right;
-    padding-right: 10px;
-}
 
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
