@@ -12,14 +12,17 @@ function showSlides() {
 
     for (i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  //standaard verbergen
+
     }
     slideIndex++;
     if (slideIndex >= slides.length) //als de teller hoger of gelijk is aan het aantal slides n+1, dan terug naar 0
     {
         slideIndex = 0
     }
-  //  slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
-    setTimeout(showSlides, 10000); // elke 10 sec wisselen
+    slides[slideIndex].style._width= '100%';
+    slides[slideIndex].style.display = "block"; //1 tonen die aan de beurt is.
+   // slides[i].style.width = '100%';
+    setTimeout(showSlides, 5000); // elke 10 sec wisselen
 }
 
 function GetSchool() {
@@ -31,11 +34,6 @@ function GetSchool() {
     }
 }
 
-function checkGebruikerInput()
-{
-
-
-}
 
 var modal = document.getElementById('id01');
 
