@@ -1,6 +1,7 @@
 <?php
 //put your translations here
 //USE English keys! Be professional.
+//Jelle is gek
 class Translate
 {
     //NL,EN
