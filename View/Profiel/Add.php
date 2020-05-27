@@ -295,10 +295,10 @@ if (isset($_POST["Telefoonnummer"]))
 echo "'></div>";
 ?>
 
-<label class="formlabel">Profielfoto:</label><br />
+<!--<label class="formlabel">Profielfoto:</label><br />-->
 
 </div>
-<div class="block">
+<!--<div class="block">-->
     <?php
     //echo "<label class=\"formlabel\">Profielfoto:</label><br />";
 
@@ -321,8 +321,8 @@ echo "'></div>";
     <!--<input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."-->
     <!--       accept="image/gif, image/jpeg, image/png" onchange="readURL(this);">-->
 
-</div>
-        <div class="block">
+<!--</div>-->
+<!--        <div class="block">-->
             <br>
             <input type="submit" value="submit" name='submit' >
         </div>
