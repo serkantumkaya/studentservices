@@ -16,8 +16,6 @@ DROP VIEW IF EXISTS leeftijden;
 DROP VIEW IF EXISTS Projecten_leeftijdcategorie;
 
 
-
-
 CREATE TABLE SCHOOL(
 	SchoolID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	Locatie varchar(40) NOT NULL,
