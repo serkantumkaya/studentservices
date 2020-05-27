@@ -92,7 +92,7 @@ class GebruikerController
         }
 
         if ($this->testEmail($Email)== false) {
-            $Errorsfound["Email"]  = trim($Errorsfound["Email"]  + " ") + Translate::GetTranslation("gebruikerEmailInvalid");
+            $Errorsfound["Email"]  = Translate::GetTranslation("gebruikerEmailInvalid");
         }
 
         if (!empty($Errorsfound["Wachtwoord"]) || !empty($Errorsfound["Gebruikersnaam"]) ||
@@ -133,7 +133,7 @@ class GebruikerController
         }
 
         if ($this->testEmail($Gebruiker->getEmail())== false) {
-            $Errorsfound["Email"]  = trim($Errorsfound["Email"]  + " ") + Translate::GetTranslation("gebruikerEmailInvalid");
+            $Errorsfound["Email"]  = $Errorsfound["Email"]  + " " + Translate::GetTranslation("gebruikerEmailInvalid");
         }
 
         if ($Errorsfound["Errorsfound"] == ""){
@@ -194,7 +194,7 @@ class GebruikerController
 
     function Validate(string $GebruikersNaam, string $Password): Gebruiker
     {
-
+        echo "Validate";
         $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
 
         if (!empty($Gebruiker)){
