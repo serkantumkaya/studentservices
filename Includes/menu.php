@@ -1,7 +1,6 @@
 <?php
 //session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 
 $GC    = new GebruikerController($_SESSION['GebruikerID']);
 
