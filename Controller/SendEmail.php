@@ -44,6 +44,20 @@ class createEmail
         return false;
     }
 
+    public function sendWachwoorsreser($gebruikernaam, $wachtwoord, $Email, $encryptedcode){
+        $this->createURL =
+            "http://localhost/StudentServices/View/Emailverficatie/Bevestingenaccount.php?" . $encryptedcode . "&username=" .
+            $gebruikernaam . "&email=" . $Email;
+        $this->mail->addAddress($Email);
+        $this->mail->Subject = "activation mail studentsservice";
+        $this->mail->Body    = $this->emailtext . $this->createURL;
+        if ($this->mail->send()){
+            $this->dataaccessmodel->ADD($gebruikernaam, $wachtwoord, $Email, $encryptedcode);
+            return true;
+        }
+        return false;
+    }
+
     public function getemailerrorinfo(): string{
         return ($this->mail->ErrorInfo);
     }

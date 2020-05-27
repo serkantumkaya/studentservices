@@ -39,7 +39,7 @@ body {
 
 }
 
-#reset_password input[type=text], select {
+#Email{
     width: 500px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -49,7 +49,7 @@ body {
     box-sizing: border-box;
 }
 
-#reset_password input[type=submit] {
+#Submit {
     width: 500px;
     background-color: #00008B;
     color: #FFB31A;
@@ -60,7 +60,7 @@ body {
     cursor: pointer;
 }
 
-#reset_password input[type=submit]:hover {
+#Submit:hover {
     background-color: #17488b;
 }
 

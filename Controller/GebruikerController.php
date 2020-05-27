@@ -168,6 +168,10 @@ class GebruikerController
             $Gebruiker['Email']);
     }
 
+    function getmail(): createEmail{
+        return $this->verficateemail;
+    }
+
     function CheckUserName(string $UserName): bool{
         return !empty($this->gebruikermodel->GetByName($UserName));
     }
