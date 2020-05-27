@@ -14,6 +14,7 @@ class ProjectModel
         $this->conn      = $this->ConnectDb->GetConnection();
     }
 
+    //HIER VANAF BLIJVEN HEEEEEL BELANGRIJK
     public function getProjecten($sql){
         if ($sql == null){
             $sql = "SELECT ProjectID,
@@ -33,7 +34,7 @@ class ProjectModel
     }
 
     public function add(int $gebruikerID, string $titel, string $type, string $beschrijving, int $categorieID,
-        string $deadline, string $status, $locatie){
+        ?string $deadline, string $status, $locatie){
         $sql = "INSERT INTO Project (GebruikerID, Titel,Type, Beschrijving, CategorieID,Deadline, Status, Locatie)
            VALUES(:GebruikerID, :Titel, :Type, :Beschrijving, :CategorieID,:Deadline, :Status, :Locatie)";
 
