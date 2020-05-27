@@ -68,7 +68,7 @@ if ($rememberpassword == "on"){
 //Even if you uncheck remember me and tell google to remember your password and user
 //the credentials will still be visible. So if you want to test this right.
 //Do not let google remember your password.
-if (isset($_POST['username']) && $_POST['password']){
+if (isset($_POST['username']) && isset($_POST['password'])){
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -91,22 +91,40 @@ if (isset($_POST['username']) && $_POST['password']){
         $wronglogin = "De combinatie van gebruiker en/of wachtwoord is onjuist.";
     }
 }
-
 if(isset($_POST['Email']) && !empty($_POST['Email']) && filter_var($_POST["Email"], FILTER_VALIDATE_EMAIL)){
+ //   var_dump($_POST['Email']);
+    $status ="";
+    $response ="";
     $gebruikerscontroller = new GebruikerController(-1);
     $gebruikers = $gebruikerscontroller->getGebruikers();
     foreach($gebruikers as $gebruiker){
         if($gebruiker->getEmail() == $_POST["Email"]){
-            var_dump($gebruikerscontroller);
-            break;
+            $randomnumber = rand(111111111111, 999999999999);
+           if($gebruikerscontroller->getmail()->sendWachwoordreset($gebruiker->getGebruikersnaam(), $gebruiker->getEmail(), $randomnumber)){
+               $gebruiker->setWachtwoord($randomnumber);
+               $gebruikerscontroller->updateWachtwoord($gebruiker);
+               $status   = "succes";
+               $response = "Wachtwoord herstel Email is verstuurd";
+               header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
+               break;
+           }
+           else{
+               $status   = "failed";
+               $response = "Wachtwoord herstel Email versturen mislukt";
+               header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
+               break;
+           }
         }
     }
+    $_POST['Email'] = "";
 
 }
 else{
     if(isset($_POST['Email'])){
-    var_dump("ongeldige email");
-    $_POST ="";
+        $status   = "failed";
+        $response = "Email adres is niet in gebruik";
+        $_POST['Email'] = "";
+        header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
     }
 }
 
@@ -124,7 +142,8 @@ else{
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
-
+    <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js">
+    </script>
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>

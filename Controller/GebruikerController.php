@@ -118,6 +118,11 @@ class GebruikerController
         return $this->gebruikermodel->Delete($Id);
     }
 
+    function updateWachtwoord(Gebruiker $Gebruiker): bool{
+           return $this->gebruikermodel->UpdateWachtwoord($Gebruiker->getGebruikerID(), $Gebruiker->getWachtwoord());
+
+    }
+
     function update(Gebruiker $Gebruiker): array{
         $Errorsfound = [
             "Errorsfound" => "",
@@ -143,6 +148,7 @@ class GebruikerController
             $Errorsfound["Errorsfound"] = "true";
         }
         if ($Errorsfound["Errorsfound"] == ""){
+
             $this->gebruikermodel->Update($Gebruiker->getGebruikerID(), $Gebruiker->getGebruikersnaam(),
                 $Gebruiker->getEmail());
         }

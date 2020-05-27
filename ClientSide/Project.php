@@ -10,6 +10,7 @@ session_start();
 
 $view = $_GET['view'];
 
+
 switch ($view){
     case 'detail':
         require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/View/Project/Client/detail.php");

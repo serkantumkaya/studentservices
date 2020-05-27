@@ -150,9 +150,9 @@ class ProjectController
         foreach ($zoekwoorden as $key => $value){
             $i++;
             if ($i == 1){
-                $SQL .= "AND CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = '$value') ";
+                $SQL .= "AND CategorieID = (SELECT CategorieID from categorie where CategorieNaam = '$value') ";
             }else{
-                $SQL .= "OR CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = '$value') ";
+                $SQL .= "OR CategorieID = (SELECT CategorieID from categorie where CategorieNaam = '$value') ";
             }
         }
         return $SQL;

@@ -18,6 +18,7 @@ if (isset($_POST['submit'])){
         if (isset($_POST['NietBekend']) && $_POST['NietBekend'] == 'on'){
             $deadline == 'NULL';
         } else{
+            var_dump("test");
             $deadline = convert($_POST['Deadline']);
         }
 

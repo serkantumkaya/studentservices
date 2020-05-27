@@ -38,6 +38,12 @@ body {
     width: 100%;
 
 }
+#errors{
+    color: #ff102b;
+    padding: 1px 1px;
+    margin: 2px 0;
+}
+
 
 #Email{
     width: 500px;

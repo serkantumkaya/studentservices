@@ -66,6 +66,19 @@ class GebruikerModel
         return $sql->execute($parameters);
     }
 
+    function updateWachtwoord(int $ID, string $Wachtwoord){
+
+        $sql =
+            $this->conn->prepare("UPDATE Gebruiker SET Wachtwoord=:Wachtwoord Where GebruikerID=:SID");//let op id geen quotes
+
+        $parameters = [
+            'Wachtwoord' => $Wachtwoord,
+            'SID' => $ID
+        ];
+
+        return $sql->execute($parameters);
+    }
+
     function get(int $ID){
         $sql = "SELECT GebruikerID,Gebruikersnaam,Email FROM Gebruiker WHERE GebruikerID =$ID";
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);

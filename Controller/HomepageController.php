@@ -555,6 +555,4 @@ class HomepageController
         }
         return $urlimage;
     }
-
-
 }

@@ -11,6 +11,7 @@ class createEmail
     private PHPMailer $mail;
     public verficatieModel $dataaccessmodel;
     private string $emailtext = "Gebruik de link voor het bevestigen van je studentservice account.<br> Druk op de link om de pagina te openen. <br>";
+    private string $emailtextresetpassword = "Gebruik de link voor het resetten van Wachtwoord.<br> Druk op de link om de pagina te openen. <br>";
     protected string $createURL = "";
 
     public function __construct(){
@@ -44,15 +45,14 @@ class createEmail
         return false;
     }
 
-    public function sendWachwoorsreser($gebruikernaam, $wachtwoord, $Email, $encryptedcode){
+    public function sendWachwoordreset($gebruikernaam, $Email, $encryptedcode){
         $this->createURL =
-            "http://localhost/StudentServices/View/Emailverficatie/Bevestingenaccount.php?" . $encryptedcode . "&username=" .
+            "http://localhost/StudentServices/View/Emailverficatie/resetWachwoord.php?" . $encryptedcode . "&username=" .
             $gebruikernaam . "&email=" . $Email;
         $this->mail->addAddress($Email);
-        $this->mail->Subject = "activation mail studentsservice";
-        $this->mail->Body    = $this->emailtext . $this->createURL;
+        $this->mail->Subject = "Wachtwoord resetmail studentsservice";
+        $this->mail->Body    = $this->emailtextresetpassword . $this->createURL;
         if ($this->mail->send()){
-            $this->dataaccessmodel->ADD($gebruikernaam, $wachtwoord, $Email, $encryptedcode);
             return true;
         }
         return false;

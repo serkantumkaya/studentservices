@@ -43,6 +43,11 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
+<div class="slider">
+    <div class="popup" id="test"> <!--niet aanzitten is voor de popup-->
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+</div>
 
 <div class="info">
 
