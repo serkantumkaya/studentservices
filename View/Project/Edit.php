@@ -35,17 +35,18 @@ function makeDeadline($deadline){
 //Ja, dit kon beter....
 
 function getUitvoer(Project $project){
-    $gebruikertext   = getUitvoerGebruiker($project);
-    $titel           = $project->getTitel();
-    $beschrijving    = $project->getBeschrijving();
-    $projectID       = $project->getProjectID();
-    $type            = getUitvoerType($project);
-    $categorie       = getUitvoerCategorie($project);
-    $deadline        = getUitvoerDeadline($project);
-    $status          = getUitvoerStatus($project);
-    $datumaangemaakt = $project->getDatumaangemaakt();
-    $locatie         = $project->getLocatie();
-    $verwijderd      = getVerwijderdUitvoer($project);
+    $projectController = new ProjectController();
+    $gebruikertext     = getUitvoerGebruiker($project);
+    $titel             = $project->getTitel();
+    $beschrijving      = $project->getBeschrijving();
+    $projectID         = $project->getProjectID();
+    $type              = getUitvoerType($project);
+    $categorie         = getUitvoerCategorie($project);
+    $deadline          = $projectController->getDeadlineFormat($project->getDeadline());
+    $status            = getUitvoerStatus($project);
+    $datumaangemaakt   = $project->getDatumaangemaakt();
+    $locatie           = $project->getLocatie();
+    $verwijderd        = getVerwijderdUitvoer($project);
 
     $uitvoer = <<<EOD
 <table>
@@ -162,8 +163,8 @@ function getUitvoerDeadline(Project $project){
 
 function getUitvoerStatus(Project $project){
     $huidigestatus = $project->getStatus();
-    $statussen = array(0 => 'Mee bezig', 1 => 'Klaar');
-    $text      = "<select id=\"Status\" name=\"Status\">";
+    $statussen     = array(0 => 'Mee bezig', 1 => 'Klaar');
+    $text          = "<select id=\"Status\" name=\"Status\">";
     foreach ($statussen as $key => $value){
         if ($huidigestatus == $key){
             $text .= "<option selected='selected' value='" . $value . "'>$value</option>";

@@ -9,6 +9,7 @@ session_start();
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $categorieController = new CategorieController();
+$gebruikerID = $_SESSION['GebruikerID'];
 //var_dump($_SESSION);
 //var_dump($_POST);
 
@@ -16,27 +17,44 @@ $pagina = $_GET['Page'];
 $vorige = $pagina-1;
 $volgende = $pagina+1;
 
-
 $statusKlaar = null;
 $statusMeeBezig = null;
 $typeVraag = "";
 $typeAanbod = "";
+$welzelf = "";
+$nietzelf = "";
+
 if ($_POST){
-    if (isset($_POST['status']['StatusK']) && $_POST['status']['StatusK'] == 'Klaar'){
-        $statusKlaar = "checked";
-    }
-    if (isset($_POST['type']['StatusMB']) && $_POST['status']['StatusMB'] == 'Mee Bezig'){
-        $statusMeeBezig = "checked";
-    }
-    if (isset($_POST['type']['vraag']) && $_POST['type']['vraag'] == 'vragen'){
-        $typeVraag = "checked";
-    }
-    if (isset($_POST['type']['aanbod']) && $_POST['type']['aanbod'] == 'aanbieden'){
-        $typeAanbod = "checked";
-    }
+    var_dump($_POST);
+    $_SESSION['POST'] = $_POST;
 }
 
-$sql = $projectController->createFilter($_POST);
+
+var_dump($_SESSION);
+if (isset($_SESSION['POST']['status']['StatusK']) && $_SESSION['POST']['status']['StatusK'] == 'Klaar'){
+    $statusKlaar = "checked";
+}
+if (isset($_SESSION['POST']['type']['StatusMB']) && $_SESSION['POST']['status']['StatusMB'] == 'Mee Bezig'){
+    $statusMeeBezig = "checked";
+}
+if (isset($_SESSION['POST']['type']['vraag']) && $_SESSION['POST']['type']['vraag'] == 'vragen'){
+    $typeVraag = "checked";
+}
+if (isset($_SESSION['POST']['type']['aanbod']) && $_SESSION['POST']['type']['aanbod'] == 'aanbieden'){
+    $typeAanbod = "checked";
+}
+if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon']['zelf'] == 'welzelf'){
+    $welzelf = "checked";
+} if (isset($_SESSION['POST']['persoon']['ander']) && $_SESSION['POST']['persoon']['ander'] == 'nietzelf'){
+    $nietzelf = "checked";
+}
+
+$sql = $projectController->createFilter($_SESSION['POST'], $gebruikerID);
+
+
+
+
+var_dump($sql);
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
@@ -59,9 +77,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             </div>
             <div id="filter-projecten2">
                 <h3>Filteren</h3>
-
                 <form action="" method="post">
                     <div id="filter-projecten-status">
+                        <input type=submit id="verwijderfilter" value="verwijder filters">
                         <div id="filter-projecten-kop">Status:</div>
                         <input type="checkbox" id="Klaar" name="status[StatusK]"
                                value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
@@ -93,10 +111,20 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <input type="checkbox" id="vraag" name="type[vraag]"
                                value="vragen" onchange=this.form.submit() <?php echo $typeVraag; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
-                        <label for="Klaar">Gevraagd</label><br>
+                        <label for="Vraag">Gevraagd</label><br>
                         <input type="checkbox" id="aanbod" name="type[aanbod]"
                                value="aanbieden" onchange=this.form.submit() <?php echo $typeAanbod; ?> />
                         <label for="aanbod">Aangeboden</label><br>
+                    </div>
+                    <div id="filter-projecten-mijn">
+                        <div id="filter-projecten-kop">Welke:</div>
+                        <input type="checkbox" id="persoon" name="persoon[zelf]"
+                               value="welzelf" onchange=this.form.submit() <?php echo $welzelf; ?> />
+                        <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
+                        <label for="welzelf">Mijn projecten</label><br>
+                        <input type="checkbox" id="nietzelf" name="persoon[ander]"
+                               value="nietzelf" onchange=this.form.submit() <?php echo $nietzelf; ?> />
+                        <label for="nietzelf">Niet mijn projecten</label><br>
                     </div>
                 </form>
 
@@ -127,13 +155,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                     <h3>" . $project->getType() . "</h3>
                                 </div>
                              </div>
-                             <a href=\"Project.php?view=detail&ProjectID=" . $project->getProjectID() . "\">
+                             <a href=\"Project.php?ProjectID=" . $project->getProjectID() . "&view=detail\">
                              <div id=\"projecten-titel\">
                                  <h3>" . $project->getTitel() . "</h3>
                              </div>
                             </a>
                          </div>
-                         
                          <div id=\"projecten-info\">
                              <div id=\"projecten-status\">" .
                             $project->getStatus() .

@@ -16,13 +16,13 @@ class Project
     private bool $Verwijderd;
 
 
-    function __construct(int $ProjectID, int $GebruikerID, string $Type, string $Titel, string $Beschrijving,
+    function __construct(int $ProjectID, int $GebruikerID,string $Titel, string $Type,  string $Beschrijving,
         int $CategorieID, string $Datumaangemaakt, string $Deadline, string $Status, string $Locatie,
         bool $Verwijderd){
         $this->ProjectID       = $ProjectID;
         $this->GebruikerID     = $GebruikerID;
-        $this->Type            = $Type;
         $this->Titel           = $Titel;
+        $this->Type            = $Type;
         $this->Beschrijving    = $Beschrijving;
         $this->CategorieID     = $CategorieID;
         $this->Datumaangemaakt = $Datumaangemaakt;
