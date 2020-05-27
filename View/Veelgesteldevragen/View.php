@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 session_start();
 
 ?><html lang="en">
@@ -17,58 +18,58 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 <body>
 <div class="Vraag"> 
     <input id="vraag-een" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-een">Voor wie is StudentenServices?</label>
-    <div class="Antwoord">
-        <p>StudentenServices is voor Studenten die graag hulp willen krijgen of juist hulp willen aanbieden aan andere studenten.</p>
+    <label class="Vraaglabel" for="vraag-een"><?php echo Translate::GetTranslation("vraag-een") ?></label>
+    <div class="Antwoord" for="Antwoord-een">
+        <p> <?php echo Translate::GetTranslation("Antwoord-een") ?> </p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-twee" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-twee">Ben ik te oud voor StudentenServices?</label>
-    <div class="Antwoord">
-        <p>Zolang je student bent ben je welkom bij StudentSerivces, voor ons is leeftijd maar een cijfer!</p>
+    <label class="Vraaglabel" for="vraag-twee"><?php echo Translate::GetTranslation("vraag-twee") ?></label>
+    <div class="Antwoord" for="Antwoord-twee">
+        <p><?php echo Translate::GetTranslation("Antwoord-twee") ?></p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-drie" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-drie">Waarom staat mijn school er niet bij?</label>
-    <div class="Antwoord">
-        <p>Voor jou school hebben we nog geen overeenkomst, neem contact op via het contactformulier dan gaan we hier z.s.m. een oplossing voor zoeken.</p>
+    <label class="Vraaglabel" for="vraag-drie"><?php echo Translate::GetTranslation("vraag-drie") ?></label>
+    <div class="Antwoord" for="Antwoord-drie">
+        <p><?php echo Translate::GetTranslation("Antwoord-drie") ?></p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-vier" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-vier">Mag ik hier ook mijn spullen te koop aanbieden?</label>
-    <div class="Antwoord">
-        <p>Ons doel is om studenten te helpen met hun problemen of vraagstukken. Miscchien kan er iemand je helpen met het maken van je eigen webshop!</p>
+    <label class="Vraaglabel" for="vraag-vier"><?php echo Translate::GetTranslation("vraag-vier") ?></label>
+    <div class="Antwoord" for="Antwoord-vier">
+        <p><?php echo Translate::GetTranslation("Antwoord-vier") ?></p>
     </div>    
 </div>
 <div class="Vraag"> 
     <input id="vraag-vijf" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-vijf">Hoe kom ik in contact met StudentSerivces</label>
-    <div class="Antwoord">
-        <p>Dit kan via het contactformulier die te vinden is op onze pagina.</p>
+    <label class="Vraaglabel" for="vraag-vijf"><?php echo Translate::GetTranslation("vraag-vijf") ?></label>
+    <div class="Antwoord" for="Antwoord-vijf">
+        <p><?php echo Translate::GetTranslation("Antwoord-vijf") ?></p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-zes" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-zes">Waarom reageert er niemand op mijn project?</label>
-    <div class="Antwoord">
-        <p>Helaas is er nog niemand die zich bekwaam genoeg voelt om jou te helpen. Heb geduld en we zoeken met je mee.</p>
+    <label class="Vraaglabel" for="vraag-zes"><?php echo Translate::GetTranslation("vraag-zes") ?></label>
+    <div class="Antwoord" for="Antwoord-zes">
+        <p><?php echo Translate::GetTranslation("Antwoord-zes") ?></p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-zeven" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-zeven">Mag ik buiten StudentenServices nog meer hulp vragen?</label>
-    <div class="Antwoord">
-        <p>Natuurlijk! Wij proberen een hulpmiddel te zijn en als een ander je al heeft geholpen dan horen we dat graag.</p>
+    <label class="Vraaglabel" for="vraag-zeven"><?php echo Translate::GetTranslation("vraag-zeven") ?></label>
+    <div class="Antwoord" for="Antwoord-zeven">
+        <p><?php echo Translate::GetTranslation("Antwoord-zeven") ?></p>
     </div>
 </div>
 <div class="Vraag"> 
     <input id="vraag-acht" type="checkbox" name="Vragen">
-    <label class="Vraaglabel" for="vraag-acht">Hoe kan ik jullie bedanken?</label>
-    <div class="Antwoord">
-        <p>Wij zijn niet bang voor complimenten, laat het ons weten via het contactformulier!</p>
+    <label class="Vraaglabel" for="vraag-acht"><?php echo Translate::GetTranslation("vraag-acht") ?></label>
+    <div class="Antwoord" for="Antwoord-acht">
+        <p><?php echo Translate::GetTranslation("Antwoord-acht") ?></p>
     </div>
 </div>
 </body>

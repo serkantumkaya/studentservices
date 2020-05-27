@@ -33,6 +33,23 @@ class Translate
         "gebruikerEmailLabel" => ["Email *","Email *"],
         "gebruikerPasswordLabel" => ["Wachtwoord *","Password *"],
         "gebruikerPasswordLabelCheck" => ["Wachtwoord controle*","Password check*"],
+
+        "vraag-een" =>["Voor wie is StudentenServices?", "Who can use StudentServices?"],
+        "Antwoord-een" => ["StudentenServices is voor Studenten die graag hulp willen krijgen of juist hulp willen aanbieden aan andere studenten.", "StudentServices is made for students who could use some help or students who wants to help other studens."],
+        "vraag-twee" => ["Ben ik te oud voor StudentenServices?","Am I too old to use StudentServices?"],
+        "Antwoord-twee" => ["Zolang je student bent ben je welkom bij StudentSerivces, voor ons is leeftijd maar een cijfer!","You are welcome as long as you are a student, your age is just a number!"],
+        "vraag-drie" => ["Waarom staat mijn school er niet bij?","Why can't i find my school?"],
+        "Antwoord-drie" => ["Voor jou school hebben we nog geen overeenkomst, neem contact op via het contactformulier dan gaan we hier z.s.m. een oplossing voor zoeken.","We haven't contracts with you school, let us know and we wil search for a solution"],
+        "vraag-vier" => ["Mag ik hier ook mijn spullen te koop aanbieden?","Is it allowed to sell my goods?"],
+        "Antwoord-vier" => ["Ons doel is om studenten te helpen met hun problemen of vraagstukken. Miscchien kan er iemand je helpen met het maken van je eigen webshop!","Our goal is too help students with their problems, maybe you can find a student who can make a webshop to sell your goods!"],
+        "vraag-vijf" => ["Hoe kom ik in contact met StudentSerivces","How do I get in touch with StudentSerivces?"],
+        "Antwoord-vijf" => ["Dit kan via het contactformulier die te vinden is op onze pagina.","This can be done with the contact form that can be found on our page."],
+        "vraag-zes"=> ["Waarom reageert er niemand op mijn project?","Why is no one responding to my project?"],
+        "Antwoord-zes"=> ["Helaas is er nog niemand die zich bekwaam genoeg voelt om jou te helpen. Heb geduld en we zoeken met je mee.","Unfortunately, no one is yet competent enough to help you. Be patient and we will search with you."],
+        "vraag-zeven"=> ["Mag ik buiten StudentenServices nog meer hulp vragen?","Can I ask for more help outside Student Services?"],
+        "Antwoord-zeven"=> ["Natuurlijk! Wij proberen een hulpmiddel te zijn en als een ander je al heeft geholpen dan horen we dat graag.","Of course! We try to be an aid and let us know if somebody already helped you."],
+        "vraag-acht"=> ["Hoe kan ik jullie bedanken?","How can i thank you?"],
+        "Antwoord-acht"=> ["Wij zijn niet bang voor complimenten, laat het ons weten via het contactformulier!","Compliments are always welcome! Sent your love with the contact form."],
     ];
 
     public static function GetTranslation(string $key) : string
