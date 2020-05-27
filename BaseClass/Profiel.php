@@ -199,7 +199,7 @@ class Profiel
      * @return string
      */
     public function getPrefix(): string{
-        return $this->Prefix;
+        return $this->Prefix == null ? "" : $this->Prefix;
     }
 
     /**
@@ -241,7 +241,7 @@ class Profiel
      * @return string
      */
     public function getExtensie(): string{
-        return $this->Extentie;
+        return $this->Extentie == null ? "" : $this->Extentie;
     }
 
     /**
