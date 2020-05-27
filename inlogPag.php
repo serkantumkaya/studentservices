@@ -68,8 +68,7 @@ if ($rememberpassword == "on"){
 //Even if you uncheck remember me and tell google to remember your password and user
 //the credentials will still be visible. So if you want to test this right.
 //Do not let google remember your password.
-
-var_dump($_POST);
+        
 if (isset($_POST['username']) && $_POST['password']){
 
     $username = $_POST['username'];
