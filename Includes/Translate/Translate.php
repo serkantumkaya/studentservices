@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-//session_start();
 //put your translations here
 //USE English keys! Be professional.
 class Translate
