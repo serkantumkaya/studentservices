@@ -124,6 +124,7 @@
         padding: 0px; /*geen witte randen*/
         margin: 0px; /*geen witte randen*/
         grid-template-columns: 100px 220px auto 250px 80px;
+
     }
 
     #projecten-row-grid {

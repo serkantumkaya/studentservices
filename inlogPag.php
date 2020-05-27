@@ -91,42 +91,7 @@ if (isset($_POST['username']) && isset($_POST['password'])){
         $wronglogin = "De combinatie van gebruiker en/of wachtwoord is onjuist.";
     }
 }
-if(isset($_POST['Email']) && !empty($_POST['Email']) && filter_var($_POST["Email"], FILTER_VALIDATE_EMAIL)){
- //   var_dump($_POST['Email']);
-    $status ="";
-    $response ="";
-    $gebruikerscontroller = new GebruikerController(-1);
-    $gebruikers = $gebruikerscontroller->getGebruikers();
-    foreach($gebruikers as $gebruiker){
-        if($gebruiker->getEmail() == $_POST["Email"]){
-            $randomnumber = rand(111111111111, 999999999999);
-           if($gebruikerscontroller->getmail()->sendWachwoordreset($gebruiker->getGebruikersnaam(), $gebruiker->getEmail(), $randomnumber)){
-               $gebruiker->setWachtwoord($randomnumber);
-               $gebruikerscontroller->updateWachtwoord($gebruiker);
-               $status   = "succes";
-               $response = "Wachtwoord herstel Email is verstuurd";
-               header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
-               break;
-           }
-           else{
-               $status   = "failed";
-               $response = "Wachtwoord herstel Email versturen mislukt";
-               header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
-               break;
-           }
-        }
-    }
-    $_POST['Email'] = "";
 
-}
-else{
-    if(isset($_POST['Email'])){
-        $status   = "failed";
-        $response = "Email adres is niet in gebruik";
-        $_POST['Email'] = "";
-        header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
-    }
-}
 
 
 
@@ -245,11 +210,11 @@ else{
         if (filter_input(INPUT_GET,'action') == "resetpassword"){
             ?>
             <div id="reset_password">
-                <form action="inlogPag.php" method="post">
+                <form action="" method="post">
                     <div><label for="Email">Vul hier het Email adress in wat aan je account gekoppeld zit.<br> U krijgt
                             een mail toegestuurd met wachtwoord reset link</label></div>
                     <div><input type="text" id="Email" name="Email" placeholder="Vul hier je Email in"></div>
-                    <div><input id="Submit" type="submit" value="Send Email"></div>
+                    <div><input onclick="resetpassword()" id="Submit" type="submit" value="Send Email"></div>
                 </form>
             </div>
             <?php

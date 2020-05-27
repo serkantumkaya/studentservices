@@ -89,11 +89,6 @@ class GebruikerModel
         return $this->conn->query($sql)->fetch(PDO::FETCH_ASSOC);
     }
 
-    //todo : later doenFPasss
-    //public function getProjectenByGebruiker(){
-    //    return $this->conn->query("SELECT * from Project where GebruikerID= '$this->GebrID'");
-    //}
-
     function Validate(string $GebruikersNaam, string $Password){
         $sql =
             "SELECT GebruikerID,GebruikersNaam, Wachtwoord,Email FROM Gebruiker WHERE GebruikersNaam = '" .

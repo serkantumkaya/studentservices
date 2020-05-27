@@ -6,13 +6,13 @@ $reactiecontroller = new ReactieController();
 $categoriecontroller = new CategorieController();
 
 if ($_POST){
-
     if (isset($_POST['Titel']) && isset($_POST['Beschrijving']) && isset($_POST['submit'])){
         if($projectController->add($_SESSION['GebruikerID'], $_POST['Titel'], $_POST['Type'], $_POST['Beschrijving'],
             $_POST['CategorieID'], $_POST['Deadline'], "Mee Bezig", $_POST['Locatie'])){
             //TODO: notificatie dat project is toegevoegd ofzo.
+            // kan denk met javascript, even wachten, dan terugsturen naar dat project
 
-            //header('Location: Projecten.php?Page=1');
+            header('Location: Projecten.php?Page=1');
         }
 
     }
@@ -56,10 +56,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 <div id="projectpagina">
     <div class="grid-projecten-colums">
         <div id="overlinks">
-            <h4>hier is wat over</h4>
+            <!--<h4>hier is wat over</h4>-->
         </div>
-        <div id="filter-projecten">
-            hier hoeft nu ook niets
+        <div id="filter-projecten" style="background-color: #004085">
+            <!--hier hoeft nu ook niets-->
         </div>
         <form action="/Studentservices/ClientSide/project.php?view=add" method="post">
             <div id="project-row-grid">
@@ -81,7 +81,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             <div id="parameter-tekstvak">Locatie:</div>
                             <div id="parameter-tekstvak"><input type="text" name="Locatie"/><br></div>
                             <div id="parameter-tekstvak">Deadline:</div>
-                            <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline"/> <br><input
+                            <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline" /> <br><input
                                         type="checkbox" name="NietBekend"/>Niet bekend<br></div>
                             <div id="parameter-tekstvak">Type:</div>
                             <div id="parameter-tekstvak"><?php echo $type; ?> <br></div>
@@ -103,7 +103,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         </div>
 
         <div id="overrechts">
-            rechts over
+            <!--rechts over-->
         </div>
     </div>
 </div>

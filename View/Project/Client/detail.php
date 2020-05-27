@@ -71,7 +71,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          ";
                 if ($project->getGebruikerID() == $_SESSION['GebruikerID']){
                     echo "<div id='project-button'>
-                                <a href=\"Project.php?view=change&ProjectID=$projectID\" id=\"project-wijzig-button\">Wijzig project</a>               
+                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">Wijzig project</a>               
                             </div>
                           <div id='project-button'>
                                 <button id='project-klaar'>project klaar</button> 
@@ -101,7 +101,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
                             echo "                    
                         <div id=\"reactie-venster\">
-                            <h3>Gegeven door: " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
+                            <h3>Gegeven door: <a href='' ></a>  " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
                             <div id=\"reactie-inhoud\">
                                " . $reactie->getReactie() . "
                             </div>
