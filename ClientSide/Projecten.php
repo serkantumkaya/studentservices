@@ -10,10 +10,9 @@ $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $categorieController = new CategorieController();
 $gebruikerID = $_SESSION['GebruikerID'];
-//var_dump($_SESSION);
-//var_dump($_POST);
 
-$pagina = $_GET['Page'];
+
+$pagina = intval($_GET['Page']);
 $vorige = $pagina-1;
 $volgende = $pagina+1;
 
@@ -24,17 +23,29 @@ $typeAanbod = "";
 $welzelf = "";
 $nietzelf = "";
 
+
+//wat een gekloot was dit zeg
+//
 if ($_POST){
-    var_dump($_POST);
     $_SESSION['POST'] = $_POST;
+    $_SESSION['PaginaNu'] = $pagina;
+} elseif (empty($_POST)){
+    echo "POST IS LEEEEGGGGGG!!!!!!";
+    if ($_SESSION['PaginaNu'] == $pagina){
+        //pagina is niet veranderd, dus de filter is weggehaald
+        $_SESSION['POST']=null;
+    } else{
+        //pagina is dus veranderd, dus de post laten staan en de nieuwe pagina in de sessie plaatsen
+        $_SESSION['PaginaNu'] = intval($pagina);
+        echo "PAGINA IS VERANDERD";
+
+    }
 }
 
-
-var_dump($_SESSION);
 if (isset($_SESSION['POST']['status']['StatusK']) && $_SESSION['POST']['status']['StatusK'] == 'Klaar'){
     $statusKlaar = "checked";
 }
-if (isset($_SESSION['POST']['type']['StatusMB']) && $_SESSION['POST']['status']['StatusMB'] == 'Mee Bezig'){
+if (isset($_SESSION['POST']['status']['StatusMB']) && $_SESSION['POST']['status']['StatusMB'] == 'Mee Bezig'){
     $statusMeeBezig = "checked";
 }
 if (isset($_SESSION['POST']['type']['vraag']) && $_SESSION['POST']['type']['vraag'] == 'vragen'){
@@ -51,10 +62,6 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 
 $sql = $projectController->createFilter($_SESSION['POST'], $gebruikerID);
 
-
-
-
-var_dump($sql);
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
@@ -77,7 +84,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             </div>
             <div id="filter-projecten2">
                 <h3>Filteren</h3>
-                <form action="" method="post">
+                <form action="Projecten.php?Page=1" method="post">
                     <div id="filter-projecten-status">
                         <input type=submit id="verwijderfilter" value="verwijder filters">
                         <div id="filter-projecten-kop">Status:</div>
@@ -96,8 +103,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             $categorienaam = $categorie->getCategorieNaam();
                             $checker       = $categorienaam . "checked";
                             $status        = "";
-                            if (isset($_POST['categorie'][$categorienaam])){
-                                if ($_POST['categorie'][$categorienaam] === $categorienaam){
+                            if (isset($_SESSION['POST']['categorie'][$categorienaam])){
+                                if ($_SESSION['POST']['categorie'][$categorienaam] === $categorienaam){
                                     $status = "checked";
                                 }
                             }
