@@ -1,10 +1,10 @@
 <?php
+session_start();
 error_reporting(E_ALL);//todo :weghalen
 ini_set('display_errors',1);//todo :weghalen
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
-
 $wronglogin = "";
 
 //Why on and off? Because it's a checkbox thing.
@@ -68,7 +68,9 @@ if ($rememberpassword == "on"){
 //Even if you uncheck remember me and tell google to remember your password and user
 //the credentials will still be visible. So if you want to test this right.
 //Do not let google remember your password.
-if (isset($_POST['username']) && isset($_POST['password'])){
+
+var_dump($_POST);
+if (isset($_POST['username']) && $_POST['password']){
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -80,7 +82,7 @@ if (isset($_POST['username']) && isset($_POST['password'])){
     $Gebruiker = $GC->Validate($username,$pwsafe);
 
     if ($Gebruiker->getGebruikerID() != -1){
-        echo "Je wachtwoord was goed echter werkt het doorverwijzen nog niet!";
+
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
         $GC                      = new GebruikerController($_SESSION['GebruikerID']);
         $_SESSION["level"]       = $GC->checkRechten();

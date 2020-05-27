@@ -1,7 +1,8 @@
 <?php
 //put your translations here
 //USE English keys! Be professional.
-//Jelle is gek
+//Jelle is gek waar is dit goed voor
+
 class Translate
 {
     //NL,EN
