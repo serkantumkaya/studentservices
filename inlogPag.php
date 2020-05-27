@@ -93,20 +93,33 @@ if (isset($_POST['username']) && $_POST['password']){
 }
 
 if(isset($_POST['Email']) && !empty($_POST['Email']) && filter_var($_POST["Email"], FILTER_VALIDATE_EMAIL)){
+ //   var_dump($_POST['Email']);
+    $status ="";
+    $response ="";
     $gebruikerscontroller = new GebruikerController(-1);
     $gebruikers = $gebruikerscontroller->getGebruikers();
     foreach($gebruikers as $gebruiker){
         if($gebruiker->getEmail() == $_POST["Email"]){
-            var_dump($gebruikerscontroller);
-            break;
+           if($gebruikerscontroller->getmail()->sendWachwoordreset($gebruiker->getGebruikersnaam(), $gebruiker->getEmail(), rand(111111111111, 999999999999))){
+               $status   = "succes";
+               $response = "Wachtwoord herstel Email is verstuurd";
+               break;
+           }
+           else{
+               $status   = "failed";
+               $response = "Wachtwoord herstel Email versturen mislukt";
+           }
         }
     }
-
+    $_POST['Email'] = "";
+    exit(json_encode(array("status" => $status,"response" => $response)));
 }
 else{
     if(isset($_POST['Email'])){
-    var_dump("ongeldige email");
-    $_POST ="";
+        $status   = "failed";
+        $response = "Email adres is niet in gebruik";
+        $_POST['Email'] = "";
+        exit(json_encode(array("status" => $status,"response" => $response)));
     }
 }
 
@@ -124,7 +137,8 @@ else{
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
-
+    <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js">
+    </script>
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
@@ -226,11 +240,11 @@ else{
         if (filter_input(INPUT_GET,'action') == "resetpassword"){
             ?>
             <div id="reset_password">
-                <form action="inlogPag.php" method="post">
+                <form action="" method="post">
                     <div><label for="Email">Vul hier het Email adress in wat aan je account gekoppeld zit.<br> U krijgt
                             een mail toegestuurd met wachtwoord reset link</label></div>
                     <div><input type="text" id="Email" name="Email" placeholder="Vul hier je Email in"></div>
-                    <div><input id="Submit" type="submit" value="Send Email"></div>
+                    <div><input onclick="resetpassword()" id="Submit" type="submit" value="Send Email"></div>
                 </form>
             </div>
             <?php
