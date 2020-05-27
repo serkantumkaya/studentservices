@@ -40,8 +40,6 @@ class Translate
         if ($_COOKIE["Language"] == "NL") return self::$Translations[$key][0];
         if ($_COOKIE["Language"] == "EN") return self::$Translations[$key][1];
     }
-
-
 }
 ?>
 
