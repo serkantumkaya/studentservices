@@ -144,9 +144,7 @@ if (isset($_POST['username']) && $_POST['password'])
         </div>
     </div>
 
-    <div class="popup" id="test">
-        <span class="popuptext" id="myPopup"></span>
-    </div>
+
 <div class="login">
     <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
@@ -208,9 +206,25 @@ if (isset($_POST['username']) && $_POST['password'])
 
 
         </div>
-
     </form>
 </div>
+    <div class="popup" id="test">
+        <span class="popuptext" id="myPopup"></span>
+    </div>
+    <div>
+        <?php
+        if(filter_input(INPUT_GET, 'action') == "resetpassword"){?>
+            <div id="reset_password">
+                <form action="inlogPag.php" method="post">
+                    <div><label for="Email">Vul hier het Email adress in wat aan je account gekoppeld zit.<br> U krijgt een mail toegestuurd met wachtwoord reset link</label></div>
+                    <div><input type="text" id="Email" name="Email" placeholder="Vul hier je Email in"></div>
+                    <div><input type="submit" value="Send Email"></div>
+                </form>
+            </div>
+       <?php
+        }
+        ?>
+    </div>
 
     <form id='add' action="View/Gebruiker/Add.php" accept-charset='UTF-8'>
         <div class="container-register">

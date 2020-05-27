@@ -295,7 +295,7 @@ if (isset($_POST["Telefoonnummer"]))
 echo "'></div>";
 ?>
 
-<!--<label class="formlabel">Profielfoto:</label><br />-->
+        <!--<label class="formlabel">Profielfoto:</label><br />-->
 
 </div>
 <!--<div class="block">-->
