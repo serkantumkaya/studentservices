@@ -50,6 +50,23 @@ class Translate
         "Antwoord-zeven"=> ["Natuurlijk! Wij proberen een hulpmiddel te zijn en als een ander je al heeft geholpen dan horen we dat graag.","Of course! We try to be an aid and let us know if somebody already helped you."],
         "vraag-acht"=> ["Hoe kan ik jullie bedanken?","How can i thank you?"],
         "Antwoord-acht"=> ["Wij zijn niet bang voor complimenten, laat het ons weten via het contactformulier!","Compliments are always welcome! Sent your love with the contact form."],
+
+        "contactformulier" => ["Contactformulier","Contact form"],
+        "contactVoornaam" => ["Voornaam","Firstname"],
+        "contactVoornaamPlaceholder" => ["Vul hier je voornaam in.","Enter your first name."],
+        "contactAchternaam" => ["Achternaam","Last name."],
+        "contactAchternaamPlaceholder" => ["Vul je achternaam in.","Enter your last name."],
+        "contactEmail" => ["E-mail","Email"],
+        "contactEmailPlaceholder" => ["Vul je e-mailadres in.","Enter your emailaddress."],
+        "contactEmail2" => ["E-mailadres controle","Emailaddress control"],
+        "contactEmailPlaceholder2" => ["Vul je e-mailadres nogmaals in.","Enter your email address again."],
+        "contactTelefoon" => ["Telefoonnummer","Phone number"],
+        "contactTelefoonPlaceholder" => ["Vul je telefoonnummer in.","Enter your phone number."],
+        "contactContactVoorkeur" => ["Contactvoorkeur","Contact preference"],
+        "contactOpmerking" => ["Opmerking","Comment"],
+        "contactOpmerkingPlaceholder" => ["Vul hier uw opmerking in.","Enter your comment."],
+        "contactVerstuur" => ["Verstuur", "Submit"],
+        "contactTerug" => ["Terug naar contact", "Back to contact"]
     ];
 
     public static function GetTranslation(string $key) : string
