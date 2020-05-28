@@ -224,7 +224,7 @@ else{
                     }
                     ?>
                 />
-                <label>Onthoudt mij</label>
+                <label><?php echo Translate::GetTranslation("inlogPagRememberMe") ?></label>
                 <br>
                 <input type='submit' name='Submit' value='Submit'/>
                 <?php
