@@ -37,7 +37,7 @@ if ($_POST){
     } else{
         //pagina is dus veranderd, dus de post laten staan en de nieuwe pagina in de sessie plaatsen
         $_SESSION['PaginaNu'] = intval($pagina);
-        echo "PAGINA IS VERANDERD";
+
 
     }
 }
