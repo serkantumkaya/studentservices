@@ -191,7 +191,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <!--Huisnummer-->       
 <div class=\"block\">
 <label class=\"formlabel\">Huisnummer *</label>
-<input type = \"text\" name=\"Huisnummer\" Required value=\"";
+<input type = \"number\" name=\"Huisnummer\" Required value=\"";
         echo $Huisnummer;
         echo "\"/>
 <label class=\"formerrorlabel\">$HuisnummerErr</label>
@@ -211,7 +211,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <label class=\"formlabel\">Postcode *</label>
 <input type = \"text\" name=\"Postcode\" Required value=\"";
         echo $Postcode;
-        echo "\"/>
+        echo "\" pattern=\"[1-9][0-9]{3}\s?[a-zA-Z]{2}\">
 <label class=\"formerrorlabel\">$PostcodeErr</label>
 </div>
   
@@ -230,7 +230,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
         $time     = new DateTime($Geboortedatum);
         $newTime = $time->format("d-m-Y");
-        echo    $newTime."\">";
+        echo    $newTime."\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\">";
         echo "</div>";
 
         echo "<div class=\"block\">";
@@ -277,7 +277,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         $newTime = $time->format("d-m-Y");
 
         echo $newTime;
-        echo "\"/>
+        echo "\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\"/>
 </div>
 
 <div class=\"block\">
@@ -297,9 +297,9 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <!--Telefoonnummer-->    
 <div class=\"block\">
 <label class=\"formlabel\">Telefoonnummer</label>
-<input type=\"text\" name=\"Telefoonnummer\" value=\"";
+<input type=\"phone\" name=\"Telefoonnummer\" value=\"";
     echo $Telefoonnummer;
-    echo "\"/></div>";
+    echo "\" pattern=\"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)\"/></div>";
 
 echo "<label class=\"formlabel\">Profielfoto:</label><br />";
 
