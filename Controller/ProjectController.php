@@ -34,7 +34,7 @@ class ProjectController
         string $Deadline,
         string $Status,
         string $Locatie
-        ){
+    ){
         return $this->projectmodel->Add(
             $GebruikerID,
             $Titel,
@@ -44,7 +44,7 @@ class ProjectController
             $Deadline,
             $Status,
             $Locatie
-            );
+        );
     }
 
     function delete(int $ProjectID){
@@ -56,68 +56,76 @@ class ProjectController
     }
 
 
-        function getById(int $ProjectID): project
-        {//geeft losse objecten terug heb ik een andere functie voor gemaakt die een array van objecten terug geeft
-            $Project = $this->projectmodel->getById($ProjectID);
-            //var_dump($Project);
+    function getById(int $ProjectID): project{//geeft losse objecten terug heb ik een andere functie voor gemaakt die een array van objecten terug geeft
+        $Project = $this->projectmodel->getById($ProjectID);
+        //var_dump($Project);
 
-            return new Project(
-                $Project['ProjectID'],
-                $Project['GebruikerID'],
-                $Project['Type'],
-                $Project['Titel'],
-                $Project['Beschrijving'],
-                $Project['CategorieID'],
-                $Project['Datumaangemaakt'],
-                $Project['Deadline'],
-                $Project['Status'],
-                $Project['Locatie'],
-                $Project['Verwijderd']);
+        return new Project(
+            $Project['ProjectID'],
+            $Project['GebruikerID'],
+            $Project['Type'],
+            $Project['Titel'],
+            $Project['Beschrijving'],
+            $Project['CategorieID'],
+            $Project['Datumaangemaakt'],
+            $Project['Deadline'],
+            $Project['Status'],
+            $Project['Locatie'],
+            $Project['Verwijderd']);
+    }
+
+    function getByGebruikerID(int $gebruikerID){
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getByGebruikerID($gebruikerID) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
         }
+        return $ProjectArray;
+    }
 
-        function getByGebruikerID(int $gebruikerID)
-        {
-            $ProjectArray = [];
-            foreach ($this->projectmodel->getByGebruikerID($gebruikerID) as $project) {
-                $projectObject =
-                    new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
-                        $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
-                        $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
-                $ProjectArray [] = $projectObject;
-            }
-            return $ProjectArray;
+    function getDeadlineFormat($deadline){
+        $time     = new DateTime($deadline);
+        $deadline = $time->format("Y-m-d H:i");
+        $deadline = explode(" ", $deadline);
+        return $deadline[0] . "T" . $deadline[1];
+    }
+
+    function undoDeadlineFormat($deadline){
+        $datum = explode("T", $deadline);
+        return $datum[0] . " " . $datum[1];
+    }
+
+    function getByProjectID(int $ProjectID){
+        $ProjectArray = [];
+        foreach ($this->projectmodel->getByID($ProjectID) as $project){
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
         }
+        return $ProjectArray;
+    }
 
-
-        function getByProjectID(int $ProjectID)
-        {
-            $ProjectArray = [];
-            foreach ($this->projectmodel->getByID($ProjectID) as $project) {
-                $projectObject =
-                    new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
-                        $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
-                        $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
-                $ProjectArray [] = $projectObject;
-            }
-            return $ProjectArray;
-        }
-
-    function getPerPagina(string $sql,int $page):array {
-            $begin = ($page * 6) - 6;
-            $limit = 6;
-            $ProjectArray = [];
+    function getPerPagina(string $sql, int $page): array{
+        $begin        = ($page * 6)-6;
+        $limit        = 6;
+        $ProjectArray = [];
         foreach ($this->projectmodel->getPerPagina($sql, $begin, $limit) as $project){
-                $projectObject =
-                    new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
-                        $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
-                        $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
-                $ProjectArray [] = $projectObject;
-            }
-            return $ProjectArray;
+            $projectObject   =
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                    $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
+                    $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
+            $ProjectArray [] = $projectObject;
         }
+        return $ProjectArray;
+    }
 
-    function createFilter($filters = null):string {
-        $SQL = "SELECT * FROM `project` WHERE ProjectID >= 1 ";
+    function createFilter($gebruikerID, $filters = null): string{
+        $SQL = "SELECT * FROM `project` WHERE Verwijderd = 0 ";
         if (isset($filters['status'])){
             $SQL .= $this->getFilter($filters['status'], "STATUS");
         }
@@ -125,37 +133,51 @@ class ProjectController
             $SQL .= $this->getFilterCategorie($filters['categorie']);
         }
         if (isset($filters['type'])){
-            $SQL .= $this->getFilter($filters['type'],"TYPE");
+            $SQL .= $this->getFilter($filters['type'], "TYPE");
+        }
+        if (isset($filters['persoon'])){
+            $SQL .= $this->getFilterGebruiker($filters['persoon'], $gebruikerID);
         }
         return $SQL;
     }
 
-    function getFilter(array $zoekwoorden,string $filter):string {
+    function getFilter(array $zoekwoorden, string $filter): string{
         $i   = 0;
         $SQL = "";
         foreach ($zoekwoorden as $key => $value){
             $i++;
             if ($i == 1){
                 $SQL .= "AND $filter LIKE '%$value%' ";
-            }else{
+            } else{
                 $SQL .= "OR $filter LIKE '%$value%' ";
             }
         }
         return $SQL;
     }
-//SELECT * from project where ProjectID > 1 and CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'Kleien') or CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'fotograferen')
-    function getFilterCategorie(array $zoekwoorden):string {
+
+    //SELECT * from project where ProjectID > 1 and CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'Kleien') or CategorieID = (SELECT CategorieID from selectiecategorie where CategorieNaam = 'fotograferen')
+    function getFilterCategorie(array $zoekwoorden): string{
         $i   = 0;
         $SQL = "";
         foreach ($zoekwoorden as $key => $value){
             $i++;
             if ($i == 1){
-                $SQL .= "AND CategorieID = (SELECT CategorieID from categorie where CategorieNaam = '$value') ";
-            }else{
-                $SQL .= "OR CategorieID = (SELECT CategorieID from categorie where CategorieNaam = '$value') ";
+                $SQL .= "AND CategorieID = (SELECT CategorieID from categorie where categorienaam = '$value') ";
+            } else{
+                $SQL .= "OR CategorieID = (SELECT CategorieID from categorie where categorienaam = '$value') ";
             }
         }
         return $SQL;
     }
-    }
 
+    function getFilterGebruiker(array $filter, $gebruikerID){
+        $SQL = "";
+        if (isset($filter['zelf']) && !isset($filter['ander'])){
+            $SQL .= "AND GebruikerID = $gebruikerID ";
+        } elseif (!isset($filter['zelf']) && isset($filter['ander'])){
+            $SQL .= "AND GebruikerID != $gebruikerID ";
+        }
+        return $SQL;
+
+    }
+}

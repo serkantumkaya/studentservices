@@ -60,8 +60,7 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 }
 
 
-
-$sql = $projectController->createFilter($_SESSION['POST'], $gebruikerID);
+$sql = $projectController->createFilter($gebruikerID,$_SESSION['POST']);
 
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
