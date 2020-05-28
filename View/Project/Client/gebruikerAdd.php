@@ -65,7 +65,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="project-row-grid">
                 <div id="project-header">
                     <div id="project-aanbieder">
-                        <h3>Gemaakt door <?php echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
+                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor"). " ";   echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
                     </div>
 
                     <div id="project-titel">
@@ -76,13 +76,13 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <div id="project-info">
                     <div id="project-info-grid">
                         <div id="project-parameters">
-                            <div id="parameter-tekstvak">Categorie:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:</div>
                             <div id="parameter-tekstvak"><?php echo $categorie; ?> <br></div>
-                            <div id="parameter-tekstvak">Locatie:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:</div>
                             <div id="parameter-tekstvak"><input type="text" name="Locatie"/><br></div>
                             <div id="parameter-tekstvak">Deadline:</div>
                             <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline" /> <br><input
-                                        type="checkbox" name="NietBekend"/>Niet bekend<br></div>
+                                        type="checkbox" name="NietBekend"/><?php echo Translate::GetTranslation("ProjectNietBekend"); ?><br></div>
                             <div id="parameter-tekstvak">Type:</div>
                             <div id="parameter-tekstvak"><?php echo $type; ?> <br></div>
                         </div>
@@ -94,7 +94,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     </div>
                 </div>
                 <div id="project-footer">
-                    <input type="submit" name="submit" value="Toevoegen"/>
+                    <input type="submit" name="submit" value="<?php echo Translate::GetTranslation("ProjectVoegToe");?>"/>
                 </div>
             </div>
         </form>
