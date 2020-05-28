@@ -4,6 +4,8 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/ClientSide/getpost.php");
+
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
@@ -11,8 +13,18 @@ $projectController = new ProjectController();
 $categorieController = new CategorieController();
 $gebruikerID = $_SESSION['GebruikerID'];
 
+if(empty($_SESSION['POST'])){
+    $_SESSION['POST'] = "";
+}
 
-$pagina = intval($_GET['Page']);
+$_SESSION['PaginaNu'] =  filter_input(INPUT_GET, 'Page');;
+
+
+if(empty($data)){
+    $data = new getpost($_SESSION['POST']);
+}
+
+$pagina = filter_input(INPUT_GET, 'Page');
 $vorige = $pagina-1;
 $volgende = $pagina+1;
 
@@ -26,17 +38,30 @@ $nietzelf = "";
 
 //wat een gekloot was dit zeg
 //
+/**Jelle iedere keer als je de session op nieuw start wordt de post leeggegooit
+ * dit kan je oplossen verschillend manieren
+ * nu heb ik de data in een object gestopt waar ik het weer uit haalt
+ * bij een nieuwe pagina
+ * hij neemt nu de filters mee na de andere pagina
+ * volgens mij werken de filters nog niet naar behoren
+ * ik wil wel meekijken als je er niet uitkomt.
+ ***/
+
+
+
 if ($_POST){
     $_SESSION['POST'] = $_POST;
+    $data->setData($_SESSION['POST']);
     $_SESSION['PaginaNu'] = $pagina;
-} elseif (empty($_POST)){
+} elseif (empty($_SESSION['POST'])){
     echo "POST IS LEEEEGGGGGG!!!!!!";
+    $_SESSION['POST'] = $data->getData();
     if ($_SESSION['PaginaNu'] == $pagina){
         //pagina is niet veranderd, dus de filter is weggehaald
-        $_SESSION['POST']=null;
+       // $_SESSION['POST']=null;
     } else{
         //pagina is dus veranderd, dus de post laten staan en de nieuwe pagina in de sessie plaatsen
-        $_SESSION['PaginaNu'] = intval($pagina);
+
         echo "PAGINA IS VERANDERD";
 
     }
@@ -89,11 +114,11 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <input type=submit id="verwijderfilter" value="verwijder filters">
                         <div id="filter-projecten-kop">Status:</div>
                         <input type="checkbox" id="Klaar" name="status[StatusK]"
-                               value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
+                               value="Klaar" onchange=this.form.submit(); <?php echo $statusKlaar; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
                         <label for="Klaar">Klaar</label><br>
                         <input type="checkbox" id="MeeBezig" name="status[StatusMB]"
-                               value="Mee Bezig" onchange=this.form.submit() <?php echo $statusMeeBezig; ?> />
+                               value="Mee Bezig" onchange=this.form.submit(); <?php echo $statusMeeBezig; ?> />
                         <label for="MeeBezig">Mee Bezig</label><br>
                     </div>
                     <div id="filter-projecten-categorie">
@@ -116,21 +141,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     <div id="filter-projecten-type">
                         <div id="filter-projecten-kop">Type:</div>
                         <input type="checkbox" id="vraag" name="type[vraag]"
-                               value="vragen" onchange=this.form.submit() <?php echo $typeVraag; ?> />
+                               value="vragen" onchange=this.form.submit(); <?php echo $typeVraag; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
                         <label for="Vraag">Gevraagd</label><br>
                         <input type="checkbox" id="aanbod" name="type[aanbod]"
-                               value="aanbieden" onchange=this.form.submit() <?php echo $typeAanbod; ?> />
+                               value="aanbieden" onchange=this.form.submit(); <?php echo $typeAanbod; ?> />
                         <label for="aanbod">Aangeboden</label><br>
                     </div>
                     <div id="filter-projecten-mijn">
                         <div id="filter-projecten-kop">Welke:</div>
                         <input type="checkbox" id="persoon" name="persoon[zelf]"
-                               value="welzelf" onchange=this.form.submit() <?php echo $welzelf; ?> />
+                               value="welzelf" onchange=this.form.submit(); <?php echo $welzelf; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
                         <label for="welzelf">Mijn projecten</label><br>
                         <input type="checkbox" id="nietzelf" name="persoon[ander]"
-                               value="nietzelf" onchange=this.form.submit() <?php echo $nietzelf; ?> />
+                               value="nietzelf" onchange=this.form.submit(); <?php echo $nietzelf; ?> />
                         <label for="nietzelf">Niet mijn projecten</label><br>
                     </div>
                 </form>
