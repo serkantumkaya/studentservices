@@ -30,7 +30,7 @@ if ($_POST){
     $_SESSION['POST'] = $_POST;
     $_SESSION['PaginaNu'] = $pagina;
 } elseif (empty($_POST)){
-    echo "POST IS LEEEEGGGGGG!!!!!!";
+
     if ($_SESSION['PaginaNu'] == $pagina){
         //pagina is niet veranderd, dus de filter is weggehaald
         $_SESSION['POST']=null;
