@@ -2,9 +2,29 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CSVController.php");
 session_start();
+$errors = "";
+$csvcontroller = new CSVController();
+$csvcontroller->setFileopleidingname("opleidingen");
+$csvcontroller->generatecsvfileopleiding();
+$csvcontroller->setFilecategoriename("categorieen");
+$csvcontroller->generatecsvfilecategorie();
+$csvcontroller->setFileschoolname("scholen");
+$csvcontroller->generatecsvfileschool();
+if(isset($_POST["download"])){
+    $csvcontroller->downloadcsv($csvcontroller->getFileopleidingname());
+}
+
+if(isset($_POST["upload"]) && !empty($_FILES))
+{
+    $csvcontroller->uploadcsv($_FILES, $csvcontroller->getFileopleidingname());
+    $_FILES = null;
+}
+
+
 ?>
+
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -17,7 +37,6 @@ session_start();
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
-
     <script type="text/javascript" src="/StudentServices/JS/script.js">
         <?php
         //nu i
@@ -55,7 +74,20 @@ session_start();
              <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
     </div>
 
-<div class="info">
+<div class="school">
+    <div>
+        <form action="" method="post">
+        <input id="Submit" type="submit"  value="download csv file" >
+        <input id="csv_download" type="hidden" name="download" value="download">
+        </form>
+    </div>
+    <div>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input id="Submit" type="submit" value="upload csv file">
+        <input type="file" accept=".csv" name="fileToUpload" id="fileToUpload">
+        <input id="csv_upload" type="hidden" name="upload" value="upload">
+    </form>
+    </div>
 <form  method="post" action="Edit.php">
 <table> <tr> <th>Opleiding</th> <th></th> <th></th></tr>
 <tr><td>

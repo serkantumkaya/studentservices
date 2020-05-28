@@ -200,7 +200,6 @@ class GebruikerController
 
     function Validate(string $GebruikersNaam, string $Password): Gebruiker
     {
-        echo "Validate";
         $Gebruiker = $this->gebruikermodel->Validate($GebruikersNaam, $Password);
 
         if (!empty($Gebruiker)){
@@ -212,6 +211,4 @@ class GebruikerController
         }
         return new Gebruiker(-1, "", "", "");
     }
-
-
 }
