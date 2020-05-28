@@ -29,7 +29,6 @@ class ProjectModel
             Locatie,
             Verwijderd FROM Project";
         }
-
         return $this->conn->query($sql);
     }
 
@@ -39,7 +38,6 @@ class ProjectModel
            VALUES(:GebruikerID, :Titel, :Type, :Beschrijving, :CategorieID,:Deadline, :Status, :Locatie)";
 
         $statement = $this->conn->prepare($sql);
-
         $parameters = [
             'GebruikerID' => $gebruikerID,
             'Titel' => $titel,

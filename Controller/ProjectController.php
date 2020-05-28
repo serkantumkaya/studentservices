@@ -18,7 +18,7 @@ class ProjectController
         $ProjectArray = [];
         foreach ($this->projectmodel->getProjecten($sql) as $project){
             $projectObject   =
-                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Titel'], $project['Type'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
                     $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
@@ -55,7 +55,6 @@ class ProjectController
         return $this->projectmodel->Update($Project);
     }
 
-
     function getById(int $ProjectID): project{//geeft losse objecten terug heb ik een andere functie voor gemaakt die een array van objecten terug geeft
         $Project = $this->projectmodel->getById($ProjectID);
         //var_dump($Project);
@@ -63,8 +62,8 @@ class ProjectController
         return new Project(
             $Project['ProjectID'],
             $Project['GebruikerID'],
-            $Project['Type'],
             $Project['Titel'],
+            $Project['Type'],
             $Project['Beschrijving'],
             $Project['CategorieID'],
             $Project['Datumaangemaakt'],
@@ -78,7 +77,7 @@ class ProjectController
         $ProjectArray = [];
         foreach ($this->projectmodel->getByGebruikerID($gebruikerID) as $project){
             $projectObject   =
-                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Titel'], $project['Type'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
                     $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
@@ -102,7 +101,7 @@ class ProjectController
         $ProjectArray = [];
         foreach ($this->projectmodel->getByID($ProjectID) as $project){
             $projectObject   =
-                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                new Project($project['ProjectID'], $project['GebruikerID'],$project['Titel'],  $project['Type'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
                     $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
@@ -116,7 +115,7 @@ class ProjectController
         $ProjectArray = [];
         foreach ($this->projectmodel->getPerPagina($sql, $begin, $limit) as $project){
             $projectObject   =
-                new Project($project['ProjectID'], $project['GebruikerID'], $project['Type'], $project['Titel'],
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Titel'], $project['Type'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
                     $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
