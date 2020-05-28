@@ -8,8 +8,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieC
 session_start();
 
 
+//bekijken wat er nodig is, voor de gebruiker wordt zo de URL netjes
 $view = $_GET['view'];
-
 
 switch ($view){
     case 'detail':

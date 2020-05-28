@@ -5,7 +5,6 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectCon
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
-
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
@@ -18,7 +17,9 @@ $vorige = $pagina-1;
 $volgende = $pagina+1;
 
 //wat een gekloot was dit zeg
-//
+//POST is weg als de pagina wordt ververst,
+// daarom hier in de SESSION plaatsen en dan vergelijken of het veranderd is
+
 if ($_POST){
     $_SESSION['POST'] = $_POST;
     $_SESSION['PaginaNu'] = $pagina;
@@ -64,6 +65,7 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 
 $sql = $projectController->createFilter($gebruikerID,$_SESSION['POST']);
 
+//berekenen
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
@@ -77,7 +79,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 <div id="projectpagina">
     <div class="grid-projecten-colums">
         <div>
-
+        <!-- lege dif voor grid layout-->
         </div>
 
         <div id="filter-projecten">
@@ -99,7 +101,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <label for="MeeBezig"><?php echo Translate::GetTranslation("ProjectfilterBezig"); ?></label><br>
                     </div>
                     <div id="filter-projecten-categorie">
-                        <div id="filter-projecten-kop">Categorie:</div>
+                        <div id="filter-projecten-kop"><?php echo Translate::GetTranslation("ProjectCategorie"); ?></div>
                         <?php
                         foreach ($categorieController->getCategorieen() as $categorie){
                             $categorienaam = $categorie->getCategorieNaam();
@@ -149,7 +151,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     echo "
                         <div id='projecten-geen-project'>
                         ".Translate::GetTranslation('ProjectNietGevonden'). "
-                        
                         </div>
                      
                      ";

@@ -31,7 +31,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         </div>
         <div id="filter-projecten">
             <div id="nieuw-project">
-                <a href="./Project.php?view=add" id="project-nieuw-button">Nieuw Project</a>
+                <a href="./Project.php?view=add" id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
             </div>
         </div>
 
@@ -45,7 +45,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          <div id=\"project-header\">
                              <div id=\"project-aanbieder\">
                                 <div id=\"project-type-text\">
-                                    <h3>gemaakt door " . $gebruikersController->getById($project->getGebruikerID()) . "</h3>
+                                    <h3>". Translate::GetTranslation("ProjectGemaaktDoor") . $gebruikersController->getById($project->getGebruikerID()) . "</h3>
                                 </div>
                              </div>
 
@@ -56,9 +56,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          
                           <div id='project-info'>
                             <div id=\"project-info-grid\">
-                                <div id=\"project-parameters\">
-                                    Gemaakt op: " . substr($project->getDatumaangemaakt(),0,10) . "<br>
-                                    Categorie: ".  $categoriecontroller->getById($project->getCategorieID()) ."
+                                <div id=\"project-parameters\">".
+                                    Translate::GetTranslation("ProjectGemaaktOp"). substr($project->getDatumaangemaakt(),0,10) . "<br>".
+                                    Translate::GetTranslation("ProjectCategorie"). $categoriecontroller->getById($project->getCategorieID()) ."
                                 </div>                         
                                 <div id=\"project-beschrijving\">
                                     " . $project->getBeschrijving() . "
@@ -71,10 +71,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          ";
                 if ($project->getGebruikerID() == $_SESSION['GebruikerID']){
                     echo "<div id='project-button'>
-                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">Wijzig project</a>               
+                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">".Translate::GetTranslation("ProjectEdit")."</a>               
                             </div>
                           <div id='project-button'>
-                                <button id='project-klaar'>project klaar</button> 
+                                <button id='project-klaar'>".Translate::GetTranslation("ProjectKlaar")."</button> 
                           </div>
                     ";
                 } else {
@@ -89,7 +89,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <div id="reacties-scroll">
                     <div id="reactie-venster">
                         <form action="/StudentServices/ClientSide/Project.php?view=detail&ProjectID=<?php echo $projectID;?>" method="post">
-                            <label for="Reactie"><h3>Nieuwe reactie:</h3></label>
+                            <label for="Reactie"><h3><?php echo Translate::GetTranslation("ProjectReactieNieuw");?></h3></label>
                             <textarea maxlength="500" name="Reactie" cols="1" rows="5"
                                       placeholder="Max 500 characters" required></textarea>
                             <input type="submit" name="submitReactie" value="Plaatsen">
@@ -101,12 +101,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
                             echo "                    
                         <div id=\"reactie-venster\">
-                            <h3>Gegeven door: <a href='' ></a>  " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
+                            <h3>". Translate::GetTranslation("ProjectReactieGegevenDoor") . "<a href='' ></a>  " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
                             <div id=\"reactie-inhoud\">
                                " . $reactie->getReactie() . "
                             </div>
                             <div id=\"inhoud-footer\">
-                                mail deze gebruiker: 
+                                <!-- biks hier, weet niet direct of dit weg kan--> 
                             </div>
                     </div>";
                         }

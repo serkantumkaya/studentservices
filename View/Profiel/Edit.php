@@ -1,9 +1,9 @@
 <?php
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/SchoolController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/OpleidingController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
 session_start();
 
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
@@ -14,34 +14,34 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
 <html>
 <head>
 
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
+    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php"); ?>
 <body>
 
 <?php
-$GebruikersID =$_SESSION["GebruikerID"];
+$GebruikersID = $_SESSION["GebruikerID"];
 
-if (!isset($_SESSION["CurrentProfiel"]))
-{
+if (!isset($_SESSION["CurrentProfiel"])){
     //Directly from the login. So look for the profile by gebruikersID
-    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
-    $profiel = $profielcontroller->getByGebruikerID();
-    if ($profiel == null)
+    $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+    $profiel           = $profielcontroller->getByGebruikerID();
+    if ($profiel == null){
         header("Location: Add.php");
+    }
     //$Photo = $profiel->getFoto();
 
-}
-else if (isset($_SESSION["GebruikerID"]))
-{
-    //Directly from the login. So look for the profile by gebruikersID
-    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
-    $profiel = $profielcontroller->getByGebruikerID();
-    if ($profiel == null)
-        header("Location: Add.php");
-    //$Photo = $profiel->getFoto();
+} else{
+    if (isset($_SESSION["GebruikerID"])){
+        //Directly from the login. So look for the profile by gebruikersID
+        $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        $profiel           = $profielcontroller->getByGebruikerID();
+        if ($profiel == null){
+            header("Location: Add.php");
+        }
+        //$Photo = $profiel->getFoto();
+    }
 }
 
-if ((isset($_GET["ID"]) || isset($profiel)) && $_SERVER['REQUEST_METHOD'] !='POST')
-{
+if ((isset($_GET["ID"]) || isset($profiel)) && $_SERVER['REQUEST_METHOD'] != 'POST'){
     $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
     //als de admin inlogt
     if (isset($_GET["ID"])){
@@ -49,104 +49,96 @@ if ((isset($_GET["ID"]) || isset($profiel)) && $_SERVER['REQUEST_METHOD'] !='POS
     }
 
     $_SESSION["CurrentProfiel"] = $profiel;
-    $School =$profiel->getSchool();
-    $Opleiding=$profiel->getOpleiding();
-    $Startdatumopleiding=$profiel->getStartdatumopleiding();
-    $Status=$profiel->getStatus();
-    $Achternaam=$profiel->getAchternaam();
-    $Voornaam=$profiel->getVoornaam();
-    $Tussenvoegsel=$profiel->getTussenvoegsel();
-    $Prefix=$profiel->getPrefix();
-    $Straat=$profiel->getStraat();
-    $Huisnummer=$profiel->getHuisnummer();
-    $Extensie =$profiel->getExtensie();
-    $Postcode=$profiel->getPostcode();
-    $Woonplaats=$profiel->getWoonplaats();
-    $Geboortedatum=$profiel->getGeboortedatum();
-    $Telefoonnummer=$profiel->getTelefoonnummer();
-}
-else
-{
-    $profiel = $_SESSION["CurrentProfiel"];
-    $profielcontroller= new ProfielController($_SESSION["GebruikerID"]);
-    $schoolcontroller =new SchoolController();
-    $opleidingcontroller=new OpleidingController();
+    $School                     = $profiel->getSchool();
+    $Opleiding                  = $profiel->getOpleiding();
+    $Startdatumopleiding        = $profiel->getStartdatumopleiding();
+    $Status                     = $profiel->getStatus();
+    $Achternaam                 = $profiel->getAchternaam();
+    $Voornaam                   = $profiel->getVoornaam();
+    $Tussenvoegsel              = $profiel->getTussenvoegsel();
+    $Prefix                     = $profiel->getPrefix();
+    $Straat                     = $profiel->getStraat();
+    $Huisnummer                 = $profiel->getHuisnummer();
+    $Extensie                   = $profiel->getExtensie();
+    $Postcode                   = $profiel->getPostcode();
+    $Woonplaats                 = $profiel->getWoonplaats();
+    $Geboortedatum              = $profiel->getGeboortedatum();
+    $Telefoonnummer             = $profiel->getTelefoonnummer();
+} else{
+    $profiel                    = $_SESSION["CurrentProfiel"];
+    $profielcontroller          = new ProfielController($_SESSION["GebruikerID"]);
+    $schoolcontroller           = new SchoolController();
+    $opleidingcontroller        = new OpleidingController();
     $_SESSION["CurrentProfiel"] = $profiel;
-    $School = $schoolcontroller->getById($_POST["School"]);
-    $Opleiding= $opleidingcontroller->getById($_POST["Opleiding"]);
-    $Startdatumopleiding= $_POST["Startdatumopleiding"];
-    $Status=$_POST["Status"];
-    $Achternaam=$_POST["Achternaam"];
-    $Voornaam=$_POST["Voornaam"];
-    $Tussenvoegsel=$_POST["Tussenvoegsel"];
-    $Prefix=$_POST["Prefix"];
-    $Straat=$_POST["Straat"];
-    $Huisnummer=$_POST["Huisnummer"];
-    $Extensie =$_POST["Extensie"];
-    $Postcode=$_POST["Postcode"];
-    $Woonplaats=$_POST["Woonplaats"];
-    $Geboortedatum=$_POST["Geboortedatum"];
-    $Telefoonnummer=$_POST["Telefoonnummer"];
-    $Photo = $profiel->getFoto();
+    $School                     = $schoolcontroller->getById($_POST["School"]);
+    $Opleiding                  = $opleidingcontroller->getById($_POST["Opleiding"]);
+    $Startdatumopleiding        = $_POST["Startdatumopleiding"];
+    $Status                     = $_POST["Status"];
+    $Achternaam                 = $_POST["Achternaam"];
+    $Voornaam                   = $_POST["Voornaam"];
+    $Tussenvoegsel              = $_POST["Tussenvoegsel"];
+    $Prefix                     = $_POST["Prefix"];
+    $Straat                     = $_POST["Straat"];
+    $Huisnummer                 = $_POST["Huisnummer"];
+    $Extensie                   = $_POST["Extensie"];
+    $Postcode                   = $_POST["Postcode"];
+    $Woonplaats                 = $_POST["Woonplaats"];
+    $Geboortedatum              = $_POST["Geboortedatum"];
+    $Telefoonnummer             = $_POST["Telefoonnummer"];
+    $Photo                      = $profiel->getFoto();
 }
 #region [errorafhandeling]
-$NaamErr = "";
-$EmailErr = "";
-$WachtwoordErr = "";
+$NaamErr            = "";
+$EmailErr           = "";
+$WachtwoordErr      = "";
 $WachtwoordCheckErr = "";
-$VoornaamErr = "";
-$AchternaamErr = "";
-$StraatErr = "";
-$HuisnummerErr = "";
-$PostcodeErr = "";
-$WoonplaatsErr = "";
-$noerror = true;
+$VoornaamErr        = "";
+$AchternaamErr      = "";
+$StraatErr          = "";
+$HuisnummerErr      = "";
+$PostcodeErr        = "";
+$WoonplaatsErr      = "";
+$noerror            = true;
 
-if (isset($_POST["Voornaam"]) && $_POST["Voornaam"] =="")
-{
+if (isset($_POST["Voornaam"]) && $_POST["Voornaam"] == ""){
     $VoornaamErr = "Voornaam is verplicht.";
-    $noerror = false;
+    $noerror     = false;
 }
-if (isset($_POST["Achternaam"]) && $_POST["Achternaam"] =="")
-{
+if (isset($_POST["Achternaam"]) && $_POST["Achternaam"] == ""){
     $AchternaamErr = "Achternaam is verplicht.";
-    $noerror = false;
+    $noerror       = false;
 }
-if (isset($_POST["Straat"]) && $_POST["Straat"] =="")
-{
+if (isset($_POST["Straat"]) && $_POST["Straat"] == ""){
     $StraatErr = "Straat is verplicht.";
-    $noerror = false;
+    $noerror   = false;
 }
-if (isset($_POST["Huisnummer"]) && $_POST["Huisnummer"] =="")
-{
+if (isset($_POST["Huisnummer"]) && $_POST["Huisnummer"] == ""){
     $HuisnummerErr = "Huisnummer is verplicht.";
-    $noerror = false;
+    $noerror       = false;
 }
-if (isset($_POST["Postcode"]) && $_POST["Postcode"] =="")
-{
+if (isset($_POST["Postcode"]) && $_POST["Postcode"] == ""){
     $PostcodeErr = "Postcode is verplicht.";
-    $noerror = false;
+    $noerror     = false;
 }
-if (isset($_POST["Woonplaats"]) && $_POST["Woonplaats"] =="")
-{
+if (isset($_POST["Woonplaats"]) && $_POST["Woonplaats"] == ""){
     $WoonplaatsErr = "Woonplaats is verplicht.";
-    $noerror = false;
+    $noerror       = false;
 }
 #endregion
 
 $gbController = new GebruikerController($_SESSION["GebruikerID"]);
-$gebruiker = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
+$gebruiker    = $gbController->getById($_SESSION["GebruikerID"]);//in een session zetten werkt niet dan maar ophalen.
 
 
 //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
 // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
-echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1 ><br>";
+echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "</h1 ><br>";
 ?>
 
 <div class="divprofiel">
-    <form action="Edit.php" method="post" class="profielform" enctype="multipart/form-data"   >
+    <form action="Edit.php" method="post" class="profielform" enctype="multipart/form-data">
 
-<?php
+        <?php
         echo "<!--Voornaam-->
 <div class=\"block\">
 <label class=\"formlabel\">Voornaam *</label>
@@ -228,9 +220,9 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
         echo "<!--Geboortedatum-->";
         echo "<label class=\"formlabel\">Geboortedatum</label>";
         echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
-        $time     = new DateTime($Geboortedatum);
+        $time    = new DateTime($Geboortedatum);
         $newTime = $time->format("d-m-Y");
-        echo    $newTime."\">";
+        echo $newTime . "\">";
         echo "</div>";
 
         echo "<div class=\"block\">";
@@ -238,17 +230,17 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <label class=\"formlabel\">School</label>";
         echo "<select name=\"School\">";
         $Schoolcontroller = new SchoolController();
-        foreach($Schoolcontroller->GetScholen() as $sh)
-        {
-            $schoolid = $sh->getSchoolID();
+        foreach ($Schoolcontroller->GetScholen() as $sh){
+            $schoolid   = $sh->getSchoolID();
             $schoolnaam = $sh->getSchoolnaam();
 
-            if (isset($School) && $School->getSchoolID() == $schoolid)
+            if (isset($School) && $School->getSchoolID() == $schoolid){
                 echo "<option value=\"$schoolid\" selected>$schoolnaam</option>";
-            else
+            } else{
                 echo "<option value=\"$schoolid\">$schoolnaam</option>";
+            }
         }
-        echo"</select></div>
+        echo "</select></div>
 
 
 
@@ -257,23 +249,23 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <label class=\"formlabel\">Opleiding</label>
 <select name=\"Opleiding\">";
         $Opleidingcontroller = new OpleidingController();
-        foreach($Opleidingcontroller->GetOpleidingen() as $op)
-        {
+        foreach ($Opleidingcontroller->GetOpleidingen() as $op){
             $opleidingid = $op->getOpleidingID();
 
             $naamopleiding = $op->getNaamopleiding();
-            if (isset($Opleiding) && $Opleiding->getOpleidingID() == $opleidingid)
+            if (isset($Opleiding) && $Opleiding->getOpleidingID() == $opleidingid){
                 echo "<option value=\"$opleidingid\" selected>$naamopleiding</option>";
-            else
+            } else{
                 echo "<option value=\"$opleidingid\">$naamopleiding</option>";
+            }
         }
-        echo"</select></div>
+        echo "</select></div>
  
 <!--Startdatumopleiding-->
 <div class=\"formrow\">
 <label class=\"formlabel\">Startdatumopleiding</label>
 <input class=\"forminput\" type = \"text\" name=\"Startdatumopleiding\" value=\"";
-        $time     = new DateTime($Startdatumopleiding);
+        $time    = new DateTime($Startdatumopleiding);
         $newTime = $time->format("d-m-Y");
 
         echo $newTime;
@@ -284,108 +276,101 @@ echo "<h1 class=\"h1profiel\"> Profiel : ".$gebruiker->getGebruikersnaam()."</h1
 <label class=\"formlabel\">Status</label>
 <select name=\"Status\">";
         $EnumStatus = new EnumGebruikerStatus();
-        foreach($EnumStatus->getConstants() as $st)
-        {
-            if (isset($Status) && $Status == $st)
+        foreach ($EnumStatus->getConstants() as $st){
+            if (isset($Status) && $Status == $st){
                 echo "<option value=\"$st\" selected>$st</option>";
-            else
+            } else{
                 echo "<option value=\"$st\">$st</option>";
+            }
         }
-        echo"</select>
+        echo "</select>
 </div>
     
 <!--Telefoonnummer-->    
 <div class=\"block\">
 <label class=\"formlabel\">Telefoonnummer</label>
 <input type=\"text\" name=\"Telefoonnummer\" value=\"";
-    echo $Telefoonnummer;
-    echo "\"/></div>";
+        echo $Telefoonnummer;
+        echo "\"/></div>";
 
-echo "<label class=\"formlabel\">Profielfoto:</label><br />";
+        echo "<label class=\"formlabel\">Profielfoto:</label><br />";
 
-    if (isset($profiel))
-    {
-        $Photo = $profiel->getFoto();
-        //echo $Photo;
-        if (isset($Photo))
-        {
-            echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto" 
+        if (isset($profiel)){
+            $Photo = $profiel->getFoto();
+            //echo $Photo;
+            if (isset($Photo)){
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($Photo) . '" class="studentfoto" 
             name="ProfileImage" ID="ProfileImage"/>';
+            } else{
+                echo '<img src="#" class="studentfoto" name="ProfileImage" ID="ProfileImage"/>';
+            }
         }
-        else
-        {
-            echo '<img src="#" class="studentfoto" name="ProfileImage" ID="ProfileImage"/>';
-        }
-    }
-    ?>
+        ?>
         <br><br>
-    <input type='file' name="ProfilePhotoFile"  value="Upload je profielfoto."
-           accept="image/gif, image/jpeg, image/png" onchange="readURL(this);">
+        <input type='file' name="ProfilePhotoFile" value="Upload je profielfoto."
+               accept="image/gif, image/jpeg, image/png" onchange="readURL(this);">
 
 </div>
 <div class="block">
 
-        </div><div class="block">
-            <br>
-            <input type="submit" value="submit" name='submit' >
-            <input type="submit" value="delete" name='delete' >
-        </div>
-    </form >
+</div>
+<div class="block">
+    <br>
+    <input type="submit" value="submit" name='submit'>
+    <input type="submit" value="delete" name='delete'>
+</div>
+</form >
 
 <?php
 
-    if(isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != "")
-    {
-        $imagename=$_FILES["ProfilePhotoFile"]["name"];
-        $imagetmp=addslashes (file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']));
-        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),$profiel->getProfielID());
+if (isset($_FILES["ProfilePhotoFile"]) && $_FILES["ProfilePhotoFile"]["name"] != ""){
+    $imagename         = $_FILES["ProfilePhotoFile"]["name"];
+    $imagetmp          = addslashes(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']));
+    $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+    $Profielcontroller->UploadPhoto(file_get_contents($_FILES['ProfilePhotoFile']['tmp_name']),
+        $profiel->getProfielID());
 
-    }
+}
 
-    if (isset($_POST["delete"]))
-    {
-        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
-        $Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID());
+if (isset($_POST["delete"])){
+    $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+    $Profielcontroller->delete($_SESSION["CurrentProfiel"]->getProfielID());
 
-            echo("<script>window.location.assign('/StudentServices/inlogPag.php');</script>");
+    echo("<script>window.location.assign('/StudentServices/inlogPag.php');</script>");
 
-    }
-    else if ($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-        $schoolcontroller = new SchoolController();
+} else{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
-        $Profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
+        $Profielcontroller   = new ProfielController($_SESSION["GebruikerID"]);
 
-        $timegb     = new DateTime($Geboortedatum);
-        $newGeboortedatum = $timegb->format("Y-m-d");
-        $timesd     = new DateTime($Startdatumopleiding);
+        $timegb                 = new DateTime($Geboortedatum);
+        $newGeboortedatum       = $timegb->format("Y-m-d");
+        $timesd                 = new DateTime($Startdatumopleiding);
         $newStartdatumopleiding = $timesd->format("Y-m-d");
 
-        $profiel = new Profiel($profiel->getProfielID(), $GebruikersID,$School,
+        $profiel = new Profiel($profiel->getProfielID(), $GebruikersID, $School,
             $Opleiding,
-            $newStartdatumopleiding,  $Status,  $Achternaam,  $Voornaam,  $Tussenvoegsel,
-            $Prefix,  $Straat,  $Huisnummer,  $Extensie,  $Postcode,
-            $Woonplaats,  $newGeboortedatum, $Telefoonnummer);
+            $newStartdatumopleiding, $Status, $Achternaam, $Voornaam, $Tussenvoegsel,
+            $Prefix, $Straat, $Huisnummer, $Extensie, $Postcode,
+            $Woonplaats, $newGeboortedatum, $Telefoonnummer);
 
-        if ($Profielcontroller->update($profiel))
-        {
-            if ($_SESSION["level"]>=50)
-                //echo "Record opgeslagen";
-                header("Location: ".$_SERVER['DOCUMENT_ROOT']."/StudentServices/view.php");
-            else
+        if ($Profielcontroller->update($profiel)){
+            if ($_SESSION["level"]>=50)//echo "Record opgeslagen";
+            {
+                header("Location: " . $_SERVER['DOCUMENT_ROOT'] . "/StudentServices/view.php");
+            } else{
                 echo("<script>window.location.assign('/StudentServices/View/Profiel/edit.php');</script>");
+            }
             //Do nothing you're already there.
-        }
-        else
-        {
+        } else{
             echo "Record niet opgeslagen";
         }
     }
+}
 
 ?>
 </div>
-
 
 
 <script>
