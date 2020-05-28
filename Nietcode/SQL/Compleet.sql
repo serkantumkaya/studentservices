@@ -115,15 +115,20 @@ FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
 
 CREATE TABLE BESCHIKBAARHEID (
+BeschikbaarheidID INT PRIMARY KEY AUTO_INCREMENT,
 ProjectID int NOT NULL,
 GebruikerID int NOT NULL,
 Dagbeschikbaar DATE NOT NULL,
 starttijd TIME NOT NULL,
 Eindtijd TIME NOT NULL,
 FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
-FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE,
-PRIMARY KEY (ProjectID, GebruikerID, Dagbeschikbaar,starttijd,Eindtijd)
+FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 );
+
+CREATE UNIQUE INDEX BeschikbaarheidUnique
+ON Beschikbaarheid (ProjectID, GebruikerID, Dagbeschikbaar,starttijd,Eindtijd);
+
+PRIMARY KEY (ProjectID, GebruikerID, Dagbeschikbaar,starttijd,Eindtijd)
 
 CREATE TABLE FEEDBACK(
 FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
