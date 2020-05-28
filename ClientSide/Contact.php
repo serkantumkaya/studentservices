@@ -23,25 +23,25 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
             <form name="contactform" method="post" onsubmit="return validateForm()" action="#">
-                <h2>Contact formulier</h2>
-                <label for="fname">Voornaam</label><br>
-                <input type="text" id="fname" name="firstname" placeholder="Vul je voornaam in." maxlength="50" size="50"><br>
+                <h2><?php echo Translate::GetTranslation("contactformulier") ?></h2>
+                <label for="fname"><?php echo Translate::GetTranslation("contactVoornaam") ?></label><br>
+                <input type="text" id="fname" name="firstname" placeholder="<?php echo Translate::GetTranslation("contactVoornaamPlaceholder") ?>" maxlength="50" size="50"><br>
                 <div id="error1" class="error"></div><br>
-                <label for="lname">Achternaam</label><br>
-                <input type="text" id="lname" name="lastname" placeholder="Vul je achternaam in." maxlength="50" size="50"><br>
+                <label for="lname"><?php echo Translate::GetTranslation("contactAchternaam") ?></label><br>
+                <input type="text" id="lname" name="lastname" placeholder="<?php echo Translate::GetTranslation("contactAchternaamPlaceholder") ?>" maxlength="50" size="50"><br>
                 <div id="error3" class="error"></div><br>
-                <label for="E-mail">E-mailadres</label><br>
-                <input type="text" id="E-mail" name="E-mailadres" placeholder="Vul je e-mailadres in." maxlength="50" size="50"><br>
-                <div id="error6" class="error"></div><br>
+                <label for="E-mail"><?php echo Translate::GetTranslation("contactEmail") ?></label><br>
+                <input type="text" id="E-mail" name="E-mailadres" placeholder="<?php echo Translate::GetTranslation("contactEmailPlaceholder") ?>" maxlength="50" size="50"><br>
+                <div id="error6" class="error"></div>
                 <div id="error7" class="error"></div><br>
-                <label for="E-mail2">E-mailadres controle</label><br>
-                <input type="text" id="E-mail2" name="E-mailadres2" placeholder="Vul je e-mailadres nogmaals in voor controle." maxlength="50" size="50"><br>
-                <div id="error6b" class="error"></div><br>
+                <label for="E-mail2"><?php echo Translate::GetTranslation("contactEmail2") ?></label><br>
+                <input type="text" id="E-mail2" name="E-mailadres2" placeholder="<?php echo Translate::GetTranslation("contactEmailPlaceholder2") ?>" maxlength="50" size="50"><br>
+                <div id="error6b" class="error"></div>
                 <div id="error7b" class="error"></div><br>
-                <label for="tel">Telefoonnummer</label><br>
-                <input type="text" id="tel" name="telefoonnummer" placeholder="Vul je telefoonnummer in." maxlength="30" size="30"><br>
+                <label for="tel"><?php echo Translate::GetTranslation("contactTelefoon") ?></label><br>
+                <input type="text" id="tel" name="telefoonnummer" placeholder="<?php echo Translate::GetTranslation("contactTelefoonPlaceholder") ?>" maxlength="30" size="50"><br>
                 <div id="error10" class="error"></div><br>
-                 <label for="email">Contact voorkeur</label><br>
+                 <label for="email"><?php echo Translate::GetTranslation("contactContactVoorkeur") ?></label><br>
                 <div class="E-mail"><br>
                     <input type="checkbox" name="myCheckBox" id="email" value="e-mail">
                     <label for="email">E-mail</label><br>
@@ -51,13 +51,13 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     <label for="tele">Whatsapp</label><br>
                     <br>
                 </div><br>
-                <label for="subject">Opmerking</label><br>
-                <textarea id="subject" name="subject" placeholder="Vul hier uw opmerking in." style="height:200px" maxlength="1000" size="1000"></textarea><br>
+                <label for="subject"><?php echo Translate::GetTranslation("contactOpmerking") ?></label><br>
+                <textarea id="subject" name="subject" placeholder="<?php echo Translate::GetTranslation("contactOpmerkingPlaceholder") ?>" style="height:200px" maxlength="1000" size="1000"></textarea><br>
                 <div id="error11" class="error"></div><br>
 
-                    <input id="submit" type="submit" value="Submit" />
+                    <input id="submit" type="submit" value="<?php echo Translate::GetTranslation("contactVerstuur") ?>" />
 
-                    <a href="contact.html" class="formbutton">Terug naar contact</a>
+                    <a href="contact.html" class="formbutton"><?php echo Translate::GetTranslation("contactTerug") ?></a>
 
             </form>
         </div>
