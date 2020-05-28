@@ -67,7 +67,25 @@ class Translate
         "contactOpmerking" => ["Opmerking","Comment"],
         "contactOpmerkingPlaceholder" => ["Vul hier uw opmerking in.","Enter your comment."],
         "contactVerstuur" => ["Verstuur", "Submit"],
-        "contactTerug" => ["Terug naar contact", "Back to contact"]
+        "contactTerug" => ["Terug naar contact", "Back to contact"],
+
+        "homeWelkom" => ["Welkom","Welcome"],
+        "homeEmail" => ["Emailadres:","Emailaddress:"],
+        "homeProjecten" => ["Projecten","Projects"],
+        "homeAanbiedend" => ["Mijn aanbiedende projecten","Help others with their projects"],
+        "homeVragend" => ["Mijn vragende projecten","Others helping me with my projects"],
+        "homeReacties" => ["Reacties","Reactions"],
+        "homeReactie1" => ["Reactie op jouw project:","Reaction on your project:"],
+        "homeReactie2" => ["Jouw reactie op project:","Your reaction on project:"],
+        "homeVerzondenDoor" => ["Verzonden door","Send by"],
+        "homeOm" => ["om","at"],
+        "homeFeedback" => ["Feedback","Feedback"],
+        "homeFeedbackDoor" => ["Feedback door","Feedback by"],
+        "homeFeedbackOpProject" => ["Feedback op project:","Feedback on project:"],
+        "homeCijfer" => ["Gegeven cijfer","Given score"],
+        "homeFeedbackVanJou" => ["Jouw feedback op project:","Your feedback on project:"],
+        "homeFeedbackVanAnder" => ["Gegeven feedback door","Given feedback by "],
+
     ];
 
     public static function GetTranslation(string $key) : string
