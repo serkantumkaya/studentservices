@@ -59,24 +59,24 @@ class HomepageController
         $projecten[] = $this->projectcontroller->getByGebruikerID($this->gebruikersid);
         $ownproject = false;
         if (!(!isset($feedbackgeg) || $feedbackgeg == false)) { //gebruiker kan geen feedback hebben.
-                foreach ($feedbackgeg as $feedback) {
-                    if (!(!isset($projecten) || $projecten == false)) {
-                        foreach($projecten[0] as $project) {
-                            if ($feedback-> getProjectID() == $project->getProjectID()) {
-                                $ownproject = true;
-                            }
+            foreach ($feedbackgeg as $feedback) {
+                if (!(!isset($projecten) || $projecten == false)) {
+                    foreach($projecten[0] as $project) {
+                        if ($feedback-> getProjectID() == $project->getProjectID()) {
+                            $ownproject = true;
                         }
-                        if($ownproject){
-                            $ownproject = false;
-                        }
-                        else{
-                            $this->feedbackgegeven[] = $feedback;
-                        }
+                    }
+                    if($ownproject){
+                        $ownproject = false;
                     }
                     else{
                         $this->feedbackgegeven[] = $feedback;
                     }
                 }
+                else{
+                    $this->feedbackgegeven[] = $feedback;
+                }
+            }
         }
         if (!(!isset($projecten) || $projecten == false)) {
             foreach ($projecten[0] as $project) {
@@ -103,13 +103,13 @@ class HomepageController
     }
 
     public function getfullname(){
-        if($this->profielexsist) {
-            $voornaam = $this->profiel->getVoornaam();
-            $tussenvoegsel = $this->profiel->getTussenvoegsel();
-            $achternaam = $this->profiel->getAchternaam();
-            return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
-        }
-        return (" ". $this->gebruiker->getEmail());
+        /*  if($this->profielexsist) {
+              $voornaam = $this->profiel->getVoornaam();
+              $tussenvoegsel = $this->profiel->getTussenvoegsel();
+              $achternaam = $this->profiel->getAchternaam();
+              return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
+          }*/
+        return (" ". $this->gebruiker->getGebruikersnaam());
     }
 
     public function getaccountstatus(){
@@ -178,95 +178,149 @@ class HomepageController
         }
     }
 
+
     public function getreactietext(int $id = null){
-        if($id != null){
+        $lastreactieId = 0;
+        if ($id != null){
             if (!empty($this->reactiegegeven)){
-                if (!empty( $this->reactiegegeven[count($this->reactiegegeven) - 1]->getReactie())) {
-                    return $this->reactiegegeven[count($this->reactiegegeven) - 1]->getReactie();
+
+                foreach ($this->reactiegegeven as $reactie){
+                    if ($reactie->getReactieID()>$lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
+                    }
                 }
-            } else {
-                return "geen reactie gevonden";
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getReactie())){
+                    return $this->reactiecontroller->getById($lastreactieId)->getReactie();
+                } else{
+                    return "geen reactie gevonden";;
+                }
+            } else{
+                return "geen reactie gevonden";;
             }
-        }
-        else{
-            if (!empty($this->reactiegekregen)) {
-                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie())) {
-                    return $this->reactiegekregen[count($this->reactiegekregen) - 1]->getReactie();
+        } else{
+            $lastreactieId = 0;
+            if (!empty($this->reactiegekregen)){
+                foreach ($this->reactiegekregen as $reactie){
+                    if ($reactie->getReactieID()>$lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
+                    }
                 }
-            } else {
-                return "geen reactie gevonden";
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getProjectID())){
+                    foreach ($this->project as $projects){
+                        if ($projects->getProjectID() ==
+                            $this->reactiecontroller->getById($lastreactieId)->getProjectID()){
+                            if (!empty($this->reactiecontroller->getById($lastreactieId)->getReactie())){
+                                return $this->reactiecontroller->getById($lastreactieId)->getReactie();
+                            } else{
+                                return "geen reactie gevonden";;
+                            }
+                        }
+                    }
+                }
+            } else{
+                return "geen reactie gevonden";;
             }
         }
     }
 
     public function getprojecttitlebyreactie(int $id = null){
-        if($id != null){
+        if ($id != null){
+            $lastreactieId = 0;
             if (!empty($this->reactiegegeven)){
-                if (!empty($this->reactiegegeven[count($this->reactiegegeven) - 1]->getGebruikerID())) {
-                    $projecten = $this->projectcontroller->getById($this->reactiegegeven[count($this->reactiegegeven) - 1]->getprojectID());
-                    if (!(!isset($projecten) || $projecten == false)){ //gebruiker kan geen projecten hebben.
-                            if ($projecten->getProjectID() == $this->reactiegegeven[count($this->reactiegegeven) - 1]->getProjectID()) {
-                                return $projecten->getTitel();
-                            }
-                    }
-                    else{
-                        return "......";
+                foreach ($this->reactiegegeven as $reactie){
+                    if ($reactie->getReactieID()>$lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
                     }
                 }
-            } else {
-                return "....";
+
+
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getGebruikerID())){
+                    $projecten = $this->projectcontroller->getById($this->reactiecontroller->getById($lastreactieId)
+                        ->getProjectID());
+                    if (!(!isset($projecten) || $projecten == false)){ //gebruiker kan geen projecten hebben.
+                        if ($projecten->getProjectID() ==
+                            $this->reactiecontroller->getById($lastreactieId)->getProjectID()){
+                            return $projecten->getTitel();
+                        }
+                    } else{
+                        return "......";
+                    }
+
+                } else{
+                    return "....";
+                }
             }
-        }
-        else {
-            if (!empty($this->reactiegekregen)) {
-                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
-                    foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
+
+        } else{
+            $lastreactieId = 0;
+            if (!empty($this->reactiegekregen)){
+                foreach ($this->reactiegekregen as $reactie){
+                    if ($reactie->getReactieID()>$lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
+                    }
+                }
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getProjectID())){
+                    foreach ($this->project as $projects){
+                        if ($projects->getProjectID() ==
+                            $this->reactiecontroller->getById($lastreactieId)->getProjectID()){
                             return $projects->getTitel();
                         }
                     }
                 }
-            } else {
+            } else{
                 return "....";
             }
         }
     }
 
+
     public function getusernamebyreactie(int $id = null){
         if($id != null){
-           return $this->getfullname();
+            return $this->getfullname();
         }
         else {
+            $lastreactieId = 0;
             if (!empty($this->reactiegekregen)) {
-                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
-                    foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
-                            $this->profielcontroller = new ProfielController($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
-                            if (!empty($this->profielcontroller->getByGebruikerID() != null)) {
-                                $getprofielreactieuser = $this->profielcontroller->getById($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
-                                $voornaam = $getprofielreactieuser->getVoornaam();
-                                $tussenvoegsel = $getprofielreactieuser->getTussenvoegsel();
-                                $achternaam = $getprofielreactieuser->getAchternaam();
-                                return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
+                foreach ($this->reactiegekregen as $reactie) {
+                    if ($reactie->getReactieID() > $lastreactieId) {
+                        $lastreactieId = $reactie->getReactieID();
+                    }
+                }
+                foreach ($this->project as $projects) {
+                    if ($projects->getProjectID() == $this->reactiecontroller->getById($lastreactieId)->getProjectID()) {
+                        $this->profielcontroller = new ProfielController($this->reactiecontroller->getById($lastreactieId)->getGebruikerID());
+                        if (!empty($this->profielcontroller->getByGebruikerID() != null)) {
+                            $getprofielreactieuser = $this->profielcontroller->getById($this->reactiecontroller->getById($lastreactieId)->getGebruikerID());
+                            $voornaam = $getprofielreactieuser->getVoornaam();
+                            $tussenvoegsel = $getprofielreactieuser->getTussenvoegsel();
+                            $achternaam = $getprofielreactieuser->getAchternaam();
+                            return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel) ? $tussenvoegsel : "") . " " . ($achternaam != false || $achternaam != null || !empty($achternaam) ? $achternaam : ""));
 
-                            } else {
-                                $getuserreactieuser = $this->gebruikercontroller->getById($this->reactiegekregen[count($this->reactiegekregen) - 1]->getGebruikerID());
-                                return (" " . $getuserreactieuser->getEmail());
-                            }
+                        } else {
+                            $getuserreactieuser = $this->gebruikercontroller->getById($this->reactiecontroller->getById($lastreactieId)->getGebruikerID());
+                            return (" " . $getuserreactieuser->getEmail());
                         }
                     }
                 }
-            } else {
+
+            }else {
                 return "....";
             }
         }
     }
 
     public function gettimestampbyreactie(int $id = null){
+        $lastreactieId = 0;
         if($id != null){
             if (!empty($this->reactiegegeven)){
-                if ($this->reactiegegeven[count($this->reactiegegeven) - 1]->getTimestamp()){
-                    return $this->reactiegegeven[count($this->reactiegegeven) - 1]->getTimestamp();
+
+                foreach ($this->reactiegegeven as $reactie){
+                    if($reactie->getReactieID() > $lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
+                    }
+                }
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getTimestamp() )){
+                    return $this->reactiecontroller->getById($lastreactieId)->getTimestamp();
                 }
                 else {
                     return "00-00-00 00:00:00";
@@ -277,12 +331,21 @@ class HomepageController
             }
         }
         else {
+            $lastreactieId = 0;
             if (!empty($this->reactiegekregen)) {
-                if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID())) {
+                foreach ($this->reactiegekregen as $reactie){
+                    if($reactie->getReactieID() > $lastreactieId){
+                        $lastreactieId = $reactie->getReactieID();
+                    }
+                }
+                //var_dump($this->reactiecontroller->getById($lastreactieId));
+                if (!empty($this->reactiecontroller->getById($lastreactieId)->getProjectID())) {
                     foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->reactiegekregen[count($this->reactiegekregen) - 1]->getProjectID()) {
-                            if (!empty($this->reactiegekregen[count($this->reactiegekregen) - 1]->getTimestamp())) {
-                                return $this->reactiegekregen[count($this->reactiegekregen) - 1]->getTimestamp();
+                        //var_dump($projects->getProjectID());
+                        //var_dump($this->reactiecontroller->getById($lastreactieId)->getProjectID());
+                        if ($projects->getProjectID() == $this->reactiecontroller->getById($lastreactieId)->getProjectID()) {
+                            if (!empty($this->reactiecontroller->getById($lastreactieId)->getTimestamp())) {
+                                return $this->reactiecontroller->getById($lastreactieId)->getTimestamp();
                             } else {
                                 return "00-00-00 00:00:00";
                             }
@@ -304,7 +367,7 @@ class HomepageController
                         $lastfeedbackId = $feedback->getFeedbackID();
                     }
                 }
-             return $this->feedbackcontroller->getById($lastfeedbackId)->getReview();
+                return $this->feedbackcontroller->getById($lastfeedbackId)->getReview();
             } else {
                 return "geen feedback gevonden";
             }
@@ -354,11 +417,11 @@ class HomepageController
                         $lastfeedbackId = $feedback->getFeedbackID();
                     }
                 }
-                    foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
-                            return $projects->getTitel();
-                        }
+                foreach ($this->project as $projects) {
+                    if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
+                        return $projects->getTitel();
                     }
+                }
             }else {
                 return "....";
             }
@@ -377,30 +440,30 @@ class HomepageController
                         $lastfeedbackId = $feedback->getFeedbackID();
                     }
                 }
-                    foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
-                            $this->profielcontroller = new ProfielController($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
-                            if (!empty($this->profielcontroller->getByGebruikerID()) && $this->profielcontroller->getByGebruikerID() != null) {
-                                $getprofielreactieuser = $this->profielcontroller->getById($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
-                                $voornaam = $getprofielreactieuser->getVoornaam();
-                                $tussenvoegsel = $getprofielreactieuser->getTussenvoegsel();
-                                $achternaam = $getprofielreactieuser->getAchternaam();
-                                return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
+                foreach ($this->project as $projects) {
+                    if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
+                        $this->profielcontroller = new ProfielController($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
+                        if (!empty($this->profielcontroller->getByGebruikerID()) && $this->profielcontroller->getByGebruikerID() != null) {
+                            $getprofielreactieuser = $this->profielcontroller->getById($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
+                            $voornaam = $getprofielreactieuser->getVoornaam();
+                            $tussenvoegsel = $getprofielreactieuser->getTussenvoegsel();
+                            $achternaam = $getprofielreactieuser->getAchternaam();
+                            return (" " . ($voornaam != false || $voornaam != null || !empty($voornaam) ? $voornaam : "") . " " . ($tussenvoegsel != false || $tussenvoegsel != null || !empty($tussenvoegsel)  ? $tussenvoegsel: "" ). " " .($achternaam != false || $achternaam != null || !empty($achternaam)  ? $achternaam: "" ));
 
-                            } else {
-                                $getuserreactieuser = $this->gebruikercontroller->getById($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
-                                return (" " . $getuserreactieuser->getEmail());
-                            }
+                        } else {
+                            $getuserreactieuser = $this->gebruikercontroller->getById($this->feedbackcontroller->getById($lastfeedbackId)->getGebruikerID());
+                            return (" " . $getuserreactieuser->getEmail());
                         }
                     }
                 }
+            }
             else {
                 return "....";
             }
         }
     }
 
-    public function gettimestampbyfeedback(int $id = null){
+    public function gettimestampbyfeedback(int $id = null){//feedback heeft geen timestamp
         if($id != null){
             $lastfeedbackId = 0;
             if (!empty($this->feedbackgegeven) && false){
@@ -428,15 +491,15 @@ class HomepageController
                         $lastfeedbackId = $feedback->getFeedbackID();
                     }
                 }
-                    foreach ($this->project as $projects) {
-                        if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
-                            if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp())) {
-                                return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
-                            } else {
-                                return "00-00-00 00:00:00";
-                            }
+                foreach ($this->project as $projects) {
+                    if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
+                        if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp())) {
+                            return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
+                        } else {
+                            return "00-00-00 00:00:00";
                         }
                     }
+                }
             }
             else {
                 return "00-00-00 00:00:00";
@@ -492,7 +555,7 @@ class HomepageController
 
     public function geticoonfeedback(int $id = null){
         $urlimage = "";
-      if($id != null){
+        if($id != null){
             $lastfeedbackId = 0;
             if (!empty($this->feedbackgegeven)){
                 foreach ($this->feedbackgegeven as $feedback){
@@ -501,19 +564,12 @@ class HomepageController
                     }
                 }
                 if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer())){
-                    if (round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2) == 0) {
-                    $string =  $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2;
-
-                        $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
-                        //var_dump($urlimage);
-
+                    if (round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()%2) == 0) {
+                        $string =  $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2;
                     } else {
-                        $string =  round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
-                        //var_dump( round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2));
-                        $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
-                        //var_dump($urlimage);
+                        $string = floor($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
                     }
-
+                    $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
                 }
                 else {
                     $urlimage = "/StudentServices/images/Feedback_smile_5.png";
@@ -534,15 +590,12 @@ class HomepageController
                 foreach ($this->project as $projects) {
                     if ($projects->getProjectID() == $this->feedbackcontroller->getById($lastfeedbackId)->getProjectID()) {
                         if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer())) {
-                            if (round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()/2) == 0) {
+                            if(round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer()%2) == 0) {
                                 $string =  $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2;
-                                $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
-                               // var_dump($urlimage);
                             } else {
-                                $string =  round($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
-                                $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
-                               // var_dump($urlimage);
+                                $string = floor($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer() / 2) + 1;
                             }
+                            $urlimage = "/StudentServices/images/Feedback_smile_"."$string".".png";
                         } else {
                             return  "/StudentServices/images/Feedback_smile_5.png";
                         }
@@ -555,4 +608,6 @@ class HomepageController
         }
         return $urlimage;
     }
+
+
 }
