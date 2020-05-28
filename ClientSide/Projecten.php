@@ -11,18 +11,9 @@ $projectController = new ProjectController();
 $categorieController = new CategorieController();
 $gebruikerID = $_SESSION['GebruikerID'];
 
-
 $pagina = intval($_GET['Page']);
 $vorige = $pagina-1;
 $volgende = $pagina+1;
-
-$statusKlaar = null;
-$statusMeeBezig = null;
-$typeVraag = "";
-$typeAanbod = "";
-$welzelf = "";
-$nietzelf = "";
-
 
 //wat een gekloot was dit zeg
 //
@@ -30,17 +21,25 @@ if ($_POST){
     $_SESSION['POST'] = $_POST;
     $_SESSION['PaginaNu'] = $pagina;
 } elseif (empty($_POST)){
-
-    if ($_SESSION['PaginaNu'] == $pagina){
+    if (isset($_SESSION['PaginaNu']) && $_SESSION['PaginaNu'] == $pagina){
         //pagina is niet veranderd, dus de filter is weggehaald
         $_SESSION['POST']=null;
     } else{
         //pagina is dus veranderd, dus de post laten staan en de nieuwe pagina in de sessie plaatsen
         $_SESSION['PaginaNu'] = intval($pagina);
-
-
+        //als de post nog niet in de sessie zit, dan er leeg in doen. dit tegen foutmelding
+        if(!isset($_SESSION['POST'])){
+            $_SESSION['POST']=null;
+        }
     }
 }
+
+$statusKlaar = null;
+$statusMeeBezig = null;
+$typeVraag = "";
+$typeAanbod = "";
+$welzelf = "";
+$nietzelf = "";
 
 if (isset($_SESSION['POST']['status']['StatusK']) && $_SESSION['POST']['status']['StatusK'] == 'Klaar'){
     $statusKlaar = "checked";
@@ -59,6 +58,8 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 } if (isset($_SESSION['POST']['persoon']['ander']) && $_SESSION['POST']['persoon']['ander'] == 'nietzelf'){
     $nietzelf = "checked";
 }
+
+
 
 $sql = $projectController->createFilter($_SESSION['POST'], $gebruikerID);
 
@@ -86,7 +87,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <h3>Filteren</h3>
                 <form action="Projecten.php?Page=1" method="post">
                     <div id="filter-projecten-status">
-                        <input type=submit id="verwijderfilter" value="verwijder filters">
+
                         <div id="filter-projecten-kop">Status:</div>
                         <input type="checkbox" id="Klaar" name="status[StatusK]"
                                value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
