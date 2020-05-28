@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 session_start();
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
@@ -16,7 +17,9 @@ $vorige = $pagina-1;
 $volgende = $pagina+1;
 
 //wat een gekloot was dit zeg
-//
+//POST is weg als de pagina wordt ververst,
+// daarom hier in de SESSION plaatsen en dan vergelijken of het veranderd is
+
 if ($_POST){
     $_SESSION['POST'] = $_POST;
     $_SESSION['PaginaNu'] = $pagina;
@@ -60,9 +63,9 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 }
 
 
+$sql = $projectController->createFilter($gebruikerID,$_SESSION['POST']);
 
-$sql = $projectController->createFilter($_SESSION['POST'], $gebruikerID);
-
+//berekenen
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
@@ -76,15 +79,15 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 <div id="projectpagina">
     <div class="grid-projecten-colums">
         <div>
-
+        <!-- lege dif voor grid layout-->
         </div>
 
         <div id="filter-projecten">
             <div id="nieuw-project">
-                <a href="./Project.php?view=add" id="project-nieuw-button">Nieuw Project</a>
+                <a href="./Project.php?view=add" id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
             </div>
             <div id="filter-projecten2">
-                <h3>Filteren</h3>
+                <h3>Filter</h3>
                 <form action="Projecten.php?Page=1" method="post">
                     <div id="filter-projecten-status">
 
@@ -92,13 +95,13 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <input type="checkbox" id="Klaar" name="status[StatusK]"
                                value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
-                        <label for="Klaar">Klaar</label><br>
+                        <label for="Klaar"><?php echo Translate::GetTranslation("ProjectfilterKlaar"); ?></label><br>
                         <input type="checkbox" id="MeeBezig" name="status[StatusMB]"
                                value="Mee Bezig" onchange=this.form.submit() <?php echo $statusMeeBezig; ?> />
-                        <label for="MeeBezig">Mee Bezig</label><br>
+                        <label for="MeeBezig"><?php echo Translate::GetTranslation("ProjectfilterBezig"); ?></label><br>
                     </div>
                     <div id="filter-projecten-categorie">
-                        <div id="filter-projecten-kop">Categorie:</div>
+                        <div id="filter-projecten-kop"><?php echo Translate::GetTranslation("ProjectCategorie"); ?></div>
                         <?php
                         foreach ($categorieController->getCategorieen() as $categorie){
                             $categorienaam = $categorie->getCategorieNaam();
@@ -119,20 +122,20 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <input type="checkbox" id="vraag" name="type[vraag]"
                                value="vragen" onchange=this.form.submit() <?php echo $typeVraag; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
-                        <label for="Vraag">Gevraagd</label><br>
+                        <label for="Vraag"><?php echo Translate::GetTranslation("ProjectfilterVraag"); ?></label><br>
                         <input type="checkbox" id="aanbod" name="type[aanbod]"
                                value="aanbieden" onchange=this.form.submit() <?php echo $typeAanbod; ?> />
-                        <label for="aanbod">Aangeboden</label><br>
+                        <label for="aanbod"><?php echo Translate::GetTranslation("ProjectfilterAanbod"); ?></label><br>
                     </div>
                     <div id="filter-projecten-mijn">
                         <div id="filter-projecten-kop">Welke:</div>
                         <input type="checkbox" id="persoon" name="persoon[zelf]"
                                value="welzelf" onchange=this.form.submit() <?php echo $welzelf; ?> />
                         <!-- PHP na de onchange plaatsen, anders werkt het niet altijd -->
-                        <label for="welzelf">Mijn projecten</label><br>
+                        <label for="welzelf"><?php echo Translate::GetTranslation("ProjectfilterMijn"); ?></label><br>
                         <input type="checkbox" id="nietzelf" name="persoon[ander]"
                                value="nietzelf" onchange=this.form.submit() <?php echo $nietzelf; ?> />
-                        <label for="nietzelf">Niet mijn projecten</label><br>
+                        <label for="nietzelf"><?php echo Translate::GetTranslation("ProjectfilterAnder"); ?></label><br>
                     </div>
                 </form>
 
@@ -147,7 +150,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 if (empty($projecten)){
                     echo "
                         <div id='projecten-geen-project'>
-                        Er zijn geen projecten gevonden aan de hand van de opgegeven criteria.
+                        ".Translate::GetTranslation('ProjectNietGevonden'). "
                         </div>
                      
                      ";
@@ -178,8 +181,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             </div>
                          </div>
                          
-                         <div id=\"projecten-footer\">
-                         gemaakt door: " . $gebruikersController->getById($project->getGebruikerID()) . "
+                         <div id=\"projecten-footer\">".
+                         Translate::GetTranslation('ProjectGemaaktDoor') . $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
                     }
@@ -187,10 +190,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 echo "<div id=\"projecten-buttons\">";
                 if ($pagina>1){
                     echo "        
-            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">&laquo; Vorige</a>";
+            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">".Translate::GetTranslation('ProjectVorige')."</a>";
                 }
                 if ($pagina<$maxpagina){
-                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">Volgende &raquo;</a>";
+                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">".Translate::GetTranslation('ProjectVolgende')."</a>";
                 }
                 echo "</div>";
                 ?>

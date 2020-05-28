@@ -1,3 +1,8 @@
+<?php
+if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
+Header("Location: /StudentServices/inlogPag.php");
+}
+?>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +15,7 @@
     <script type="text/javascript" src="/StudentServices/JS/script.js"></script>
     <script type="text/javascript" src="/StudentServices/ClientSide/contactformulier.js"></script>
     <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js"></script>
+    <link rel="icon" href="/StudentServices/images/StudentenServices.ico">
 
 </head>
 

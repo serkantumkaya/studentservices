@@ -1,6 +1,4 @@
 <?php
-
-
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $reactiecontroller = new ReactieController();
@@ -28,7 +26,7 @@ if($_POST){
         var_dump($_POST);
     }
 
-
+    echo "er staat een DIE hier op Gebruikerchange.php";
 
     die();
 
@@ -77,9 +75,9 @@ function getUitvoerType(Project $project){
 function getUitvoerDeadline(Project $project,ProjectController $controller){
     $deadline = $project->getDeadline();
     if ($deadline == '0000-00-00 00:00:00'){
-        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\"/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\" checked='checked'/>Niet bekend";
+        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\"/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\" checked='checked'/>".Translate::GetTranslation("ProjectNietBekend");
     } else {
-        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\" value='".$controller->getDeadlineFormat($project->getDeadline()) ."'/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\"/>Niet bekend";
+        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\" value='".$controller->getDeadlineFormat($project->getDeadline()) ."'/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\"/>".Translate::GetTranslation("ProjectNietBekend");
     }
 }
 
@@ -104,7 +102,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="project-row-grid">
                 <div id="project-header">
                     <div id="project-aanbieder">
-                        <h3>Gemaakt door <?php echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
+                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor"). " ";  echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
                     </div>
 
                     <div id="project-titel">
@@ -115,11 +113,11 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <div id="project-info">
                     <div id="project-info-grid">
                         <div id="project-parameters">
-                            <div id="parameter-tekstvak">Aangemaakt op:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectGemaaktOp"); ?>:</div>
                             <div id="parameter-tekstvak"><input type="text" name="datumaangemaakt" value="<?php echo $project->getDatumaangemaakt();?>" readonly/><br></div>
-                            <div id="parameter-tekstvak">Categorie:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:</div>
                             <div id="parameter-tekstvak"><?php echo $categorie; ?> <br></div>
-                            <div id="parameter-tekstvak">Locatie:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:</div>
                             <div id="parameter-tekstvak"><input type="text" name="Locatie" value="<?php echo $project->getLocatie(); ?>" /><br></div>
                             <div id="parameter-tekstvak">Deadline:</div>
                             <!-- Dit stuk in fucntie voor deadline om checkbox eventueel aan te vinken -->
@@ -136,13 +134,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     </div>
                 </div>
                 <div id="project-footer">
-                    <button><a href="project.php?ProjectID=<?php echo $projectID;?>&view=detail"/>Terug</a></button>
-                    <input type="submit" name="submit" value="Wijzig"/>
+
+                    <input type="submit" name="submit" value="<?php echo Translate::GetTranslation("ProjectEdit");?>"/>
                 </div>
             </div>
         </form>
+        <button><a href="project.php?ProjectID=<?php echo $projectID;?>&view=detail"/><?php echo Translate::GetTranslation("ProjectTerug"); ?></a></button>
         <div id="reclame">
-            reclame ofzo
+            <!-- reclame ofzo-->
         </div>
 
         <div id="overrechts">
