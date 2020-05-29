@@ -17,19 +17,9 @@ class ProjectModel
     //HIER VANAF BLIJVEN HEEEEEL BELANGRIJK
     public function getProjecten($sql){
         if ($sql == null){
-            $sql = "SELECT ProjectID,
-            GebruikerID,
-            Type,
-            Titel,
-            Beschrijving,
-            CategorieID,
-            Datumaangemaakt,
-            Deadline,
-            Status,
-            Locatie,
-            Verwijderd FROM Project";
+            $sql = "SELECT * FROM Project";
         }
-        return $this->conn->query($sql);
+        return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function add(int $gebruikerID, string $titel, string $type, string $beschrijving, int $categorieID,
@@ -37,7 +27,7 @@ class ProjectModel
         $sql = "INSERT INTO Project (GebruikerID, Titel,Type, Beschrijving, CategorieID,Deadline, Status, Locatie)
            VALUES(:GebruikerID, :Titel, :Type, :Beschrijving, :CategorieID,:Deadline, :Status, :Locatie)";
 
-        $statement = $this->conn->prepare($sql);
+        $statement  = $this->conn->prepare($sql);
         $parameters = [
             'GebruikerID' => $gebruikerID,
             'Titel' => $titel,
@@ -107,10 +97,19 @@ class ProjectModel
      * @param int $limit
      * @return array
      */
-
+    //HIER VANAF BLIJVEN HEEEEEL BELANGRIJK
     public function getPerPagina(string $sql, int $begin, int $limit): array{
-        $sql .= "AND Verwijderd = 0 LIMIT $begin, $limit";
+        $sql .= " LIMIT $begin, $limit";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function slaZoekSQLOp($woorden, $resultaat):bool {
+        $sql = $this->conn->prepare("INSERT into zoek (Zoekwoorden,Resultaat) VALUES (:Woorden,:Resultaat)");
+        $parameters = [
+            'Woorden' => $woorden,
+            'Resultaat' => $resultaat
+        ];
+        return $sql->execute($parameters);
     }
 
 }

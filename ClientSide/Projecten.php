@@ -21,18 +21,18 @@ $volgende = $pagina+1;
 // daarom hier in de SESSION plaatsen en dan vergelijken of het veranderd is
 
 if ($_POST){
-    $_SESSION['POST'] = $_POST;
+    $_SESSION['POST']     = $_POST;
     $_SESSION['PaginaNu'] = $pagina;
 } elseif (empty($_POST)){
     if (isset($_SESSION['PaginaNu']) && $_SESSION['PaginaNu'] == $pagina){
         //pagina is niet veranderd, dus de filter is weggehaald
-        $_SESSION['POST']=null;
+        $_SESSION['POST'] = null;
     } else{
         //pagina is dus veranderd, dus de post laten staan en de nieuwe pagina in de sessie plaatsen
         $_SESSION['PaginaNu'] = intval($pagina);
         //als de post nog niet in de sessie zit, dan er leeg in doen. dit tegen foutmelding
-        if(!isset($_SESSION['POST'])){
-            $_SESSION['POST']=null;
+        if (!isset($_SESSION['POST'])){
+            $_SESSION['POST'] = null;
         }
     }
 }
@@ -63,7 +63,11 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
 }
 
 
-$sql = $projectController->createFilter($gebruikerID,$_SESSION['POST']);
+var_dump($_POST);
+
+var_dump($_SESSION);
+
+$sql = $projectController->createFilter($gebruikerID, $_SESSION['POST']);
 
 //berekenen
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
@@ -79,12 +83,20 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 <div id="projectpagina">
     <div class="grid-projecten-colums">
         <div>
-        <!-- lege dif voor grid layout-->
+            <!-- lege dif voor grid layout-->
         </div>
 
         <div id="filter-projecten">
             <div id="nieuw-project">
-                <a href="./Project.php?view=add" id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
+                <a href="./Project.php?view=add"
+                   id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
+            </div>
+            <div id="projecten-zoek">
+                <form action="Projecten.php?Page=1" method="post">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit">submit</button>
+                </form>
+                </form>
             </div>
             <div id="filter-projecten2">
                 <h3>Filter</h3>
@@ -150,7 +162,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 if (empty($projecten)){
                     echo "
                         <div id='projecten-geen-project'>
-                        ".Translate::GetTranslation('ProjectNietGevonden'). "
+                        " . Translate::GetTranslation('ProjectNietGevonden') . "
                         </div>
                      
                      ";
@@ -181,8 +193,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             </div>
                          </div>
                          
-                         <div id=\"projecten-footer\">".
-                         Translate::GetTranslation('ProjectGemaaktDoor') . $gebruikersController->getById($project->getGebruikerID()) . "
+                         <div id=\"projecten-footer\">" .
+                            Translate::GetTranslation('ProjectGemaaktDoor') .
+                            $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
                     }
@@ -190,10 +203,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 echo "<div id=\"projecten-buttons\">";
                 if ($pagina>1){
                     echo "        
-            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">".Translate::GetTranslation('ProjectVorige')."</a>";
+            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">" .
+                        Translate::GetTranslation('ProjectVorige') . "</a>";
                 }
                 if ($pagina<$maxpagina){
-                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">".Translate::GetTranslation('ProjectVolgende')."</a>";
+                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">" .
+                        Translate::GetTranslation('ProjectVolgende') . "</a>";
                 }
                 echo "</div>";
                 ?>
