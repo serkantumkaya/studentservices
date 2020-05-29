@@ -4,14 +4,17 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ProjectModel.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Project.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ZoekController.php");
 
 class ProjectController
 {
 
     private ProjectModel $projectmodel;
+    private ZoekController $zoekcontroller;
 
     public function __construct(){
-        $this->projectmodel = new ProjectModel();
+        $this->projectmodel   = new ProjectModel();
+        $this->zoekcontroller = new ZoekController();
     }
 
     public function getProjecten($sql = null){
@@ -101,7 +104,7 @@ class ProjectController
         $ProjectArray = [];
         foreach ($this->projectmodel->getByID($ProjectID) as $project){
             $projectObject   =
-                new Project($project['ProjectID'], $project['GebruikerID'],$project['Titel'],  $project['Type'],
+                new Project($project['ProjectID'], $project['GebruikerID'], $project['Titel'], $project['Type'],
                     $project['Beschrijving'], $project['CategorieID'], $project['Datumaangemaakt'],
                     $project['Deadline'], $project['Status'], $project['Locatie'], $project['Verwijderd']);
             $ProjectArray [] = $projectObject;
@@ -128,11 +131,11 @@ class ProjectController
         if (isset($filters['search']) && ($filters['search'] != '' || $filters['search'] != " ")){
             $SQL .= $this->getZoekFilter($filters['search']);
             if (empty($this->projectmodel->getProjecten($SQL))){
-                $this->projectmodel->slaZoekSQLOp($filters['search'],"Fail");
-            } elseif(!empty($this->projectmodel->getProjecten($SQL))){
-                $this->projectmodel->slaZoekSQLOp($filters['search'],"Succes");
+                $this->zoekcontroller->add($filters['search'], "Fail");
+            } elseif (!empty($this->projectmodel->getProjecten($SQL))){
+                $this->zoekcontroller->add($filters['search'], "Succes");
             }
-        }else{
+        } else{
             if (isset($filters['status'])){
                 $SQL .= $this->getFilter($filters['status'], "STATUS");
             }
@@ -150,9 +153,9 @@ class ProjectController
     }
 
     private function getZoekFilter($zoekwoordzin){
-        $i=0;
-        $SQL = "";
-        $zoekwoorden = explode(" ",$zoekwoordzin);
+        $i           = 0;
+        $SQL         = "";
+        $zoekwoorden = explode(" ", $zoekwoordzin);
         foreach ($zoekwoorden as $zoek){
             $i++;
             if ($i == 1){

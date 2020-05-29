@@ -103,6 +103,13 @@ class ProjectModel
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * voor het opslaan van de SQL statement
+     * @param $woorden
+     * @param $resultaat
+     * @return bool
+     */
+
     public function slaZoekSQLOp($woorden, $resultaat):bool {
         $sql = $this->conn->prepare("INSERT into zoek (Zoekwoorden,Resultaat) VALUES (:Woorden,:Resultaat)");
         $parameters = [
@@ -111,5 +118,7 @@ class ProjectModel
         ];
         return $sql->execute($parameters);
     }
+
+
 
 }
