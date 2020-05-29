@@ -94,10 +94,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 </form>
             </div>
             <div id="filter-projecten2">
-                <h3>Filter</h3>
-                <form action="Projecten.php?Page=1" method="post">
-                    <div id="filter-projecten-status">
-
+                <div id="filter-projecten-status">
+                    <h3>Filter</h3>
+                    <form action="Projecten.php?Page=1" method="post">
                         <div id="filter-projecten-kop">Status:</div>
                         <input type="checkbox" id="Klaar" name="status[StatusK]"
                                value="Klaar" onchange=this.form.submit() <?php echo $statusKlaar; ?> />
@@ -107,6 +106,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                value="Mee Bezig" onchange=this.form.submit() <?php echo $statusMeeBezig; ?> />
                         <label for="MeeBezig"><?php echo Translate::GetTranslation("ProjectfilterBezig"); ?></label><br>
                     </div>
+
                     <div id="filter-projecten-categorie">
                         <div id="filter-projecten-kop"><?php echo Translate::GetTranslation("ProjectCategorie"); ?></div>
                         <?php
@@ -119,11 +119,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                     $status = "checked";
                                 }
                             }
+                            echo "<div id=\"filter-checkboxrij\">";
                             echo "<input type=\"checkbox\" id=$categorienaam name=\"categorie[$categorienaam]\" value=$categorienaam $status onchange=this.form.submit() />";
                             echo "<label for=\"$categorienaam\">$categorienaam</label><br>";
+                            echo "</div>";
                         }
                         ?>
                     </div>
+
                     <div id="filter-projecten-type">
                         <div id="filter-projecten-kop">Type:</div>
                         <input type="checkbox" id="vraag" name="type[vraag]"
@@ -134,6 +137,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                value="aanbieden" onchange=this.form.submit() <?php echo $typeAanbod; ?> />
                         <label for="aanbod"><?php echo Translate::GetTranslation("ProjectfilterAanbod"); ?></label><br>
                     </div>
+
                     <div id="filter-projecten-mijn">
                         <div id="filter-projecten-kop">Welke:</div>
                         <input type="checkbox" id="persoon" name="persoon[zelf]"
