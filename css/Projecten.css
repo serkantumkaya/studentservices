@@ -258,6 +258,10 @@
         font-size: 23px;
     }
 
+    #projecten-zoek{
+        margin: 5px;
+    }
+
     #project-button {
         width: 140px;
         background-color: #FFB31A;

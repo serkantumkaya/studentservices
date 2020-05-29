@@ -125,17 +125,41 @@ class ProjectController
 
     function createFilter($gebruikerID, $filters = null): string{
         $SQL = "SELECT * FROM `project` WHERE Verwijderd = 0 ";
-        if (isset($filters['status'])){
-            $SQL .= $this->getFilter($filters['status'], "STATUS");
+        if (isset($filters['search']) && ($filters['search'] != '' || $filters['search'] != " ")){
+            $SQL .= $this->getZoekFilter($filters['search']);
+            if (empty($this->projectmodel->getProjecten($SQL))){
+                $this->projectmodel->slaZoekSQLOp($filters['search'],"Fail");
+            } elseif(!empty($this->projectmodel->getProjecten($SQL))){
+                $this->projectmodel->slaZoekSQLOp($filters['search'],"Succes");
+            }
+        }else{
+            if (isset($filters['status'])){
+                $SQL .= $this->getFilter($filters['status'], "STATUS");
+            }
+            if (isset($filters['categorie'])){
+                $SQL .= $this->getFilterCategorie($filters['categorie']);
+            }
+            if (isset($filters['type'])){
+                $SQL .= $this->getFilter($filters['type'], "TYPE");
+            }
+            if (isset($filters['persoon'])){
+                $SQL .= $this->getFilterGebruiker($filters['persoon'], $gebruikerID);
+            }
         }
-        if (isset($filters['categorie'])){
-            $SQL .= $this->getFilterCategorie($filters['categorie']);
-        }
-        if (isset($filters['type'])){
-            $SQL .= $this->getFilter($filters['type'], "TYPE");
-        }
-        if (isset($filters['persoon'])){
-            $SQL .= $this->getFilterGebruiker($filters['persoon'], $gebruikerID);
+        return $SQL;
+    }
+
+    private function getZoekFilter($zoekwoordzin){
+        $i=0;
+        $SQL = "";
+        $zoekwoorden = explode(" ",$zoekwoordzin);
+        foreach ($zoekwoorden as $zoek){
+            $i++;
+            if ($i == 1){
+                $SQL .= "AND (Beschrijving LIKE '%$zoek%' OR Titel LIKE '%$zoek%')";
+            } else{
+                $SQL .= "OR (Beschrijving LIKE '%$zoek%' OR Titel LIKE '%$zoek%')";
+            }
         }
         return $SQL;
     }
