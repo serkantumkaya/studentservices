@@ -95,6 +95,15 @@ class Translate
         "homeFeedbackVanJou" => ["Jouw feedback op project:", "Your feedback on project:"],
         "homeFeedbackVanAnder" => ["Gegeven feedback door", "Given feedback by "],
 
+        //labels van de homepage controller
+        "homegeen project gevonden"=>['geen project gevonden', 'no project found'],
+        "homegeen reactie gevonden"=>['geen reactie gevonden', 'no reaction found'],
+        "homegeen feedback gevonden"=>['geen feedback gevonden', 'no feedback found'],
+        "homeonbekend"=>['onbekend', 'unknown'],
+        "homeactief"=>['actief', 'active'],
+        "homenon actief"=>['non actief, non active'],
+        'homeverwijderd'=>['verwijderd', 'deleted'],
+
         "ProjectNieuw" => ['Nieuw project', 'New project'],
         "ProjectfilterKlaar" => ['Klaar',"Done"],
         "ProjectfilterBezig" => ['Mee bezig', "Doing"],
