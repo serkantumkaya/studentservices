@@ -45,7 +45,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          <div id=\"project-header\">
                              <div id=\"project-aanbieder\">
                                 <div id=\"project-type-text\">
-                                    <h3>". Translate::GetTranslation("ProjectGemaaktDoor") . $gebruikersController->getById($project->getGebruikerID()) . "</h3>
+                                    <h3>". Translate::GetTranslation("ProjectGemaaktDoor") ." " . $gebruikersController->getById($project->getGebruikerID()) . "</h3>
                                 </div>
                              </div>
 
@@ -56,9 +56,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          
                           <div id='project-info'>
                             <div id=\"project-info-grid\">
-                                <div id=\"project-parameters\">".
-                                    Translate::GetTranslation("ProjectGemaaktOp"). substr($project->getDatumaangemaakt(),0,10) . "<br>".
-                                    Translate::GetTranslation("ProjectCategorie"). $categoriecontroller->getById($project->getCategorieID()) ."
+                                <div id=\"project-parameters\">
+                                    <div id='parameter-tekstvak'>". Translate::GetTranslation("ProjectGemaaktOp").": </div><div id='parameter-tekstvak'>" . substr($project->getDatumaangemaakt(),0,10) . "</div><br>
+                                    <div id='parameter-tekstvak'>". Translate::GetTranslation("ProjectCategorie").": </div><div id='parameter-tekstvak'>" . $categoriecontroller->getById($project->getCategorieID()) ." </div><br>
                                 </div>                         
                                 <div id=\"project-beschrijving\">
                                     " . $project->getBeschrijving() . "
@@ -106,7 +106,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                " . $reactie->getReactie() . "
                             </div>
                             <div id=\"inhoud-footer\">
-                                <!-- biks hier, weet niet direct of dit weg kan--> 
+                                <!-- niks hier, weet niet direct of dit weg kan--> 
                             </div>
                     </div>";
                         }

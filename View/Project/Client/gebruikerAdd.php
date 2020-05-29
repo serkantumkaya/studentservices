@@ -77,14 +77,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     <div id="project-info-grid">
                         <div id="project-parameters">
                             <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:</div>
-                            <div id="parameter-tekstvak"><?php echo $categorie; ?> <br></div>
+                            <div id="parameter-tekstvak"><?php echo $categorie; ?></div>
                             <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:</div>
-                            <div id="parameter-tekstvak"><input type="text" name="Locatie"/><br></div>
+                            <div id="parameter-tekstvak"><input type="text" name="Locatie"/></div>
                             <div id="parameter-tekstvak">Deadline:</div>
                             <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline" /> <br><input
                                         type="checkbox" name="NietBekend"/><?php echo Translate::GetTranslation("ProjectNietBekend"); ?><br></div>
                             <div id="parameter-tekstvak">Type:</div>
-                            <div id="parameter-tekstvak"><?php echo $type; ?> <br></div>
+                            <div id="parameter-tekstvak"><?php echo $type; ?> </div>
                         </div>
                         <div id="project-beschrijving">
 
@@ -99,7 +99,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             </div>
         </form>
         <div id="reclame">
-            reclame ofzo
+            <!--reclame ofzo-->
         </div>
 
         <div id="overrechts">
