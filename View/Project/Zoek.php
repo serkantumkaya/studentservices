@@ -1,14 +1,16 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ZoekController.php");
 
 session_start();
 
-if (empty($_Post) && !isset($_Post["actie"])){
-    $projectController   = new ProjectController();
-    $gebruikerController = new GebruikerController(-1);
+$zoekController = new ZoekController();
+
+if ($_POST){
+    foreach ($_POST as $key => $value){
+        $zoekController->delete($key);
+    }
 }
 
 ?><!DOCTYPE HTML>
@@ -43,9 +45,7 @@ if (empty($_Post) && !isset($_Post["actie"])){
         <!-- [MENU ITEMS] -->
         <ul>
             <?php
-            echo "<li>
-            <a href=\"Add.php\">Nieuw</a>
-        </li>";
+
             echo "<li><a href=\"/StudentServices/index.php\">Terug</a></li>";
             ?>
         </ul>
@@ -53,47 +53,41 @@ if (empty($_Post) && !isset($_Post["actie"])){
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
-<form method="post" action="Edit.php">
+<form method="post" action="Zoek.php">
     <table>
         <tr>
-            <th>Gemaakt door</th>
-            <th>Titel</th>
-            <th>Omschrijving</th>
-            <th>Type</th>
+            <th>ZoekID</th>
+            <th>Zoekwoorden</th>
+            <th>Resultaat</th>
+            <th>Tijd</th>
         </tr>
+
         <?php
 
-        foreach ($projectController->getProjecten() as $project){
+        foreach ($zoekController->getZoekOpdrachten() as $opdracht){
 
             echo "<tr>
                     <td>
-                        <input type=\"submit\" value=\"" . $gebruikerController->getById($project->getGebruikerID()) .
-                "\" formaction='../Profiel/Edit.php?ID=" . $project->getGebruikerID() .
-                "' class=\"table1col\"> 
+                        ".$opdracht->getID()."
                     </td>
                     <td>
-                       <input type=\"submit\" value=\"" . $project->getTitelKort() .
-                "\" formaction='Edit.php?ID=" . $project->getProjectID() .
-                "' class=\"table1col\">
+                       ". $opdracht->getZoekwoorden() ."
                     </td>
                     <td>
-                        <input type=\"submit\" value=\"" . $project->getBeschrijving() .
-                "\" formaction='Edit.php?ID=" . $project->getProjectID() .
-                "' class=\"table1col\"> 
+                        ". $opdracht->getResultaat() ."
                     </td>
                     <td>
-                        <input type=\"submit\" value=\"" . $project->getType() .
-                "\" formaction='Edit.php?ID=" . $project->getProjectID() .
-                "' class=\"table1col\">
+                      ". $opdracht->getTijd() ."
                     </td>
-                    
+                      <td>
+                       <input type=\"submit\" name=".$opdracht->getID()." value=\"Delete\"></td>
+                    </td>
                 </tr>";
         }
         ?>
+
     </table>
 </form>
-
-<button><a href="Zoek.php">Zoekopdrachten</a></button>
 </body>
 </html>
 

@@ -62,11 +62,6 @@ if (isset($_SESSION['POST']['persoon']['zelf']) && $_SESSION['POST']['persoon'][
     $nietzelf = "checked";
 }
 
-
-var_dump($_POST);
-
-var_dump($_SESSION);
-
 $sql = $projectController->createFilter($gebruikerID, $_SESSION['POST']);
 
 //berekenen
