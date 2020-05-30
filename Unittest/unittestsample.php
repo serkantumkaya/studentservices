@@ -6,8 +6,6 @@ require_once ('vendor/autoload.php');
 include 'testsample.php';
 
 
-
-
 class unittestsample extends TestCase
 {
 
