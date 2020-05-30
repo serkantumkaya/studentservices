@@ -11,11 +11,17 @@ session_start();
     include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 
-<form  method="post" action="Add.php">
+<form  method="post" action="Add.php" style="width:200px;float:left">
     <input type="submit" value="<?php echo Translate::GetTranslation("BeschikbaarheidNew"); ?>"  class="ssbutton">
-    <button onclick="window.location.href="/StudentServices/ClientSide/Project.php?ProjectID="<?php echo $_SESSION["ProjectID"]; ?> "&view=detail" class="ssbutton"><?php echo Translate::GetTranslation("BeschikbaarheidBack"); ?></button>
 </form>
-<form  method="post" action="Edit.php">
+<?php $poststring = "/StudentServices/ClientSide/Project.php?ProjectID=".$_SESSION["ProjectID"]."&view=detail";
+?>
+<form method="post" action="<?php echo $poststring ?>" style="width:200px;float:left;clear: right">
+     <button type="submit" class="ssbutton"><?php echo Translate::GetTranslation("BeschikbaarheidBack"); ?></button>
+</form>
+
+
+<form  method="post" action="Edit.php" style="width:100%;clear: both">
 <table> <tr> <th><?php echo Translate::GetTranslation("Beschikbaarheid"); ?></th> <th></th> <th></th></tr>
 <tr><td>
     <?php

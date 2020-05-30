@@ -47,12 +47,17 @@ class BeschikbaarheidModel
     }
 
     function delete(int $beschikbaarheidID){
-        //delete beschikbaarheid
-        $sql = "Delete from Beschikbaarheid WHERE BeschikbaarheidID = :BeschikbaarheidID";
+        $sql = $this->conn->prepare("DELETE FROM Beschikbaarheid WHERE BeschikbaarheidID  =:BID");
 
-        $parameters = ['BeschikbaarheidID' => $beschikbaarheidID];
+        $parameters = [
+            'BID' => $beschikbaarheidID
+        ];
 
-        return $sql->execute($parameters);
+        if ($sql->execute($parameters) == true){
+            return "Record verwijderd";
+        } else{
+            echo "Error: " . $sql . "<br>" . $this->conn->error;
+        }
     }
 
     function update(int $beschikbaarheidID, int $projectID,DateTime $startTijd,DateTime $eindTijd){
