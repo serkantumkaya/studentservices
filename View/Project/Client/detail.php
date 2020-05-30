@@ -1,5 +1,6 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/BeschikbaarheidController.php");
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
@@ -121,12 +122,34 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
         <div id="reclame">
 
-                <div id="project-beschikbaarheid" style="Height:25px;">
+                <div id="project-beschikbaarheid" style="height:400px;">
                     <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
                         <?php
                             echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
                         ?>
                         </button>
+                    <div id="Beshikbaarheidoverzicht"  style="overflow:auto;height:275px;">
+                        <?php
+                        $beschikbaarheidcontroller= new BeschikbaarheidController();
+
+                        foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg)
+                        {
+                            $newStartTijd      = $sg->getStartTijd()->format("Y-m-d H:i:s");
+                            $newEindTijd       = $sg->getEindTijd()->format("Y-m-d H:i:s");
+
+                            echo "<tr>";
+                            echo "<td> <input type=\"submit\" value=\"".$newStartTijd."\" formaction='Edit.php?ID=".
+                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td> <input type=\"submit\" value=\"".$newEindTijd."\" formaction='Edit.php?ID=".
+                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
+                            echo "</tr>";
+                            echo "<tr><td>_________________</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </div>
                 </div>
                 <div id="project-feedback">
                     //TODO: Dirk moet hier zijn werk inbouwen
