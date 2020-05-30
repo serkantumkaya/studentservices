@@ -27,6 +27,7 @@ final class ArgumentsMapper
             'loadedExtensions'        => [],
             'unavailableExtensions'   => [],
             'notLoadedExtensions'     => [],
+            'warnings'                => [],
         ];
 
         if ($arguments->hasColors()) {
