@@ -1,6 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/BeschikbaarheidController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
@@ -134,14 +137,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <div id=\"reactie-venster\">
                        
                             <div id='popup-knop'>
-                                <h3>" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
+                                <h3 onclick=\"ShowPopup('reactie-popup".$reactie->getGebruikerID()."')\">" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
                                 $gebruikersController->getById($reactie->getGebruikerID()) . "
                                 </h3>
                             </div>
-                            <div id='reactie-popup' class='pop'>
+                            <div id='reactie-popup".$reactie->getGebruikerID()."'  class='pop'>
                             <div class=\"reactie-popup-inhoud\">
-                                <span class=\"close\">&times;</span>
-                                    <p>Some text in the Modal..</p>
+                                <span onclick=\"HidePopup('reactie-popup".$reactie->getGebruikerID()."')\" class=\"close\">&times;</span>
+                                    <p>";
+
+                            $profielController = new ProfielController($reactie->getGebruikerID());
+
+
+                            $NAW = $profielController->getNAW($reactie->getGebruikerID());
+                            echo $NAW;
+echo "</p>
                             </div>
                             </div>
                                                       
@@ -187,7 +197,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             echo "<td> <input type=\"submit\" value=\"".$newEindTijd."\" formaction='Edit.php?ID=".
                                 $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
                             echo "</tr>";
-                            echo "<tr><td>_________________</td>";
+                            echo "<tr><td><hr></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -209,31 +219,24 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </div>
 <script>
-    // Get the modal
-    var modal = document.getElementById("reactie-popup");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("popup-knop");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
+    function ShowPopup(ID) {
+        document.getElementById(ID).style.display = "block";
     }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
+    function HidePopup(ID)
+    {
+        document.getElementById(ID).style.display = "none";
     }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("popup-knop");
+    //
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+    //
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //     modal.style.display = "none";
+    // }
 </script>
 
 
