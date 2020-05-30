@@ -3,15 +3,29 @@
 
 class Beschikbaarheid
 {
+    private int $BeschikbaarheidID;
+
+    /**
+     * @return int
+     */
+    public function getBeschikbaarheidID(): int{
+        return $this->BeschikbaarheidID;
+    }
+
+    /**
+     * @param int $BeschikbaarheidID
+     */
+    public function setBeschikbaarheidID(int $BeschikbaarheidID): void{
+        $this->BeschikbaarheidID = $BeschikbaarheidID;
+    }
     private int $ProjectID;
-    private DateTime $Dagbeschikbaar;
     private DateTime $StartTijd;
     private DateTime $EindTijd;
 
-    public function __construct(int $projectID,DateTime $dagBeschikbaar,DateTime $startTijd,DateTime $eindTijd)
+    public function __construct(int $BeschikbaarheidID, int $projectID,DateTime $startTijd,DateTime $eindTijd)
     {
+        $this->BeschikbaarheidID =$BeschikbaarheidID;
         $this->ProjectID =  $projectID;
-        $this->Dagbeschikbaar=$dagBeschikbaar;
         $this->StartTijd=$startTijd;
         $this->EindTijd= $eindTijd;
     }
@@ -28,20 +42,6 @@ class Beschikbaarheid
      */
     public function setProjectID(int $ProjectID): void{
         $this->ProjectID = $ProjectID;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDagbeschikbaar(): DateTime{
-        return $this->Dagbeschikbaar;
-    }
-
-    /**
-     * @param DateTime $Dagbeschikbaar
-     */
-    public function setDagbeschikbaar(DateTime $Dagbeschikbaar): void{
-        $this->Dagbeschikbaar = $Dagbeschikbaar;
     }
 
     /**

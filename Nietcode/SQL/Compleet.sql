@@ -125,16 +125,13 @@ FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
 CREATE TABLE BESCHIKBAARHEID (
 BeschikbaarheidID INT PRIMARY KEY AUTO_INCREMENT,
 ProjectID int NOT NULL,
-GebruikerID int NOT NULL,
-Dagbeschikbaar DATE NOT NULL,
-starttijd TIME NOT NULL,
-Eindtijd TIME NOT NULL,
-FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE,
-FOREIGN KEY(GebruikerID) REFERENCES GEBRUIKER(GebruikerID) ON UPDATE CASCADE
+Starttijd DateTime NOT NULL,
+Eindtijd DateTime NOT NULL,
+FOREIGN KEY(ProjectID) REFERENCES PROJECT(ProjectID) ON UPDATE CASCADE
 );
 
 CREATE UNIQUE INDEX BeschikbaarheidUnique
-ON Beschikbaarheid (ProjectID, GebruikerID, Dagbeschikbaar,starttijd,Eindtijd);
+ON Beschikbaarheid (ProjectID, starttijd,Eindtijd);
 
 CREATE TABLE FEEDBACK(
 FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
@@ -691,23 +688,23 @@ INSERT INTO reactie (GebruikerID,ProjectID,Reactie) Values(
 7,
 'Ik ben de beste in C# in mijn bescheidenheid. Ik wil je wel helpen. Schut ik zo uit mijn mouw.');
 
-INSERT INTO BESCHIKBAARHEID (
-ProjectID ,GebruikerID,Dagbeschikbaar,starttijd,Eindtijd)
-VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
-(Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1),
-'2020-01-02','19:00','22:00');
-
-INSERT INTO BESCHIKBAARHEID (
-ProjectID ,GebruikerID,Dagbeschikbaar,starttijd,Eindtijd)
-VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
-(Select GebruikerID from Gebruiker where Gebruikersnaam ='Peter' Limit 1),
-"2020-01-09","19:00","22:00");
-
-INSERT INTO BESCHIKBAARHEID (
-ProjectID ,GebruikerID,Dagbeschikbaar,starttijd,Eindtijd)
-VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
-(Select GebruikerID from Gebruiker where Gebruikersnaam ='Peter' Limit 1),
-"2020-01-16","19:00","22:00");
+-- INSERT INTO BESCHIKBAARHEID (
+-- ProjectID ,GebruikerID,starttijd,Eindtijd)
+-- VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
+-- (Select GebruikerID from Gebruiker where Gebruikersnaam ='Patrick' Limit 1),
+-- '2020-01-02','19:00','22:00');
+--
+-- INSERT INTO BESCHIKBAARHEID (
+-- ProjectID ,GebruikerID,starttijd,Eindtijd)
+-- VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
+-- (Select GebruikerID from Gebruiker where Gebruikersnaam ='Peter' Limit 1),
+-- "2020-01-09","19:00","22:00");
+--
+-- INSERT INTO BESCHIKBAARHEID (
+-- ProjectID ,GebruikerID,starttijd,Eindtijd)
+-- VALUES ((Select ProjectID from project where Titel = 'Hulp aangeboden bij Sofware schrijven.' Limit 1),
+-- (Select GebruikerID from Gebruiker where Gebruikersnaam ='Peter' Limit 1),
+-- "2020-01-16","19:00","22:00");
 
 INSERT INTO FEEDBACK(GebruikerID ,ProjectID ,Cijfer ,Review)
 Values (
