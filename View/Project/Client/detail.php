@@ -131,16 +131,19 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
                             echo "                    
                         <div id=\"reactie-venster\">
-                             <div id='popup-knop'><h3>" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
-                                $gebruikersController->getById($reactie->getGebruikerID()) . "</div></h3>
+                       
+                            <div id='popup-knop'>
+                                <h3>" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
+                                $gebruikersController->getById($reactie->getGebruikerID()) . "
+                                </h3>
+                            </div>
                             <div id='reactie-popup' class='pop'>
                             <div class=\"reactie-popup-inhoud\">
                                 <span class=\"close\">&times;</span>
                                     <p>Some text in the Modal..</p>
                             </div>
-                           </div>
-                            
-                           
+                            </div>
+                                                      
                             <div id=\"reactie-inhoud\">
                                " . $reactie->getReactie() . "
                             </div>
@@ -157,7 +160,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
         <div id="reclame">
-
                 <div id="project-beschikbaarheid" style="Height:25px;">
                     <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
                         <?php
