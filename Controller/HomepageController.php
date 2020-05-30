@@ -483,11 +483,11 @@ class HomepageController
                     return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
                 }
                 else {
-                    return "-";
+                    return "";
                 }
             }
             else {
-                return "-";
+                return "";
             }
         }
         else {
@@ -503,13 +503,13 @@ class HomepageController
                         if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp())) {
                             return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
                         } else {
-                            return "-";
+                            return "";
                         }
                     }
                 }
             }
             else {
-                return "-";
+                return "";
             }
         }
     }
