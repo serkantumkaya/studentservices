@@ -79,7 +79,3 @@ function showpopup() {
      //TODO:   document.getElementById("test").style.margin = "0";
     }
 }
-
-
-
-

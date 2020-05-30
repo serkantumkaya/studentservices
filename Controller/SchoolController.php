@@ -35,9 +35,13 @@ class SchoolController
         return $this->schoolmodel->Update($School);
     }
 
-    function getById(int $id): school{
+    function getById(int $id){
         $School = $this->schoolmodel->get($id);
-        return new School($School['SchoolID'], $School['Schoolnaam']);
-
+        if(!empty($School) && $School != null){
+            return new School($School['SchoolID'],$School['Schoolnaam']);
+        }
+        else{
+            return null;
+        }
     }
 }
