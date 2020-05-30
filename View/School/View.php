@@ -17,10 +17,12 @@ if (isset($_POST["download"])){
 if (isset($_POST["upload"]) && !empty($_FILES)){
     $databew = "";
     $data    = $csvcontroller->uploadcsv($_FILES);
-    $actions = $csvcontroller->settodatabaseschool($data["result"],$data["errorindex"]);
+    if($data["result"] != null){
+        $actions = $csvcontroller->settodatabaseschool($data["result"],$data["errorindex"]);
+        $databew .= $actions["update"] . " records geupdate<br>";
+        $databew .= $actions["add"] . " records toegevoegt<br>";
+    }
     $errors  = $data["errors"];
-    $databew .= $actions["update"] . " records geupdate<br>";
-    $databew .= $actions["add"] . " records toegevoegt<br>";
 }
 ?><!DOCTYPE HTML>
 <html lang="en">

@@ -1,10 +1,10 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/CategorieController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CSVController.php");
 session_start();
-$databew = "";
+$databew       = "";
 $errors        = "";
 $csvcontroller = new CSVController();
 
@@ -17,10 +17,12 @@ if (isset($_POST["download"])){
 if (isset($_POST["upload"]) && !empty($_FILES)){
     $databew = "";
     $data    = $csvcontroller->uploadcsv($_FILES);
-    $actions = $csvcontroller->settodatabasecategorie($data["result"],$data["errorindex"]);
-    $errors  = $data["errors"];
-    $databew .= $actions["update"] . " records geupdate<br>";
-    $databew .= $actions["add"] . " records toegevoegt<br>";
+    if ($data["result"] != null){
+        $actions = $csvcontroller->settodatabasecategorie($data["result"],$data["errorindex"]);
+        $databew .= $actions["update"] . " records geupdate<br>";
+        $databew .= $actions["add"] . " records toegevoegt<br>";
+    }
+    $errors = $data["errors"];
 }
 ?>
 
@@ -40,7 +42,7 @@ if (isset($_POST["upload"]) && !empty($_FILES)){
         <?php
         //nu i
         $focus = "";
-        if (isset($_SESSION["CurrentNaam"])) {
+        if (isset($_SESSION["CurrentNaam"])){
             $focus = trim($_SESSION["CurrentNaam"]);
         }
         ?>
@@ -89,19 +91,25 @@ if (isset($_POST["upload"]) && !empty($_FILES)){
             <input id="csv_upload" type="hidden" name="upload" value="upload">
         </form>
     </div>
-    <form  method="post" action="Edit.php">
-        <table> <tr> <th>Categorie</th> <th></th> <th></th></tr>
-            <tr><td>
+    <form method="post" action="Edit.php">
+        <table>
+            <tr>
+                <th>Categorie</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
                     <?php
 
                     //DO NOT USE A BIG IF. If the conditions are not met. Return.
-                    if (empty($_Post) && !isset($_Post["actie"]))
-                    {
-                        $categoriecontroller= new CategorieController();
+                    if (empty($_Post) && !isset($_Post["actie"])){
+                        $categoriecontroller = new CategorieController();
 
-                        foreach ($categoriecontroller->getCategorieen() as $categorie)
-                        {
-                            echo "<tr> <td> <input type=\"submit\" value=\"".$categorie->getCategorienaam()."\" formaction='Edit.php?ID=".$categorie->getCategorieID()."' class=\"table1col\"> </td></tr>";
+                        foreach ($categoriecontroller->getCategorieen() as $categorie){
+                            echo "<tr> <td> <input type=\"submit\" value=\"" . $categorie->getCategorienaam() .
+                                "\" formaction='Edit.php?ID=" . $categorie->getCategorieID() .
+                                "' class=\"table1col\"> </td></tr>";
                         }
                     }
 
