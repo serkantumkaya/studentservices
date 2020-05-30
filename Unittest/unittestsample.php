@@ -6,8 +6,6 @@ require_once ('vendor/autoload.php');
 include 'testsample.php';
 
 
-
-
 class unittestsample extends TestCase
 {
 
@@ -16,10 +14,9 @@ class unittestsample extends TestCase
         $this->assertEquals("Gebruikersnaam:",$res);
     }
 
-    public function testTextInlogPagUserNameLabelEN(){
-        $res = Translate::GetTranslation("inlogPagUserNameLabel");
-        $this->assertEquals("Username:",$res);
-    }
+    public function testReactieIDopvragen(){
+        $this->assertClassHasAttribute('ReactieID', Reactie::class);
+        }
 
 /*    public function testSom(){
         $x = 11;
