@@ -40,7 +40,7 @@ if ($_SESSION["level"]<50)
                     //DO NOT USE A BIG IF. If the conditions are not met. Return.
                     if (empty($_Post) && !isset($_Post["actie"])){
                         //todo : wijzigen naar $_SESSION["GebruikerID"]
-                        $profielcontroller = new ProfielController(1005);
+                        $profielcontroller = new ProfielController($_SESSION["GebruikerID"]);
 
                         foreach ($profielcontroller->GetProfielen() as $profiel){
                             echo "<tr> <td> <input type=\"submit\" value=\"" . $profiel->getVoornaam() .

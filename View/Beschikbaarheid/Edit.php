@@ -1,93 +1,85 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors',1);
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/BeschikbaarheidController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
+
 session_start();
+$ProjectID = 0;
+
+$ProjectID = 0;
+$StartTijd = null;
+$EindTijd = null;
+
+if (isset($_POST) && !isset($_GET["ID"]))
+{
+    $ProjectID = $_SESSION["ProjectID"];
+    $timesd                 = new DateTime();
+
+    $StartTijd = isset($_POST["StartTijd"]) ? $_POST["StartTijd"] : $timesd->format("d-m-Y H:i:s");
+    $EindTijd = isset($_POST["EindTijd"]) ? $_POST["EindTijd"] : $timesd->format("d-m-Y H:i:s");
+}
+else
+{
+    $ProjectID = $_SESSION["ProjectID"];
+    $beschikbaarheidController = new BeschikbaarheidController();
+
+    $_SESSION["Beschikbaarheid"] = $_GET["ID"];
+    $beschikbaarheid = $beschikbaarheidController->getByID($_GET["ID"]);
+
+    $StartTijd = $beschikbaarheid->getStartTijd()->format("Y-m-d\TH:i:s");
+    $EindTijd = $beschikbaarheid->getEindTijd()->format("Y-m-d\TH:i:s");
+}
 ?>
+
+<!DOCTYPE HTML>
 <html>
+<head>
+
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
-<h1>Wijzigen beschikbaarheid</h1>
-<?php
 
+<h1 > <?php echo Translate::GetTranslation("BeschikbaarheidEditAvailabilityFor");?>
+    <?php
+    $projectcontroller = new ProjectController();
+    $project = $projectcontroller->getById($_SESSION["ProjectID"]);
+    echo $project->getTitel();
+    ?>
+</h1 >
+<form action ="Edit.php" method="post" >
+    <div class="block">
+        <label class="formlabel"><?php echo Translate::GetTranslation("BeschikbaarheidStartTimeLabel"); ?></label>
+        <input type="datetime-local" name="StartTijd" value="<?php echo $StartTijd  ?>" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"/>
+    </div>
+    <div class="block">
+        <label class="formlabel"><?php echo Translate::GetTranslation("BeschikbaarheidEndTimeLabel"); ?></label>
+        <input type="datetime-local" name="EindTijd" value="<?php echo $EindTijd  ?>" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}"/>
+    </div>
 
-if (isset($_GET["ID"])){
-    $beschikbaarheidcontroller = new BeschikbaarheidController();
-    $sg               = $beschikbaarheidcontroller->getById($_GET["ID"]);
-
-    if (isset($sg)){
-        $beschikbaarheid                     = new Beschikbaarheid($sg['SchoolID'], $sg['Schoolnaam']);
-        $_SESSION["CurrentSchool"]   = $beschikbaarheid;
-        $_SESSION["CurrentSchoolid"] = $beschikbaarheid->getSchoolID();
-
-    }
-}
-
-if (isset($_POST["SchoolNaam"])){
-    $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
-}
-
-if ($_SESSION["CurrentSchool"] != null){
-    $beschikbaarheid = $_SESSION["CurrentSchool"];
-
-}
-
-?>
+    <input type="submit" >
+</form >
 
 <?php
-$value = "";
-if (isset($_POST["Post"])){
-    $value = $_SESSION["CurrentNaam"];
-} else{
-    if (isset($_GET["ID"])){
-        $value = $beschikbaarheidl->getSchoolnaam();
-    } else{
-        $value = $_POST["SchoolNaam"];
-    }
-}
-
-if (!isset($_POST["Delete"]) && isset($_GET["ID"])){
-    echo "<form action=\"Edit.php\" method=\"post\">
-    School:
-    <input type=\"text\" name=\"SchoolNaam\" value=\"" . $value . "\"/>
-    <input type=\"submit\" value=\"post\" name=\"post\">
-    <input type=\"submit\" value=\"delete\" name=\"delete\">
-    </form>";
-
-}
-
-if (isset($_POST["delete"])){
+if (isset($StartTijd) && isset($EindTijd) && !isset($_GET["ID"]))//post van maken dit is niet goed,.
+{
     $beschikbaarheidcontroller = new BeschikbaarheidController();
-    if ($beschikbaarheidcontroller->delete($_SESSION["CurrentSchoolid"])){
-        header("Location: View.php");
-        //echo "Record verwijderd";
-        //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
-    }
 
-} else{
-    if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) &&
-        isset($_SESSION["CurrentSchoolid"]))//post van maken dit is niet goed,.
+    $ST     = new DateTime($StartTijd);
+    $ET     = new DateTime($EindTijd);
+
+    if ($beschikbaarheidcontroller->Update($_SESSION["Beschikbaarheid"],$_SESSION["ProjectID"],$ST ,$ET))
     {
-        $beschikbaarheidcontroller = new BeschikbaarheidController();
-        if ($_SESSION["CurrentNaam"]){
-            $beschikbaarheid = new School($_SESSION["CurrentSchoolid"], $_SESSION["CurrentNaam"]);
-        }
 
-        if ($beschikbaarheidcontroller->update($beschikbaarheid)){
-            $_SESSION["CurrentSchool"]   = $beschikbaarheid;
-            $_SESSION["CurrentNaam"]     = $beschikbaarheid->getSchoolnaam();
-            $_SESSION["CurrentSchoolid"] = $beschikbaarheid->getSchoolID();
-            header("Location: View.php");
-            //echo "Record opgeslagen.";
-            //echo "<button onclick=\"window.location.href = '/StudentServices/View/School/Index.php';\">Terug</button>";
-        } else{
-            echo "Record niet opgeslagen";
-        }
-    } else{
-        echo "<button onclick=\"window.location.href = 'View.php';\">Terug</button>";
-
+        header("Location: /studentservices/View/Beschikbaarheid/View.php");
+    }
+    else{
+        echo Translate::GetTranslation("BeschikbaarheidRecordnotSaved");
     }
 }
 ?>
 
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </body>
 </html>
