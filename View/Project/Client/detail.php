@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/BeschikbaarheidController.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
+ini_set('display_errors',1);
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/BeschikbaarheidController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $reactiecontroller = new ReactieController();
@@ -17,8 +17,8 @@ if (isset($_POST["feedback"])){
 }
 
 
-if(isset($_POST["Cijfer"]) && isset($_POST["Feedback"])){
-    $feedbackcontroller->add($project->getProjectID(), $_SESSION["GebruikerID"], $_POST["Cijfer"], $_POST["Feedback"]);
+if (isset($_POST["Cijfer"]) && isset($_POST["Feedback"])){
+    $feedbackcontroller->add($project->getProjectID(),$_SESSION["GebruikerID"],$_POST["Cijfer"],$_POST["Feedback"]);
     $schowfeedbackdetail = 0;
 }
 
@@ -41,7 +41,7 @@ if ($_POST){
 }
 
 function verstuurReactie(ReactieController $reactiecontroller,$projectID){
-    $reactiecontroller->add($_SESSION['GebruikerID'], $projectID, $_POST['Reactie']);
+    $reactiecontroller->add($_SESSION['GebruikerID'],$projectID,$_POST['Reactie']);
 }
 
 ?><!DOCTYPE HTML>
@@ -59,7 +59,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         </div>
         <div id="filter-projecten">
             <div id="nieuw-project">
-                <a href="./Project.php?view=add" id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
+                <a href="./Project.php?view=add"
+                   id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
             </div>
         </div>
 
@@ -73,7 +74,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          <div id=\"project-header\">
                              <div id=\"project-aanbieder\">
                                 <div id=\"project-type-text\">
-                                    <h3>". Translate::GetTranslation("ProjectGemaaktDoor") ." " . $gebruikersController->getById($project->getGebruikerID()) . "</h3>
+                                    <h3>" . Translate::GetTranslation("ProjectGemaaktDoor") . " " .
+                    $gebruikersController->getById($project->getGebruikerID()) . "</h3>
                                 </div>
                              </div>
 
@@ -85,8 +87,11 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                           <div id='project-info'>
                             <div id=\"project-info-grid\">
                                 <div id=\"project-parameters\">
-                                    <div id='parameter-tekstvak'>". Translate::GetTranslation("ProjectGemaaktOp").": </div><div id='parameter-tekstvak'>" . substr($project->getDatumaangemaakt(),0,10) . "</div><br>
-                                    <div id='parameter-tekstvak'>". Translate::GetTranslation("ProjectCategorie").": </div><div id='parameter-tekstvak'>" . $categoriecontroller->getById($project->getCategorieID()) ." </div><br>
+                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectGemaaktOp") .
+                    ": </div><div id='parameter-tekstvak'>" . substr($project->getDatumaangemaakt(),0,10) . "</div><br>
+                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectCategorie") .
+                    ": </div><div id='parameter-tekstvak'>" .
+                    $categoriecontroller->getById($project->getCategorieID()) . " </div><br>
                                 </div>                         
                                 <div id=\"project-beschrijving\">
                                     " . $project->getBeschrijving() . "
@@ -99,13 +104,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          ";
                 if ($project->getGebruikerID() == $_SESSION['GebruikerID']){
                     echo "<div id='project-button'>
-                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">".Translate::GetTranslation("ProjectEdit")."</a>               
+                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">" .
+                        Translate::GetTranslation("ProjectEdit") . "</a>               
                             </div>
                           <div id='project-button'>
-                                <button id='project-klaar'>".Translate::GetTranslation("ProjectKlaar")."</button> 
+                                <button id='project-klaar'>" . Translate::GetTranslation("ProjectKlaar") . "</button> 
                           </div>
                     ";
-                } else {
+                } else{
                     echo "";
                 }
                 echo "
@@ -116,8 +122,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="reacties">
                 <div id="reacties-scroll">
                     <div id="reactie-venster">
-                        <form action="/StudentServices/ClientSide/Project.php?view=detail&ProjectID=<?php echo $projectID;?>" method="post">
-                            <label for="Reactie"><h3><?php echo Translate::GetTranslation("ProjectReactieNieuw");?></h3></label>
+                        <form action="/StudentServices/ClientSide/Project.php?view=detail&ProjectID=<?php echo $projectID; ?>"
+                              method="post">
+                            <label for="Reactie">
+                                <h3><?php echo Translate::GetTranslation("ProjectReactieNieuw"); ?></h3></label>
                             <textarea maxlength="500" name="Reactie" cols="1" rows="5"
                                       placeholder="Max 500 characters" required></textarea>
                             <input type="submit" name="submitReactie" value="Plaatsen">
@@ -125,20 +133,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     </div>
                     <?php
                     $reacties = $reactiecontroller->getByProjectID($projectID);
-                    if ($reacties!= null){
+                    if ($reacties != null){
                         foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
                             echo "                    
                         <div id=\"reactie-venster\">
 
                        
                             <div id='popup-knop'>
-                                <h3 onclick=\"ShowPopup('reactie-popup".$reactie->getGebruikerID()."')\">" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
+                                <h3 onclick=\"ShowPopup('reactie-popup" . $reactie->getGebruikerID() . "')\">" .
+                                Translate::GetTranslation("ProjectReactieGegevenDoor") . " " .
                                 $gebruikersController->getById($reactie->getGebruikerID()) . "
                                 </h3>
                             </div>
-                            <div id='reactie-popup".$reactie->getGebruikerID()."'  class='pop'>
+                            <div id='reactie-popup" . $reactie->getGebruikerID() . "'  class='pop'>
                             <div class=\"reactie-popup-inhoud\">
-                                <span onclick=\"HidePopup('reactie-popup".$reactie->getGebruikerID()."')\" class=\"close\">&times;</span>
+                                <span onclick=\"HidePopup('reactie-popup" . $reactie->getGebruikerID() . "')\" class=\"close\">&times;</span>
                                     <p>";
 
                             $profielController = new ProfielController($reactie->getGebruikerID());
@@ -146,7 +155,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
                             $NAW = $profielController->getNAW($reactie->getGebruikerID());
                             echo $NAW;
-echo "</p>
+                            echo "</p>
                             </div>
                             </div>
                                                       
@@ -165,40 +174,36 @@ echo "</p>
         </div>
 
 
-
         <div id="reclame">
+            <div id="project-beschikbaarheid" style="Height:25px;">
+                <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
+                    <?php
+                    echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
+                    ?>
+                </button>
 
-                <div id="project-beschikbaarheid" style="Height:25px;">
-                    <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
-                        <?php
-                            echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
-                        ?>
-                        </button>
+                <div id="Beshikbaarheidoverzicht" style="overflow:auto;height:275px;">
+                    <?php
+                    $beschikbaarheidcontroller = new BeschikbaarheidController();
 
-                    <div id="Beshikbaarheidoverzicht"  style="overflow:auto;height:275px;">
-                        <?php
-                        $beschikbaarheidcontroller= new BeschikbaarheidController();
+                    foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg){
+                        $newStartTijd = $sg->getStartTijd()->format("Y-m-d H:i:s");
+                        $newEindTijd  = $sg->getEindTijd()->format("Y-m-d H:i:s");
 
-                        foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg)
-                        {
-                            $newStartTijd      = $sg->getStartTijd()->format("Y-m-d H:i:s");
-                            $newEindTijd       = $sg->getEindTijd()->format("Y-m-d H:i:s");
-
-                            echo "<tr>";
-                            echo "<td> <input type=\"submit\" value=\"".$newStartTijd."\" formaction='Edit.php?ID=".
-                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
-                            echo "</tr>";
-                            echo "<tr>";
-                            echo "<td> <input type=\"submit\" value=\"".$newEindTijd."\" formaction='Edit.php?ID=".
-                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
-                            echo "</tr>";
-                            echo "<tr><td><hr></td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                    </div>
-
+                        echo "<tr>";
+                        echo "<td> <input type=\"submit\" value=\"" . $newStartTijd . "\" formaction='Edit.php?ID=" .
+                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<td> <input type=\"submit\" value=\"" . $newEindTijd . "\" formaction='Edit.php?ID=" .
+                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
+                        echo "</tr>";
+                        echo "<tr><td><hr></td>";
+                        echo "</tr>";
+                    }
+                    ?>
                 </div>
+            </div>
             <div id="project-feedback">
                 <?php if (!$schowfeedbackdetail){ ?>
                     <div id="geef_feedback">
@@ -230,36 +235,34 @@ echo "</p>
                             </div>
                         <?php }
                     }
-                }else{ ?>
+                } else{ ?>
                     <form action="" method="post">
                         <label id="feedbacklabel" for="Feedback">
                             <h3>geef feedback</h3></label>
-                        <select id="Cijfer" name="Cijfer">";
+                        <label for="Cijfer">Cijfer</label>
+                        <select id="Cijfer" name="Cijfer">
                             <?php
                             for ($i = 1; $i<=10; $i++){
                                 // if ($i != $feedbackcontroller->getById($feedback)->getCijfer()){
                                 ?>
-                                <option value= <?=$i?>><?=$i?></option>;
+                                <option id="cijfer" value= <?= $i ?>><?= $i ?></option>;
                                 <?php
                             }
                             ?>
-                            <textarea id="feedbackfield" maxlength="200" name="Feedback" cols="1" rows="5"
-                                      placeholder="Max 200 characters" required></textarea>
-                            <input type="submit" name="submitFeedback" value="Plaatsen">
+                        </select>
+                        <br>
+                        <label for="comment"> vul hier je feedback in</label>
+                        <textarea id="comment" maxlength="200" name="Feedback" cols="1" rows="5"
+                                  placeholder="Max 200 characters" required></textarea>
+                        <input type="submit" name="submitFeedback" value="Plaatsen">
                     </form>
-                <?php }?>
-
-
-
+                <?php } ?>
+            </div>
         </div>
-
-        </div>
-
         <div id="overrechts">
 
         </div>
     </div>
-
 
 
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
@@ -270,10 +273,10 @@ echo "</p>
         document.getElementById(ID).style.display = "block";
     }
 
-    function HidePopup(ID)
-    {
+    function HidePopup(ID) {
         document.getElementById(ID).style.display = "none";
     }
+
     // // Get the button that opens the modal
     // var btn = document.getElementById("popup-knop");
     //
@@ -285,8 +288,6 @@ echo "</p>
     //     modal.style.display = "none";
     // }
 </script>
-
-
 
 
 </body>
