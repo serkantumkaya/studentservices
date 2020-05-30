@@ -1,7 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
-var_dump($_POST);
 if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['lastname']) &&
     !empty($_POST['lastname']) && isset($_POST['E-mailadres']) && !empty($_POST['E-mailadres']) &&
     isset($_POST['E-mailadres2']) && !empty($_POST['E-mailadres2']) && isset($_POST['telefoonnummer']) &&
@@ -78,7 +77,7 @@ if (isset($_POST['firstname']) && !empty($_POST['firstname']) && isset($_POST['l
 
             <input id="submit" type="submit" value="<?php echo Translate::GetTranslation("contactVerstuur") ?>"/>
 
-            <a href="contact.html" class="formbutton"><?php echo Translate::GetTranslation("contactTerug") ?></a>
+            <a href="/StudentServices/index.php" class="formbutton"><?php echo Translate::GetTranslation("contactTerug") ?></a>
 
         </form>
     </div>
