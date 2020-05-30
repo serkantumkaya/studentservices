@@ -41,16 +41,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <label for="tel"><?php echo Translate::GetTranslation("contactTelefoon") ?></label><br>
                 <input type="text" id="tel" name="telefoonnummer" placeholder="<?php echo Translate::GetTranslation("contactTelefoonPlaceholder") ?>" maxlength="30" size="50"><br>
                 <div id="error10" class="error"></div><br>
-                 <label for="email"><?php echo Translate::GetTranslation("contactContactVoorkeur") ?></label><br>
-                <div class="E-mail"><br>
-                    <input type="checkbox" name="myCheckBox" id="email" value="e-mail">
-                    <label for="email">E-mail</label><br>
-                </div>
-                <div class="tel"><br>
-                    <input type="checkbox" name="myCheckBox" id="tele" value="tel" checked>
-                    <label for="tele">Whatsapp</label><br>
-                    <br>
-                </div><br>
                 <label for="subject"><?php echo Translate::GetTranslation("contactOpmerking") ?></label><br>
                 <textarea id="subject" name="subject" placeholder="<?php echo Translate::GetTranslation("contactOpmerkingPlaceholder") ?>" style="height:200px" maxlength="1000" size="1000"></textarea><br>
                 <div id="error11" class="error"></div><br>
