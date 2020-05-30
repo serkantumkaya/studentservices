@@ -4,6 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolCont
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Enum/EnumGebruikerStatus.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 session_start();
 
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
@@ -132,7 +133,7 @@ $gebruiker    = $gbController->getById($_SESSION["GebruikerID"]);//in een sessio
 
 //$huidigegebruiker = json_decode($_SESSION["Gebruiker"]);
 // echo "De huidige gebruiker is :" . $huidigegebruiker->getGebruikersnaam();
-echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "</h1 ><br>";
+echo "<h1 class=\"h1profiel\">".Translate::GetTranslation("profielProfiel"). $gebruiker->getGebruikersnaam() . "</h1 ><br>";
 ?>
 
 <div class="divprofiel">
@@ -141,7 +142,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
         <?php
         echo "<!--Voornaam-->
 <div class=\"block\">
-<label class=\"formlabel\">Voornaam *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielVoornaam")."</label>
 <input type = \"text\" name=\"Voornaam\" Required value=\"";
         echo $Voornaam;
         echo "\" class=\"formInput\"/>
@@ -150,21 +151,21 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
         echo "<!--Tussenvoegsel-->";
         echo "<div class=\"block\">
-<label class=\"formlabel\">Tussenvoegsel</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielTussen")."</label>
 <input type = \"text\" name=\"Tussenvoegsel\" value=\"";
         echo $Tussenvoegsel;
         echo "\" />
 
 <!--Prefix-->
 <div class=\"block\">
-<label class=\"formlabel\">Prefix</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielPrefix")."</label>
 <input type = \"text\" name=\"Prefix\" value=\"";
         echo $Prefix;
         echo "\" /></div>
 
 <!--Achternaam-->
 <div class=\"block\">
-<label class=\"formlabel\">Achternaam *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielAchternaam")."</label>
 <input type = \"text\" name=\"Achternaam\" Required value=\"";
         echo $Achternaam;
         echo "\"/>
@@ -173,7 +174,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
 <!--Straat-->
 <div class=\"block\">
-<label class=\"formlabel\">Straat *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielStraat")."</label>
 <input type = \"text\" name=\"Straat\" Required value=\"";
         echo $Straat;
         echo "\"/>
@@ -182,7 +183,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
   
 <!--Huisnummer-->       
 <div class=\"block\">
-<label class=\"formlabel\">Huisnummer *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielHuisnummer")."</label>
 <input type = \"number\" name=\"Huisnummer\" Required value=\"";
         echo $Huisnummer;
         echo "\"/>
@@ -191,7 +192,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
 <!--Extentie-->
 <div class=\"block\">
-<label class=\"formlabel\">Extensie</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielExtentie")."</label>
 <input type = \"text\" name=\"Extensie\" value=\"";
         echo $Extensie;
         echo "\"/>
@@ -200,7 +201,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
 
 <!--Postcode-->
-<label class=\"formlabel\">Postcode *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielPostcode")."</label>
 <input type = \"text\" name=\"Postcode\" Required value=\"";
         echo $Postcode;
         echo "\" pattern=\"[1-9][0-9]{3}\s?[a-zA-Z]{2}\">
@@ -209,7 +210,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
   
 <div class=\"block\">      
 <!--Woonplaats-->
-<label class=\"formlabel\">Woonplaats *</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielWoonplaats")."</label>
 <input type = \"text\" name=\"Woonplaats\" Required value=\"";
         echo $Woonplaats;
         echo "\"/>
@@ -218,7 +219,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
         echo "<div class=\"block\">";
         echo "<!--Geboortedatum-->";
-        echo "<label class=\"formlabel\">Geboortedatum</label>";
+        echo "<label class=\"formlabel\">".Translate::GetTranslation("profielGeboortedatum")."</label>";
         echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
         $time    = new DateTime($Geboortedatum);
         $newTime = $time->format("d-m-Y");
@@ -228,7 +229,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
         echo "<div class=\"block\">";
         echo "    <!--School-->
-<label class=\"formlabel\">School</label>";
+<label class=\"formlabel\">".Translate::GetTranslation("profielSchool")."</label>";
         echo "<select name=\"School\">";
         $Schoolcontroller = new SchoolController();
         foreach ($Schoolcontroller->GetScholen() as $sh){
@@ -247,7 +248,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 
 <div class=\"block\">
 <!--Opleiding-->
-<label class=\"formlabel\">Opleiding</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielOpleiding")."</label>
 <select name=\"Opleiding\">";
         $Opleidingcontroller = new OpleidingController();
         foreach ($Opleidingcontroller->GetOpleidingen() as $op){
@@ -264,7 +265,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
  
 <!--Startdatumopleiding-->
 <div class=\"formrow\">
-<label class=\"formlabel\">Startdatumopleiding</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielStart")."</label>
 <input class=\"forminput\" type = \"text\" name=\"Startdatumopleiding\" value=\"";
         $time    = new DateTime($Startdatumopleiding);
         $newTime = $time->format("d-m-Y");
@@ -274,7 +275,7 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
 </div>
 
 <div class=\"block\">
-<label class=\"formlabel\">Status</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielStatus")."</label>
 <select name=\"Status\">";
         $EnumStatus = new EnumGebruikerStatus();
         foreach ($EnumStatus->getConstants() as $st){
@@ -289,13 +290,13 @@ echo "<h1 class=\"h1profiel\"> Profiel : " . $gebruiker->getGebruikersnaam() . "
     
 <!--Telefoonnummer-->    
 <div class=\"block\">
-<label class=\"formlabel\">Telefoonnummer</label>
+<label class=\"formlabel\">".Translate::GetTranslation("profielTelefoonnummer")."</label>
 
 <input type=\"phone\" name=\"Telefoonnummer\" value=\"";
     echo $Telefoonnummer;
     echo "\" pattern=\"(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)\"/></div>";
 
-echo "<label class=\"formlabel\">Profielfoto:</label><br />";
+echo "<label class=\"formlabel\">".Translate::GetTranslation("profielFoto")."</label><br />";
 
     if (isset($profiel))
     {
