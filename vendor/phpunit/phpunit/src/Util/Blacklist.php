@@ -21,7 +21,6 @@ use phpDocumentor\Reflection\Type;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophet;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
-use SebastianBergmann\CodeUnit\CodeUnit;
 use SebastianBergmann\CodeUnitReverseLookup\Wizard;
 use SebastianBergmann\Comparator\Comparator;
 use SebastianBergmann\Diff\Diff;
@@ -40,12 +39,15 @@ use SebastianBergmann\Version;
 use TheSeer\Tokenizer\Tokenizer;
 use Webmozart\Assert\Assert;
 
+/**
+ * @internal This class is not covered by the backward compatibility promise for PHPUnit
+ */
 final class Blacklist
 {
     /**
      * @var array<string,int>
      */
-    private const BLACKLISTED_CLASS_NAMES = [
+    public static $blacklistedClassNames = [
         // composer
         ClassLoader::class => 1,
 
@@ -94,9 +96,6 @@ final class Blacklist
         // phpunit/php-token-stream
         PHP_Token::class => 1,
 
-        // sebastian/code-unit
-        CodeUnit::class => 1,
-
         // sebastian/code-unit-reverse-lookup
         Wizard::class => 1,
 
@@ -142,20 +141,6 @@ final class Blacklist
      */
     private static $directories;
 
-    public static function addDirectory(string $directory): void
-    {
-        if (!\is_dir($directory)) {
-            throw new Exception(
-                \sprintf(
-                    '"%s" is not a directory',
-                    $directory
-                )
-            );
-        }
-
-        self::$directories[] = \realpath($directory);
-    }
-
     /**
      * @throws Exception
      *
@@ -196,7 +181,7 @@ final class Blacklist
         if (self::$directories === null) {
             self::$directories = [];
 
-            foreach (self::BLACKLISTED_CLASS_NAMES as $className => $parent) {
+            foreach (self::$blacklistedClassNames as $className => $parent) {
                 if (!\class_exists($className)) {
                     continue;
                 }

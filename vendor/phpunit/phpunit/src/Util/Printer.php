@@ -15,7 +15,7 @@ namespace PHPUnit\Util;
 class Printer
 {
     /**
-     * @psalm-var closed-resource|resource
+     * @var closed-resource|resource
      */
     private $stream;
 
