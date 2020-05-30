@@ -549,6 +549,7 @@ a.button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: Verdana;
     width: 200px;
     margin-bottom: 5px;
 }
@@ -563,7 +564,8 @@ a.button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    width: 140px;
+    font-family: Verdana;
+    width: 175px;
 }
 
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
