@@ -1,5 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/BeschikbaarheidController.php");
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/ProfielController.php");
+
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
@@ -102,7 +107,27 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         foreach ($reactiecontroller->getByProjectID($projectID) as $reactie){
                             echo "                    
                         <div id=\"reactie-venster\">
-                            <h3>". Translate::GetTranslation("ProjectReactieGegevenDoor") . "<a href='' ></a>  " . $gebruikersController->getById($reactie->getGebruikerID()) . "</h3>
+
+                       
+                            <div id='popup-knop'>
+                                <h3 onclick=\"ShowPopup('reactie-popup".$reactie->getGebruikerID()."')\">" . Translate::GetTranslation("ProjectReactieGegevenDoor") . " ".
+                                $gebruikersController->getById($reactie->getGebruikerID()) . "
+                                </h3>
+                            </div>
+                            <div id='reactie-popup".$reactie->getGebruikerID()."'  class='pop'>
+                            <div class=\"reactie-popup-inhoud\">
+                                <span onclick=\"HidePopup('reactie-popup".$reactie->getGebruikerID()."')\" class=\"close\">&times;</span>
+                                    <p>";
+
+                            $profielController = new ProfielController($reactie->getGebruikerID());
+
+
+                            $NAW = $profielController->getNAW($reactie->getGebruikerID());
+                            echo $NAW;
+echo "</p>
+                            </div>
+                            </div>
+                                                      
                             <div id=\"reactie-inhoud\">
                                " . $reactie->getReactie() . "
                             </div>
@@ -127,6 +152,30 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
                         ?>
                         </button>
+
+                    <div id="Beshikbaarheidoverzicht"  style="overflow:auto;height:275px;">
+                        <?php
+                        $beschikbaarheidcontroller= new BeschikbaarheidController();
+
+                        foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg)
+                        {
+                            $newStartTijd      = $sg->getStartTijd()->format("Y-m-d H:i:s");
+                            $newEindTijd       = $sg->getEindTijd()->format("Y-m-d H:i:s");
+
+                            echo "<tr>";
+                            echo "<td> <input type=\"submit\" value=\"".$newStartTijd."\" formaction='Edit.php?ID=".
+                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
+                            echo "</tr>";
+                            echo "<tr>";
+                            echo "<td> <input type=\"submit\" value=\"".$newEindTijd."\" formaction='Edit.php?ID=".
+                                $sg->getBeschikbaarheidID()."' class=\"selectionrow\" style='width:200px;'> </td>";
+                            echo "</tr>";
+                            echo "<tr><td><hr></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </div>
+
                 </div>
                 <div id="project-feedback">
                     //TODO: Dirk moet hier zijn werk inbouwen
@@ -144,5 +193,30 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
     <?php include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/footer.php"); ?>
 </div>
+
+<script>
+    function ShowPopup(ID) {
+        document.getElementById(ID).style.display = "block";
+    }
+
+    function HidePopup(ID)
+    {
+        document.getElementById(ID).style.display = "none";
+    }
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("popup-knop");
+    //
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+    //
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //     modal.style.display = "none";
+    // }
+</script>
+
+
+
+
 </body>
 </html>
