@@ -141,6 +141,33 @@ class ProfielController
     {
         $this->profielmodel->UploadPhoto($Photo,$GebruikersId);
     }
+
+    function NAW(int $id) : string
+    {
+        $profiel = $this->getByGebruikerID($id);
+        $Achternaam = $profiel->getAchternaam();
+        $Voornaam = $profiel->getVoornaam();
+        $Tussenvoegsel = $profiel->getTussenvoegsel();
+        $Prefix = $profiel->getPrefix();
+        $Straat = $profiel->getStraat();
+        $Huisnummer = $profiel->getHuisnummer();
+        $Extensie = $profiel->getExtensie();
+        $Postcode = $profiel->getPostcode();
+        $Woonplaats = $profiel->getWoonplaats();
+        $Telefoonnummer = $profiel->getTelefoonnummer();
+        $GebruikerController = new GebruikerController($id);
+        $gebruiker = $GebruikerController->getById();
+
+        $labelName = Translate::GetTranslation("ProfielNAWName");
+        $labelAdres = Translate::GetTranslation("ProfielNAWAdres");
+        $labelTelefoonnummer = Translate::GetTranslation("ProfielNAWTel");
+        $labelEmail = Translate::GetTranslation("ProfielNAWEmail");
+        return "Naam            :".trim($Prefix." ".$Voornaam." ".$Tussenvoegsel)." ".$Achternaam."<br>".
+               "Adres           :".$Straat." ".trim($Huisnummer." ".$Extensie)."<br>".
+               "                 ".        $Postcode."  ".$Woonplaats."<br>".
+               "Telefoonnummer : ".$Telefoonnummer."<br>".
+               "Email          : ".$gebruiker->getEmail()."<br>";
+    }
     //todo : maken als projecten af is
     //public function getProjectenByProfiel()
     //{

@@ -150,7 +150,11 @@ class Translate
         "profielStatus" => ['Status','Status'],
         "profielTelefoonnummer" => ['Telefoonnummer','Phonenumber'],
         "profielFoto" => ['Profielfoto','Profile picture'],
-      
+        "ProfielNAWName" =>  ['Naam            :','Name            :'],
+        "ProfielNAWAdres" => ['Adres           :','Address         :'],
+        "ProfielNAWTel" =>   ['Telefoonnummer  :','Phone number    :'],
+        "ProfielNAWEmail" => ['Email           :','Email           :'],
+
         "ProjectenBeschikbaarheidButton" => ['Beschikbaarheid',"Availability"],
 
         "BeschikbaarheidStartTimeLabel"=> ['Starttijd',"Start time"],
