@@ -1,8 +1,15 @@
 <?php
 //session_start();
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 
-$GC = new GebruikerController($_SESSION['GebruikerID']);
+$GC                = new GebruikerController($_SESSION['GebruikerID']);
+$homeVertalen      = Translate::GetTranslation("menuHome");
+$profielVertalen   = Translate::GetTranslation("menuMijnProfiel");
+$projectVertalen   = Translate::GetTranslation("menuProjecten");
+$faqVertalen       = Translate::GetTranslation("menuFAQ");
+$contactVertalen   = Translate::GetTranslation("menuContact");
+$uitloggenVertalen = Translate::GetTranslation("menuUitloggen");
 
 if ($_SESSION["level"]>=50){
     $uitvoer = <<<EOD
@@ -37,12 +44,12 @@ EOD;
     $uitvoer = <<<EOD
             <!-- [MENU ITEMS] -->
             <ul>
-                <li><a href="/StudentServices/index.php">Home</a></li>
-                <li><a href="/StudentServices/View/Profiel/Edit.php">Mijn profiel</a></li>
-                <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">Projecten</a></li>
-                <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">FAQ</a></li>
-                <li><a href="/StudentServices/ClientSide/Contact.php">Contact</a></li>
-                <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
+                <li><a href="/StudentServices/index.php">$homeVertalen</a></li>
+                <li><a href="/StudentServices/View/Profiel/Edit.php">$profielVertalen</a></li>
+                <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">$projectVertalen</a></li>
+                <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">$faqVertalen</a></li>
+                <li><a href="/StudentServices/ClientSide/Contact.php">$contactVertalen</a></li>
+                <li><a href="/StudentServices/uitlog.php">$uitloggenVertalen</a></li>
             </ul>
 EOD;
 }

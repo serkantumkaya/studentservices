@@ -39,6 +39,11 @@ class CategorieController
     //ja jullie hebben gelijk gekregen. Update ipv save.
     function getById(int $id){
         $Categorie = $this->Categoriemodel->Get($id);
-        return new Categorie($Categorie['CategorieID'],$Categorie['Categorienaam']);
+        if(!empty($Categorie) && $Categorie != null){
+            return new Categorie($Categorie['CategorieID'],$Categorie['Categorienaam']);
+        }
+        else{
+            return null;
+        }
     }
 }

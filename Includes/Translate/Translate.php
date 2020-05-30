@@ -1,7 +1,6 @@
 <?php
 //put your translations here
 //USE English keys! Be professional.
-//Jelle is gek waar is dit goed voor -> patrick is gekker :P
 
 class Translate
 {
@@ -126,6 +125,32 @@ class Translate
         "ProjectTerug" => ['Terug',"Back"],
         "ProjectVoegToe" => ['Toevoegen',"Add"],
         "ProjectNietBekend" => ['Niet Bekend',"Unknown"],
+
+        "menuHome" => ['Home', 'Home'],
+        "menuMijnProfiel" => ['Mijn Profiel','My Profile'],
+        "menuProjecten" => ['Projecten','Projects'],
+        "menuFAQ" => ['FAQ','FAQ'],
+        "menuContact" => ['Contact','Contact'],
+        "menuUitloggen" => ['Uitloggen','Log out'],
+
+        "profielProfiel" => ['Profiel : ', 'Profile : '],
+        "profielVoornaam" => ['Voornaam*','Firstname*'],
+        "profielTussen" => ['Tussenvoegsel','Insertion'],
+        "profielPrefix" => ['Prefix','Prefix'],
+        "profielAchternaam" => ['Achternaam*','Lastname*'],
+        "profielStraat" => ['Straat*','Street*'],
+        "profielHuisnummer" => ['Huisnummer*','House number*'],
+        "profielExtentie" => ['Extentie','Extention'],
+        "profielPostcode" => ['Postcode*','Postal Code*'],
+        "profielWoonplaats" => ['Woonplaats*','Residence*'],
+        "profielGeboortedatum" => ['Geboortedatum','Date of birth'],
+        "profielSchool" => ['School','School'],
+        "profielOpleiding" => ['Opleiding','Education'],
+        "profielStart" => ['Startdatum','Start date'],
+        "profielStatus" => ['Status','Status'],
+        "profielTelefoonnummer" => ['Telefoonnummer','Phonenumber'],
+        "profielFoto" => ['Profielfoto','Profile picture'],
+      
         "ProjectenBeschikbaarheidButton" => ['Beschikbaarheid',"Availability"],
 
         "BeschikbaarheidStartTimeLabel"=> ['Starttijd',"Start time"],
