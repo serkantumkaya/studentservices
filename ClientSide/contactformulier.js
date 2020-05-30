@@ -12,62 +12,62 @@
 
 
 function validateForm() {
-document.getElementById("error1").innerHTML  = "";
-document.getElementById("error3").innerHTML  = "";
-document.getElementById("error6").innerHTML  = "";
-document.getElementById("error6b").innerHTML  = "";
-document.getElementById("error7").innerHTML  = "";
-document.getElementById("error10").innerHTML  = "";
-document.getElementById("error11").innerHTML  = "";
-if (document.forms["contactform"]["firstname"].value ==="")
-{
-    document.getElementById("error1").innerHTML  = "De voornaam is niet ingevuld.<br>"
-}
+    document.getElementById("error1").innerHTML = "";
+    document.getElementById("error3").innerHTML = "";
+    document.getElementById("error6").innerHTML = "";
+    document.getElementById("error6b").innerHTML = "";
+    document.getElementById("error7").innerHTML = "";
+    document.getElementById("error10").innerHTML = "";
+    document.getElementById("error11").innerHTML = "";
+    if (document.forms["contactform"]["firstname"].value === "") {
+        document.getElementById("error1").innerHTML = "De voornaam is niet ingevuld.<br>"
+    }
 
-if (document.forms["contactform"]["lastname"].value ==="")
-{
-    document.getElementById("error3").innerHTML  += "De achternaam is niet ingevuld.<br>"
-}
+    if (document.forms["contactform"]["lastname"].value === "") {
+        document.getElementById("error3").innerHTML += "De achternaam is niet ingevuld.<br>"
+    }
 
-if (document.forms["contactform"]["E-mailadres"].value === "")
-{
-    document.getElementById("error7").innerHTML  += "Het emailadres is niet ingevuld.<br>"
-}
+    if (document.forms["contactform"]["E-mailadres"].value === "") {
+        document.getElementById("error7").innerHTML += "Het emailadres is niet ingevuld.<br>"
+    }
 
-if (document.forms["contactform"]["E-mailadres"].value != document.forms["contactform"]["E-mailadres2"].value)
-{
-    document.getElementById("error6b").innerHTML  += "De emailadressen zijn ongelijk.<br>"
-}
+    if (document.forms["contactform"]["E-mailadres"].value != document.forms["contactform"]["E-mailadres2"].value) {
+        document.getElementById("error6b").innerHTML += "De emailadressen zijn ongelijk.<br>"
+    }
 
 
-if (document.getElementById("tele").checked  === true && document.forms["contactform"]["telefoonnummer"].value ==="")
-{
-    document.getElementById("error10").innerHTML  += "telefoonnummer niet ingevuld.<br>"
-}
+    if (document.forms["contactform"]["telefoonnummer"].value === "") {
+        document.getElementById("error10").innerHTML += "telefoonnummer niet ingevuld.<br>"
+    }
 
-if (document.getElementById("tele").checked  === true && document.forms["contactform"]["telefoonnummer"].value.length != 10)
-{
-    document.getElementById("error10").innerHTML  += "telefoonnummer niet correct ingevuld.<br>"
-}
+    if (document.forms["contactform"]["telefoonnummer"].value.length !== 10) {
+        document.getElementById("error10").innerHTML += "telefoonnummer niet correct ingevuld.<br>"
+    }
 
-if (document.forms["contactform"]["subject"].value === "")
-{
-    document.getElementById("error11").innerHTML  += "Het opmerkingen veld moet ook nog ingevuld worden.<br>"
+    if (document.forms["contactform"]["subject"].value === "") {
+        document.getElementById("error11").innerHTML += "Het opmerkingen veld moet ook nog ingevuld worden.<br>"
 
-}
+    }
+    if (document.forms["contactform"]["telefoonnummer"].value === "") {
+        document.getElementById("error10").innerHTML += "telefoonnummer niet ingevuld.<br>"
+    }
 
-if (validateEmail(document.forms["contactform"]["E-mailadres"].value) === false)
-{
-    document.getElementById("error6").innerHTML  += "Het emailadres is niet juist.<br>"
-}
 
-return !(document.getElementById("error1").innerHTML.length > 0 ||
-    document.getElementById("error3").innerHTML.length > 0 ||
-    document.getElementById("error7").innerHTML.length > 0 ||
-    document.getElementById("error10").innerHTML.length > 0 ||
-    document.getElementById("error11").innerHTML.length > 0 ||
-    document.getElementById("error6").innerHTML.length > 0||
-    document.getElementById("error6b").innerHTML.length > 0);
+    if (!(/^0[0-9]{9}$/i.test(document.forms["contactform"]["telefoonnummer"].value))){
+        document.getElementById("error10").innerHTML += "ongeldig telefoonnummer.<br>"
+    }
+
+    if (validateEmail(document.forms["contactform"]["E-mailadres"].value) === false) {
+        document.getElementById("error6").innerHTML += "Het emailadres is niet juist.<br>"
+    }
+
+    return !(document.getElementById("error1").innerHTML.length > 0 ||
+        document.getElementById("error3").innerHTML.length > 0 ||
+        document.getElementById("error7").innerHTML.length > 0 ||
+        document.getElementById("error10").innerHTML.length > 0 ||
+        document.getElementById("error11").innerHTML.length > 0 ||
+        document.getElementById("error6").innerHTML.length > 0 ||
+        document.getElementById("error6b").innerHTML.length > 0);
 }
 
 
@@ -80,13 +80,14 @@ function validateEmail(email) {
 // dit deel van de code is voor het bijhouden van de stand checkboxes
 function timeevents() { //plaats hier de fucnties die met iedere 100ms moeten worden uitgevoerd
     setTimeout(timeevents, 100); //iedere 100ms de functie opnieuw uitvoeren wordt voor de eerste keer aangeroepen bij document.ready
-   // checkboxstatus();
+    // checkboxstatus();
     console.log("test");
 }
 
 
 var oldbittel = false;
 var oldbitmail = false;
+
 function checkboxstatus() { //voor het selecteren van de checkbox zorgt ervoor dat er maar een tegelijk true kan zijn.
     var checkboxemail = document.getElementById("email");
     var checkboxtel = document.getElementById("tele");
