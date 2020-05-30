@@ -697,6 +697,68 @@
         display: grid;
         height: 100%;
         background-color: turquoise;
+        grid-template-rows: 8% 7% 5% 20% 20% 20% 20%;
     }
+
+    #geef_feedback{
+        align-items: center;
+        margin-top: 1%;
+        margin-left: 10%;
+
+    }
+
+    #title_feedback{
+        text-align: center;
+    }
+
+    #title_feedback h3{
+        margin: 4px;
+    }
+
+    #gemiddelde_cijfer{
+        margin-left: 10%;
+    }
+
+    #gemiddelde_cijfer p{
+        margin: 2px;
+    }
+
+    #feedbackknop {
+        border-radius: 5px;
+        background-color: #00008B; /* Oranje */
+        border: none;
+        color: #FFB31A;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        width: 80%;
+        height: 100%;
+    }
+    #feedbacbox p{
+        margin: 0px;
+    }
+    #feedbackby{
+        text-align: center;
+    }
+
+    #feedbacbox{
+        margin: 4px;
+        border: 1px solid #00008B;
+        display: grid;
+        grid-template-rows: 20% 20% 60%;
+    }
+
+    #feedbackfield{
+        margin-left: 4%;
+        width: 80%;
+    }
+
+    #feedbacklabel{
+        text-align: center;
+    }
+
+
+
 
 }

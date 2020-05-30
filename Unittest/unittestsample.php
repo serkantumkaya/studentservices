@@ -2,118 +2,65 @@
 
 use PHPUnit\Framework\TestCase;
 
-include 'testsample.php';
+//require_once ('vendor/autoload.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/GebruikerModel.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Gebruiker.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 
-class unittestsample extends TestCase {
-	
-	public function testSom() 
-	{
-		$x = 11;
-		$y = 12;
-		
-		$result = som($x, $y);
-		$this->assertEquals(23, $result);
-	}
-	
-	public function testMinimum()
-	{
-		$x = 100;
-		$y = 50;
-		
-		$result = minimum($x, $y);
-		
-		$this->assertEquals(50, $result);
-		
-		$x = -100;
-		$y = -50;
-		
-		$result = minimum($x, $y);
-		
-		$this->assertEquals(-100, $result);
-	}
-	
-	public function testProduct()
-	{
-		$x = 100;
-		$y = 50;
-		
-		$result = product($x, $y);
-		
-		$this->assertEquals(5000, $result);
-		
-		$x = 0.1;
-		$y = 0.25;
-		
-		$result = product($x, $y);
-		
-		$this->assertEquals(0.025, $result);
-	}
-	
-	public function testModulo()
-	{
-		$getal = 97;
-		$deler = 10;
-		
-		$result = modulo($getal, $deler);
-		
-		$this->assertEquals(7, $result);
-		
-		$result = modulo(45, 0);
-		
-		$this->assertEquals(45, $result);
-		
-		$getal = 95;
-		$deler = -10;
-		
-		$result = modulo($getal, $deler);
-		
-		$this->assertEquals(5, $result);
-	}
-	
-	public function testInhoud()
-	{
-		$h = 5;
-		$b = 2.5;
-		$l = 7;
-		
-		$result = inhoud($h, $b, $l);
-		
-		$this->assertEquals(87.5, $result);
-		
-		$h = -5;
-		$b = 2.5;
-		$l = 7;
-		
-		$result = inhoud($h, $b, $l);
-		
-		$this->assertEquals(0, $result);
-		
-		$h = 0;
-		$b = 2.5;
-		$l = 7;
-		
-		$result = inhoud($h, $b, $l);
-		
-		$this->assertEquals(0, $result);
-	}
-	
-	public function testCheckIfLarger()
-	{
-		$x = 5;
-		$y = 10;
-		
-		$result = checkIfLarger($x, $y);
-		
-		$this->assertFalse($result);
-		
-		$x = 17;
-		$y = 12;
-		
-		$result = checkIfLarger($x, $y);
-		
-		$this->assertTrue($result);
-	}
-	
+class unittestsample extends TestCase
+{
+
+    //public function testTextInlogPagUserNameLabelNL(){
+    //    $res = Translate::GetTranslation("inlogPagUserNameLabel");
+    //    $this->assertEquals("Gebruikersnaam:",$res);
+    //
+    //}
+
+    //public function testTextInlogPagUserNameLabelEN(){
+    //    $res = Translate::GetTranslation("inlogPagUserNameLabel");
+    //    $this->assertEquals("Username:",$res);
+    //
+    //}
+
+    public function testInlogSHA()
+    {
+        $a = 1 + 2;
+        $this->assertEquals("3",$a);
+    }
+
+    public function testInlogSHA()
+    {
+        $GebruikerController = new GebruikerController(1005);
+        $DB = new ConnectDB();
+        $gebruiker = $GebruikerController->Validate("Patrick",$DB->MakeSafe("Welkom01"));
+        $this->assertEquals("Patrick",$gebruiker->getGebruikersnaam(),"Login failed");
+    }
+
+    //public function testWrongInlogSHA(){
+    //    $GebruikerController = new GebruikerController();
+    //    $gebruiker = $GebruikerController->Validate("Patrick",MakeSafe("Welkom"));
+    //    $this->assertEquals("Patrick",null);
+    //
+    //}
+    //
+    //public function testCheckIfAdmin(){
+    //    $GebruikerController = new GebruikerController();
+    //    $gebruiker = $GebruikerController->Validate("Patrick",MakeSafe("Welkom01"));
+    //    $level = $GebruikerController->checkRechten();
+    //    $this->assertEquals("100",$level);
+    //
+    //}
+
+
+    /*    public function testSom(){
+            $x = 11;
+            $y = 12;
+
+            $result = som($x,$y);
+            $this->assertEquals(23,$result);
+        }*/
+
 }
-	
+
 ?>

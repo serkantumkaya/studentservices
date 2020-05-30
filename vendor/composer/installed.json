@@ -369,17 +369,17 @@
     },
     {
         "name": "phpmailer/phpmailer",
-        "version": "v6.1.5",
-        "version_normalized": "6.1.5.0",
+        "version": "v6.1.6",
+        "version_normalized": "6.1.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "a8bf068f64a580302026e484ee29511f661b2ad3"
+            "reference": "c2796cb1cb99d7717290b48c4e6f32cb6c60b7b3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/a8bf068f64a580302026e484ee29511f661b2ad3",
-            "reference": "a8bf068f64a580302026e484ee29511f661b2ad3",
+            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/c2796cb1cb99d7717290b48c4e6f32cb6c60b7b3",
+            "reference": "c2796cb1cb99d7717290b48c4e6f32cb6c60b7b3",
             "shasum": ""
         },
         "require": {
@@ -400,7 +400,7 @@
             "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
             "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
         },
-        "time": "2020-03-14T14:23:48+00:00",
+        "time": "2020-05-27T12:24:03+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -432,16 +432,8 @@
         "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
         "funding": [
             {
-                "url": "https://marcus.bointon.com/donations/",
-                "type": "custom"
-            },
-            {
-                "url": "https://github.com/Synchro",
+                "url": "https://github.com/synchro",
                 "type": "github"
-            },
-            {
-                "url": "https://www.patreon.com/marcusbointon",
-                "type": "patreon"
             }
         ]
     },
@@ -859,17 +851,17 @@
     },
     {
         "name": "phpunit/phpunit",
-        "version": "9.1.5",
-        "version_normalized": "9.1.5.0",
+        "version": "9.1.0",
+        "version_normalized": "9.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "1b570cd7edbe136055bf5f651857dc8af6b829d2"
+            "reference": "ef2af937ce574f215afb6dca37d583cb2964bad9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1b570cd7edbe136055bf5f651857dc8af6b829d2",
-            "reference": "1b570cd7edbe136055bf5f651857dc8af6b829d2",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/ef2af937ce574f215afb6dca37d583cb2964bad9",
+            "reference": "ef2af937ce574f215afb6dca37d583cb2964bad9",
             "shasum": ""
         },
         "require": {
@@ -889,8 +881,8 @@
             "phpunit/php-file-iterator": "^3.0",
             "phpunit/php-invoker": "^3.0",
             "phpunit/php-text-template": "^2.0",
-            "phpunit/php-timer": "^3.1.4",
-            "sebastian/code-unit": "^1.0.2",
+            "phpunit/php-timer": "^3.0",
+            "sebastian/code-unit": "^1.0",
             "sebastian/comparator": "^4.0",
             "sebastian/diff": "^4.0",
             "sebastian/environment": "^5.0.1",
@@ -902,14 +894,13 @@
             "sebastian/version": "^3.0"
         },
         "require-dev": {
-            "ext-pdo": "*",
-            "phpspec/prophecy-phpunit": "^2.0"
+            "ext-pdo": "*"
         },
         "suggest": {
             "ext-soap": "*",
             "ext-xdebug": "*"
         },
-        "time": "2020-05-22T13:54:05+00:00",
+        "time": "2020-04-03T05:23:04+00:00",
         "bin": [
             "phpunit"
         ],

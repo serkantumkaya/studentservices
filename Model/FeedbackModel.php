@@ -81,7 +81,7 @@ class FeedbackModel
      * @return array
      */
 
-    public function getGegevenFeedbak($ID){
+    public function getGegevenFeedback($ID){
         $sql = "SELECT * FROM FEEDBACK WHERE GebruikerID = $ID";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
