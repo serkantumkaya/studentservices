@@ -20,14 +20,19 @@ Header("Location: /StudentServices/inlogPag.php");
 </head>
 
 <body>
-<div class="header">
-    <nav id="page-nav">
-        <!-- [THE HAMBURGER] -->
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
-        <?php
-        include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/menu.php");
-        ?>
-    </nav>
-    <img id="logo" src="/StudentServices/images/logotrans.png"/>
-</div>
+    <div class="header">
+        <nav id="page-nav">
+            <!-- [THE HAMBURGER] -->
+            <label for="hamburger">&#9776;</label>
+            <input type="checkbox" id="hamburger">
+            <!--[MENU ITEMS]-->
+            <?php
+            include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/menu.php");
+            ?>
+        </nav>
+
+        <img id="logo" src="/StudentServices/images/logotrans.png">
+        <a href="index.html"></a>
+
+    </div>
+</body>

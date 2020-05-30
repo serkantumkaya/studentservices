@@ -18,7 +18,9 @@ if ($_SESSION["level"]>=50){
 <nav id='menu'>
             <ul  id="nav">
             <li><a href="/StudentServices/index.php">Home</a></li>
-            <li><a href="#">Admin</a>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Admin</a>
+               <div class="dropdown-content">
                 <ul>
                 <li class="#lisub"><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
                 <li class="#lisub" ><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
@@ -30,6 +32,7 @@ if ($_SESSION["level"]>=50){
                 <li class="#lisub"><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
                 <li class="#lisub"><a href="/StudentServices/View/School/View.php">School</a></li>
                 </ul>
+                </div>
             </li>
            <!-- tijdelijk even 2x projecten neergezet, een voor de gebruiker, een voor de admin. -->
             <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
@@ -38,6 +41,7 @@ if ($_SESSION["level"]>=50){
              <li><a href="/StudentServices/ClientSide/Contact.php">Contact</a></li>
              <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
         </ul>
+  
 </nav>
 EOD;
 } else{
