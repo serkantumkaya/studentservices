@@ -590,7 +590,7 @@ final class Test
             try {
                 $codeUnits = $codeUnits->mergeWith($mapper->stringToCodeUnits($element));
             } catch (InvalidCodeUnitException $e) {
-                throw new InvalidCoversTargetException(
+                throw new CodeCoverageException(
                     \sprintf(
                         '"@%s %s" is invalid',
                         $mode,

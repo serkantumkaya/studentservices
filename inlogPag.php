@@ -1,7 +1,7 @@
 <?php
 session_start();
 error_reporting(E_ALL);//todo :weghalen
-ini_set('display_errors',1);//todo :weghalen
+ini_set('display_errors', 1);//todo :weghalen
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
@@ -12,7 +12,7 @@ $rememberpassword = "off";
 //for choosing language
 if (isset($_POST["language"]) && $_POST["language"] == "EN"){
     $doRefresh = $_POST["language"] != $_COOKIE["Language"];
-    setcookie("Language","EN",time()+(86400*365),"/"); // 86400 = 1 day
+    setcookie("Language", "EN", time()+(86400 * 365), "/"); // 86400 = 1 day
 
     if ($doRefresh){
         header("Refresh:0");
@@ -20,7 +20,7 @@ if (isset($_POST["language"]) && $_POST["language"] == "EN"){
 } else{
     if (isset($_POST["language"])){
         $doRefresh = $_POST["language"] != $_COOKIE["Language"];
-        setcookie("Language","NL",time()+(86400*365),"/"); // 86400 = 1 day
+        setcookie("Language", "NL", time()+(86400 * 365), "/"); // 86400 = 1 day
         if ($doRefresh){
             header("Refresh:0");
         }
@@ -56,13 +56,13 @@ $cookie_name3 = "ssrememberme";
 $cookie_value3 = $rememberpassword;
 
 if ($rememberpassword == "on"){
-    setcookie($cookie_name1,$username,time()+(86400*365),"/"); // 86400 = 1 day
-    setcookie($cookie_name2,$password,time()+(86400*365),"/"); // 86400 = 1 day
-    setcookie($cookie_name3,"on",time()+(86400*365),"/"); // 86400 = 1 day
+    setcookie($cookie_name1, $username, time()+(86400 * 365), "/"); // 86400 = 1 day
+    setcookie($cookie_name2, $password, time()+(86400 * 365), "/"); // 86400 = 1 day
+    setcookie($cookie_name3, "on", time()+(86400 * 365), "/"); // 86400 = 1 day
 } else{
-    setcookie($cookie_name1,"",time()-86400,"/"); // 86400 = 1 day
-    setcookie($cookie_name2,"",time()-86400,"/"); // 86400 = 1 day
-    setcookie($cookie_name3,"",time()-86400,"/"); // 86400 = 1 day
+    setcookie($cookie_name1, "", time()-86400, "/"); // 86400 = 1 day
+    setcookie($cookie_name2, "", time()-86400, "/"); // 86400 = 1 day
+    setcookie($cookie_name3, "", time()-86400, "/"); // 86400 = 1 day
     $rememberpassword == "off";
 }
 //Even if you uncheck remember me and tell google to remember your password and user
@@ -78,7 +78,7 @@ if (isset($_POST['username']) && $_POST['password']){
     //$password   = hash('sha256',$password);//
     $pwsafe    = $DB->MakeSafe($password);
     $GC        = new GebruikerController(-1);
-    $Gebruiker = $GC->Validate($username,$pwsafe);
+    $Gebruiker = $GC->Validate($username, $pwsafe);
 
     if ($Gebruiker->getGebruikerID() != -1){
 
@@ -93,40 +93,39 @@ if (isset($_POST['username']) && $_POST['password']){
     }
 }
 
-if(isset($_POST['Email']) && !empty($_POST['Email']) && filter_var($_POST["Email"], FILTER_VALIDATE_EMAIL)){
+if (isset($_POST['Email']) && !empty($_POST['Email']) && filter_var($_POST["Email"], FILTER_VALIDATE_EMAIL)){
     //   var_dump($_POST['Email']);
-    $status ="";
-    $response ="";
+    $status               = "";
+    $response             = "";
     $gebruikerscontroller = new GebruikerController(-1);
-    $gebruikers = $gebruikerscontroller->getGebruikers();
-    foreach($gebruikers as $gebruiker){
-        if($gebruiker->getEmail() == $_POST["Email"]){
+    $gebruikers           = $gebruikerscontroller->getGebruikers();
+    foreach ($gebruikers as $gebruiker){
+        if ($gebruiker->getEmail() == $_POST["Email"]){
             $randomnumber = rand(111111111111, 999999999999);
-            if($gebruikerscontroller->getmail()->sendWachwoordreset($gebruiker->getGebruikersnaam(), $gebruiker->getEmail(), $randomnumber)){
+            if ($gebruikerscontroller->getmail()
+                ->sendWachwoordreset($gebruiker->getGebruikersnaam(), $gebruiker->getEmail(), $randomnumber)){
                 $gebruiker->setWachtwoord($randomnumber);
                 $gebruikerscontroller->updateWachtwoord($gebruiker);
                 $status   = "succes";
                 $response = "Wachtwoord herstel Email is verstuurd";
-                header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
+                header("Location: /StudentServices/inlogPag.php?action=" . $status . "&content=" . $response);
                 break;
-            }
-            else{
+            } else{
                 $status   = "failed";
                 $response = "Wachtwoord herstel Email versturen mislukt";
-                header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
+                header("Location: /StudentServices/inlogPag.php?action=" . $status . "&content=" . $response);
                 break;
             }
         }
     }
     $_POST['Email'] = "";
 
-}
-else{
-    if(isset($_POST['Email'])){
-        $status   = "failed";
-        $response = "Email adres is niet in gebruik";
+} else{
+    if (isset($_POST['Email'])){
+        $status         = "failed";
+        $response       = "Email adres is niet in gebruik";
         $_POST['Email'] = "";
-        header("Location: /StudentServices/inlogPag.php?action=". $status. "&content=". $response);
+        header("Location: /StudentServices/inlogPag.php?action=" . $status . "&content=" . $response);
     }
 }
 
@@ -184,55 +183,56 @@ else{
         <form id="login" action="inlogPag.php" method="POST"><!-No not verwerklogin-->
 
             <!--styling is tijdelijk-->
-            <div class="container">
-                <div style="width:100%">
-                    <label for='username'
-                           style="width:150px"><?php echo Translate::GetTranslation("inlogPagUserNameLabel") ?></label>
-                    <input type='text' name='username' style="width:150px;padding-left:50px"
-                    <?php
-
-                    if ($rememberpassword == "on" && isset($_COOKIE[$cookie_name1])){
-                        echo "value=\"" . $_COOKIE[$cookie_name1] . "\"";
-                    } else{
-                        echo '';
-                    }
-                    ?>"/>
+            <div class="container" style="text-align: center">
+                <div style="width:50%;float:left;">
+                    <div style="text-align: right;margin-right: 0;">
+                        <label for='username'><?php echo Translate::GetTranslation("inlogPagUserNameLabel"); ?></label><br>
+                        <label for='password'><?php echo Translate::GetTranslation("inlogPagPasswordLabel"); ?></label>
+                    </div>
                 </div>
 
-                <div style="width:100%;padding-top: 5px">
-                    <label for='password'
-                           style="width:150px"><?php echo Translate::GetTranslation("inlogPagPasswordLabel") ?></label>
-                    <input type='password' style="width:150px;padding-left:15px" name='password'
-                    <?php
-                    if ($rememberpassword == "on" && isset($_COOKIE[$cookie_name2])){
-                        echo "value=\"" . $_COOKIE[$cookie_name2] . "\"";
-                    } else{
-                        echo '';
-                    }
-                    ?>"/>
+                <div style="width:50%;float:right;">
+                    <div style="float: left">
+                        <input type='text' name='username'
+                        <?php
+                        if ($rememberpassword == "on" && isset($_COOKIE[$cookie_name1])){
+                            echo "value=\"" . $_COOKIE[$cookie_name1] . "\"";
+                        } else{
+                            echo '';
+                        }
+                        ?>"/><br>
+                        <input type='password' name='password'
+                        <?php
+                        if ($rememberpassword == "on" && isset($_COOKIE[$cookie_name2])){
+                            echo "value=\"" . $_COOKIE[$cookie_name2] . "\"";
+                        } else{
+                            echo '';
+                        }
+                        ?>"/>
+                    </div>
                 </div>
+
                 <?php
                 echo $wronglogin
                 ?>
-                <br><br>
-
-
-                <input type="checkbox" id="chkRememberMe" name="chkRememberMe"
+                <br><br><br>
+                <div style="background-color: #FFFFFF">
+                    <input type="checkbox" id="chkRememberMe" name="chkRememberMe"
+                        <?php
+                        if ($rememberpassword == "on"){
+                            echo "checked";
+                        }
+                        ?>
+                    />
+                    <label><?php echo Translate::GetTranslation("inlogPagRememberMe") ?></label>
+                    <br>
+                    <input type='submit' name='Submit' value='Submit'/>
                     <?php
-                    if ($rememberpassword == "on"){
-                        echo "checked";
+                    if ($wronglogin != ""){
+                        echo "<a href='?action=resetpassword'>reset password</a>";
                     }
                     ?>
-                />
-                <label><?php echo Translate::GetTranslation("inlogPagRememberMe") ?></label>
-                <br>
-                <input type='submit' name='Submit' value='Submit'/>
-                <?php
-                if ($wronglogin != ""){
-                    echo "<a href='?action=resetpassword'>reset password</a>";
-                }
-                ?>
-
+                </div>
 
             </div>
         </form>
@@ -242,7 +242,7 @@ else{
     </div>
     <div>
         <?php
-        if (filter_input(INPUT_GET,'action') == "resetpassword"){
+        if (filter_input(INPUT_GET, 'action') == "resetpassword"){
             ?>
             <div id="reset_password">
                 <form action="" method="post">

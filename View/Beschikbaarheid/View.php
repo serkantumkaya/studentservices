@@ -26,8 +26,8 @@ session_start();
 
             foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg)
             {
-                $newStartTijd      = $sg->getStartTijd()->format("Y-m-d");
-                $newEindTijd       = $sg->getEindTijd()->format("Y-m-d");
+                $newStartTijd      = $sg->getStartTijd()->format("Y-m-d\TH:i:s");
+                $newEindTijd       = $sg->getEindTijd()->format("Y-m-d\TH:i:s");
 
                 echo "<tr>";
             echo "<td> <input type=\"submit\" value=\"".$sg->getBeschikbaarheidID()."\" formaction='Edit.php?ID=".

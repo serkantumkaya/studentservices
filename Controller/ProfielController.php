@@ -105,9 +105,12 @@ class ProfielController
         $profielmodel = new ProfielModel($this->gebruikerID);
 
         $Profielc = $profielmodel->getByGebruikerID($this->gebruikerID)->fetch(PDO::FETCH_ASSOC);
+
         if (!isset($Profielc) || $Profielc == false){
+
             return null;
         }
+
         //Profile does not exist
         $schoolcontroller    = new SchoolController();
         $opleidingcontroller = new OpleidingController();
@@ -132,14 +135,51 @@ class ProfielController
             $Profielc['Telefoonnummer'] == null || $Profielc['Telefoonnummer'] == "" ? "" : $Profielc['Telefoonnummer'],
 
             );
-//hier zit ergens de fout. Binaire string wordt opgehaald maar niet in property gezet!
+
         $ProfielObject->setFoto($Profielc['Foto']== null ? "" : $Profielc['Foto']);
+
         return $ProfielObject;
     }
 
     function UploadPhoto($Photo,int $GebruikersId)
     {
         $this->profielmodel->UploadPhoto($Photo,$GebruikersId);
+    }
+
+    function getEmail(int $id) : string
+    {
+        $GebruikerController = new GebruikerController($id);
+        $gebruiker = $GebruikerController->getById($id);
+        return $gebruiker->getEmail();
+    }
+
+    function getNAW(int $id) : string
+    {
+        $this->gebruikerID = $id;
+
+        $profiel = $this->getByGebruikerID();
+
+        $Achternaam = $profiel->getAchternaam();
+        $Voornaam = $profiel->getVoornaam();
+        $Tussenvoegsel = $profiel->getTussenvoegsel();
+        $Prefix = $profiel->getPrefix();
+        $Straat = $profiel->getStraat();
+        $Huisnummer = $profiel->getHuisnummer();
+        $Extensie = $profiel->getExtensie();
+        $Postcode = $profiel->getPostcode();
+        $Woonplaats = $profiel->getWoonplaats();
+        $Telefoonnummer = $profiel->getTelefoonnummer();
+        $Email = $this->GetEmail($id);
+        $labelName = Translate::GetTranslation("ProfielNAWName");
+        $labelAdres = Translate::GetTranslation("ProfielNAWAdres");
+        $labelTelefoonnummer = Translate::GetTranslation("ProfielNAWTel");
+        $labelEmail = Translate::GetTranslation("ProfielNAWEmail");
+
+        return $labelName.trim($Prefix." ".$Voornaam." ".$Tussenvoegsel)." ".$Achternaam."<br>".
+            $labelAdres.$Straat." ".trim($Huisnummer." ".$Extensie)."<br>".
+               "                 ".        $Postcode."  ".$Woonplaats."<br>".
+            $labelTelefoonnummer.$Telefoonnummer."<br>"
+            .            $labelEmail.$Email;
     }
     //todo : maken als projecten af is
     //public function getProjectenByProfiel()

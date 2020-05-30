@@ -1,7 +1,7 @@
 /*mobile first dus daar mee beginnen*/
 @media only screen and (max-width: 800px){
     #projectpagina{
-        height: 96vh;
+        height: 100%;
         background-color: #004085;
     }
     .grid-projecten-colums {
@@ -188,21 +188,26 @@
     }
 
     #project-button {
-        width: 140px;
+        width: auto;
         background-color: #FFB31A;
         color: black;
         padding: 10px;
-        font-size: 23px;
+        font-size: 20px;
+    }
+
+    #project-button a{
+        text-decoration: none;
+        color: black
     }
 
     #project-wijzig-button{
         text-decoration: none;
     }
 
-    #project-klaar {
-        color:red;
-        background-color: aqua;
-    }
+    /*    #project-klaar {
+            color:red;
+            background-color: aqua;
+        }*/
 
     #project-aanbieder {
         grid-area: project-header;
@@ -276,8 +281,18 @@
     #project-footer {
         grid-area: project-footer;
         background-color: #9fcdff;
-        text-align: right;
         padding-right: 10px;
+    }
+
+    #project-footer2{
+        width: 50%;
+        float: left;
+    }
+
+    #project-footer3{
+        width: 50%;
+        float: right;
+        text-align: right;
     }
 
     #reacties{
@@ -482,11 +497,16 @@
     }
 
     #project-button {
-        width: 140px;
+        width: auto;
         background-color: #FFB31A;
         color: black;
         padding: 10px;
-        font-size: 23px;
+        font-size: 20px;
+    }
+
+    #project-button a{
+        text-decoration: none;
+        color: black
     }
 
     #project-wijzig-button{
@@ -534,7 +554,7 @@
     #project-info {
         grid-area: project-info;
         font-size: 22px;
-        background-color: green;
+        background-color: #9fcdff;
     }
 
     #project-info-grid{
@@ -547,7 +567,6 @@
     #project-parameters{
         grid-area: Parameters;
         background-color: #9fcdff;
-
     }
 
     #parameter-tekstvak{
@@ -566,6 +585,17 @@
         background-color: #9fcdff;
         text-align: right;
         padding-right: 10px;
+    }
+
+    #project-footer2{
+        width: 50%;
+        float: left;
+    }
+
+    #project-footer3{
+        width: 50%;
+        float: right;
+        text-align: right;
     }
 
     #reacties{
@@ -602,6 +632,48 @@
     #colum2{
         background-color: #FFB31A;
     }*/
+
+    #popup-knop:hover{
+        cursor: pointer;
+    }
+
+    .pop{
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        padding: 100px;
+        width: 50%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        alignment: center;
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .reactie-popup-inhoud{
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
     #filter-projecten-kop{
         font-size: 20px;

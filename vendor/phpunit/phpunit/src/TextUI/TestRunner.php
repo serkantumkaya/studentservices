@@ -119,7 +119,7 @@ final class TestRunner extends BaseTestRunner
      * @throws \PHPUnit\Runner\Exception
      * @throws Exception
      */
-    public function run(Test $suite, array $arguments = [], array $warnings = [], bool $exit = true): TestResult
+    public function run(Test $suite, array $arguments = [], bool $exit = true): TestResult
     {
         if (isset($arguments['configuration'])) {
             $GLOBALS['__PHPUNIT_CONFIGURATION_FILE'] = $arguments['configuration'];
@@ -338,7 +338,7 @@ final class TestRunner extends BaseTestRunner
             }
         }
 
-        foreach ($warnings as $warning) {
+        foreach ($arguments['warnings'] as $warning) {
             $this->writeMessage('Warning', $warning);
         }
 
@@ -1181,7 +1181,7 @@ final class TestRunner extends BaseTestRunner
         $this->printer->write(
             \sprintf(
                 "done [%s]\n",
-                Timer::secondsToShortTimeString(Timer::stop())
+                Timer::secondsToTimeString(Timer::stop())
             )
         );
     }
@@ -1191,7 +1191,7 @@ final class TestRunner extends BaseTestRunner
         $this->printer->write(
             \sprintf(
                 "failed [%s]\n%s\n",
-                Timer::secondsToShortTimeString(Timer::stop()),
+                Timer::secondsToTimeString(Timer::stop()),
                 $e->getMessage()
             )
         );

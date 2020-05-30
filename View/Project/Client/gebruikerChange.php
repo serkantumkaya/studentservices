@@ -5,11 +5,11 @@ $reactiecontroller = new ReactieController();
 $categoriecontroller = new CategorieController();
 $projectID = $_GET['ProjectID'];
 
-if($_POST){
+if ($_POST){
     if (isset($_POST['submit'])){
         if (!empty($_POST['deadline']['bekend']) && ($_POST['deadline']['bekend'] != '')){
             $deadline = $projectController->undoDeadlineFormat($_POST['deadline']['bekend']);
-        } else {
+        } else{
             $deadline = '0000-00-00 00:00:00';
         }
 
@@ -18,31 +18,23 @@ if($_POST){
             $deadline, "Mee Bezig", $_POST['Locatie'], 0);
 
         if ($projectController->update($projectchange)){
-
-            header('Location: project.php?ProjectID='.$projectID.'&view=detail');
+            header('Location: project.php?ProjectID=' . $projectID . '&view=detail');
         }
 
-
-        var_dump($_POST);
     }
-
-    echo "er staat een DIE hier op Gebruikerchange.php";
-
-    die();
-
 }
 
 $project = $projectController->getById($_GET['ProjectID']);
 
 $categorie = getUitvoerCategorie($categoriecontroller, $project);
 $type = getUitvoerType($project);
-$uitvoerdeadline = getUitvoerDeadline($project,$projectController);
+$uitvoerdeadline = getUitvoerDeadline($project, $projectController);
 
 
 function getUitvoerCategorie(CategorieController $categorieController, Project $project){
-    $huidige     = $project->getCategorieID();
+    $huidige = $project->getCategorieID();
     $categorieen = $categorieController->getCategorieen();
-    $text        = "<select id=\"Categorie\" name=\"CategorieID\">";
+    $text = "<select id=\"Categorie\" name=\"CategorieID\">";
     foreach ($categorieen as $categorie){
         if ($huidige == $categorie->getCategorieID()){
             $text .= "<option selected='selected' value='" . $categorie->getCategorieID() . "'>" .
@@ -72,12 +64,16 @@ function getUitvoerType(Project $project){
     return $text;
 }
 
-function getUitvoerDeadline(Project $project,ProjectController $controller){
+function getUitvoerDeadline(Project $project, ProjectController $controller){
     $deadline = $project->getDeadline();
     if ($deadline == '0000-00-00 00:00:00'){
-        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\"/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\" checked='checked'/>".Translate::GetTranslation("ProjectNietBekend");
-    } else {
-        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\" value='".$controller->getDeadlineFormat($project->getDeadline()) ."'/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\"/>".Translate::GetTranslation("ProjectNietBekend");
+        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\"/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\" checked='checked'/>" .
+            Translate::GetTranslation("ProjectNietBekend");
+    } else{
+        return "<input type=\"datetime-local\" name=\"Deadline[Bekend]\" value='" .
+            $controller->getDeadlineFormat($project->getDeadline()) .
+            "'/><br><input type=\"checkbox\" name=\"Deadline[NietBekend]\"/>" .
+            Translate::GetTranslation("ProjectNietBekend");
     }
 }
 
@@ -98,27 +94,37 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         <div id="filter-projecten" style="background-color: #004085">
             <!--hier hoeft nu ook niets-->
         </div>
-        <form action="/Studentservices/ClientSide/project.php?ProjectID=<?php echo $projectID;?>&view=change" method="post">
+        <form action="/Studentservices/ClientSide/project.php?ProjectID=<?php echo $projectID; ?>&view=change"
+              method="post">
             <div id="project-row-grid">
                 <div id="project-header">
                     <div id="project-aanbieder">
-                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor"). " ";  echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
+                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor") . " ";
+                            echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
                     </div>
 
                     <div id="project-titel">
                     <textarea maxlength="70" name="Titel" rows="1"
-                              placeholder="Titel (max 70 characters)" required><?php echo $project->getTitel();?></textarea>
+                              placeholder="Titel (max 70 characters)"
+                              required><?php echo $project->getTitel(); ?></textarea>
                     </div>
                 </div>
                 <div id="project-info">
                     <div id="project-info-grid">
                         <div id="project-parameters">
-                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectGemaaktOp"); ?>:</div>
-                            <div id="parameter-tekstvak"><input type="text" name="datumaangemaakt" value="<?php echo $project->getDatumaangemaakt();?>" readonly/><br></div>
-                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectGemaaktOp"); ?>:
+                            </div>
+                            <div id="parameter-tekstvak"><input type="text" name="datumaangemaakt"
+                                                                value="<?php echo $project->getDatumaangemaakt(); ?>"
+                                                                readonly/><br></div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:
+                            </div>
                             <div id="parameter-tekstvak"><?php echo $categorie; ?> <br></div>
-                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:</div>
-                            <div id="parameter-tekstvak"><input type="text" name="Locatie" value="<?php echo $project->getLocatie(); ?>" /><br></div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:
+                            </div>
+                            <div id="parameter-tekstvak"><input type="text" name="Locatie"
+                                                                value="<?php echo $project->getLocatie(); ?>"/><br>
+                            </div>
                             <div id="parameter-tekstvak">Deadline:</div>
                             <!-- Dit stuk in fucntie voor deadline om checkbox eventueel aan te vinken -->
                             <div id='parameter-tekstvak'><?php echo $uitvoerdeadline; ?><br></div>
@@ -134,12 +140,24 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     </div>
                 </div>
                 <div id="project-footer">
+                    <div id="project-footer2">
+                        <button id="project-button">
+                            <a href="project.php?ProjectID=<?php echo $projectID; ?>&view=detail"/><?php echo Translate::GetTranslation("ProjectTerug"); ?></a>
+                        </button>
+                       <input type="submit" name="submit" id="project-button"
+                                       value="<?php echo Translate::GetTranslation("ProjectEdit"); ?>"/>
+                    </div>
+                    <div id='project-footer3'>
+                        <div>
+                            <input type="submit" name="Klaar" id="project-button"
+                                   value="<?php echo Translate::GetTranslation("ProjectKlaar"); ?>"/>
+                        </div>
+                    </div>
 
-                    <input type="submit" name="submit" value="<?php echo Translate::GetTranslation("ProjectEdit");?>"/>
                 </div>
+
             </div>
         </form>
-        <button><a href="project.php?ProjectID=<?php echo $projectID;?>&view=detail"/><?php echo Translate::GetTranslation("ProjectTerug"); ?></a></button>
         <div id="reclame">
             <!-- reclame ofzo-->
         </div>
