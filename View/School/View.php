@@ -2,8 +2,26 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CSVController.php");
 session_start();
+$databew = "";
+$errors        = "";
+$csvcontroller = new CSVController();
 
+if (isset($_POST["download"])){
+    $csvcontroller->setFileschoolname("scholen");
+    $csvcontroller->generatecsvfileschool();
+    $csvcontroller->downloadcsv($csvcontroller->getFileschoolname());
+}
+
+if (isset($_POST["upload"]) && !empty($_FILES)){
+    $databew = "";
+    $data    = $csvcontroller->uploadcsv($_FILES);
+    $actions = $csvcontroller->settodatabaseschool($data["result"],$data["errorindex"]);
+    $errors  = $data["errors"];
+    $databew .= $actions["update"] . " records geupdate<br>";
+    $databew .= $actions["add"] . " records toegevoegt<br>";
+}
 ?><!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -46,7 +64,22 @@ session_start();
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
 
-<div class="info">
+<div class="school">
+    <p><?= $databew ?></p>
+    <p><?= $errors ?></p>
+    <div>
+        <form action="" method="post">
+            <input id="Submit" type="submit" value="download csv file">
+            <input id="csv_download" type="hidden" name="download" value="download">
+        </form>
+    </div>
+    <div>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input id="Submit" type="submit" value="upload csv file">
+            <input type="file" accept=".csv" name="fileToUpload" id="fileToUpload">
+            <input id="csv_upload" type="hidden" name="upload" value="upload">
+        </form>
+    </div>
     <form method="post" action="Edit.php">
         <table>
             <tr>

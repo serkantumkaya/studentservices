@@ -28,7 +28,7 @@ class OpleidingController
 
     //voor parameters bindparam gebruiken. Named parameters
     function add(string $Opleidingnaam, string $VoltijdDeeltijd) {
-        echo("Komt bij stap 3");
+       // echo("Komt bij stap 3");
         return $this->Opleidingmodel->Add($Opleidingnaam,$VoltijdDeeltijd);
     }
 
@@ -48,7 +48,12 @@ class OpleidingController
     function getById(int $id)
     {
         $Opleiding = $this->Opleidingmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
-
-        return new Opleiding($Opleiding[0]['OpleidingID'],$Opleiding[0]['Naamopleiding'], $Opleiding[0]['Voltijd_deeltijd']);//kijk dit bedoel ik dit is OO bitches!
+        if(!empty($Opleiding) && $Opleiding!= null){
+            return new Opleiding($Opleiding[0]['OpleidingID'],$Opleiding[0]['Naamopleiding'],
+                $Opleiding[0]['Voltijd_deeltijd']);//kijk dit bedoel ik dit is OO bitches!
+        }
+        else{
+            return null;
+        }
     }
 }

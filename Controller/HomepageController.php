@@ -4,6 +4,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/FeedbackCo
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 
 class HomepageController
 {
@@ -114,10 +115,10 @@ class HomepageController
 
     public function getaccountstatus(){
         if($this->profielexsist) {
-            $status =  $this->profiel->getStatus();
+            $status =   Translate::GetTranslation('home'.$this->profiel->getStatus());
             return (" " .($status != false || $status != null || !empty($status)  ? $status: "" ));
         }
-        return "Onbekend";
+        return Translate::GetTranslation("homeonbekend");
     }
 
     public function getemail(){
@@ -130,11 +131,11 @@ class HomepageController
             if (!empty(($this->project)) && ($this->project)[count($this->project) - 1]->getType() == "Vragen") {
                 return ($this->project)[count($this->project) - 1]->getTitel();
             } else {
-                return "geen project gevonden";
+                return Translate::GetTranslation("homegeen project gevonden");
             }
         }
         else{
-            return "geen project gevonden";
+            return Translate::GetTranslation("homegeen project gevonden");
         }
     }
 
@@ -143,11 +144,11 @@ class HomepageController
             if (($this->project)[count($this->project) - 1]->getType() == "Vragen") {
                 return ($this->project)[count($this->project) - 1]->getBeschrijving();
             } else {
-                return "geen project gevonden";
+                return Translate::GetTranslation("homegeen project gevonden");
             }
         }
         else{
-            return "geen project gevonden";
+            return Translate::GetTranslation("homegeen project gevonden");
         }
     }
 
@@ -157,11 +158,11 @@ class HomepageController
             if (!empty(($this->project)) && ($this->project)[count($this->project) - 1]->getType() == "Aanbieden") {
                 return ($this->project)[count($this->project) - 1]->getTitel();
             } else {
-                return "geen project gevonden";
+                return Translate::GetTranslation("homegeen project gevonden");
             }
         }
         else{
-            return "geen project gevonden";
+            return Translate::GetTranslation("homegeen project gevonden");
         }
     }
 
@@ -170,11 +171,11 @@ class HomepageController
             if (($this->project)[count($this->project) - 1]->getType() == "Aanbieden") {
                 return ($this->project)[count($this->project) - 1]->getBeschrijving();
             } else {
-                return "geen project gevonden";
+                return Translate::GetTranslation("homegeen project gevonden");
             }
         }
         else{
-            return "geen project gevonden";
+            return Translate::GetTranslation("homegeen project gevonden");
         }
     }
 
@@ -192,10 +193,10 @@ class HomepageController
                 if (!empty($this->reactiecontroller->getById($lastreactieId)->getReactie())){
                     return $this->reactiecontroller->getById($lastreactieId)->getReactie();
                 } else{
-                    return "geen reactie gevonden";;
+                    return Translate::GetTranslation("homegeen reactie gevonden");
                 }
             } else{
-                return "geen reactie gevonden";;
+                return Translate::GetTranslation("homegeen reactie gevonden");
             }
         } else{
             $lastreactieId = 0;
@@ -212,13 +213,13 @@ class HomepageController
                             if (!empty($this->reactiecontroller->getById($lastreactieId)->getReactie())){
                                 return $this->reactiecontroller->getById($lastreactieId)->getReactie();
                             } else{
-                                return "geen reactie gevonden";;
+                                return Translate::GetTranslation("homegeen reactie gevonden");
                             }
                         }
                     }
                 }
             } else{
-                return "geen reactie gevonden";;
+                return Translate::GetTranslation("homegeen reactie gevonden");
             }
         }
     }
@@ -276,7 +277,10 @@ class HomepageController
 
     public function getusernamebyreactie(int $id = null){
         if($id != null){
-            return $this->getfullname();
+            if(!empty($this->reactiegegeven)){
+                return $this->getfullname();
+            }
+            return "....";
         }
         else {
             $lastreactieId = 0;
@@ -323,11 +327,11 @@ class HomepageController
                     return $this->reactiecontroller->getById($lastreactieId)->getTimestamp();
                 }
                 else {
-                    return "00-00-00 00:00:00";
+                    return "-";
                 }
             }
             else {
-                return "00-00-00 00:00:00";
+                return "-";
             }
         }
         else {
@@ -347,13 +351,13 @@ class HomepageController
                             if (!empty($this->reactiecontroller->getById($lastreactieId)->getTimestamp())) {
                                 return $this->reactiecontroller->getById($lastreactieId)->getTimestamp();
                             } else {
-                                return "00-00-00 00:00:00";
+                                return "-";
                             }
                         }
                     }
                 }
             } else {
-                return "00-00-00 00:00:00";
+                return "-";
             }
         }
     }
@@ -369,7 +373,7 @@ class HomepageController
                 }
                 return $this->feedbackcontroller->getById($lastfeedbackId)->getReview();
             } else {
-                return "geen feedback gevonden";
+                return Translate::GetTranslation("homegeen feedback gevonden");
             }
         }
         else{
@@ -382,7 +386,7 @@ class HomepageController
                 }
                 return $this->feedbackcontroller->getById($lastfeedbackId)->getReview();
             } else {
-                return "geen feedback gevonden";
+                return Translate::GetTranslation("homegeen feedback gevonden");
             }
         }
     }
@@ -430,7 +434,10 @@ class HomepageController
 
     public function getusernamebyfeedback(int $id = null){
         if($id != null){
-            return $this->getfullname();
+            if(!empty($this->feedbackgegeven)){
+                return $this->getfullname();
+            }
+            return "....";
         }
         else {
             $lastfeedbackId = 0;
@@ -476,11 +483,11 @@ class HomepageController
                     return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
                 }
                 else {
-                    return "00-00-00 00:00:00";
+                    return "-";
                 }
             }
             else {
-                return "00-00-00 00:00:00";
+                return "-";
             }
         }
         else {
@@ -496,13 +503,13 @@ class HomepageController
                         if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp())) {
                             return $this->feedbackcontroller->getById($lastfeedbackId)->getTimestamp();
                         } else {
-                            return "00-00-00 00:00:00";
+                            return "-";
                         }
                     }
                 }
             }
             else {
-                return "00-00-00 00:00:00";
+                return "-";
             }
         }
     }
@@ -520,11 +527,11 @@ class HomepageController
                     return $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer();
                 }
                 else {
-                    return "geen cijfer gevonden";
+                    return "-";
                 }
             }
             else {
-                return "geen cijfer gevonden";
+                return "-";
             }
         }
         else {
@@ -540,13 +547,13 @@ class HomepageController
                         if (!empty($this->feedbackcontroller->getById($lastfeedbackId)->getCijfer())) {
                             return $this->feedbackcontroller->getById($lastfeedbackId)->getCijfer();
                         } else {
-                            return "geen cijfer gevonden";
+                            return "-";
                         }
                     }
                 }
             }
             else {
-                return "geen cijfer gevonden";
+                return "-";
             }
         }
     }

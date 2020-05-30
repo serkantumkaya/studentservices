@@ -94,6 +94,15 @@ class Translate
         "homeFeedbackVanJou" => ["Jouw feedback op project:", "Your feedback on project:"],
         "homeFeedbackVanAnder" => ["Gegeven feedback door", "Given feedback by "],
 
+        //labels van de homepage controller
+        "homegeen project gevonden"=>['geen project gevonden', 'no project found'],
+        "homegeen reactie gevonden"=>['geen reactie gevonden', 'no reaction found'],
+        "homegeen feedback gevonden"=>['geen feedback gevonden', 'no feedback found'],
+        "homeonbekend"=>['onbekend', 'unknown'],
+        "homeactief"=>['actief', 'active'],
+        "homenon actief"=>['non actief, non active'],
+        'homeverwijderd'=>['verwijderd', 'deleted'],
+
         "ProjectNieuw" => ['Nieuw project', 'New project'],
         "ProjectfilterKlaar" => ['Klaar',"Done"],
         "ProjectfilterBezig" => ['Mee bezig', "Doing"],
@@ -141,6 +150,17 @@ class Translate
         "profielStatus" => ['Status','Status'],
         "profielTelefoonnummer" => ['Telefoonnummer','Phonenumber'],
         "profielFoto" => ['Profielfoto','Profile picture'],
+      
+        "ProjectenBeschikbaarheidButton" => ['Beschikbaarheid',"Availability"],
+
+        "BeschikbaarheidStartTimeLabel"=> ['Starttijd',"Start time"],
+        "BeschikbaarheidEndTimeLabel"=> ['Eindtijd',"End time"],
+        "BeschikbaarheidRecordnotSaved"=> ['Record niet opgeslagen.',"Record not saved."],
+        "BeschikbaarheidAddAvailabilityFor"=> ["Toevoegen beschikbaarheid voor project : ","Add availability for : "],
+        "BeschikbaarheidEditAvailabilityFor"=> ["Wijzigen beschikbaarheid voor project : ","Edit availability for : "],
+        "Beschikbaarheid"=> ["Beschikbaarheid","Availability"],
+        "BeschikbaarheidBack"=> ["Terug","Back"],
+        "BeschikbaarheidNew"=> ["Nieuwe toevoegen","Add new"],
     ];
 
     public static function GetTranslation(string $key): string{
