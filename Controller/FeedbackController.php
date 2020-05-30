@@ -96,7 +96,7 @@ class FeedbackController
 
     public function getGegevenFeedback(int $GebruikerID): array{
         $feedbacklijst = [];
-        foreach ($this->Feedbackmodel->getGegevenFeedbak($GebruikerID) as $feedback){
+        foreach ($this->Feedbackmodel->getGegevenFeedback($GebruikerID) as $feedback){
             $feedbackObj     = new Feedback($feedback['FeedbackID'], $feedback['GebruikerID'], $feedback['ProjectID'],
                 $feedback['Cijfer'], $feedback['Review']);
             $feedbacklijst[] = $feedbackObj;
@@ -143,13 +143,18 @@ class FeedbackController
      * @return float
      */
 
-    function getGemiddeldeGekregenScore(int $gebruikerID): float{
+    function getGemiddeldeGekregenScore(int $gebruikerID){
         $score = 0;
         $aantal = count($this->getGekregenFeedback($gebruikerID));
-        foreach($this->getGekregenFeedback($gebruikerID) as $feedback){
-            $score += $feedback->getCijfer();
+        if($aantal != 0){
+            foreach ($this->getGekregenFeedback($gebruikerID) as $feedback){
+                $score += $feedback->getCijfer();
+            }
+            return round($score/$aantal,1);
         }
-        return round($score/$aantal,1);
+        else{
+            return "-";
+        }
     }
 
 }
