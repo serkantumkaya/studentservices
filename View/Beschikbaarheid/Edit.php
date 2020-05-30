@@ -59,10 +59,17 @@ else
     </div>
 
     <input type="submit" >
+    <input type="submit" value="delete" name="delete">
 </form >
 
 <?php
-if (isset($StartTijd) && isset($EindTijd) && !isset($_GET["ID"]))//post van maken dit is niet goed,.
+if (isset($_POST["delete"])){
+    $beschikbaarheidcontroller = new BeschikbaarheidController();
+    if ($beschikbaarheidcontroller->delete($_SESSION["Beschikbaarheid"])){
+        header("Location: View.php");
+    }
+}
+else if (isset($StartTijd) && isset($EindTijd) && !isset($_GET["ID"]))//post van maken dit is niet goed,.
 {
     $beschikbaarheidcontroller = new BeschikbaarheidController();
 
