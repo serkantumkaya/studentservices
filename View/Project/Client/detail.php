@@ -1,11 +1,12 @@
 <?php
+require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 
 $gebruikersController = new GebruikerController($_SESSION['GebruikerID']);
 $projectController = new ProjectController();
 $reactiecontroller = new ReactieController();
 $categoriecontroller = new CategorieController();
 $projectID = $_GET['ProjectID'];
-
+$_SESSION["ProjectID"] = $projectID;//need it for beschikbaarheid.
 if ($_POST){
     if (isset($_POST['submitReactie'])){
         verstuurReactie($reactiecontroller,$projectID);
@@ -120,9 +121,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
         <div id="reclame">
 
-                <div id="project-beschikbaarheid">
-                    //TODO: Patrick moet hier zijn werk inbouwen
-                    beschikbaarheid
+                <div id="project-beschikbaarheid" style="Height:25px;">
+                    <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
+                        <?php
+                            echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
+                        ?>
+                        </button>
                 </div>
                 <div id="project-feedback">
                     //TODO: Dirk moet hier zijn werk inbouwen

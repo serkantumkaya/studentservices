@@ -117,6 +117,16 @@ class Translate
         "ProjectTerug" => ['Terug',"Back"],
         "ProjectVoegToe" => ['Toevoegen',"Add"],
         "ProjectNietBekend" => ['Niet Bekend',"Unknown"],
+        "ProjectenBeschikbaarheidButton" => ['Beschikbaarheid',"Availability"],
+
+        "BeschikbaarheidStartTimeLabel"=> ['Starttijd',"Start time"],
+        "BeschikbaarheidEndTimeLabel"=> ['Eindtijd',"End time"],
+        "BeschikbaarheidRecordnotSaved"=> ['Record niet opgeslagen.',"Record not saved."],
+        "BeschikbaarheidAddAvailabilityFor"=> ["Toevoegen beschikbaarheid voor project : ","Add availability for : "],
+        "BeschikbaarheidEditAvailabilityFor"=> ["Wijzigen beschikbaarheid voor project : ","Edit availability for : "],
+        "Beschikbaarheid"=> ["Beschikbaarheid","Availability"],
+        "BeschikbaarheidBack"=> ["Terug","Back"],
+        "BeschikbaarheidNew"=> ["Nieuwe toevoegen","Add new"],
     ];
 
     public static function GetTranslation(string $key): string{

@@ -4,7 +4,6 @@ ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Beschikbaarheid.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/BeschikbaarheidModel.php");
 
-//hier doe je de crud afvangen vanuit de gebruiker.
 class BeschikbaarheidController
 {
     private BeschikbaarheidModel $beschikbaarheidmodel;
@@ -13,53 +12,90 @@ class BeschikbaarheidController
 
     }
 
-    public function GetBeschikbaarheden(){
-        $beschikbaarheidmodel = new BeschikbaarheidModel();
-        $BeschikbaarheidArray = [];
-        foreach ($beschikbaarheidmodel->GetBeschikbaarheden() as $beschikbaarheid)
-        {
-            $beschikbaarheid = new Beschikbaarheid(
-                $beschikbaarheid['projectID'],
-                new DateTime($beschikbaarheid['dagBeschikbaar']),
-                new DateTime($beschikbaarheid['startTijd']),
-                new DateTime($beschikbaarheid['eindTijd']),
-            );
-            $BeschikbaarheidArray [] = $beschikbaarheid;
-        }
-        return $BeschikbaarheidArray;
-    }
+    //public function GetOpleidingen()
+    //{
+    //    $OpleidigArray = [];
+    //    foreach ($this->Opleidingmodel->GetOpleidingen()->fetchAll(PDO::FETCH_ASSOC) as $sg)
+    //    {
+    //        $opleiding = new Opleiding($sg['OpleidingID'],$sg['Naamopleiding'],$sg['Voltijd_deeltijd']);
+    //        $OpleidigArray [] = $opleiding;
+    //    }
+    //    return $OpleidigArray ;
+    //}
+
+
+    //public function GetBeschikbaarheden(){
+    //    $beschikbaarheidmodel = new BeschikbaarheidModel();
+    //    $BeschikbaarheidArray = [];
+    //    foreach ($beschikbaarheidmodel->GetBeschikbaarheden()->fetchAll(PDO::FETCH_ASSOC) as $beschikbaarheid)
+    //    {
+    //        $ST     = new DateTime($beschikbaarheid['Starttijd']);
+    //        $ET     = new DateTime($beschikbaarheid['Eindtijd']);
+    //
+    //        $beschikbaarheid = new Beschikbaarheid(
+    //            $beschikbaarheid['BeschikbaarheidID'],
+    //            $beschikbaarheid['ProjectID'],
+    //            $ST,
+    //            $ET,
+    //        );
+    //        $BeschikbaarheidArray [] = $beschikbaarheid;
+    //    }
+    //    return $BeschikbaarheidArray;
+    //}
 
     public function GetBeschikbaarheidByProject(int $ProjectID){
         $BeschikbaarheidArray = [];
-        foreach ($this->beschikbaarheidmodel->GetBeschikbaarheden() as $beschikbaarheid){
-            $beschikbaarheid         = new Beschikbaarheid(
-                $beschikbaarheid['projectID'],
-                $beschikbaarheid['dagBeschikbaar'],
-                $beschikbaarheid['startTijd'],
-                $beschikbaarheid['eindTijd'],
+        $this->beschikbaarheidmodel = new BeschikbaarheidModel();
+        foreach ($this->beschikbaarheidmodel->GetBeschikbaarheidByProject($ProjectID) as $beschikbaarheid){
+
+            $ST     = new DateTime($beschikbaarheid['Starttijd']);
+            $ET     = new DateTime($beschikbaarheid['Eindtijd']);
+
+            $beschikbaarheid = new Beschikbaarheid(
+                $beschikbaarheid['BeschikbaarheidID'],
+                $beschikbaarheid['ProjectID'],
+                $ST,
+                $ET,
             );
             $BeschikbaarheidArray [] = $beschikbaarheid;
         }
         return $BeschikbaarheidArray;
     }
 
-    //voor parameters bindparam gebruiken. Named parameters
-    function add(int $projectID,DateTime $dagBeschikbaar,DateTime $startTijd,DateTime $eindTijd){
-        return $this->beschikbaarheidmodel->Add($projectID,$dagBeschikbaar,$startTijd,$eindTijd);
+    function add(int $projectID,DateTime $startTijd,DateTime $eindTijd){
+        $beschikbaarheidmodel = new BeschikbaarheidModel();
+        return $beschikbaarheidmodel->Add($projectID,$startTijd,$eindTijd);
     }
 
-    function delete(int $projectID,DateTime $dagBeschikbaar,DateTime $startTijd,DateTime $eindTijd){
-        return $this->beschikbaarheidmodel->Delete($projectID,$dagBeschikbaar,$startTijd,$eindTijd);
+    function delete(int $beschikbaarheidID){
+        $this->beschikbaarheidmodel = new BeschikbaarheidModel();
+        return $this->beschikbaarheidmodel->Delete($beschikbaarheidID);
     }
 
-    function update(int $projectID,DateTime $dagBeschikbaar,DateTime $startTijd,DateTime $eindTijd)
+    function update(int $beschikbaarheidID,int $projectID,DateTime $startTijd,DateTime $eindTijd)
     {
-        return $this->beschikbaarheidmodel->Update($projectID,$dagBeschikbaar,$startTijd,$eindTijd);
+        $this->beschikbaarheidmodel = new BeschikbaarheidModel();
+        return $this->beschikbaarheidmodel->Update($beschikbaarheidID,$projectID,$startTijd,$eindTijd);
     }
 
-    function getBeschikbaarheid(int $projectID,DateTime $dagBeschikbaar,DateTime $startTijd,DateTime $eindTijd)
+
+    function getByID(int $beschikbaarheidID)
     {
-        return $this->beschikbaarheidmodel->Update($projectID,$dagBeschikbaar,$startTijd,$eindTijd);
+        $this->beschikbaarheidmodel = new BeschikbaarheidModel();
+
+        $Beschikbaarheid = $this->beschikbaarheidmodel->getByID($beschikbaarheidID);
+
+        $ST     = new DateTime($Beschikbaarheid['Starttijd']);
+        $ET     = new DateTime($Beschikbaarheid['Eindtijd']);
+
+        $beschikbaarheid = new Beschikbaarheid(
+            $Beschikbaarheid['BeschikbaarheidID'],
+            $Beschikbaarheid['ProjectID'],
+            $ST,
+            $ET,
+        );
+
+        return $beschikbaarheid;
     }
 
 }

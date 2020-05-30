@@ -12,31 +12,31 @@ session_start();
 <body>
 
 <form  method="post" action="Add.php">
-    <input type="submit" value="Nieuw"  class="ssbutton">
-    <button onclick="window.location.href="./Index.php" class="ssbutton">Terug</button>
+    <input type="submit" value="<?php echo Translate::GetTranslation("BeschikbaarheidNew"); ?>"  class="ssbutton">
+    <button onclick="window.location.href="/StudentServices/ClientSide/Project.php?ProjectID="<?php echo $_SESSION["ProjectID"]; ?> "&view=detail" class="ssbutton"><?php echo Translate::GetTranslation("BeschikbaarheidBack"); ?></button>
 </form>
 <form  method="post" action="Edit.php">
-<table> <tr> <th>Beschikbaarheid</th> <th></th> <th></th></tr>
+<table> <tr> <th><?php echo Translate::GetTranslation("Beschikbaarheid"); ?></th> <th></th> <th></th></tr>
 <tr><td>
     <?php
         //DO NOT USE A BIG IF. If the conditions are not met. Return.
         if (empty($_Post) && !isset($_Post["actie"]))
         {
             $beschikbaarheidcontroller= new BeschikbaarheidController();
-            var_dump($beschikbaarheidcontroller->GetBeschikbaarheden());
-            foreach ($beschikbaarheidcontroller->GetBeschikbaarheden() as $sg)
-            {
-                $beschikbaarheid = new Beschikbaarheid(
-                    $sg['projectID'],
-                    $sg['dagBeschikbaar'],
-                    $sg['startTijd'],
-                    $sg['eindTijd']
-                );
 
-                echo "<tr> <td> <input type=\"submit\" value=\"".$beschikbaarheid->getBeschikbaarheidnaam()."\" formaction='Edit.php?ID=".
-                    $beschikbaarheid->getBeschikbaarheid($sg['projectID'],
-                        new DateTime($sg['dagBeschikbaar']),new DateTime($sg['startTijd']),
-                        new DateTime($sg['eindTijd']))."' class=\"selectionrow\"> </td></tr>";
+            foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg)
+            {
+                $newStartTijd      = $sg->getStartTijd()->format("Y-m-d");
+                $newEindTijd       = $sg->getEindTijd()->format("Y-m-d");
+
+                echo "<tr>";
+            echo "<td> <input type=\"submit\" value=\"".$sg->getBeschikbaarheidID()."\" formaction='Edit.php?ID=".
+                    $sg->getBeschikbaarheidID()."' class=\"selectionrow\"> </td>";
+            echo "<td> <input type=\"submit\" value=\"".$newStartTijd."\" formaction='Edit.php?ID=".
+                    $sg->getBeschikbaarheidID()."' class=\"selectionrow\"> </td>";
+            echo "<td> <input type=\"submit\" value=\"".$newEindTijd."\" formaction='Edit.php?ID=".
+                    $sg->getBeschikbaarheidID()."' class=\"selectionrow\"> </td>";
+                echo "</tr>";
             }
         }
 
