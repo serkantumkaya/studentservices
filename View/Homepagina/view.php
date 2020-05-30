@@ -63,7 +63,7 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
             <div class="content_box">
                 <div>
                     <h3 class="subtitle"><?php echo Translate::GetTranslation("homeFeedbackOpProject") ?> <?=$homepagina->getprojecttitlebyfeedback()?></h3>
-                    <h4><?php echo Translate::GetTranslation("homeFeedbackDoor") ?> <?=$homepagina->getusernamebyfeedback()?></h4>
+                    <h4><?php echo Translate::GetTranslation("homeFeedbackDoor") ?> <?=$homepagina->getusernamebyfeedback()?> <?php echo Translate::GetTranslation("homeOm") ?> <?=$homepagina->gettimestampbyfeedback()?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
                             <div><img id="symbool_feedback" src=<?=$homepagina->geticoonfeedback()?>></div>
@@ -79,7 +79,7 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
             <div class="content_box">
                 <div>
                     <h3 class="subtitle"><?php echo Translate::GetTranslation("homeFeedbackVanJou") ?> <?=$homepagina->getprojecttitlebyfeedback($_SESSION['GebruikerID'])?></h3>
-                    <h4><?php echo Translate::GetTranslation("homeFeedbackVanAnder") ?> <?=$homepagina->getusernamebyfeedback($_SESSION['GebruikerID'])?></h4>
+                    <h4><?php echo Translate::GetTranslation("homeFeedbackVanAnder") ?> <?=$homepagina->getusernamebyfeedback($_SESSION['GebruikerID'])?> <?php echo Translate::GetTranslation("homeOm") ?> <?=$homepagina->gettimestampbyfeedback($_SESSION['GebruikerID'])?></h4>
                     <div id="feedback_box">
                         <div id="beoordeling">
                            <div><img id='symbool_feedback' src=<?=$homepagina->geticoonfeedback($_SESSION['GebruikerID'])?>></div>
