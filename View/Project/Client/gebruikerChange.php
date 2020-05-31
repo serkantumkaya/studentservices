@@ -5,22 +5,49 @@ $reactiecontroller = new ReactieController();
 $categoriecontroller = new CategorieController();
 $projectID = $_GET['ProjectID'];
 
+
+
 if ($_POST){
+
     if (isset($_POST['submit'])){
         if (!empty($_POST['deadline']['bekend']) && ($_POST['deadline']['bekend'] != '')){
             $deadline = $projectController->undoDeadlineFormat($_POST['deadline']['bekend']);
         } else{
             $deadline = '0000-00-00 00:00:00';
         }
-
         $projectchange = new Project($projectID, intval($_SESSION['GebruikerID']), $_POST['Titel'], $_POST['Type'],
             $_POST['Beschrijving'], intval($_POST['CategorieID']), $_POST['datumaangemaakt'],
-            $deadline, "Mee Bezig", $_POST['Locatie'], 0);
-
+            $deadline, "Mee bezig", $_POST['Locatie'], 0);
         if ($projectController->update($projectchange)){
             header('Location: project.php?ProjectID=' . $projectID . '&view=detail');
         }
+    }
+    if (isset($_POST['Klaar'])){
+        if (!empty($_POST['deadline']['bekend']) && ($_POST['deadline']['bekend'] != '')){
+            $deadline = $projectController->undoDeadlineFormat($_POST['deadline']['bekend']);
+        } else{
+            $deadline = '0000-00-00 00:00:00';
+        }
+        $projectklaar = new Project($projectID, intval($_SESSION['GebruikerID']), $_POST['Titel'], $_POST['Type'],
+            $_POST['Beschrijving'], intval($_POST['CategorieID']), $_POST['datumaangemaakt'],
+            $deadline, "Klaar", $_POST['Locatie'], 0);
+        if ($projectController->update($projectklaar)){
+            header('Location: project.php?ProjectID=' . $projectID . '&view=detail');
+        }
+    }
 
+    if (isset($_POST['MeeBezig'])){
+        if (!empty($_POST['deadline']['bekend']) && ($_POST['deadline']['bekend'] != '')){
+            $deadline = $projectController->undoDeadlineFormat($_POST['deadline']['bekend']);
+        } else{
+            $deadline = '0000-00-00 00:00:00';
+        }
+        $projectbezig = new Project($projectID, intval($_SESSION['GebruikerID']), $_POST['Titel'], $_POST['Type'],
+            $_POST['Beschrijving'], intval($_POST['CategorieID']), $_POST['datumaangemaakt'],
+            $deadline, "Mee bezig", $_POST['Locatie'], 0);
+        if ($projectController->update($projectbezig)){
+            header('Location: project.php?ProjectID=' . $projectID . '&view=detail');
+        }
     }
 }
 
@@ -92,8 +119,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <!--<h4>hier is wat over</h4>-->
         </div>
         <div id="filter-projecten" style="background-color: #004085">
+
+            <a href="project.php?ProjectID=<?php echo $projectID; ?>&view=detail"/><button id="project-button"><?php echo Translate::GetTranslation("ProjectTerug"); ?></button></a>
+
+
             <!--hier hoeft nu ook niets-->
         </div>
+
+
         <form action="/Studentservices/ClientSide/project.php?ProjectID=<?php echo $projectID; ?>&view=change"
               method="post">
             <div id="project-row-grid">
@@ -133,7 +166,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         </div>
                         <div id="project-beschrijving">
 
-                        <textarea maxlength="500" name="Beschrijving" rows="20"
+                        <textarea maxlength="500" name="Beschrijving" rows="15"
                                   placeholder="Beschrijving (Max 500 characters)"
                                   required><?php echo $project->getBeschrijving(); ?> </textarea>
                         </div>
@@ -142,20 +175,26 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <div id="project-footer">
                     <div id="project-footer2">
                         <button id="project-button">
-                            <a href="project.php?ProjectID=<?php echo $projectID; ?>&view=detail"/><?php echo Translate::GetTranslation("ProjectTerug"); ?></a>
-                        </button>
                        <input type="submit" name="submit" id="project-button"
-                                       value="<?php echo Translate::GetTranslation("ProjectEdit"); ?>"/>
+                              value="<?php echo Translate::GetTranslation("ProjectEdit"); ?>"/></button>
                     </div>
                     <div id='project-footer3'>
                         <div>
-                            <input type="submit" name="Klaar" id="project-button"
-                                   value="<?php echo Translate::GetTranslation("ProjectKlaar"); ?>"/>
+                            <?php
+                               if ($project->getStatus() == "Klaar"){
+                                   echo "<button id=\"project-button\">
+                               <input type=\"submit\" name=\"MeeBezig\" id=\"\"
+                                   value=\"".Translate::GetTranslation("ProjectMeeBezig"). "\"/></button>";
+                               }
+                               if ($project->getStatus() == "Mee bezig"){
+                                   echo "<button id=\"project-button\">
+                               <input type=\"submit\" name=\"Klaar\" id=\"project-button\"
+                                   value=\"" . Translate::GetTranslation("ProjectKlaar") . "\"/></button>";
+                               }
+                            ?>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </form>
         <div id="reclame">

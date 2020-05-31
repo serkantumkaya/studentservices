@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors',1);
+ini_set('display_errors', 1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/BeschikbaarheidController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
@@ -18,7 +18,7 @@ if (isset($_POST["feedback"])){
 
 
 if (isset($_POST["Cijfer"]) && isset($_POST["Feedback"])){
-    $feedbackcontroller->add($project->getProjectID(),$_SESSION["GebruikerID"],$_POST["Cijfer"],$_POST["Feedback"]);
+    $feedbackcontroller->add($project->getProjectID(), $_SESSION["GebruikerID"], $_POST["Cijfer"], $_POST["Feedback"]);
     $schowfeedbackdetail = 0;
 }
 
@@ -36,12 +36,22 @@ $projectID = $_GET['ProjectID'];
 $_SESSION["ProjectID"] = $projectID;//need it for beschikbaarheid.
 if ($_POST){
     if (isset($_POST['submitReactie'])){
-        verstuurReactie($reactiecontroller,$projectID);
+        verstuurReactie($reactiecontroller, $projectID);
     }
 }
 
-function verstuurReactie(ReactieController $reactiecontroller,$projectID){
-    $reactiecontroller->add($_SESSION['GebruikerID'],$projectID,$_POST['Reactie']);
+function verstuurReactie(ReactieController $reactiecontroller, $projectID){
+    $reactiecontroller->add($_SESSION['GebruikerID'], $projectID, $_POST['Reactie']);
+}
+
+$deadline = getUitvoerDeadline($project);
+
+function getUitvoerDeadline(Project $project){
+    if ($project->getDeadline() == '0000-00-00 00:00:00'){
+        return "Niet Bekend";
+    } else{
+        return $project->getDeadline();
+    }
 }
 
 ?><!DOCTYPE HTML>
@@ -58,9 +68,14 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
         </div>
         <div id="filter-projecten">
+            <div id="filter-project-terug">
+            <a href="projecten.php?Page=1"/>
+                <button id="project-button"><?php echo Translate::GetTranslation("ProjectTerug"); ?></button>
+            </a>
+            </div>
             <div id="nieuw-project">
-                <a href="./Project.php?view=add"
-                   id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
+                    <a href="./Project.php?view=add"
+                       id="project-nieuw-button"><button id='project-button'><?php echo Translate::GetTranslation("ProjectNieuw"); ?></button></a>
             </div>
         </div>
 
@@ -68,7 +83,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
             <div id="project-row">
                 <?php
-                $project = $projectController->getById($_GET['ProjectID']);
+
                 echo "
                      <div id=\"project-row-grid\">
                          <div id=\"project-header\">
@@ -87,12 +102,19 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                           <div id='project-info'>
                             <div id=\"project-info-grid\">
                                 <div id=\"project-parameters\">
-                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectGemaaktOp") .
-                    ": </div><div id='parameter-tekstvak'>" . substr($project->getDatumaangemaakt(),0,10) . "</div><br>
-                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectCategorie") .
-                    ": </div><div id='parameter-tekstvak'>" .
+                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectGemaaktOp") . ": </div>
+                                    <div id='parameter-tekstvak'>" . substr($project->getDatumaangemaakt(), 0, 10) . "</div><br>
+                                    <div id='parameter-tekstvak'>" . Translate::GetTranslation("ProjectCategorie") . ": </div>
+                                    <div id='parameter-tekstvak'>" .
                     $categoriecontroller->getById($project->getCategorieID()) . " </div><br>
-                                </div>                         
+                                    <div id='parameter-tekstvak'>Deadline: </div>
+                                    <div id='parameter-tekstvak'>" . $deadline . "</div><br>
+                                    <div id='parameter-tekstvak'>Locatie:  </div>
+                                    <div id='parameter-tekstvak'>" . $project->getLocatie() . "</div><br>
+                                    <div id='parameter-tekstvak'>Status:  </div>
+                                    <div id='parameter-tekstvak'>" . $project->getStatus() . "</div><br>
+                                
+                                </div>
                                 <div id=\"project-beschrijving\">
                                     " . $project->getBeschrijving() . "
                                 </div>
@@ -100,19 +122,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          </div>
                          
                          
-                         <div id=\"project-footer\">
+                        <div id=\"project-footer\">
                          ";
                 if ($project->getGebruikerID() == $_SESSION['GebruikerID']){
-                    echo "<div id='project-button'>
-                                <a href=\"Project.php?ProjectID=$projectID&view=change\" id=\"project-wijzig-button\">" .
-                        Translate::GetTranslation("ProjectEdit") . "</a>               
+                    echo "<div id=\"project-footer-een\">
+                            <div id='project-footer3'>
+                                
+                                    <a href=\"Project.php?ProjectID=$projectID&view=change\"><button id='project-button'>" .
+                        Translate::GetTranslation("ProjectEdit") . "</button></a>
+                                             
                             </div>
-                          <div id='project-button'>
-                                <button id='project-klaar'>" . Translate::GetTranslation("ProjectKlaar") . "</button> 
-                          </div>
+                         </div>
+                         
                     ";
                 } else{
-                    echo "";
+                    echo ""; //anders hoeft er dus niets te worden weergegeven
                 }
                 echo "
                          </div>
@@ -175,23 +199,30 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
         <div id="reclame">
-            <div id="project-beschikbaarheid" style="Height:25px;">
-                <button onClick="window.location.href='/studentservices/View/Beschikbaarheid/View.php'">
+            <div id="project-beschikbaarheid">
+                <div id="project-beschikbaarheid-button">
                     <?php
-                    echo Translate::GetTranslation("ProjectenBeschikbaarheidButton")
-                    ?>
-                </button>
+                    if ($_SESSION['GebruikerID'] == $project->getGebruikerID()){
 
-                <div id="Beshikbaarheidoverzicht" style="overflow:auto;height:275px;">
+                        echo "<button id='project-button' onClick=\"window.location.href='/studentservices/View/Beschikbaarheid/View.php'\">
+                            " . Translate::GetTranslation("ProjectenBeschikbaarheidButton") . "
+                           </button>";
+                    }
+                    ?>
+                </div>
+                <div id="project-beschikbaarheidsoverzicht">
                     <?php
+
                     $beschikbaarheidcontroller = new BeschikbaarheidController();
 
-                    foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($_SESSION["ProjectID"]) as $sg){
+                    foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($project->getProjectID()) as $sg){
+
                         $newStartTijd = $sg->getStartTijd()->format("Y-m-d H:i:s");
                         $newEindTijd  = $sg->getEindTijd()->format("Y-m-d H:i:s");
 
                         echo "<tr>";
-                        echo "<td> <input type=\"submit\" value=\"" . $newStartTijd . "\" formaction='Edit.php?ID=" .
+                        echo "<td> <input type=\"submit\" value=\"" . $newStartTijd .
+                            "\" formaction='Edit.php?ID=" .
                             $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
                         echo "</tr>";
                         echo "<tr>";
@@ -201,6 +232,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         echo "<tr><td><hr></td>";
                         echo "</tr>";
                     }
+
                     ?>
                 </div>
             </div>
@@ -213,13 +245,15 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         </form>
                     </div>
                     <div id="title_feedback">
-                        <h3><?= $gebruikersController->getById($project->getGebruikerID())->getGebruikersnaam() ?></h3>
+                        <h3><?= $gebruikersController->getById($project->getGebruikerID())
+                                ->getGebruikersnaam() ?></h3>
                     </div>
                     <div id="gemiddelde_cijfer">
                         <p>
-                            beoordeling <?= $feedbackcontroller->getGemiddeldeGekregenScore($project->getGebruikerID()) ?></p>
+                            beoordeling: <?= $feedbackcontroller->getGemiddeldeGekregenScore($project->getGebruikerID()) ?></p>
                     </div>
                     <?php
+
                     $counter = 0;
                     foreach ($getlastresult as $feedback){
                         if ($counter<4){
@@ -245,7 +279,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             for ($i = 1; $i<=10; $i++){
                                 // if ($i != $feedbackcontroller->getById($feedback)->getCijfer()){
                                 ?>
-                                <option id="cijfer" value= <?= $i ?>><?= $i ?></option>;
+                                <option id="cijfer" value=<?php echo $i ?>><?php echo $i ?></option>;
                                 <?php
                             }
                             ?>
@@ -257,6 +291,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         <input type="submit" name="submitFeedback" value="Plaatsen">
                     </form>
                 <?php } ?>
+
             </div>
         </div>
         <div id="overrechts">
