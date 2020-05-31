@@ -14,13 +14,13 @@ class unittestsample extends TestCase
         $this->assertEquals("Gebruikersnaam:", $res);
     }
 
-    public function testReactieIDopvragen(){
-        $this->assertClassHasAttribute('ReactieID', Reactie::class);
+    public function testHeeftReactieAtribuutReactieID(){
+        $this->assertClassHasAttribute('ReactieID',Reactie::class);
     }
 
-    public function testFeedback(){
-        $this->assertClassHasAttribute('Review',Feedback::class);
-    }
+   // public function testFeedback(){
+   //     $this->assertClassHasAttribute('Review',Feedback::class);
+   // }
 
     /*    public function testSom(){
             $x = 11;

@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
@@ -21,8 +20,6 @@ session_start();
     </script>
 </head>
 
-</head>
-
 <body>
 
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
@@ -43,10 +40,6 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
-
-<div class="info">
-    <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
-
 <?php
 
 
@@ -136,8 +129,6 @@ else if (!isset($_POST["Delete"]) && isset($_POST["NaamOpleiding"]) && isset($_P
     }
 }
 ?>
-    <!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
 <div class="footer">
     <div>© Student Services, 2020
         <?php

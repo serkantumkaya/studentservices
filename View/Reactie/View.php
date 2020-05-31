@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors',1);
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
@@ -9,7 +9,8 @@ if (empty($_Post) && !isset($_Post["actie"])){
     $reactiecontroller = new ReactieController();
 }
 $gebruikercontroller = new GebruikerController(-1);
-?><!DOCTYPE HTML>
+?>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="utf-8">
