@@ -1,11 +1,9 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 session_start();
 ?>
-
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -22,18 +20,13 @@ session_start();
         <?php
         //nu i
         $focus = "";
-        if (isset($_SESSION["CurrentNaam"])) {
+        if (isset($_SESSION["CurrentNaam"])){
             $focus = trim($_SESSION["CurrentNaam"]);
         }
         ?>
-
     </script>
 </head>
-
-</head>
-
 <body>
-
 <div class="header">
     <nav id="page-nav">
         <!-- [THE HAMBURGER] -->
@@ -54,27 +47,28 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
-
-<div class="info">
-    <form  method="post" action="Edit.php">
-        <table> <tr> <th>Gebruiker</th> <th></th> <th></th></tr>
-            <tr><td>
+    <form method="post" action="Edit.php">
+        <table>
+            <tr>
+                <th>Gebruiker</th>
+            </tr>
+            <tr>
+                <td>
                     <?php
 
                     //DO NOT USE A BIG IF. If the conditions are not met. Return.
-                    if (empty($_Post) && !isset($_Post["actie"]))
-                    {
+                    if (empty($_Post) && !isset($_Post["actie"])){
                         LoadList();
                         return;
                     }
 
-                    function LoadList()
-                    {
-                        $gebruikercontroller= new GebruikerController($_SESSION["GebruikerID"]);
+                    function LoadList(){
+                        $gebruikercontroller = new GebruikerController($_SESSION["GebruikerID"]);
 
-                        foreach ($gebruikercontroller->getGebruikers() as $gebruiker)
-                        {
-                            echo "<tr> <td> <input type=\"submit\" value=\"".$gebruiker->getGebruikersNaam()."\" formaction='Edit.php?ID=".$gebruiker->getGebruikerID()."' class=\"table1col\"> </td></tr>";
+                        foreach ($gebruikercontroller->getGebruikers() as $gebruiker){
+                            echo "<tr> <td> <input type=\"submit\" value=\"" . $gebruiker->getGebruikersNaam() .
+                                "\" formaction='Edit.php?ID=" . $gebruiker->getGebruikerID() .
+                                "' class=\"table1col\"> </td></tr>";
                         }
                     }
 
@@ -83,16 +77,6 @@ session_start();
             </tr>
         </table>
     </form>
-</div>
-<div class="footer">
-    <div>© Student Services, 2020
-        <?php
-        $GebrID = 1;
-        echo "<a href=\"index.php?GebrID=$GebrID\">Home </a>";
-
-        ?>
-    </div>
-</div>
 </body>
 </html>
 

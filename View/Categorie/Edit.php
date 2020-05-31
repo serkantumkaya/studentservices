@@ -16,10 +16,7 @@ session_start();
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-
 <body>
-
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
 <div class="header">
     <nav id="page-nav">
         <!-- [THE HAMBURGER] -->
@@ -37,11 +34,7 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
-
-<div class="info">
-    <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
-
-    <h1>Wijzigen categorie</h1>
+ <h1>Wijzigen categorie</h1>
     <?php
 
 
@@ -111,8 +104,6 @@ session_start();
         }
     }
     ?>
-    <!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
 <div class="footer">
     <div>© Student Services, 2020
         <?php
@@ -122,6 +113,5 @@ session_start();
         ?>
     </div>
 </div>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </body>
 </html>

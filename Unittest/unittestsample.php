@@ -30,6 +30,11 @@ class unittestsample extends TestCase
         $this->assertNotNull($Opleiding);
     }
 
+    public function testHeeftReactieAtribuutReactieID(){
+        $this->assertClassHasAttribute('ReactieID',Reactie::class);
+    }
+
+
 
 }
 

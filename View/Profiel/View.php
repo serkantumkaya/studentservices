@@ -6,13 +6,11 @@ session_start();
 ?><!DOCTYPE HTML>
 <html>
 <head>
-
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");
 
 if ($_SESSION["level"]<50)
     echo("<script>window.location.assign('/StudentServices/inlogPag.php');</script>");
 ?>
-<body>
     <script type="text/javascript" src="/StudentServices/JS/script.js">
         <?php
         //nu i
@@ -23,15 +21,12 @@ if ($_SESSION["level"]<50)
         ?>
 
     </script>
+</head>
 <body>
-
-<div class="info">
     <form method="post" action="Edit.php">
         <table>
             <tr>
                 <th>Profiel</th>
-                <th></th>
-                <th></th>
             </tr>
             <tr>
                 <td>
@@ -54,9 +49,5 @@ if ($_SESSION["level"]<50)
             </tr>
         </table>
     </form>
-</div>
-<div>
-    <?php include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/footer.php"); ?>
-</body>
 </html>
 

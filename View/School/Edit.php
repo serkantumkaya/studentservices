@@ -12,12 +12,10 @@ session_start();
     <!--The viewport is the user's visible area of a web page.-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
     <link rel="stylesheet" href="/StudentServices/css/style.css">
-
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
 <body>
-
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 <div class="header">
     <nav id="page-nav">
@@ -36,73 +34,66 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
+<h1>Wijzigen school</h1>
+<?php
+if (isset($_GET["ID"])){
+    $schoolcontroller          = new SchoolController();
+    $school                    = $schoolcontroller->getById($_GET["ID"]);
+    $_SESSION["CurrentSchool"] = $school;
+}
 
-<div class="info">
-    <!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
+if (isset($_POST["SchoolNaam"])){
+    $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
+}
 
-    <h1>Wijzigen school</h1>
-    <?php
+if ($_SESSION["CurrentSchool"] != null){
+    $school = $_SESSION["CurrentSchool"];
+}
+
+?>
+
+<?php
+$value = "";
+if (isset($_POST["Post"])){
+    $value = $_SESSION["CurrentNaam"];
+} else{
     if (isset($_GET["ID"])){
-        $schoolcontroller          = new SchoolController();
-        $school                    = $schoolcontroller->getById($_GET["ID"]);
-        $_SESSION["CurrentSchool"] = $school;
-    }
-
-    if (isset($_POST["SchoolNaam"])){
-        $_SESSION["CurrentNaam"] = $_POST["SchoolNaam"];
-    }
-
-    if ($_SESSION["CurrentSchool"] != null){
-        $school = $_SESSION["CurrentSchool"];
-    }
-
-    ?>
-
-    <?php
-    $value = "";
-    if (isset($_POST["Post"])){
-        $value = $_SESSION["CurrentNaam"];
+        $value = $school->getSchoolnaam();
     } else{
-        if (isset($_GET["ID"])){
-            $value = $school->getSchoolnaam();
-        } else{
-            $value = $_POST["SchoolNaam"];
-        }
+        $value = $_POST["SchoolNaam"];
     }
+}
 
-    if (!isset($_POST["Delete"]) && isset($_GET["ID"])){
-        echo "<form action=\"Edit.php\" method=\"post\">
+if (!isset($_POST["Delete"]) && isset($_GET["ID"])){
+    echo "<form action=\"Edit.php\" method=\"post\">
     School:
     <input type=\"text\" name=\"SchoolNaam\" value=\"" . $value . "\"/>
 
             <input type=\"submit\" value=\"post\" name=\"post\" class=\"ssbutton\">
             <input type=\"submit\" value=\"delete\" name=\"delete\" class=\"ssbutton\">
     </form>";
+}
 
+if (isset($_POST["delete"])){
+    $schoolcontroller = new SchoolController();
+    if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())){
+        header("Location: View.php");
     }
-
-    if (isset($_POST["delete"])){
+} else{
+    if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"])){
         $schoolcontroller = new SchoolController();
-        if ($schoolcontroller->delete($_SESSION["CurrentSchool"]->getSchoolID())){
-            header("Location: View.php");
+        if ($_SESSION["CurrentNaam"]){
+            $school = new School($_SESSION["CurrentSchool"]->getSchoolID(),$_SESSION["CurrentNaam"]);
         }
-    } else{
-        if (!isset($_POST["Delete"]) && isset($_POST["SchoolNaam"]) && isset($_SESSION["CurrentSchool"])){
-            $schoolcontroller = new SchoolController();
-            if ($_SESSION["CurrentNaam"]){
-                $school = new School($_SESSION["CurrentSchool"]->getSchoolID(), $_SESSION["CurrentNaam"]);
-            }
 
-            if ($schoolcontroller->update($school)){
-                header("Location: View.php");
-            } else{
-                echo "Record niet opgeslagen";
-            }
+        if ($schoolcontroller->update($school)){
+            header("Location: View.php");
+        } else{
+            echo "Record niet opgeslagen";
         }
     }
-    ?>
-    <!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
+}
+?>
 <div class="footer">
     <div>© Student Services, 2020
         <?php
@@ -112,6 +103,5 @@ session_start();
         ?>
     </div>
 </div>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </body>
 </html>
