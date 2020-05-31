@@ -1,3 +1,89 @@
+/*#region Menu css*/
+nav {
+    font-family: monospace;
+    font-size: 16px
+}
+
+ul {
+    background: #FFFFFF;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    color: #00008B;
+    width: 100%;
+    height: 40px;
+}
+
+li {
+    color: #00008B;
+    background: #FFFFFF;
+    display: block;
+    float: left;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.5s;
+    width:130px;
+    height: 40px;
+    text-align: center;
+}
+
+li a {
+    display: block;
+    text-decoration: none;
+    color: #00008B;
+    background: #FFFFFF;
+    padding:0;
+    margin:0;
+    width:130px;
+    height: 40px;
+}
+
+ul li a:hover {
+    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+    color: #FFB31A;
+    width:130px;
+    height: 40px;
+}
+
+li:hover {
+    background-color: #00008B;
+    color: #FFB31A;
+    cursor: pointer;
+    width:130px;
+    height: 40px;
+}
+
+ul li ul {
+    background: #FFFFFF;
+    color: #00008B;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease;
+    left: 0;
+    display: none;
+    width:130px;
+    height: 40px;
+    top:41px;
+}
+
+ul li:hover > ul,
+ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+    color: #FFB31A;
+    width:130px;
+    height: 40px;
+}
+
+ul li ul li {
+    clear: both;
+    width: 100%;
+}
+
+/*#endregion Menucss*/
+
 p {
     font-size: 12px; /*12px font grootte*/
     font-family: verdana;
@@ -347,71 +433,10 @@ dt {
     z-index: 0;
 }
 
-ul {
-    list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
-    overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
-    width: 100%;
-    height: 40px;
-    margin: auto;
-    background-color: #FFFFFF;
-    border-color: #00008B;
-}
 
-li {
-    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive asl er meer knoppen komen*/
-}
 
-li a {
-    text-decoration: none;
-    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive als er meer knoppen komen*/
-    background-color: #FFFFFF;
-    color: #00008B;
-    border-left: 1px solid #00008B; /*De knop beginnen met een blauwe lijn aan de linkerkant*/
-    margin-left: 0px;
-    margin-top: 0px;
-    padding-top: 5px;
-    height: 40px;
-    width: 110px;
-    font-size: 16px;
-    text-align: center; /*De tekst in het midden*/
-}
 
-ul li a:hover {
-    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-    color: #FFB31A;
-}
 
-li:last-child {
-    border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
-}
-
-lisub {
-    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive asl er meer knoppen komen*/
-}
-
-lisub a {
-    text-decoration: none;
-    float: left; /*Alle knoppen naast elkaar en niet onder elkaar. Moet aangepast worden bij Responsive als er meer knoppen komen*/
-    background-color: #FFFFFF;
-    color: #00008B;
-    border-left: 1px solid #00008B; /*De knop beginnen met een blauwe lijn aan de linkerkant*/
-    margin-left: 0px;
-    margin-top: 0px;
-    padding-top: 5px;
-    height: 40px;
-    width: 110px;
-    font-size: 16px;
-    text-align: center; /*De tekst in het midden*/
-}
-
-ul lisub a:hover {
-    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-    color: #FFB31A;
-}
-
-lisub:last-child {
-    border-right: 1px solid #00008B; /*alle lijnen staan links, dus moet bij de laaste er 1 rechts staan om het af te sluiten.*/
-}
 
 .header {
     grid-area: header;
