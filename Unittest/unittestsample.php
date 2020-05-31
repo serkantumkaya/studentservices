@@ -3,8 +3,6 @@
 use PHPUnit\Framework\TestCase;
 
 require_once('vendor/autoload.php');
-include 'testsample.php';
-
 
 class unittestsample extends TestCase
 {
@@ -22,13 +20,16 @@ class unittestsample extends TestCase
         $this->assertClassHasAttribute('Review',Feedback::class);
     }
 
-    /*    public function testSom(){
-            $x = 11;
-            $y = 12;
+    public function testNewSchool()   {
+        $School = new School(1,"EenSchool");
+        $this->assertNotNull($School);
+    }
 
-            $result = som($x,$y);
-            $this->assertEquals(23,$result);
-        }*/
+    public function testNewOpleiding()   {
+        $Opleiding = new Opleiding(1, "Unittesten", "Voltijd");
+        $this->assertNotNull($Opleiding);
+    }
+
 
 }
 

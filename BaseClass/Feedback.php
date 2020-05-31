@@ -1,5 +1,5 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
+//require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 
 class Feedback
 {
@@ -17,7 +17,7 @@ class Feedback
         $this->ProjectID           = $ProjectID;
         $this->Cijfer              = $Cijfer;
         $this->Review              = $Review;
-        $this->gebruikercontroller = new GebruikerController($this->getGebruikerID());
+        $this->gebruikercontroller = 1000;
     }
 
     /**

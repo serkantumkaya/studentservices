@@ -56,3 +56,10 @@ input[type="file"]
     border-bottom-width: 1px;
     width: 200px;
 }
+
+#input[type=submit]{
+    width: 92%;
+    background-color: #FFB31A;
+    color: black;
+    font-size: 18px;
+}
