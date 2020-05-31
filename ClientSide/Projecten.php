@@ -68,7 +68,7 @@ $sql = $projectController->createFilter($gebruikerID, $_SESSION['POST']);
 $maxpagina = ceil(count($projectController->getProjecten($sql)) / 6);
 
 ?><!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <!--<head>-->
 <title>Projecten</title>
 <?php
@@ -83,17 +83,19 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
         <div id="filter-projecten">
             <div id="nieuw-project">
-                <a href="./Project.php?view=add"
-                   id="project-nieuw-button"><?php echo Translate::GetTranslation("ProjectNieuw"); ?></a>
+                    <a href="./Project.php?view=add" id="project-nieuw-button">
+                        <button id='project-button'><?php echo Translate::GetTranslation("ProjectNieuw"); ?></button>
+                    </a>
             </div>
             <div id="projecten-zoek">
                 <form action="Projecten.php?Page=1" method="post">
                     <input type="text" placeholder="Search.." name="search">
-                    <button type="submit">submit</button>
-                </form>
+                    <button id="project-button" type="submit">submit</button>
+                </input>
                 </form>
             </div>
             <div id="filter-projecten2">
+
                 <div id="filter-projecten-status">
                     <h3>Filter</h3>
                     <form action="Projecten.php?Page=1" method="post">
@@ -193,7 +195,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                          </div>
                          
                          <div id=\"projecten-footer\">" .
-                            Translate::GetTranslation('ProjectGemaaktDoor') .
+                            Translate::GetTranslation('ProjectGemaaktDoor') ." ".
                             $gebruikersController->getById($project->getGebruikerID()) . "
                          </div>
                      </div>";
@@ -202,12 +204,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 echo "<div id=\"projecten-buttons\">";
                 if ($pagina>1){
                     echo "        
-            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\">" .
-                        Translate::GetTranslation('ProjectVorige') . "</a>";
+            <a href=\"Projecten.php?Page=$vorige\" id=\"projecten-previous\"><button id='project-button'>" .
+                        Translate::GetTranslation('ProjectVorige') . "</button></a>";
                 }
                 if ($pagina<$maxpagina){
-                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\">" .
-                        Translate::GetTranslation('ProjectVolgende') . "</a>";
+                    echo "<a href=\"Projecten.php?Page=$volgende\" id=\"projecten-next\"><button id='project-button'>" .
+                        Translate::GetTranslation('ProjectVolgende') . "</button></a>";
                 }
                 echo "</div>";
                 ?>

@@ -7,7 +7,7 @@ $categoriecontroller = new CategorieController();
 
 if ($_POST){
     if (isset($_POST['Titel']) && isset($_POST['Beschrijving']) && isset($_POST['submit'])){
-        if($projectController->add($_SESSION['GebruikerID'], $_POST['Titel'], $_POST['Type'], $_POST['Beschrijving'],
+        if ($projectController->add($_SESSION['GebruikerID'], $_POST['Titel'], $_POST['Type'], $_POST['Beschrijving'],
             $_POST['CategorieID'], $_POST['Deadline'], "Mee Bezig", $_POST['Locatie'])){
             //TODO: notificatie dat project is toegevoegd ofzo.
             // kan denk met javascript, even wachten, dan terugsturen naar dat project
@@ -65,7 +65,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <div id="project-row-grid">
                 <div id="project-header">
                     <div id="project-aanbieder">
-                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor"). " ";   echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
+                        <h3><?php echo Translate::GetTranslation("ProjectGemaaktDoor") . " ";
+                            echo $gebruikersController->getById($_SESSION['GebruikerID']); ?> </h3>
                     </div>
 
                     <div id="project-titel">
@@ -76,13 +77,17 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <div id="project-info">
                     <div id="project-info-grid">
                         <div id="project-parameters">
-                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectCategorie"); ?>:
+                            </div>
                             <div id="parameter-tekstvak"><?php echo $categorie; ?></div>
-                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:</div>
+                            <div id="parameter-tekstvak"><?php echo Translate::GetTranslation("ProjectLocatie"); ?>:
+                            </div>
                             <div id="parameter-tekstvak"><input type="text" name="Locatie"/></div>
                             <div id="parameter-tekstvak">Deadline:</div>
-                            <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline" /> <br><input
-                                        type="checkbox" name="NietBekend"/><?php echo Translate::GetTranslation("ProjectNietBekend"); ?><br></div>
+                            <div id="parameter-tekstvak"><input type="datetime-local" name="Deadline"/> <br><input
+                                        type="checkbox"
+                                        name="NietBekend"/><?php echo Translate::GetTranslation("ProjectNietBekend"); ?>
+                                <br></div>
                             <div id="parameter-tekstvak">Type:</div>
                             <div id="parameter-tekstvak"><?php echo $type; ?> </div>
                         </div>
@@ -94,7 +99,10 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     </div>
                 </div>
                 <div id="project-footer">
-                    <input type="submit" name="submit" value="<?php echo Translate::GetTranslation("ProjectVoegToe");?>"/>
+                    <button id="project-button">
+                        <input type="submit" name="submit"
+                               value="<?php echo Translate::GetTranslation("ProjectVoegToe"); ?>"/>
+                    </button>
                 </div>
             </div>
         </form>
