@@ -19,10 +19,6 @@ session_start();
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-
-</head>
-
-
 <body>
 <div class="header">
     <nav id="page-nav">
@@ -40,10 +36,6 @@ session_start();
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
-
-<div class="info">
-<!--kunnen we van bovenstaande niet een codesnippet/subpagina van maken-->
-
 <?php
 if (!isset($_POST["SchoolNaam"]))
 {
@@ -70,8 +62,6 @@ if ( isset($_POST["SchoolNaam"]))//post van maken dit is niet goed,.
     }
 }
 ?>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
-</div>
 <div class="footer">
     <div>© Student Services, 2020
         <?php
@@ -81,6 +71,5 @@ if ( isset($_POST["SchoolNaam"]))//post van maken dit is niet goed,.
         ?>
     </div>
 </div>
-<!--kunnen we hier niet een codesnippet/subpagina van maken-->
 </body>
 </html>
