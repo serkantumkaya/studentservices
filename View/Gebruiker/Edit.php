@@ -8,6 +8,7 @@ session_start();
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/StudentServices/css/Menu.css">
     <meta charset="utf-8">
     <title>Student Services</title>
     <meta name="Toevoegen gebruiker" content="index">
@@ -24,18 +25,10 @@ session_start();
 
 <!--kunnen we hier niet een codesnippet/subpagina van maken-->
 <div class="header">
-    <nav id="page-nav">
-        <!-- [THE HAMBURGER] -->
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
-
-        <!-- [MENU ITEMS] -->
-        <ul>
-            <li>
-                <a href="./View.php">Terug</a>
-            </li>
+    <nav id="menu">
+        <ul class="main-menu cf">
+            <li><a href="./View.php">Terug</a></li>
         </ul>
-        </form>
     </nav>
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>

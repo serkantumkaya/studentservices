@@ -27,7 +27,6 @@ if ($_SESSION["level"]>=50){
             <ul class="sub-menu">
                 <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
                 <li ><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
-                <li><a href="/StudentServices/View/Beschikbaarheid/View.php">Beschikbaarheid</a></li>
                 <li ><a href="/StudentServices/View/Reactie/View.php">Reactie</a></li>
                 <li><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>
                 <li><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
