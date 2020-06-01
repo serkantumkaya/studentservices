@@ -12,18 +12,7 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
     include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 <div class="header">
-    <nav id="page-nav">
-        <!-- [THE HAMBURGER] -->
-        <label for="hamburger">&#9776;</label>
-        <input type="checkbox" id="hamburger"/>
 
-        <!-- [MENU ITEMS] -->
-        <ul>
-            <li>
-                <a href="/StudentServices/inlogPag.php">Terug</a>
-            </li>
-        </ul>
-    </nav>
     <img id=
          <a href="index.html"><img id="logo" src="/StudentServices/images/logotrans.png"/></a>
 </div>
@@ -32,6 +21,15 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
         <span class="popuptext" id="myPopup"></span>
     </div>
 </div>
+
+<nav id="menu">
+    <label for="tm" id="toggle-menu">Navigatiemenu <span class="drop-icon">▾</span></label>
+    <input type="checkbox" id="tm">
+    <ul class="main-menu cf">
+        <li><a href="/StudentServices/inlogPag.php">Terug</a></a></li>
+    </ul>
+</nav>
+
 <?php
 
 $NaamErr = "";
