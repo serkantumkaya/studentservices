@@ -124,6 +124,10 @@
         font-size: 23px;
     }
 
+    #feedbackknop{
+        background-color: #FFB31A;
+    }
+
     #projecten-previous {
         float: left;
         margin-left: 10%;
@@ -183,6 +187,13 @@
         color: black
     }
 
+    #project-button input {
+        all: unset;
+        text-decoration: none;
+        color: black;
+        background-color: #FFB31A;
+    }
+
     #project-wijzig-button {
         text-decoration: none;
     }
@@ -196,7 +207,6 @@
         float: left;
         width: 35%;
         border-bottom: 1px solid #00008B;
-
     }
 
     #project-titel {
@@ -381,15 +391,84 @@
         font-size: 16px;
     }
 
+    /*#project-feedback {*/
+    /*    grid-area: project-feedback;*/
+    /*    border: 2px solid #00008B;*/
+    /*    margin: 2px;*/
+    /*    display: grid;*/
+    /*    height: 100%;*/
+    /*    background-color: #9fcdff;*/
+    /*    float: left;*/
+    /*    width: 100%;*/
+    /*}*/
+
     #project-feedback {
-        grid-area: project-feedback;
-        border: 2px solid #00008B;
         margin: 2px;
+        border: 2px solid #00008B;
         display: grid;
         height: 100%;
         background-color: #9fcdff;
-        float: left;
-        width: 100%;
+        grid-template-columns: 0 0 25% 18% 18% 18% 18%; /*knop feedback, title, cijfer,  box, */
+    }
+
+    #project-feedback-kader {
+        height: 100%;
+        background-color: red;
+    }
+
+    #geef_feedback {
+        align-items: center;
+        margin-top: 1%;
+        margin-left: 1%;
+        height: 50px;
+    }
+
+    #geef_feedback input{
+        width: 100px;
+    }
+
+    #title_feedback {
+        margin-top: 55px;
+        text-align: center;
+    }
+
+    #title_feedback h3 {
+        margin: 4px;
+    }
+
+    #gemiddelde_cijfer {
+        margin-top: 85px;
+        margin-left: 1%;
+    }
+
+    #gemiddelde_cijfer p {
+        margin: 2px;
+
+    }
+
+    #feedbacbox p {
+        margin: 0;
+    }
+
+    #feedbackby {
+        text-align: left;
+    }
+
+    #feedbacbox {
+        margin: 4px;
+        border: 1px solid #00008B;
+        display: grid;
+        grid-template-rows: 20% 20% 60%;
+    }
+
+    #comment {
+        margin-left: 4%;
+        height: 55px;
+        width: 200px;
+    }
+
+    #feedbacklabel {
+        text-align: center;
     }
 
 }
@@ -551,7 +630,6 @@
         width: auto;
         background-color: #FFB31A;
         color: black;
-        /*padding: 10px;*/
         font-size: 20px;
         margin-right: 10px;
     }
@@ -781,12 +859,13 @@
     }
 
     #project-feedback {
+        grid-area: project-feedback;
         border: 2px solid #00008B;
         margin: 2px;
         display: grid;
         height: 100%;
         background-color: #9fcdff;
-        grid-template-rows: 8% 7% 5% 20% 20% 20% 20%;
+        grid-template-rows: 15% 7% 5% 18% 18% 18% 18%;
     }
 
     #project-feedback-kader {
@@ -797,7 +876,7 @@
     #geef_feedback {
         align-items: center;
         margin-top: 1%;
-        margin-left: 10%;
+        margin-left: 1%;
     }
 
     #title_feedback {
@@ -816,18 +895,18 @@
         margin: 2px;
     }
 
-    #feedbackknop {
-        border-radius: 5px;
-        background-color: #00008B; /* Oranje */
-        border: none;
-        color: #FFB31A;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        width: 80%;
-        height: 100%;
-    }
+    /*#feedbackknop {*/
+    /*    border-radius: 5px;*/
+    /*    background-color: #00008B; !* Oranje *!*/
+    /*    border: none;*/
+    /*    color: #FFB31A;*/
+    /*    text-align: center;*/
+    /*    text-decoration: none;*/
+    /*    display: inline-block;*/
+    /*    font-size: 16px;*/
+    /*    width: 80%;*/
+    /*    height: 100%;*/
+    /*}*/
 
     #feedbacbox p {
         margin: 0;

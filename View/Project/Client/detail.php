@@ -199,6 +199,67 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
         <div id="reclame">
+            <div id="project-feedback">
+                <?php if (!$schowfeedbackdetail){ ?>
+                    <div id="geef_feedback">
+                        <form action="" method="post">
+                            <button id="project-button" style="font-size: 16px;"><input type="submit" value="geef feedback">
+                                <input type="hidden" name="feedback" value="feedback"></button>
+                        </form>
+                    </div>
+                    <div id="title_feedback">
+                        <h3><?= $gebruikersController->getById($project->getGebruikerID())
+                                ->getGebruikersnaam() ?></h3>
+                    </div>
+                    <div id="gemiddelde_cijfer">
+                        <p>
+                            beoordeling: <?= $feedbackcontroller->getGemiddeldeGekregenScore($project->getGebruikerID()) ?></p>
+                    </div>
+                    <?php
+
+                    $counter = 0;
+                    foreach ($getlastresult as $feedback){
+                        if ($counter<4){
+                            $counter++;
+                            ?>
+                            <div id='feedbacbox'>
+                                <div id='feedbackby'><p>gegeven
+                                        door <?= $gebruikersController->getById($feedbackcontroller->getById($feedback)
+                                            ->getGebruikerID())->getGebruikersnaam() ?></p></div>
+                                <div id='feedbackby'>cijfer <?= $feedbackcontroller->getById($feedback)
+                                        ->getCijfer() ?></div>
+                                <div><p><?= $feedbackcontroller->getById($feedback)->getReview() ?></p></div>
+                            </div>
+                        <?php }
+                    }
+                } else{ ?>
+                    <form action="" method="post">
+                        <label id="feedbacklabel" for="Feedback">
+                            <h3>geef feedback</h3></label>
+                        <label for="Cijfer">Cijfer</label>
+                        <select id="Cijfer" name="Cijfer">
+                            <?php
+                            for ($i = 1; $i<=10; $i++){
+                                // if ($i != $feedbackcontroller->getById($feedback)->getCijfer()){
+                                ?>
+                                <option id="cijfer" value=<?php echo $i ?>><?php echo $i ?></option>;
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <br>
+                        <input type="submit" name="submitFeedback" value="Plaatsen">
+                        <!--                        <label for="comment"> vul hier je feedback in</label>-->
+                        <textarea id="comment" maxlength="200" name="Feedback" cols="1" rows="5"
+                                  placeholder="Max 200 characters" required></textarea>
+
+                    </form>
+                <?php } ?>
+
+            </div>
+
+
+
             <div id="project-beschikbaarheid">
                 <div id="project-beschikbaarheid-button">
                     <?php
@@ -236,63 +297,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                     ?>
                 </div>
             </div>
-            <div id="project-feedback">
-                <?php if (!$schowfeedbackdetail){ ?>
-                    <div id="geef_feedback">
-                        <form action="" method="post">
-                            <input id="feedbackknop" type="submit" value="geef feedback">
-                            <input id="feedback" type="hidden" name="feedback" value="feedback">
-                        </form>
-                    </div>
-                    <div id="title_feedback">
-                        <h3><?= $gebruikersController->getById($project->getGebruikerID())
-                                ->getGebruikersnaam() ?></h3>
-                    </div>
-                    <div id="gemiddelde_cijfer">
-                        <p>
-                            beoordeling: <?= $feedbackcontroller->getGemiddeldeGekregenScore($project->getGebruikerID()) ?></p>
-                    </div>
-                    <?php
 
-                    $counter = 0;
-                    foreach ($getlastresult as $feedback){
-                        if ($counter<4){
-                            $counter++;
-                            ?>
-                            <div id='feedbacbox'>
-                                <div id='feedbackby'><p>gegeven
-                                        door <?= $gebruikersController->getById($feedbackcontroller->getById($feedback)
-                                            ->getGebruikerID())->getGebruikersnaam() ?></p></div>
-                                <div id='feedbackby'><p>cijfer <?= $feedbackcontroller->getById($feedback)
-                                            ->getCijfer() ?></p></div>
-                                <div><p><?= $feedbackcontroller->getById($feedback)->getReview() ?></p></div>
-                            </div>
-                        <?php }
-                    }
-                } else{ ?>
-                    <form action="" method="post">
-                        <label id="feedbacklabel" for="Feedback">
-                            <h3>geef feedback</h3></label>
-                        <label for="Cijfer">Cijfer</label>
-                        <select id="Cijfer" name="Cijfer">
-                            <?php
-                            for ($i = 1; $i<=10; $i++){
-                                // if ($i != $feedbackcontroller->getById($feedback)->getCijfer()){
-                                ?>
-                                <option id="cijfer" value=<?php echo $i ?>><?php echo $i ?></option>;
-                                <?php
-                            }
-                            ?>
-                        </select>
-                        <br>
-                        <label for="comment"> vul hier je feedback in</label>
-                        <textarea id="comment" maxlength="200" name="Feedback" cols="1" rows="5"
-                                  placeholder="Max 200 characters" required></textarea>
-                        <input type="submit" name="submitFeedback" value="Plaatsen">
-                    </form>
-                <?php } ?>
-
-            </div>
         </div>
         <div id="overrechts">
 
