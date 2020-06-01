@@ -297,7 +297,7 @@ dt {
 
 .header {
     grid-area: header;
-    height: 50px;
+    height: 60px;
     /*border-bottom: 1px solid #00008B; blauwe lijn onderaan om de header af te sluiten*/
     z-index: 1; /*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
     background-color: #FFFFFF;
