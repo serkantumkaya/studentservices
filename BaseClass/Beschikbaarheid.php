@@ -18,16 +18,16 @@ class Beschikbaarheid
     public function setBeschikbaarheidID(int $BeschikbaarheidID): void{
         $this->BeschikbaarheidID = $BeschikbaarheidID;
     }
+
     private int $ProjectID;
     private DateTime $StartTijd;
     private DateTime $EindTijd;
 
-    public function __construct(int $BeschikbaarheidID, int $projectID,DateTime $startTijd,DateTime $eindTijd)
-    {
-        $this->BeschikbaarheidID =$BeschikbaarheidID;
-        $this->ProjectID =  $projectID;
-        $this->StartTijd=$startTijd;
-        $this->EindTijd= $eindTijd;
+    public function __construct(int $BeschikbaarheidID, int $projectID, DateTime $startTijd, DateTime $eindTijd){
+        $this->BeschikbaarheidID = $BeschikbaarheidID;
+        $this->ProjectID         = $projectID;
+        $this->StartTijd         = $startTijd;
+        $this->EindTijd          = $eindTijd;
     }
 
     /**

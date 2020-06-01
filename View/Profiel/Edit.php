@@ -156,13 +156,6 @@ echo "<h1 class=\"h1profiel\">".Translate::GetTranslation("profielProfiel"). $ge
         echo $Tussenvoegsel;
         echo "\" />
 
-<!--Prefix-->
-<div class=\"block\">
-<label class=\"formlabel\">".Translate::GetTranslation("profielPrefix")."</label>
-<input type = \"text\" name=\"Prefix\" value=\"";
-        echo $Prefix;
-        echo "\" /></div>
-
 <!--Achternaam-->
 <div class=\"block\">
 <label class=\"formlabel\">".Translate::GetTranslation("profielAchternaam")."</label>
@@ -171,6 +164,13 @@ echo "<h1 class=\"h1profiel\">".Translate::GetTranslation("profielProfiel"). $ge
         echo "\"/>
 <label class=\"formerrorlabel\"> <span >$AchternaamErr</label>  
 </div>
+
+<!--Prefix-->
+<div class=\"block\">
+<label class=\"formlabel\">".Translate::GetTranslation("profielPrefix")."</label>
+<input type = \"text\" name=\"Prefix\" value=\"";
+        echo $Prefix;
+        echo "\" /></div>
 
 <!--Straat-->
 <div class=\"block\">
@@ -321,8 +321,8 @@ echo "<label class=\"formlabel\">".Translate::GetTranslation("profielFoto")."</l
 </div>
 <div class="block">
     <br>
-    <input type="submit" value="submit" name='submit'>
-    <input type="submit" value="delete" name='delete'>
+    <button id="project-button"><input type="submit" value="submit" name='submit'></button>
+    <button id="project-button"><input type="submit" value="delete" name='delete'></button>
 </div>
 </form >
 

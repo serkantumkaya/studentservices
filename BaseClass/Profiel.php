@@ -134,9 +134,12 @@ class Profiel
      */
     public function setFoto(string $Foto): void{
 
-        if ($Foto == null || $Foto == "") $this->Foto = "";
-        else $this->Foto = $Foto;
-//wordt omgezet naar 64encode dus tot zover goed.
+        if ($Foto == null || $Foto == ""){
+            $this->Foto = "";
+        } else{
+            $this->Foto = $Foto;
+        }
+        //wordt omgezet naar 64encode dus tot zover goed.
     }
 
     /**

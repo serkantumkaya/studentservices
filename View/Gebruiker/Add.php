@@ -1,7 +1,7 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-//session_start();
+//error_reporting(E_ALL);
+ini_set('display_errors', 0);
+session_start();
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 ?>
 <!DOCTYPE HTML>
@@ -9,8 +9,6 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 <head>
 
     <?php
-    $_SESSION["GebruikerID"] = 9999999999;
-    $_SESSION["level"] = -15;
     include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 <div class="header">
@@ -23,6 +21,14 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
         <span class="popuptext" id="myPopup"></span>
     </div>
 </div>
+
+<nav id="menu">
+    <label for="tm" id="toggle-menu">Navigatiemenu <span class="drop-icon">▾</span></label>
+    <input type="checkbox" id="tm">
+    <ul class="main-menu cf">
+        <li><a href="/StudentServices/inlogPag.php">Terug</a></a></li>
+    </ul>
+</nav>
 
 <?php
 

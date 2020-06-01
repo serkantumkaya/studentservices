@@ -150,9 +150,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                               method="post">
                             <label for="Reactie">
                                 <h3><?php echo Translate::GetTranslation("ProjectReactieNieuw"); ?></h3></label>
-                            <textarea maxlength="500" name="Reactie" cols="1" rows="5"
+                            <textarea maxlength="500" name="Reactie" cols="1" rows="4"
                                       placeholder="Max 500 characters" required></textarea>
-                            <input type="submit" name="submitReactie" value="Plaatsen">
+                            <button id="project-button"><input type="submit" name="submitReactie" value="Plaatsen"></button>
                         </form>
                     </div>
                     <?php
@@ -257,9 +257,6 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 <?php } ?>
 
             </div>
-
-
-
             <div id="project-beschikbaarheid">
                 <div id="project-beschikbaarheid-button">
                     <?php

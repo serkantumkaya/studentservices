@@ -1,20 +1,21 @@
-.h1profiel{
-    margin-left:10px;
+.h1profiel {
+    margin-left: 10px;
     font-size: 30px;
     color: #FFB31A;
 }
 
-.divprofiel{
+.divprofiel {
     border: 2px solid #00008B;
     padding: 20px;
     width: auto;
     margin: 10px;
 }
 
-.profielform
-{
-    background-color: #FFFFFF;width:650px;margin-left:10px;
-    padding:5px;
+.profielform {
+    background-color: #FFFFFF;
+    width: 650px;
+    margin-left: 10px;
+    padding: 5px;
 }
 
 .profielfotoform {
@@ -30,9 +31,8 @@
     width: 150px;
 }
 
-input[type=submit]
-{
-    background-color: #FFB31A;
+input[type=submit] {
+    background-color: #FFFFFF;
     color: black;
     text-decoration: none;
     padding: 10px;
@@ -43,8 +43,7 @@ input[type=submit]
     width: 100px;
 }
 
-input[type="file"]
-{
+input[type="file"] {
     display: inline-block;
     color: #666;
     background-color: #ffffff;
@@ -60,7 +59,7 @@ input[type="file"]
     width: 200px;
 }
 
-#input[type=submit]{
+#input[type=submit] {
     width: 92%;
     background-color: #FFB31A;
     color: black;

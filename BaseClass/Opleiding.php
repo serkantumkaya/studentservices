@@ -1,6 +1,5 @@
 <?php
 
-// deze is klaar
 class Opleiding
 {
     private int $OpleidingID;

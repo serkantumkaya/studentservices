@@ -1,6 +1,9 @@
 <?php
+
 if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
-Header("Location: /StudentServices/inlogPag.php");
+    if ($_SERVER['PHP_SELF'] != '/StudentServices/View/Gebruiker/Add.php'){
+        Header("Location: /StudentServices/inlogPag.php");
+    }
 }
 ?>
 
@@ -24,7 +27,9 @@ Header("Location: /StudentServices/inlogPag.php");
 <div class="header">
 
         <?php
-        include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/menu.php");
+        if ($_SESSION['GebruikerID'] != 9999999999 && $_SESSION['level'] != -15){
+            include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/menu.php");
+        }
         ?>
 
 </div>

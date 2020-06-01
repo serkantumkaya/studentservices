@@ -17,21 +17,20 @@ class ProjectTest extends TestCase
      *
      */
 
-    public function testConstructbaseclass()
-    {
-        $project = new Project(1040,1002,"ik ben aan unittesten","Vragen",
-            "ik ben de unitesten aan het maken maar moet er nog veel te veel kun je er ook wat voor mijn doen??",3,
-            "2020-6-1 00:33:00","2020-6-1 23:59:59","Mee bezig","Den Bosch",0);
+    public function testConstructbaseclass(){
+        $project = new Project(1040, 1002, "ik ben aan unittesten", "Vragen",
+            "ik ben de unitesten aan het maken maar moet er nog veel te veel kun je er ook wat voor mijn doen??", 3,
+            "2020-6-1 00:33:00", "2020-6-1 23:59:59", "Mee bezig", "Den Bosch", 0);
 
-        $this->assertEquals(1002,$project->getGebruikerID());
-        $this->assertEquals(1040,$project->getProjectID());
-        $this->assertEquals("ik ben aan unittesten",$project->getTitel());
+        $this->assertEquals(1002, $project->getGebruikerID());
+        $this->assertEquals(1040, $project->getProjectID());
+        $this->assertEquals("ik ben aan unittesten", $project->getTitel());
         $this->assertEquals("ik ben de unitesten aan het maken maar moet er nog veel te veel kun je er ook wat voor mijn doen??",
             $project->getBeschrijving());
-        $this->assertEquals("2020-6-1 00:33:00",$project->getDatumaangemaakt());
-        $this->assertEquals("2020-6-1 23:59:59",$project->getDeadline());
-        $this->assertEquals("Mee bezig",$project->getStatus());
-        $this->assertEquals("Den Bosch",$project->getLocatie());
+        $this->assertEquals("2020-6-1 00:33:00", $project->getDatumaangemaakt());
+        $this->assertEquals("2020-6-1 23:59:59", $project->getDeadline());
+        $this->assertEquals("Mee bezig", $project->getStatus());
+        $this->assertEquals("Den Bosch", $project->getLocatie());
     }
 
     /**
@@ -42,11 +41,10 @@ class ProjectTest extends TestCase
      * hier laat ik er 1 moetwillig fout gaan test6
      */
 
-    public function testUpdateproject()
-    {
-        $project = new Project(1040,1002,"ik ben aan unittesten","Vragen",
-            "ik ben de unitesten aan het maken maar moet er nog veel te veel kun je er ook wat voor mijn doen??",3,
-            "2020-6-1 00:33:00","2020-6-1 23:59:59","Mee bezig","Den Bosch",0);
+    public function testUpdateproject(){
+        $project = new Project(1040, 1002, "ik ben aan unittesten", "Vragen",
+            "ik ben de unitesten aan het maken maar moet er nog veel te veel kun je er ook wat voor mijn doen??", 3,
+            "2020-6-1 00:33:00", "2020-6-1 23:59:59", "Mee bezig", "Den Bosch", 0);
         $project->setGebruikerID(1005);
         $project->setProjectID(1080);
         $project->setTitel("ik ben de setters aan het testen");
@@ -56,15 +54,15 @@ class ProjectTest extends TestCase
         $project->setStatus("nog niet klaar");
         $project->setLocatie("Nederland");
 
-        $this->assertEquals(1005,$project->getGebruikerID());
-        $this->assertEquals(1080,$project->getProjectID());
-        $this->assertEquals("ik ben de setters aan het testen",$project->getTitel());
+        $this->assertEquals(1005, $project->getGebruikerID());
+        $this->assertEquals(1080, $project->getProjectID());
+        $this->assertEquals("ik ben de setters aan het testen", $project->getTitel());
         $this->assertEquals("de vorige waren vier tests 19 assertions en 1 fail maar die was moedwillig",
             $project->getBeschrijving());
-        $this->assertEquals("2020-6-1 00:51:00",$project->getDatumaangemaakt());
-        $this->assertEquals("2020-6-1 23:59:59",$project->getDeadline());
-        $this->assertEquals("nog niet klaar",$project->getStatus());
-        $this->assertEquals("Nederland",$project->getLocatie());
+        $this->assertEquals("2020-6-1 00:51:00", $project->getDatumaangemaakt());
+        $this->assertEquals("2020-6-1 23:59:59", $project->getDeadline());
+        $this->assertEquals("nog niet klaar", $project->getStatus());
+        $this->assertEquals("Nederland", $project->getLocatie());
     }
 
     /**
@@ -77,8 +75,7 @@ class ProjectTest extends TestCase
      * die verglijk ik met de waardes opgegeven in de filter en terug gekomen resultaten
      */
 
-    public function testsortproject()
-    {
+    public function testsortproject(){
         $array               = array(
             "status" => ["StatusK" => "Klaar"],
             "categorie" => ["Kleien" => "Kleien"],
@@ -88,10 +85,10 @@ class ProjectTest extends TestCase
         $gebruikerid         = 1002;
         $projectController   = new ProjectController();
         $categorieController = new CategorieController();
-        $sql                 = $projectController->createFilter($gebruikerid,$array);
+        $sql                 = $projectController->createFilter($gebruikerid, $array);
         $categorieid         = 0;
-        foreach ($categorieController->getCategorieen() as $categorie) {
-            if ($categorie->getCategorieNaam() == "Kleien") {
+        foreach ($categorieController->getCategorieen() as $categorie){
+            if ($categorie->getCategorieNaam() == "Kleien"){
                 $categorieid = $categorie->getCategorieID();
             }
         }
@@ -102,13 +99,13 @@ class ProjectTest extends TestCase
         $typecheck          = array();
         $typecheckproject   = array();
 
-        foreach ($projectController->getProjecten($sql) as $project) {
+        foreach ($projectController->getProjecten($sql) as $project){
             $categorieidcheck[] = $categorieid;
             $statuscheck[]      = "Klaar";
             $typecheck[]        = "Aanbieden";
         }
 
-        foreach ($projectController->getProjecten($sql) as $project) {
+        foreach ($projectController->getProjecten($sql) as $project){
             $categorieidproject[] = $project->getCategorieID();
             $statuscheckproject[] = $project->getStatus();
             $typecheckproject[]   = $project->getType();
@@ -133,14 +130,14 @@ class ProjectTest extends TestCase
      *
      */
 
-    public function testcontrolesaddupdate()
-    {
+    public function testcontrolesaddupdate(){
         $gebruikers = new GebruikerController(-1);
-        $gebruikers->gebruikermodel->add("dirkus","test01","dirkvliet@gmail.com");
-        $gebruikerid = $gebruikers->validate("dirkus","test01")->getGebruikerID();
+        $gebruikers->gebruikermodel->add("dirkus", "test01", "dirkvliet@gmail.com");
+        $gebruikerid       = $gebruikers->validate("dirkus", "test01")->getGebruikerID();
         $projectController = new ProjectController();
-        $projectController->add($gebruikerid,"unittest 8","Aanbieden",
-            "beschrijving ik test het toevoegen en wijzingen gebruiker",20,"2020-6-1 17:59:59","Mee bezig","Den bosch");
+        $projectController->add($gebruikerid, "unittest 8", "Aanbieden",
+            "beschrijving ik test het toevoegen en wijzingen gebruiker", 20, "2020-6-1 17:59:59", "Mee bezig",
+            "Den bosch");
         $project   = ($projectController->getByGebruikerID($gebruikerid))[0];
         $projectid = $project->getProjectID();
         $this->assertIsObject($project);
@@ -148,21 +145,21 @@ class ProjectTest extends TestCase
         $this->assertIsNumeric($project->getProjectID());
         //$time     = new DateTime($project->getDeadline());
         //$this->assertGreaterThan( $time->format("m/d/Y h:i:s a"), date('m/d/Y h:i:s a', time())); //check of deadline niet verlopen is
-        $this->assertEquals("Aanbieden",$project->getType());
-        $this->assertEquals("beschrijving ik test het toevoegen en wijzingen gebruiker",$project->getBeschrijving());
-        $this->assertEquals("Mee bezig",$project->getStatus());
-        $this->assertEquals("unittest 8",$project->getTitel());
+        $this->assertEquals("Aanbieden", $project->getType());
+        $this->assertEquals("beschrijving ik test het toevoegen en wijzingen gebruiker", $project->getBeschrijving());
+        $this->assertEquals("Mee bezig", $project->getStatus());
+        $this->assertEquals("unittest 8", $project->getTitel());
         $project->setType("Vragen");
         $project->setBeschrijving("net had ik een hoop errors waar niet goed van werdt");
         $project->setStatus("Klaar");
         $project->setTitel("mooi ding nie");
         $projectController->Update($project);
         $project = null;
-        $project   = ($projectController->getByGebruikerID($gebruikerid))[0];
-        $this->assertEquals("Vragen",$project->getType());
-        $this->assertEquals("net had ik een hoop errors waar niet goed van werdt",$project->getBeschrijving());
-        $this->assertEquals("Mee bezig",$project->getStatus());
-        $this->assertEquals("mooi ding nie",$project->getTitel());
+        $project = ($projectController->getByGebruikerID($gebruikerid))[0];
+        $this->assertEquals("Vragen", $project->getType());
+        $this->assertEquals("net had ik een hoop errors waar niet goed van werdt", $project->getBeschrijving());
+        $this->assertEquals("Mee bezig", $project->getStatus());
+        $this->assertEquals("mooi ding nie", $project->getTitel());
         $projectController->delete($projectid);
         $gebruikers->delete($gebruikerid);
     }

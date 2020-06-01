@@ -1,5 +1,4 @@
 <?php
-//require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 
 class Feedback
 {
@@ -11,11 +10,11 @@ class Feedback
     private string $Review;
 
     public function __construct(int $FeedbackID, int $GebruikerID, int $ProjectID, int $Cijfer, string $Review){
-        $this->FeedbackID          = $FeedbackID;
-        $this->GebruikerID         = $GebruikerID;
-        $this->ProjectID           = $ProjectID;
-        $this->Cijfer              = $Cijfer;
-        $this->Review              = $Review;
+        $this->FeedbackID  = $FeedbackID;
+        $this->GebruikerID = $GebruikerID;
+        $this->ProjectID   = $ProjectID;
+        $this->Cijfer      = $Cijfer;
+        $this->Review      = $Review;
     }
 
     /**
