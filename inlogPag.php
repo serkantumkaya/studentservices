@@ -6,6 +6,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerC
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
 $wronglogin = "";
 
+
+
 //Why on and off? Because it's a checkbox thing.
 $rememberpassword = "off";
 //for choosing language
@@ -80,6 +82,11 @@ if (isset($_POST['username']) && $_POST['password']){
     $Gebruiker = $GC->Validate($username, $pwsafe);
 
     if ($Gebruiker->getGebruikerID() != -1){
+
+
+        $_SESSION["templevel"] = 0;
+        $_SESSION["tempuser"] = 0;
+
 
         $_SESSION["GebruikerID"] = $Gebruiker->getGebruikerID();
         $GC                      = new GebruikerController($_SESSION['GebruikerID']);

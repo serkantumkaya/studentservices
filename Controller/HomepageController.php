@@ -25,14 +25,17 @@ class HomepageController
     private $feedbackgekregen = null;
 
     public function __construct(int $gebrID){
+
         $this->gebruikersid        = $gebrID;
         $this->gebruikercontroller = new GebruikerController($this->gebruikersid);
         $this->gebruiker           = $this->gebruikercontroller->getById($this->gebruikersid);//deze bestaat altijd
         $this->profielcontroller   = new ProfielController($this->gebruikersid);
-        if ($this->profielcontroller->getByGebruikerID() !=
-            null){//dit is voor het geval dat een profiel niet bestaat en de user wel
+
+
+       if ($this->profielcontroller->getByGebruikerID() != null){//dit is voor het geval dat een profiel niet bestaat en de user wel
+
             $this->profiel       = $this->profielcontroller->getById($this->gebruikersid);
-            $this->profielexsist = true;
+           $this->profielexsist = true;
         }
         $this->projectcontroller = new ProjectController();
         $this->project           = $this->projectcontroller->getByGebruikerID($this->gebruikersid);

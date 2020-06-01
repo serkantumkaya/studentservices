@@ -9,9 +9,12 @@ if (!isset($_SESSION["GebruikerID"]) || $_SESSION["GebruikerID"] == -1){
     Header("Location: /StudentServices/inlogPag.php");
 }
 
+
 ?><!DOCTYPE HTML>
 <html>
 <?php
+
+
 include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");
 
 ?>

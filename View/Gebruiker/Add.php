@@ -7,9 +7,9 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
 <head>
 
     <?php
-    $_SESSION["GebruikerID"] = 9999999999;
-    $_SESSION["level"] = -15;
-    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
+   $_SESSION["tempuser"] = 9999999999;
+   $_SESSION["templevel"] = -15;
+   include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 <div class="header">
 

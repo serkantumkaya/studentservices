@@ -1,6 +1,8 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/HomepageController.php");
+
 $homepagina = new HomepageController($_SESSION['GebruikerID']);
+
 
 ?>
 
