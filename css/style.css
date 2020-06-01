@@ -311,12 +311,13 @@ textarea {
 
 .flaglanguagebutton
 {
-    width:32px; !important;
-    heigt:22px;!important;
+    width:32px;!Important;
+    height:decrement22px;!Important;
     padding:0px;!important;
     border:0;!important;
     background-color: transparent;
 }
+
 .info {
     grid-area: info;
     /*top:150px;/*

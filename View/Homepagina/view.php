@@ -8,7 +8,7 @@ $homepagina = new HomepageController($_SESSION['GebruikerID']);
     <div class="head">
         <div id="title">
             <h1><?php echo Translate::GetTranslation("homeWelkom") ?><?=$homepagina->getfullname()?></h1>
-            <p> Account status <?=$homepagina->getaccountstatus()?></p>
+<!--            <p> Account status //=$homepagina->getaccountstatus()?></p>-->
             <p> <?php echo Translate::GetTranslation("homeEmail") ?> <?=$homepagina->getemail()?></p>
         </div>
         <div id="foto">
