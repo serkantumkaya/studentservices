@@ -4,6 +4,13 @@
     color: #FFB31A;
 }
 
+.divprofiel{
+    border: 2px solid #00008B;
+    padding: 20px;
+    width: auto;
+    margin: 10px;
+}
+
 .profielform
 {
     background-color: #FFFFFF;width:650px;margin-left:10px;
