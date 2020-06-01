@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
+
 require_once ("C:xampp/htdocs/StudentServices/Model/OpleidingModel.php");
 require_once ("C:xampp/htdocs/StudentServices/BaseClass/Opleiding.php");
 require_once ("C:xampp/htdocs/StudentServices/Includes/Enum/EnumVoltijdDeeltijd.php");
@@ -50,7 +49,7 @@ class OpleidingController
         $Opleiding = $this->Opleidingmodel->Get($id)->fetchAll(PDO::FETCH_ASSOC);
         if(!empty($Opleiding) && $Opleiding!= null){
             return new Opleiding($Opleiding[0]['OpleidingID'],$Opleiding[0]['Naamopleiding'],
-                $Opleiding[0]['Voltijd_deeltijd']);//kijk dit bedoel ik dit is OO bitches!
+                $Opleiding[0]['Voltijd_deeltijd']);
         }
         else{
             return null;

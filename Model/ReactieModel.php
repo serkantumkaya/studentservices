@@ -1,7 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors',1);
-
 require_once ("C:xampp/htdocs/StudentServices/BaseClass/Reactie.php");
 require_once ("C:xampp/htdocs/StudentServices/includes/DB.php");
 

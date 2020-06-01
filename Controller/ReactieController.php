@@ -1,10 +1,8 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 require_once ("C:xampp/htdocs/StudentServices/Model/ReactieModel.php");
 require_once ("C:xampp/htdocs/StudentServices/BaseClass/Reactie.php");
-//require_once ("C:xampp/htdocs/StudentServices/Controller/GebruikerController.php");
-//require_once ("C:xampp/htdocs/StudentServices/Controller/ProjectController.php");
+
 
 //hier doe je de crud afvangen vanuit de gebruiker.
 class ReactieController

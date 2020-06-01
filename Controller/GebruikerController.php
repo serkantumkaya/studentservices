@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 require_once ("C:xampp/htdocs/StudentServices/Model/GebruikerModel.php");
 require_once ("C:xampp/htdocs/StudentServices/BaseClass/Gebruiker.php");
 require_once ("C:xampp/htdocs/StudentServices/Controller/SchoolController.php");

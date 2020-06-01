@@ -1,7 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ALL);//todo :weghalen
-ini_set('display_errors', 1);//todo :weghalen
+
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/DB.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");

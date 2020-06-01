@@ -1,7 +1,5 @@
 <?php
-// deze is klaar
 
-//poco school
 class School
 {
     private int $SchoolID;

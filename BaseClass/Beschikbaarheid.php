@@ -1,6 +1,5 @@
 <?php
 
-
 class Beschikbaarheid
 {
     private int $BeschikbaarheidID;
