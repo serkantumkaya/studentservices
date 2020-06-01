@@ -7,17 +7,21 @@ session_start();
 <html>
 <head>
 
+
     <?php
     include ("C:xampp/htdocs/StudentServices/Includes/header.php");?>
+
+    <?php $poststring = "/StudentServices/ClientSide/Project.php?ProjectID=".$_SESSION["ProjectID"]."&view=detail";
+    ?>
+
 <body>
 
 <form  method="post" action="Add.php" style="width:200px;float:left">
     <input type="submit" value="<?php echo Translate::GetTranslation("BeschikbaarheidNew"); ?>"  class="ssbutton">
 </form>
-<?php $poststring = "/StudentServices/ClientSide/Project.php?ProjectID=".$_SESSION["ProjectID"]."&view=detail";
-?>
+
 <form method="post" action="<?php echo $poststring ?>" style="width:200px;float:left;clear: right">
-     <button type="submit" class="ssbutton"><?php echo Translate::GetTranslation("BeschikbaarheidBack"); ?></button>
+     <button type="submit"><?php echo Translate::GetTranslation("BeschikbaarheidBack"); ?></button>
 </form>
 
 

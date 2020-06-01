@@ -36,7 +36,11 @@ else
 <!DOCTYPE HTML>
 <html>
 <head>
-
+    <nav id="menu">
+        <ul class="main-menu cf">
+            <li><a href="./View.php">Terug</a></li>
+        </ul>
+    </nav>
     <?php
     include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
