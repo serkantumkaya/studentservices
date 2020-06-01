@@ -15,8 +15,11 @@ if ($_SESSION["level"]>=50){
     $uitvoer = <<<EOD
             <!-- [MENU ITEMS] -->
 <!--            ADMIN heeft admin en normale menu's -->
-<nav id='menu' role="navigation">
-            <ul  id="nav">
+<nav id='page-nav' role="navigation">
+        <!-- [THE HAMBURGER] -->
+        <label for="hamburger">&#9776;</label>
+        <input type="checkbox" id="hamburger"/>
+            <ul>
             <li><a href="/StudentServices/index.php">Home</a></li>
             <li>Admin
                 <ul>
@@ -54,5 +57,7 @@ EOD;
 }
 echo $uitvoer;
 ?>
+</nav>
+<img id="logo" src="/StudentServices/images/logotrans.png"/>
 
 
