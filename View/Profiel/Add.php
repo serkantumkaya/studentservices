@@ -226,8 +226,8 @@ echo "<h1 > Koppelen profiel</h1 ><br>";
 
         echo "<div class=\"block\">";
         echo "<!--Geboortedatum-->";
-        echo "<label class=\"formlabel\">Geboortedatum</label>";
-        echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
+        echo "<label class=\"formlabel\">Geboortedatum</label>
+        <input type = \"text\" name=\"Geboortedatum\" value=\"";
         $time    = new DateTime($Geboortedatum);
         $newTime = $time->format("d-m-Y");
         echo $newTime . "\" pattern=\"(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}\">";
@@ -235,8 +235,8 @@ echo "<h1 > Koppelen profiel</h1 ><br>";
 
         echo "<div class=\"block\">";
         echo "    <!--School-->
-<label class=\"formlabel\">School</label>";
-        echo "<select name=\"School\">";
+<label class=\"formlabel\">School</label>
+        <select name=\"School\">";
         $Schoolcontroller = new SchoolController();
         foreach ($Schoolcontroller->GetScholen() as $sh){
             $schoolid   = $sh->getSchoolID();
