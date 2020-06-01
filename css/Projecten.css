@@ -37,8 +37,19 @@
         grid-template-columns: 100px 350px 100px 150px;
     }
 
-    #filter-projecten-status h3{
+    #projecten-zoek{
         margin-top: -10px;
+        text-align: right;
+        margin-left: 350px;
+        margin-bottom: 10px;
+    }
+
+    #projecten-zoek input{
+        height: 26px;
+    }
+
+    #filter-projecten-status h3{
+        margin-top: 0;
     }
 
     #filter-checkboxrij{
@@ -46,23 +57,7 @@
         float: left;
     }
 
-    #nieuw-project{
-        float: left;
-        width: 140px;
-        background-color: #FFB31A;
-        color: black;
 
-    }
-
-    #project-nieuw-button{
-        text-decoration: none;
-        font-size: 23px;
-    }
-
-    #projecten-zoek{
-        margin-left: 350px;
-        margin-bottom: 10px;
-    }
 
     #projecten-geen-project{
         margin-top: 10px;
@@ -148,10 +143,7 @@
         padding: 10px;
     }
 
-    #reclame{
-        grid-area: reclame;
-        /*background-color: red;*/
-    }
+
 
     /* Vanaf hier het gedeelte voor de detailpagina van een project*/
 
@@ -171,28 +163,23 @@
     }
 
     #nieuw-project{
-        width: 140px;
-        margin-left: 5%;
+        float: left;
+        color: black;
+        margin-top: -12px;
         background-color: #FFB31A;
         color: black;
-        padding: 10px;
     }
 
     #project-nieuw-button{
         text-decoration: none;
-        font-size: 23px;
-    }
-
-    #projecten-zoek{
-        margin: 5px;
+        font-size: 18px;
     }
 
     #project-button {
         width: auto;
         background-color: #FFB31A;
         color: black;
-        padding: 10px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
     #project-button a{
@@ -289,10 +276,19 @@
         float: left;
     }
 
+
+    #project-footer2 input:hover{
+        cursor: pointer;
+    }
+
     #project-footer3{
         width: 50%;
         float: right;
         text-align: right;
+    }
+
+    #project-footer3 input:hover{
+        cursor: pointer;
     }
 
     #reacties{
@@ -317,16 +313,58 @@
         height: 100px;
     }
 
+    #popup-knop:hover{
+        cursor: pointer;
+    }
+
+    .pop{
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        /*padding-top: 100px; !* Location of the box *!*/
+        left: 0;
+        top: 0;
+        padding: 100px;
+        width: 75%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        alignment: center;
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .reactie-popup-inhoud{
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
     #filter-projecten-kop{
         font-size: 20px;
         font-weight: bold;
     }
 
     #reclame{
+        grid-area: reclame;
         display: grid;
         grid-template-areas: 'project-beschikbaarheid' 'project-feedback';
         grid-template-rows: 50% 50%;
-
     }
 
     #project-beschikbaarheid{
@@ -335,11 +373,19 @@
         background-color: #c82333;
     }
 
+    #project-beschikbaarheid button{
+        height: 25%;
+        font-size: 16px;
+    }
+
     #project-feedback{
+        border: 1px solid #00008B;
+        margin: 2px;
         display: grid;
         height: 100%;
-        background-color: turquoise;
+        background-color: #9fcdff;
     }
+
 }
 
 /*Laptops / grote tablets*/
@@ -372,11 +418,14 @@
     }
 
     #filter-projecten{
+        height: 820px;
         background-color: #9fcdff;
         margin-top: 10px;
         padding-top: 30px;
         padding-left:10px;
     }
+
+
 
     #projecten-row {
         /*background-color: #FFB31A;*/
@@ -446,19 +495,19 @@
     #projecten-previous{
         float: left;
         margin-left: 10%;
-        background-color: #FFB31A;
+        /*background-color: #FFB31A;*/
         color: black;
         text-decoration: none;
-        padding: 10px;
+        /*padding: 10px;*/
     }
 
     #projecten-next{
         float: right;
         margin-right: 10%;
-        background-color: #FFB31A;
+        /*background-color: #FFB31A;*/
         color: black;
         text-decoration: none;
-        padding: 10px;
+        /*padding: 10px;*/
     }
 
 
@@ -479,34 +528,51 @@
         grid-area: project-header;
     }
 
-    #nieuw-project{
-        width: 140px;
-        margin-left: 5%;
+    #projecten-zoek{
+        width: 100%;
+        margin: 5px;
+        margin-left: -1px;
+    }
+
+    #projecten-zoek input{
+        width: 90%;
+        height: 26px;
+    }
+
+    #projecten-zoek button{
+        width: 92%;
         background-color: #FFB31A;
         color: black;
-        padding: 10px;
-    }
-
-    #project-nieuw-button{
-        text-decoration: none;
-        font-size: 23px;
-    }
-
-    #projecten-zoek{
-        margin: 5px;
+        font-size: 18px;
     }
 
     #project-button {
         width: auto;
         background-color: #FFB31A;
         color: black;
-        padding: 10px;
+        /*padding: 10px;*/
         font-size: 20px;
+        margin-right: 10px;
     }
 
     #project-button a{
         text-decoration: none;
         color: black
+    }
+
+    #project-button input{
+        all: unset;
+        text-decoration: none;
+        color: black;
+        background-color: #FFB31A;
+    }
+
+    #filter-project-terug{
+        margin-bottom: 5px;
+    }
+
+    #filter-project-terug a button{
+        width: 198px;
     }
 
     #project-wijzig-button{
@@ -527,7 +593,6 @@
         float: left;
         width: 35%;
         border-bottom: 1px solid #00008B;
-
     }
 
     #project-titel {
@@ -592,10 +657,18 @@
         float: left;
     }
 
+    #project-footer2 input:hover{
+        cursor: pointer;
+    }
+
     #project-footer3{
         width: 50%;
         float: right;
         text-align: right;
+    }
+
+    #project-footer3 input:hover{
+        cursor: pointer;
     }
 
     #reacties{
@@ -623,16 +696,6 @@
         height: 100px;
     }
 
-
-    /*laat heel even staan, weet niet mer waar dit van was.
-/*    #colum1{
-        background-color: #9fcdff;
-    }
-
-    #colum2{
-        background-color: #FFB31A;
-    }*/
-
     #popup-knop:hover{
         cursor: pointer;
     }
@@ -641,7 +704,7 @@
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
+        /*padding-top: 100px; !* Location of the box *!*/
         left: 0;
         top: 0;
         padding: 100px;
@@ -681,30 +744,59 @@
     }
 
     #reclame{
+        margin-top: 10px;
+        padding-top: 5px;
+        padding-right:10px;
+        height: 95vh;
         display: grid;
         grid-template-areas: 'project-beschikbaarheid' 'project-feedback';
         grid-template-rows: 50% 50%;
-
     }
 
     #project-beschikbaarheid{
         display: grid;
         height: 100%;
-        background-color: #c82333;
+        background-color: #9fcdff;
+        border: 1px solid #00008B;
+        margin: 2px;
+        grid-template-areas: 'knop' 'tijden';
+        grid-template-rows: 55px auto;
+    }
+
+    #project-beschikbaarheid-button{
+        grid-area: knop;
+    }
+
+    #project-beschikbaarheidsoverzicht{
+
+        grid-area: tijden;
+    }
+
+    #project-beschikbaarheid button{
+        height: 50px;
+        font-size: 16px;
+        margin-right: 0;
+        margin-bottom: 0;
     }
 
     #project-feedback{
+        border: 1px solid #00008B;
+        margin: 2px;
         display: grid;
         height: 100%;
-        background-color: turquoise;
+        background-color: #9fcdff;
         grid-template-rows: 8% 7% 5% 20% 20% 20% 20%;
+    }
+
+    #project-feedback-kader{
+        height: 100%;
+        background-color: red;
     }
 
     #geef_feedback{
         align-items: center;
         margin-top: 1%;
         margin-left: 10%;
-
     }
 
     #title_feedback{
@@ -735,9 +827,11 @@
         width: 80%;
         height: 100%;
     }
+
     #feedbacbox p{
-        margin: 0px;
+        margin: 0;
     }
+
     #feedbackby{
         text-align: center;
     }
@@ -757,8 +851,4 @@
     #feedbacklabel{
         text-align: center;
     }
-
-
-
-
 }

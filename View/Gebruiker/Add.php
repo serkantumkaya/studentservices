@@ -4,7 +4,6 @@ ini_set('display_errors', 1);
 //session_start();
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 ?>
-
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -22,10 +21,6 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
     <script type="text/javascript" src="/StudentServices/JS/script.js">
     </script>
 </head>
-
-</head>
-
-
 <body>
 <div class="header">
     <nav id="page-nav">
@@ -48,8 +43,6 @@ require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerCo
         <span class="popuptext" id="myPopup"></span>
     </div>
 </div>
-
-<div class="info">
 <?php
 
 $NaamErr = "";
@@ -117,8 +110,6 @@ isset( $_POST["WachtwoordCheck"]) && isset( $_POST["Email"]))//No validation err
         if ($WachtwoordErr != "") echo "<br>".$WachtwoordErr;
     }
 }
-
 ?>
-</div>
 </body>
 </html>

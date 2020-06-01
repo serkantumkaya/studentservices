@@ -118,6 +118,7 @@ class Translate
         "ProjectVolgende" => ['Volgende &raquo;','Next &raquo;'],
         "ProjectGemaaktOp" => ['Aanmaakdatum', 'Creation date'],
         "ProjectEdit" => ['Wijzig project', "Edit project"],
+        "ProjectMeeBezig" => ['Niet klaar', 'Not finished'],
         "ProjectKlaar" => ['Project klaar', "Project finished"],
         "ProjectReactieNieuw" => ['Nieuwe reactie',"New reaction"],
         "ProjectReactieGegevenDoor" => ['Gegeven door',"Given by"],

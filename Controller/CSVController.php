@@ -63,7 +63,6 @@ class CSVController
     public function settodatabaseopleiding($data,$errorindex){
         $counter = 0;
         $databew = ["update" => 0,"add" => 0];
-        var_dump($data);
         foreach ($data as $record){
             $counter++;
             if (!empty($errorindex) == true?(array_search($counter,$errorindex) == false):true){
@@ -74,8 +73,11 @@ class CSVController
                     $this->opleidingcontroller->update($opleidingobj);
                     $databew["update"]++;
                 } else{
-                    $this->opleidingcontroller->add($record[1],$record[2]);
-                    $databew["add"]++;
+                    if(!empty($record[1]) && !empty($record[2])){
+                        $this->opleidingcontroller->add($record[1],$record[2]);
+                        $databew["add"]++;
+                    }
+
                 }
             }
         }
@@ -94,8 +96,10 @@ class CSVController
                     $this->schoolcontroller->update($schoolobj);
                     $databew["update"]++;
                 } else{
+                    if(!empty($record[1])){
                     $this->schoolcontroller->add($record[1]);
                     $databew["add"]++;
+                    }
                 }
             }
         }
@@ -114,8 +118,10 @@ class CSVController
                     $this->categoriecontroller->update($categorieobj);
                     $databew["update"]++;
                 } else{
-                    $this->categoriecontroller->add($record[1]);
-                    $databew["add"]++;
+                    if(!empty($record[1])){
+                        $this->categoriecontroller->add($record[1]);
+                        $databew["add"]++;
+                    }
                 }
             }
         }
@@ -206,7 +212,7 @@ class CSVController
                 }
                 foreach ($result as $element){
                     if (strrpos($element," ") != 0){
-                        $record[] = substr($element,1,(strlen($element)-2));
+                        $record[] = str_replace('"', '', $element);
                     } else{
                         $record[] = $element;
                     }

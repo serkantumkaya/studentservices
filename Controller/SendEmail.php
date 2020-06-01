@@ -28,26 +28,28 @@ class createEmail
 
         //Email Settings
         $this->mail->isHTML(true);
-        $this->mail->setFrom("donoreplystudentservice@gmail.com", "Studentservices");
+        $this->mail->setFrom("donoreplystudentservice@gmail.com","Studentservices");
     }
 
-    public function sendEmail($gebruikernaam, $wachtwoord, $Email, $encryptedcode){
+    public function sendEmail($gebruikernaam,$wachtwoord,$Email,$encryptedcode){
         $this->createURL =
-            "http://localhost/StudentServices/View/Emailverficatie/Bevestingenaccount.php?" . $encryptedcode . "&username=" .
+            "http://localhost/StudentServices/View/Emailverficatie/Bevestingenaccount.php?" . $encryptedcode .
+            "&username=" .
             $gebruikernaam . "&email=" . $Email;
         $this->mail->addAddress($Email);
         $this->mail->Subject = "activation mail studentsservice";
         $this->mail->Body    = $this->emailtext . $this->createURL;
         if ($this->mail->send()){
-            $this->dataaccessmodel->ADD($gebruikernaam, $wachtwoord, $Email, $encryptedcode);
+            $this->dataaccessmodel->ADD($gebruikernaam,$wachtwoord,$Email,$encryptedcode);
             return true;
         }
         return false;
     }
 
-    public function sendWachwoordreset($gebruikernaam, $Email, $encryptedcode){
+    public function sendWachwoordreset($gebruikernaam,$Email,$encryptedcode){
         $this->createURL =
-            "http://localhost/StudentServices/View/Emailverficatie/resetWachwoord.php?" . $encryptedcode . "&username=" .
+            "http://localhost/StudentServices/View/Emailverficatie/resetWachwoord.php?" . $encryptedcode .
+            "&username=" .
             $gebruikernaam . "&email=" . $Email;
         $this->mail->addAddress($Email);
         $this->mail->Subject = "Wachtwoord resetmail studentsservice";
@@ -57,6 +59,21 @@ class createEmail
         }
         return false;
     }
+
+    public function sendcontactmail($fullname,$Email,$telefoonnummer,$question,$gebruikerid){
+
+        date_default_timezone_set(date_default_timezone_get()); //voor het bepalen van de tijd
+        $this->mail->addAddress($this->mail->Username);
+        $this->mail->Subject = "Contact formulier";
+        $this->mail->Body    = "verzonden vanaf de Studentservices Website om ". date('m/d/Y h:i:s a', time()). "<br>".
+            "door ". $fullname . " emailadres = " .$Email. " telefoonnummer = " . $telefoonnummer. " gebruikers id = ".$gebruikerid."<br>".
+            "de vraag is <br>". $question;
+        if ($this->mail->send()){
+            return true;
+        }
+        return false;
+    }
+
 
     public function getemailerrorinfo(): string{
         return ($this->mail->ErrorInfo);

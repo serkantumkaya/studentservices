@@ -15,28 +15,27 @@ if ($_SESSION["level"]>=50){
     $uitvoer = <<<EOD
             <!-- [MENU ITEMS] -->
 <!--            ADMIN heeft admin en normale menu's -->
-<nav id='menu'>
+<nav id='menu' role="navigation">
             <ul  id="nav">
             <li><a href="/StudentServices/index.php">Home</a></li>
-            <li><a href="#">Admin</a>
+            <li>Admin
                 <ul>
-                <li class="#lisub"><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
-                <li class="#lisub" ><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/Beschikbaarheid/View.php">BeschikbaarheidAdmin</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/Reactie/View.php">Reactie</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/Beschikbaarheid/View.php">Beschikbaarheid</a></li>  
-                <li class="#lisub"><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
-                <li class="#lisub"><a href="/StudentServices/View/School/View.php">School</a></li>
+                <li><a href="/StudentServices/View/Gebruiker/View.php">Gebruikers</a></li>
+                <li ><a href="/StudentServices/View/Project/View.php">ProjectenAdmin</a></li>
+                <li><a href="/StudentServices/View/Beschikbaarheid/View.php">Beschikbaarheid</a></li>
+                <li ><a href="/StudentServices/View/Reactie/View.php">Reactie</a></li>
+                <li><a href="/StudentServices/View/Feedback/View.php">Feedback</a></li>  
+                <li><a href="/StudentServices/View/Categorie/View.php">Categorie</a></li>
+                <li><a href="/StudentServices/View/Opleiding/View.php">Opleiding</a></li>
+                <li><a href="/StudentServices/View/School/View.php">School</a></li>
                 </ul>
             </li>
            <!-- tijdelijk even 2x projecten neergezet, een voor de gebruiker, een voor de admin. -->
-            <li><a href="/StudentServices/View/Profiel/View.php">Mijn profiel</a></li>
+            <li><a href="/StudentServices/View/Profiel/View.php">Profielen</a></li>
             <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">Projecten</a></li>
             <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">FAQ</a></li>
-             <li><a href="/StudentServices/ClientSide/Contact.php">Contact</a></li>
-             <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
+            <li><a href="/StudentServices/ClientSide/Contact.php">Contact</a></li>
+            <li><a href="/StudentServices/uitlog.php">Uitloggen</a></li>
         </ul>
 </nav>
 EOD;
