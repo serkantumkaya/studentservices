@@ -1,12 +1,12 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/ProfielModel.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Opleiding.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/School.php");
+require_once ("C:xampp/htdocs/StudentServices/Model/ProfielModel.php");
+require_once ("C:xampp/htdocs/StudentServices/BaseClass/Opleiding.php");
+require_once ("C:xampp/htdocs/StudentServices/BaseClass/School.php");
 //require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Projecten.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/SchoolController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/OpleidingController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/SchoolController.php");
 
 //hier doe je de crud afvangen vanuit de profiel.
 class ProfielController

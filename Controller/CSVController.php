@@ -1,7 +1,7 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/OpleidingController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/CategorieController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/schoolController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/OpleidingController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/CategorieController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/schoolController.php");
 
 class CSVController
 {

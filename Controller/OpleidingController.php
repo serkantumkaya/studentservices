@@ -1,9 +1,9 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Model/OpleidingModel.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/BaseClass/Opleiding.php");
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Includes/Enum/EnumVoltijdDeeltijd.php");
+require_once ("C:xampp/htdocs/StudentServices/Model/OpleidingModel.php");
+require_once ("C:xampp/htdocs/StudentServices/BaseClass/Opleiding.php");
+require_once ("C:xampp/htdocs/StudentServices/Includes/Enum/EnumVoltijdDeeltijd.php");
 
 //controller for crud operations for Opleiding
 class OpleidingController

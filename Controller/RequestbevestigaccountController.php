@@ -2,8 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 //require_once ($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/factory/VerficatieModel.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/sendEmail.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/GebruikerModel.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/sendEmail.php");
+require_once ("C:xampp/htdocs/StudentServices/Model/GebruikerModel.php");
 
 if (isset($_POST['vertifycode']) && isset($_POST['username']) && isset($_POST['email'])){
     // var_dump("test");
