@@ -136,7 +136,7 @@ class Translate
 
         "profielProfiel" => ['Profiel : ', 'Profile : '],
         "profielVoornaam" => ['Voornaam*','Firstname*'],
-        "profielTussen" => ['Tussenvoegsel','Insertion'],
+        "profielTussen" => ['Tussenvoegsel','Middle name'],
         "profielPrefix" => ['Prefix','Prefix'],
         "profielAchternaam" => ['Achternaam*','Lastname*'],
         "profielStraat" => ['Straat*','Street*'],
