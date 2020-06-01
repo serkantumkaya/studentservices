@@ -35,7 +35,7 @@ class unittestsample extends TestCase
         $this->assertNotNull($Opleiding);
     }
 
-    public function testIsReactielijsteenArray(){
+    public function testIsReactielijstEenArray(){
       $Reactielijst = array();
       $this->assertIsArray($Reactielijst);
     }
