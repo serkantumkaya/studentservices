@@ -94,10 +94,12 @@ class HomepageController
 
     public function getfoto(){
         if ($this->profielexsist){
-            $result = "data:image/jpeg;base64," . base64_encode($this->profiel->getFoto());
-            $result != false || $result != null || !empty($result) ? $result :
-                "/StudentServices/images/no_user_pic.png";
-            return $result;
+            if($this->profiel->getFoto()!= false || $this->profiel->getFoto() != null || !empty($this->profiel->getFoto())){
+                return  "data:image/jpeg;base64," . base64_encode($this->profiel->getFoto());
+            }
+            else{
+                return "/StudentServices/images/no_user_pic.png";
+            }
         }
         return "/StudentServices/images/no_user_pic.png";
     }
