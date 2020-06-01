@@ -1,14 +1,14 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/BeschikbaarheidController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/BeschikbaarheidController.php");
 session_start();
 ?><!DOCTYPE HTML>
 <html>
 <head>
 
     <?php
-    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
+    include ("C:xampp/htdocs/StudentServices/Includes/header.php");?>
 <body>
 
 <form  method="post" action="Add.php" style="width:200px;float:left">
