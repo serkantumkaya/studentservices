@@ -1,102 +1,3 @@
-/*#region Menu css*/
-nav {
-    font-family: monospace;
-    font-size: 16px
-}
-
-ul {
-    background: #FFFFFF;
-    list-style: none;
-    margin: 0;
-    padding-left: 0;
-    color: #00008B;
-    width: 100%;
-    height: 40px;
-}
-
-li {
-    color: #00008B;
-    background: #FFFFFF;
-    display: block;
-    float: left;
-    position: relative;
-    text-decoration: none;
-    transition-duration: 0.5s;
-    width:130px;
-    height: 40px;
-    text-align: center;
-}
-
-li a {
-    display: block;
-    text-decoration: none;
-    color: #00008B;
-    background: #FFFFFF;
-    padding:0;
-    margin:0;
-    width:130px;
-    height: 40px;
-}
-
-ul li a:hover {
-    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-    color: #FFB31A;
-    width:100%;
-    position:relative;
-    height: 40px;
-}
-
-li:hover {
-    background-color: #00008B;
-    color: #FFB31A;
-    cursor: pointer;
-    width:130px;
-    height: 40px;
-}
-
-ul li ul {
-    background: #FFFFFF;
-    color: #00008B;
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    transition: all 0.5s ease;
-    left: 0;
-    display: none;
-    width:130px;
-    height: 40px;
-    top:41px;
-}
-
-ul li:hover > ul,
-ul li ul:hover {
-    visibility: visible;
-    opacity: 1;
-    display: block;
-    color: #FFB31A;
-    width:100%;
-    position:relative;
-    height: 40px;
-}
-
-ul li ul li {
-    clear: both;
-    width: 100%;
-}
-
-/* Hide Hamburger */
-#page-nav label, #hamburger {
-    display: none;
-}
-
-ul li a:hover {
-    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-    color: #FFB31A;
-}
-
-
-/*#endregion Menucss*/
-
 /*#region Other normal css*/
 p {
     font-size: 12px; /*12px font grootte*/
@@ -311,12 +212,13 @@ textarea {
 
 .flaglanguagebutton
 {
-    width:32px; !important;
-    heigt:22px;!important;
+    width:32px;!Important;
+    height:decrement22px;!Important;
     padding:0px;!important;
     border:0;!important;
     background-color: transparent;
 }
+
 .info {
     grid-area: info;
     /*top:150px;/*
@@ -395,8 +297,8 @@ dt {
 
 .header {
     grid-area: header;
-    height: 40px;
-    border-bottom: 1px solid #00008B; /*blauwe lijn onderaan om de header af te sluiten*/
+    height: 50px;
+    /*border-bottom: 1px solid #00008B; blauwe lijn onderaan om de header af te sluiten*/
     z-index: 1; /*deze zorgt ervoor dat de slider niet door het menu heen gaat.*/
     background-color: #FFFFFF;
 }
@@ -549,22 +451,6 @@ a.button {
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
 @media only screen and (max-width: 800px) {
-    #page-nav {
-        border: none;
-        width: 99%;
-    }
-
-    #page-nav label {
-        position: fixed;
-        display: inline-block;
-        color: #000000;
-        background: #ffffff;
-        font-style: normal;
-        font-size: 1.2em;
-        padding: 10px;
-        z-index: 999;
-        width: 100%;
-    }
 
     .profielfotoform {
         border: 1px solid #00008B;
@@ -577,86 +463,6 @@ a.button {
         position: unset;
         left: 0px;
         top: auto;
-    }
-
-    li:hover {
-        background-color: #00008B;
-        color: #FFB31A;
-        cursor: pointer;
-        width:100%;
-        height: 40px;
-    }
-
-    ul {
-        list-style-type: none; /*Alle gebruikelijke ul functionaliteit weg laten.*/
-        overflow: hidden; /*geen scrollbars, weet niet of dit nodig is*/
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        margin: 0px;
-        top: 45px;
-        background-color: #FFFFFF;
-        border: none;
-        z-index: 999;
-    }
-
-    li:first-child {
-        border-top: 1px solid #00008B;
-    }
-
-    li {
-        float: none;
-        text-decoration: none;
-        display: block;
-        z-index: 999;
-        height: 50px;
-        width: 100%;
-        border-left: none;
-        border-bottom: 1px solid #00008B;
-    }
-
-    li a {
-        float: none;
-        display: block;
-        z-index: 999;
-        text-decoration: none;
-        background-color: #FFFFFF;
-        color: #00008B;
-        border-left: none;
-        margin-left: 0px;
-        margin-top: 0px;
-        padding-top: 0px;
-        height: 50px;
-        width: 100%;
-        font-size: 16px;
-        text-align: center; /*De tekst in het midden*/
-    }
-
-    ul li a:hover {
-        background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-        color: #FFB31A;
-    }
-
-    /* Toggle show/hide menu on checkbox click */
-    #page-nav ul {
-        display: none;
-        border: none;
-    }
-
-    #page-nav input:checked ~ ul {
-        display: block;
-        height: 99%;
-        width: 100%;
-        z-index: 999;
-        background-color: #ffffff;
-        border: none;
-    }
-
-    ul {
-        width: 100%;
-        height: 50px;
-        margin: 0;
-        padding: 0;
     }
 
     .grid-container {
@@ -779,11 +585,6 @@ a.button {
 @media only screen and (max-height: 375px) /* om landscape responsive leesbaar te maken*/ {
     .grid-container {
         grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
-    }
-
-    ul li a:hover {
-        background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
-        color: #FFB31A;
     }
 
     .profielfotoform {
