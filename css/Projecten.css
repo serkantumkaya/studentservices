@@ -1,9 +1,10 @@
 /*mobile first dus daar mee beginnen*/
-@media only screen and (max-width: 800px){
-    #projectpagina{
+@media only screen and (max-width: 800px) {
+    #projectpagina {
         height: 100%;
-        background-color: #004085;
+        background-color: #FFFFFF;
     }
+
     .grid-projecten-colums {
         grid-template-areas: 'over' 'sub-menu' 'projecten' 'reclame' 'over2';
         grid-gap: 0px;
@@ -20,46 +21,44 @@
         grid-gap: 0px;
         background-color: #FFFFFF;
         grid-template-rows: 60px 100px 20px; /* je hebt 3 lagen dit zijn de hoogtes van de lagen*/
-        border: 1px solid #00008B;
-        padding: 10px; /*niet strak tegen de randen van scherm */
+        border: 2px solid #00008B;
+        margin: 10px; /*niet strak tegen de randen van scherm */
     }
 
-    #filter-projecten{
+    #filter-projecten {
         background-color: #9fcdff;
         padding-top: 30px;
-        padding-left:10px;
+        padding-left: 10px;
         padding-bottom: 30px;
     }
 
-    #filter-projecten2{
+    #filter-projecten2 {
         grid-template-areas: 'filter-status' 'filter-categorie' 'filter-type' 'filter-mijn';
         display: grid;
         grid-template-columns: 100px 350px 100px 150px;
     }
 
-    #projecten-zoek{
+    #projecten-zoek {
         margin-top: -10px;
         text-align: right;
         margin-left: 350px;
         margin-bottom: 10px;
     }
 
-    #projecten-zoek input{
+    #projecten-zoek input {
         height: 26px;
     }
 
-    #filter-projecten-status h3{
+    #filter-projecten-status h3 {
         margin-top: 0;
     }
 
-    #filter-checkboxrij{
+    #filter-checkboxrij {
         width: 50%;
         float: left;
     }
 
-
-
-    #projecten-geen-project{
+    #projecten-geen-project {
         margin-top: 10px;
         text-align: center;
         background-color: #9fcdff;
@@ -96,7 +95,7 @@
         grid-area: project-info;
     }
 
-    #projecten-status{
+    #projecten-status {
         grid-area: project-info;
         width: 25%;
         float: left;
@@ -104,10 +103,10 @@
         font-size: 23px;
     }
 
-    #projecten-beschrijving{
+    #projecten-beschrijving {
         grid-area: project-info;
         width: 75%;
-        float:left;
+        float: left;
         background-color: #9fcdff;
         font-size: 23px;
     }
@@ -119,13 +118,13 @@
         padding-right: 10px;
     }
 
-    #projecten-buttons{
+    #projecten-buttons {
         width: 100%;
         display: inline-block;
         font-size: 23px;
     }
 
-    #projecten-previous{
+    #projecten-previous {
         float: left;
         margin-left: 10%;
         background-color: #FFB31A;
@@ -134,19 +133,16 @@
         padding: 10px;
     }
 
-    #projecten-next{
+    #projecten-next {
         float: right;
         margin-right: 10%;
         background-color: #FFB31A;
         color: black;
         text-decoration: none;
-        padding: 10px;
     }
 
 
-
     /* Vanaf hier het gedeelte voor de detailpagina van een project*/
-
     #project-row-grid {
         padding: 0px;
         display: grid;
@@ -154,23 +150,23 @@
         grid-gap: 0px;
         background-color: #FFFFFF;
         margin: 10px;
-        grid-template-rows: 60px auto 50px;  /*Drie lagen, dit zijn de hoogtes*/
-        border: 1px solid #00008B;
+        grid-template-rows: 60px auto 50px; /*Drie lagen, dit zijn de hoogtes*/
+        border: 2px solid #00008B;
     }
 
     #project-header {
         grid-area: project-header;
     }
 
-    #nieuw-project{
+    #nieuw-project {
         float: left;
         color: black;
         margin-top: -12px;
         background-color: #FFB31A;
-        color: black;
+
     }
 
-    #project-nieuw-button{
+    #project-nieuw-button {
         text-decoration: none;
         font-size: 18px;
     }
@@ -182,19 +178,14 @@
         font-size: 18px;
     }
 
-    #project-button a{
+    #project-button a {
         text-decoration: none;
         color: black
     }
 
-    #project-wijzig-button{
+    #project-wijzig-button {
         text-decoration: none;
     }
-
-    /*    #project-klaar {
-            color:red;
-            background-color: aqua;
-        }*/
 
     #project-aanbieder {
         grid-area: project-header;
@@ -219,13 +210,13 @@
         color: black; /*Puur voor de link/titel*/
     }
 
-    #project-titel textarea{
+    #project-titel textarea {
         float: left;
         margin: 2px;
         font-size: 25px;
     }
 
-    #project-type{
+    #project-type {
         font-size: 20px;
     }
 
@@ -235,31 +226,30 @@
         background-color: green;
     }
 
-    #project-info-grid{
+    #project-info-grid {
         display: grid;
         grid-template-areas: 'Parameters' 'beschrijving';
         grid-template-rows: auto auto;
-        /*grid-template-columns: 35% 65%;*/
         background-color: #9fcdff;
     }
 
-    #project-parameters{
+    #project-parameters {
         grid-area: Parameters;
         background-color: #9fcdff;
     }
 
-    #parameter-tekstvak{
+    #parameter-tekstvak {
         max-width: 50%;
         min-width: 35%;
         float: left;
     }
 
-    #project-beschrijving{
+    #project-beschrijving {
         border-top: 1px solid #00008B;
         margin-top: 5px;
     }
 
-    #project-beschrijving textarea{
+    #project-beschrijving textarea {
         alignment: center;
         margin: 2px;
         font-size: 21px;
@@ -271,33 +261,32 @@
         padding-right: 10px;
     }
 
-    #project-footer2{
+    #project-footer2 {
         width: 50%;
         float: left;
     }
 
-
-    #project-footer2 input:hover{
+    #project-footer2 input:hover {
         cursor: pointer;
     }
 
-    #project-footer3{
+    #project-footer3 {
         width: 50%;
         float: right;
         text-align: right;
     }
 
-    #project-footer3 input:hover{
+    #project-footer3 input:hover {
         cursor: pointer;
     }
 
-    #reacties{
-        margin-right: auto;
+    #reacties {
+        margin-right: 10px;
         margin-left: 10px;
     }
 
-    #reactie-venster{
-        border: 1px solid #00008B;
+    #reactie-venster {
+        border: 2px solid #00008B;
         background-color: #FFB31A;
         height: 200px;
         width: 99%;
@@ -305,7 +294,7 @@
         padding-left: 10px;
     }
 
-    #reactie-inhoud{
+    #reactie-inhoud {
         margin: 2px;
         padding: 10px;
         border: 1px solid #00008B;
@@ -313,11 +302,11 @@
         height: 100px;
     }
 
-    #popup-knop:hover{
+    #popup-knop:hover {
         cursor: pointer;
     }
 
-    .pop{
+    .pop {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
@@ -329,11 +318,11 @@
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         alignment: center;
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     }
 
-    .reactie-popup-inhoud{
+    .reactie-popup-inhoud {
         background-color: #fefefe;
         margin: auto;
         padding: 20px;
@@ -355,44 +344,61 @@
         cursor: pointer;
     }
 
-    #filter-projecten-kop{
+    #filter-projecten-kop {
         font-size: 20px;
         font-weight: bold;
     }
 
-    #reclame{
+    #reclame {
         grid-area: reclame;
-        display: grid;
+        /*display: grid;*/
         grid-template-areas: 'project-beschikbaarheid' 'project-feedback';
-        grid-template-rows: 50% 50%;
+        grid-template-columns: 49% 49%;
+        float: left;
     }
 
-    #project-beschikbaarheid{
+    #project-beschikbaarheid {
+        grid-area: project-beschikbaarheid;
         display: grid;
-        height: 100%;
-        background-color: #c82333;
+        background-color: #9fcdff;
+        border: 2px solid #00008B;
+        margin: 2px;
+        grid-template-areas: 'knop' 'tijden';
+        grid-template-rows: 50px 250px;
     }
 
-    #project-beschikbaarheid button{
-        height: 25%;
+    #project-beschikbaarheid-button {
+        grid-area: knop;
+        display: grid;
+    }
+
+    #project-beschikbaarheidsoverzicht {
+        display: grid;
+        grid-area: tijden;
+    }
+
+    #project-beschikbaarheid button {
         font-size: 16px;
     }
 
-    #project-feedback{
-        border: 1px solid #00008B;
+    #project-feedback {
+        grid-area: project-feedback;
+        border: 2px solid #00008B;
         margin: 2px;
         display: grid;
         height: 100%;
         background-color: #9fcdff;
+        float: left;
+        width: 100%;
     }
 
 }
 
 /*Laptops / grote tablets*/
 @media only screen and (min-width: 800px) {
-    #projectpagina{
-        min-height: 94vh;
-        /*max-height: 100%;*/
+    #projectpagina {
+        min-height: 91vh;
+        max-height: 100%;
         background-color: #FFFFFF;
     }
 
@@ -403,40 +409,37 @@
         padding: 0px; /*geen witte randen*/
         margin: 0px; /*geen witte randen*/
         grid-template-columns: auto 220px auto 220px auto;
-
     }
 
     #projecten-row-grid {
-        padding: 0px;
+        padding: 0;
         display: grid;
         grid-template-areas: 'projecten-header' 'projecten-info' 'projecten-footer'; /*hier geef je dus je grid componenten op*/
-        grid-gap: 0px;
+        grid-gap: 0;
         background-color: #FFFFFF;
         margin: 10px;
-        grid-template-rows: 60px auto 20px;  /*Drie lagen, dit zijn de hoogtes*/
-        border: 1px solid #00008B;
+        grid-template-rows: 60px auto 20px; /*Drie lagen, dit zijn de hoogtes*/
+        border: 2px solid #00008B;
     }
 
-    #filter-projecten{
+    #filter-projecten {
         height: 820px;
         background-color: #9fcdff;
         margin-top: 10px;
         padding-top: 30px;
-        padding-left:10px;
+        padding-left: 10px;
+        border: 2px solid #00008B;
     }
-
-
 
     #projecten-row {
         /*background-color: #FFB31A;*/
     }
 
-    #projecten-geen-project{
+    #projecten-geen-project {
         margin-top: 10px;
         text-align: center;
         background-color: #9fcdff;
         font-size: 23px;
-
     }
 
     #projecten-header {
@@ -469,13 +472,13 @@
         background-color: #9fcdff;
     }
 
-    #projecten-status{
+    #projecten-status {
         width: 25%;
-        float:left;
+        float: left;
     }
 
-    #projecten-beschrijving{
-        float:left;
+    #projecten-beschrijving {
+        float: left;
         width: 75%;
     }
 
@@ -486,13 +489,13 @@
         padding-right: 10px;
     }
 
-    #projecten-buttons{
+    #projecten-buttons {
         width: 100%;
         display: inline-block;
         font-size: 23px;
     }
 
-    #projecten-previous{
+    #projecten-previous {
         float: left;
         margin-left: 10%;
         /*background-color: #FFB31A;*/
@@ -501,7 +504,7 @@
         /*padding: 10px;*/
     }
 
-    #projecten-next{
+    #projecten-next {
         float: right;
         margin-right: 10%;
         /*background-color: #FFB31A;*/
@@ -510,9 +513,7 @@
         /*padding: 10px;*/
     }
 
-
     /*vanaf hier voor de detailpagina project*/
-
     #project-row-grid {
         padding: 0px;
         display: grid;
@@ -520,26 +521,26 @@
         grid-gap: 0px;
         background-color: #FFFFFF;
         margin: 10px;
-        grid-template-rows: 60px 500px 50px;  /*Drie lagen, dit zijn de hoogtes*/
-        border: 1px solid #00008B;
+        grid-template-rows: 60px 500px 50px; /*Drie lagen, dit zijn de hoogtes*/
+        border: 2px solid #00008B;
     }
 
     #project-header {
         grid-area: project-header;
     }
 
-    #projecten-zoek{
+    #projecten-zoek {
         width: 100%;
         margin: 5px;
         margin-left: -1px;
     }
 
-    #projecten-zoek input{
+    #projecten-zoek input {
         width: 90%;
         height: 26px;
     }
 
-    #projecten-zoek button{
+    #projecten-zoek button {
         width: 92%;
         background-color: #FFB31A;
         color: black;
@@ -555,32 +556,32 @@
         margin-right: 10px;
     }
 
-    #project-button a{
+    #project-button a {
         text-decoration: none;
         color: black
     }
 
-    #project-button input{
+    #project-button input {
         all: unset;
         text-decoration: none;
         color: black;
         background-color: #FFB31A;
     }
 
-    #filter-project-terug{
+    #filter-project-terug {
         margin-bottom: 5px;
     }
 
-    #filter-project-terug a button{
+    #filter-project-terug a button {
         width: 198px;
     }
 
-    #project-wijzig-button{
+    #project-wijzig-button {
         text-decoration: none;
     }
 
     #project-klaar {
-        color:red;
+        color: red;
         background-color: aqua;
     }
 
@@ -606,13 +607,13 @@
         color: black; /*Puur voor de link/titel*/
     }
 
-    #project-titel textarea{
+    #project-titel textarea {
         float: left;
         margin: 2px;
         font-size: 25px;
     }
 
-    #project-type{
+    #project-type {
         font-size: 20px;
     }
 
@@ -622,24 +623,24 @@
         background-color: #9fcdff;
     }
 
-    #project-info-grid{
+    #project-info-grid {
         display: grid;
         grid-template-areas: 'Parameters' 'beschrijving';
         grid-template-columns: 35% 65%;
         background-color: #9fcdff;
     }
 
-    #project-parameters{
+    #project-parameters {
         grid-area: Parameters;
         background-color: #9fcdff;
     }
 
-    #parameter-tekstvak{
+    #parameter-tekstvak {
         width: 50%;
         float: left;
     }
 
-    #project-beschrijving textarea{
+    #project-beschrijving textarea {
         alignment: center;
         margin: 2px;
         font-size: 21px;
@@ -652,26 +653,26 @@
         padding-right: 10px;
     }
 
-    #project-footer2{
+    #project-footer2 {
         width: 50%;
         float: left;
     }
 
-    #project-footer2 input:hover{
+    #project-footer2 input:hover {
         cursor: pointer;
     }
 
-    #project-footer3{
+    #project-footer3 {
         width: 50%;
         float: right;
         text-align: right;
     }
 
-    #project-footer3 input:hover{
+    #project-footer3 input:hover {
         cursor: pointer;
     }
 
-    #reacties{
+    #reacties {
         margin-right: auto;
         margin-left: 10px;
     }
@@ -680,15 +681,16 @@
         width: auto;
     }
 
-    #reactie-venster{
-        border: 1px solid #00008B;
+    #reactie-venster {
+        border: 2px solid #00008B;
         background-color: #FFB31A;
         height: 200px;
-        width: 49%;
+        width: 48%;
         float: left;
+        margin: 1px;
     }
 
-    #reactie-inhoud{
+    #reactie-inhoud {
         margin: 2px;
         padding: 10px;
         border: 1px solid #00008B;
@@ -696,11 +698,11 @@
         height: 100px;
     }
 
-    #popup-knop:hover{
+    #popup-knop:hover {
         cursor: pointer;
     }
 
-    .pop{
+    .pop {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
@@ -712,11 +714,11 @@
         height: 100%; /* Full height */
         overflow: auto; /* Enable scroll if needed */
         alignment: center;
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
     }
 
-    .reactie-popup-inhoud{
+    .reactie-popup-inhoud {
         background-color: #fefefe;
         margin: auto;
         padding: 20px;
@@ -738,49 +740,48 @@
         cursor: pointer;
     }
 
-    #filter-projecten-kop{
+    #filter-projecten-kop {
         font-size: 20px;
         font-weight: bold;
     }
 
-    #reclame{
+    #reclame {
         margin-top: 10px;
         padding-top: 5px;
-        padding-right:10px;
+        padding-right: 10px;
         height: 95vh;
         display: grid;
         grid-template-areas: 'project-beschikbaarheid' 'project-feedback';
         grid-template-rows: 50% 50%;
     }
 
-    #project-beschikbaarheid{
+    #project-beschikbaarheid {
         display: grid;
         height: 100%;
         background-color: #9fcdff;
-        border: 1px solid #00008B;
+        border: 2px solid #00008B;
         margin: 2px;
         grid-template-areas: 'knop' 'tijden';
         grid-template-rows: 55px auto;
     }
 
-    #project-beschikbaarheid-button{
+    #project-beschikbaarheid-button {
         grid-area: knop;
     }
 
-    #project-beschikbaarheidsoverzicht{
-
+    #project-beschikbaarheidsoverzicht {
         grid-area: tijden;
     }
 
-    #project-beschikbaarheid button{
+    #project-beschikbaarheid button {
         height: 50px;
         font-size: 16px;
         margin-right: 0;
         margin-bottom: 0;
     }
 
-    #project-feedback{
-        border: 1px solid #00008B;
+    #project-feedback {
+        border: 2px solid #00008B;
         margin: 2px;
         display: grid;
         height: 100%;
@@ -788,30 +789,30 @@
         grid-template-rows: 8% 7% 5% 20% 20% 20% 20%;
     }
 
-    #project-feedback-kader{
+    #project-feedback-kader {
         height: 100%;
         background-color: red;
     }
 
-    #geef_feedback{
+    #geef_feedback {
         align-items: center;
         margin-top: 1%;
         margin-left: 10%;
     }
 
-    #title_feedback{
+    #title_feedback {
         text-align: center;
     }
 
-    #title_feedback h3{
+    #title_feedback h3 {
         margin: 4px;
     }
 
-    #gemiddelde_cijfer{
+    #gemiddelde_cijfer {
         margin-left: 10%;
     }
 
-    #gemiddelde_cijfer p{
+    #gemiddelde_cijfer p {
         margin: 2px;
     }
 
@@ -828,27 +829,27 @@
         height: 100%;
     }
 
-    #feedbacbox p{
+    #feedbacbox p {
         margin: 0;
     }
 
-    #feedbackby{
+    #feedbackby {
         text-align: center;
     }
 
-    #feedbacbox{
+    #feedbacbox {
         margin: 4px;
         border: 1px solid #00008B;
         display: grid;
         grid-template-rows: 20% 20% 60%;
     }
 
-    #comment{
+    #comment {
         margin-left: 4%;
         width: 80%;
     }
 
-    #feedbacklabel{
+    #feedbacklabel {
         text-align: center;
     }
 }

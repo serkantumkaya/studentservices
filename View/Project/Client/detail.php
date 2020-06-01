@@ -220,7 +220,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                         $newStartTijd = $sg->getStartTijd()->format("Y-m-d H:i:s");
                         $newEindTijd  = $sg->getEindTijd()->format("Y-m-d H:i:s");
 
-                        echo "<tr>";
+                        echo "<div id='beschikbaarheidrij>' <tr>";
                         echo "<td> <input type=\"submit\" value=\"" . $newStartTijd .
                             "\" formaction='Edit.php?ID=" .
                             $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
@@ -230,7 +230,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
                         echo "</tr>";
                         echo "<tr><td><hr></td>";
-                        echo "</tr>";
+                        echo "</tr> </div>";
                     }
 
                     ?>
