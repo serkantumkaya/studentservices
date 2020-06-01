@@ -219,8 +219,8 @@ echo "<h1 class=\"h1profiel\">".Translate::GetTranslation("profielProfiel"). $ge
 
         echo "<div class=\"block\">";
         echo "<!--Geboortedatum-->";
-        echo "<label class=\"formlabel\">".Translate::GetTranslation("profielGeboortedatum")."</label>";
-        echo "<input type = \"text\" name=\"Geboortedatum\" value=\"";
+        echo "<label class=\"formlabel\">".Translate::GetTranslation("profielGeboortedatum")."</label>
+        <input type = \"text\" name=\"Geboortedatum\" value=\"";
         $time    = new DateTime($Geboortedatum);
         $newTime = $time->format("d-m-Y");
 
@@ -229,8 +229,8 @@ echo "<h1 class=\"h1profiel\">".Translate::GetTranslation("profielProfiel"). $ge
 
         echo "<div class=\"block\">";
         echo "    <!--School-->
-<label class=\"formlabel\">".Translate::GetTranslation("profielSchool")."</label>";
-        echo "<select name=\"School\">";
+<label class=\"formlabel\">".Translate::GetTranslation("profielSchool")."</label>
+        <select name=\"School\">";
         $Schoolcontroller = new SchoolController();
         foreach ($Schoolcontroller->GetScholen() as $sh){
             $schoolid   = $sh->getSchoolID();
