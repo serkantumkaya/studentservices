@@ -55,7 +55,7 @@ EOD;
         <li><a href="/StudentServices/index.php">$homeVertalen</a></li>
         <li><a href="/StudentServices/View/Profiel/Edit.php">$profielVertalen</a></li>
         <li><a href="/StudentServices/ClientSide/Projecten.php?Page=1">$projectVertalen</a></li>
-        <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">$faqVertalen?</a></li>
+        <li><a href="/StudentServices/View/Veelgesteldevragen/View.php">$faqVertalen</a></li>
         <li><a href="/StudentServices/ClientSide/Contact.php">$contactVertalen</a></li>
         <li><a href="/StudentServices/uitlog.php">$uitloggenVertalen</a></li>
 
