@@ -34,8 +34,8 @@ class HomepageController
 
        if ($this->profielcontroller->getByGebruikerID() != null){//dit is voor het geval dat een profiel niet bestaat en de user wel
 
-            $this->profiel       = $this->profielcontroller->getById($this->gebruikersid);
-           $this->profielexsist = true;
+           // $this->profiel       = $this->profielcontroller->getById($this->gebruikersid);
+         //  $this->profielexsist = true;
         }
         $this->projectcontroller = new ProjectController();
         $this->project           = $this->projectcontroller->getByGebruikerID($this->gebruikersid);
