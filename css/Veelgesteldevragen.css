@@ -4,6 +4,7 @@
     margin-bottom: 5px;
     width: 100%;
     overflow: hidden;
+    font-size: 21px;
 }
 
 input {
@@ -12,7 +13,7 @@ input {
 }
 
 label.Vraaglabel {
-    border-radius: 25px;
+    /*border-radius: 25px;*/
     border: 1px solid #00008B;
     padding: 2px;
     width: 75%;
@@ -34,13 +35,14 @@ label.Vraaglabel {
     text-align: center;
     font-weight: bold;
     line-height: 10px;
-    color: #FFB31A;
+    color: #000000;
     max-height: 0;
     overflow: hidden;
     -webkit-transition: max-height .50s;
     -moz-transition: max-height .50s;
     -o-transition: max-height .50s;
     transition: .50s;
+    font-size: 19px;
 }
 
 .Antwoord p {
