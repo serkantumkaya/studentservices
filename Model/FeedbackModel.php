@@ -2,8 +2,11 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Feedback.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
+//require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/Feedback.php");
+//require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
+
+require_once ("C:xampp/htdocs/StudentServices/Includes/DB.php");
+require_once ("C:xampp/htdocs/StudentServices/BaseClass/Feedback.php");
 
 class FeedbackModel
 {

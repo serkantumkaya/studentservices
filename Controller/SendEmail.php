@@ -1,8 +1,8 @@
 <?php
 
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/vendor/autoload.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Model/VerficatieModel.php");
+require_once ("C:xampp/htdocs/StudentServices/vendor/autoload.php");
+require_once ("C:xampp/htdocs/StudentServices/Model/VerficatieModel.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 
