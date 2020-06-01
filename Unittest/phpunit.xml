@@ -1,0 +1,20 @@
+<phpunit bootstrap="bootstrap/autoload.php">
+  <testsuites>
+    <testsuite name="Student services">
+      <file>Tests/GebruikerTest.php</file>
+      <file>Tests/ProfielTest.php</file>
+      <file>Tests/ProjectTest.php</file>
+	  <file>Tests/AlgemeneTest.php</file>
+    </testsuite>
+  </testsuites>
+  <logging>
+  <log type="coverage-html" target="/logs/report" lowUpperBound="35"
+       highLowerBound="70"/>
+  <log type="coverage-clover" target="/logs/coverage.xml"/>
+  <log type="coverage-php" target="/logs/coverage.serialized"/>
+  <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
+  <log type="junit" target="/logs/logfile.xml"/>
+  <log type="testdox-html" target="/logs/testdox.html"/>
+  <log type="testdox-text" target="/logs/testdox.txt"/>
+   </logging>
+</phpunit>
