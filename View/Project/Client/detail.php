@@ -199,49 +199,12 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
 
 
         <div id="reclame">
-            <div id="project-beschikbaarheid">
-                <div id="project-beschikbaarheid-button">
-                    <?php
-                    if ($_SESSION['GebruikerID'] == $project->getGebruikerID()){
-
-                        echo "<button id='project-button' onClick=\"window.location.href='/studentservices/View/Beschikbaarheid/View.php'\">
-                            " . Translate::GetTranslation("ProjectenBeschikbaarheidButton") . "
-                           </button>";
-                    }
-                    ?>
-                </div>
-                <div id="project-beschikbaarheidsoverzicht">
-                    <?php
-
-                    $beschikbaarheidcontroller = new BeschikbaarheidController();
-
-                    foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($project->getProjectID()) as $sg){
-
-                        $newStartTijd = $sg->getStartTijd()->format("Y-m-d H:i:s");
-                        $newEindTijd  = $sg->getEindTijd()->format("Y-m-d H:i:s");
-
-                        echo "<tr>";
-                        echo "<td> <input type=\"submit\" value=\"" . $newStartTijd .
-                            "\" formaction='Edit.php?ID=" .
-                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
-                        echo "</tr>";
-                        echo "<tr>";
-                        echo "<td> <input type=\"submit\" value=\"" . $newEindTijd . "\" formaction='Edit.php?ID=" .
-                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
-                        echo "</tr>";
-                        echo "<tr><td><hr></td>";
-                        echo "</tr>";
-                    }
-
-                    ?>
-                </div>
-            </div>
             <div id="project-feedback">
                 <?php if (!$schowfeedbackdetail){ ?>
                     <div id="geef_feedback">
                         <form action="" method="post">
-                            <input id="feedbackknop" type="submit" value="geef feedback">
-                            <input id="feedback" type="hidden" name="feedback" value="feedback">
+                            <button id="project-button" style="font-size: 16px;"><input type="submit" value="geef feedback">
+                                <input type="hidden" name="feedback" value="feedback"></button>
                         </form>
                     </div>
                     <div id="title_feedback">
@@ -263,8 +226,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                                 <div id='feedbackby'><p>gegeven
                                         door <?= $gebruikersController->getById($feedbackcontroller->getById($feedback)
                                             ->getGebruikerID())->getGebruikersnaam() ?></p></div>
-                                <div id='feedbackby'><p>cijfer <?= $feedbackcontroller->getById($feedback)
-                                            ->getCijfer() ?></p></div>
+                                <div id='feedbackby'>cijfer <?= $feedbackcontroller->getById($feedback)
+                                        ->getCijfer() ?></div>
                                 <div><p><?= $feedbackcontroller->getById($feedback)->getReview() ?></p></div>
                             </div>
                         <?php }
@@ -285,14 +248,56 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                             ?>
                         </select>
                         <br>
-                        <label for="comment"> vul hier je feedback in</label>
+                        <input type="submit" name="submitFeedback" value="Plaatsen">
+                        <!--                        <label for="comment"> vul hier je feedback in</label>-->
                         <textarea id="comment" maxlength="200" name="Feedback" cols="1" rows="5"
                                   placeholder="Max 200 characters" required></textarea>
-                        <input type="submit" name="submitFeedback" value="Plaatsen">
+
                     </form>
                 <?php } ?>
 
             </div>
+
+
+
+            <div id="project-beschikbaarheid">
+                <div id="project-beschikbaarheid-button">
+                    <?php
+                    if ($_SESSION['GebruikerID'] == $project->getGebruikerID()){
+
+                        echo "<button id='project-button' onClick=\"window.location.href='/studentservices/View/Beschikbaarheid/View.php'\">
+                            " . Translate::GetTranslation("ProjectenBeschikbaarheidButton") . "
+                           </button>";
+                    }
+                    ?>
+                </div>
+                <div id="project-beschikbaarheidsoverzicht">
+                    <?php
+
+                    $beschikbaarheidcontroller = new BeschikbaarheidController();
+
+                    foreach ($beschikbaarheidcontroller->GetBeschikbaarheidByProject($project->getProjectID()) as $sg){
+
+                        $newStartTijd = $sg->getStartTijd()->format("Y-m-d H:i:s");
+                        $newEindTijd  = $sg->getEindTijd()->format("Y-m-d H:i:s");
+
+                        echo "<div id='beschikbaarheidrij>' <tr>";
+                        echo "<td> <input type=\"submit\" value=\"" . $newStartTijd .
+                            "\" formaction='Edit.php?ID=" .
+                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
+                        echo "</tr>";
+                        echo "<tr>";
+                        echo "<td> <input type=\"submit\" value=\"" . $newEindTijd . "\" formaction='Edit.php?ID=" .
+                            $sg->getBeschikbaarheidID() . "' class=\"selectionrow\" style='width:200px;'> </td>";
+                        echo "</tr>";
+                        echo "<tr><td><hr></td>";
+                        echo "</tr> </div>";
+                    }
+
+                    ?>
+                </div>
+            </div>
+
         </div>
         <div id="overrechts">
 
