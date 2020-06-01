@@ -41,7 +41,8 @@ li a {
 ul li a:hover {
     background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
     color: #FFB31A;
-    width:130px;
+    width:100%;
+    position:relative;
     height: 40px;
 }
 
@@ -73,7 +74,8 @@ ul li ul:hover {
     opacity: 1;
     display: block;
     color: #FFB31A;
-    width:130px;
+    width:100%;
+    position:relative;
     height: 40px;
 }
 
@@ -82,8 +84,20 @@ ul li ul li {
     width: 100%;
 }
 
+/* Hide Hamburger */
+#page-nav label, #hamburger {
+    display: none;
+}
+
+ul li a:hover {
+    background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+    color: #FFB31A;
+}
+
+
 /*#endregion Menucss*/
 
+/*#region Other normal css*/
 p {
     font-size: 12px; /*12px font grootte*/
     font-family: verdana;
@@ -253,13 +267,8 @@ input[type=submit]:active {
 
 ​
 .formouter {
-    border-radius: 25px;
     border: 1px solid #00008B;
     background-color: pink;
-    /*position: relative;*/
-    /*text-align: right;*/
-    /*height: 440px;*/
-    /*width: 500px;*/
     margin-top: 20px;
     padding-top: 20px;
     padding-left: 20px;
@@ -277,10 +286,6 @@ textarea {
     resize: none;
 }
 
-
-
-
-
 #logo {
     position: fixed; /*Logo altijd in de hoek*/
     right: 0px;
@@ -295,10 +300,7 @@ textarea {
     height: 350px;
 }
 
-/* Hide Hamburger */
-#page-nav label, #hamburger {
-    display: none;
-}
+
 
 .flaglanguage
 {
@@ -315,44 +317,6 @@ textarea {
     border:0;!important;
     background-color: transparent;
 }
-
-#page-nav {
-    width: 100%;
-    position: fixed;
-    border-bottom: 1px solid #00008B;
-    background-color: #ffffff;
-}
-
-
-#nav ul {
-    position: absolute;
-    padding: 0;
-    left: 0;
-    display: none; /* hides sublists */
-}
-
-#nav li:hover ul ul {
-    display: none;
-}
-
-/* hides sub-sublists */
-
-#nav li:hover ul ul {
-    display: none;
-}
-
-/* hides sub-sublists */
-#nav li:hover ul {
-    display: block;
-}
-
-/* shows sublist on hover */
-/*#nav li li:hover ul {*/
-/*    display:block; !* shows sub-sublist on hover *!*/
-/*    margin-left:200px; !* this should be the same width as the parent list item *!*/
-/*    margin-top:-35px; !* aligns top of sub menu with top of list item *!*/
-
-
 .info {
     grid-area: info;
     /*top:150px;/*
@@ -387,7 +351,6 @@ dt {
 }
 
 #rcorners2 {
-    border-radius: 25px;
     border: 1px solid #00008B;
     padding: 20px;
     width: auto;
@@ -400,7 +363,6 @@ dt {
 }
 
 #rcornersContact {
-    border-radius: 25px;
     border: 1px solid #00008B;
     padding: 20px;
     width: 71%;
@@ -413,7 +375,6 @@ dt {
 }
 
 #rcornersContactform {
-    border-radius: 25px;
     border: 1px solid #00008B;
     padding: 20px;
     width: 82%;
@@ -425,14 +386,12 @@ dt {
 }
 
 #rcornersMaps {
-    border-radius: 25px;
     border: 1px solid #00008B;
     padding: 10px;
     margin: 20px;
     text-align: center;
     z-index: 0;
 }
-
 
 .header {
     grid-area: header;
@@ -543,12 +502,10 @@ iframe {
 .contacttekst img {
     margin-right: 5px;
     width: 50%;
-    border-radius: 25px;
     border: 1px solid #00008B;
 }
 
 a.button {
-    border-radius: 25px;
     background-color: #00008B; /* Oranje */
     border: none;
     color: #FFB31A;
@@ -561,7 +518,6 @@ a.button {
 }
 
 #submit {
-    border-radius: 25px;
     background-color: #00008B; /* Oranje */
     border: none;
     color: #FFB31A;
@@ -576,7 +532,6 @@ a.button {
 }
 
 .formbutton {
-    border-radius: 25px;
     background-color: #00008B; /* oOranje */
     border: none;
     color: #FFB31A;
@@ -589,6 +544,8 @@ a.button {
     width: 175px;
 }
 
+/*#endregion Other normal css*/
+
 /*dit stukje is ervoor als het scherm kleiner is. Even easy met max 600px*/
 
 @media only screen and (max-width: 800px) {
@@ -597,8 +554,19 @@ a.button {
         width: 99%;
     }
 
+    #page-nav label {
+        position: fixed;
+        display: inline-block;
+        color: #000000;
+        background: #ffffff;
+        font-style: normal;
+        font-size: 1.2em;
+        padding: 10px;
+        z-index: 999;
+        width: 100%;
+    }
+
     .profielfotoform {
-        border-radius: 25px;
         border: 1px solid #00008B;
         padding: 20px;
         width: 200px;
@@ -611,17 +579,12 @@ a.button {
         top: auto;
     }
 
-
-    #page-nav label {
-        position: fixed;
-        display: inline-block;
-        color: #000000;
-        background: #ffffff;
-        font-style: normal;
-        font-size: 1.2em;
-        padding: 10px;
-        z-index: 999;
-        width: 100%;
+    li:hover {
+        background-color: #00008B;
+        color: #FFB31A;
+        cursor: pointer;
+        width:100%;
+        height: 40px;
     }
 
     ul {
@@ -669,6 +632,11 @@ a.button {
         text-align: center; /*De tekst in het midden*/
     }
 
+    ul li a:hover {
+        background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+        color: #FFB31A;
+    }
+
     /* Toggle show/hide menu on checkbox click */
     #page-nav ul {
         display: none;
@@ -704,7 +672,7 @@ a.button {
     }
 
     .header {
-        height: 500px;
+        height: 40px;
     }
 
 
@@ -813,8 +781,12 @@ a.button {
         grid-template-rows: 50px 0px auto 50px; /* je hebt 4 lagen dit zijn de hoogtes van de lagen*/
     }
 
+    ul li a:hover {
+        background-color: #00008B; /*Blauwe knop met gele letters bij hover*/
+        color: #FFB31A;
+    }
+
     .profielfotoform {
-        border-radius: 25px;
         border: 1px solid #00008B;
         padding: 20px;
         width: 200px;
@@ -859,12 +831,6 @@ a.button {
     width: 100%;
 }
 
-/*input[type=text], select, textarea {*/
-/*    padding: 12px;*/
-/*    border: 1px solid #ccc;*/
-/*    border-radius: 4px;*/
-/*}*/
-
 textarea {
     padding: 12px;
     border: 1px solid #ccc;
@@ -875,7 +841,6 @@ textarea {
 .container {
     font-family: Verdana;
     grid-area: invulform;
-    border-radius: 25px;
     background-color: #ffffff;
     margin: 10px;
     padding: 20px;
@@ -888,7 +853,6 @@ textarea {
 .container-register {
     font-family: Verdana;
     grid-area: invulform;
-    border-radius: 25px;
     background-color: #ffffff;
     margin: 35px;
     padding: 20px;
@@ -956,7 +920,6 @@ textarea {
 
 /**** voor de popup*****/
 
-
 .popup {
     margin: 50px;
     position: relative;
@@ -983,18 +946,6 @@ textarea {
     left: 50%;
     margin-left: -80px;
 }
-
-/* Popup arrow *//*
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}*/
 
 /* Toggle this class - hide and show the popup */
 .popup .show {
