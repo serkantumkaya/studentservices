@@ -119,9 +119,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
             <!--<h4>hier is wat over</h4>-->
         </div>
         <div id="filter-projecten" style="border: none; background-color: #FFFFFF">
-
+            <div id="filter-project-terug">
             <a href="project.php?ProjectID=<?php echo $projectID; ?>&view=detail"/><button id="project-button"><?php echo Translate::GetTranslation("ProjectTerug"); ?></button></a>
-
+            </div>
 
             <!--hier hoeft nu ook niets-->
         </div>

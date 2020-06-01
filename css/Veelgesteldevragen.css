@@ -34,7 +34,7 @@ label.Vraaglabel {
     margin: auto;
     text-align: center;
     font-weight: bold;
-    line-height: 10px;
+    line-height: 15px;
     color: #000000;
     max-height: 0;
     overflow: hidden;
@@ -43,6 +43,7 @@ label.Vraaglabel {
     -o-transition: max-height .50s;
     transition: .50s;
     font-size: 19px;
+
 }
 
 .Antwoord p {
