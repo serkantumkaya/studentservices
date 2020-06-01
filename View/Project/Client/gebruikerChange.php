@@ -118,7 +118,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         <div id="overlinks">
             <!--<h4>hier is wat over</h4>-->
         </div>
-        <div id="filter-projecten" style="background-color: #004085">
+        <div id="filter-projecten" style="border: none; background-color: #FFFFFF">
 
             <a href="project.php?ProjectID=<?php echo $projectID; ?>&view=detail"/><button id="project-button"><?php echo Translate::GetTranslation("ProjectTerug"); ?></button></a>
 

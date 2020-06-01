@@ -58,8 +58,9 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
         <div id="overlinks">
             <!--<h4>hier is wat over</h4>-->
         </div>
-        <div id="filter-projecten" style="background-color: #004085">
-            <!--hier hoeft nu ook niets-->
+        <div id="filter-projecten" style="border:none; background-color: #FFFFFF">
+            <a href="projecten.php?Page=1"/><button id="project-button"><?php echo Translate::GetTranslation("ProjectTerug"); ?></button></a>
+
         </div>
         <form action="/Studentservices/ClientSide/project.php?view=add" method="post">
             <div id="project-row-grid">
@@ -100,7 +101,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/studentservices/Includes/header.php");
                 </div>
                 <div id="project-footer">
                     <button id="project-button">
-                        <input type="submit" name="submit"
+                        <input id='project-button' type="submit" name="submit"
                                value="<?php echo Translate::GetTranslation("ProjectVoegToe"); ?>"/>
                     </button>
                 </div>
