@@ -1,7 +1,7 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/BaseClass/ZoekOpdracht.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/includes/DB.php");
+require_once ("C:xampp/htdocs/StudentServices/BaseClass/ZoekOpdracht.php");
+require_once ("C:xampp/htdocs/StudentServices/includes/DB.php");
 
 class ZoekModel{
 

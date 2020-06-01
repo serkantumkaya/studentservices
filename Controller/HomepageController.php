@@ -1,10 +1,10 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/GebruikerController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/FeedbackController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ReactieController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProjectController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Controller/ProfielController.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/Translate/Translate.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/GebruikerController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/FeedbackController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/ReactieController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/ProjectController.php");
+require_once ("C:xampp/htdocs/StudentServices/Controller/ProfielController.php");
+require_once ("C:xampp/htdocs/StudentServices/Includes/Translate/Translate.php");
 
 class HomepageController
 {
