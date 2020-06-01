@@ -5,22 +5,11 @@ ini_set('display_errors', 1);
 require_once ($_SERVER['DOCUMENT_ROOT']."/StudentServices/Controller/GebruikerController.php");
 ?>
 <!DOCTYPE HTML>
-<html lang="en">
+<html>
 <head>
-    <link rel="shortcut icon" type="image/x-icon" href=/images/StudentServices.ico" />
-    <meta charset="utf-8">
-    <title>Student Services</title>
-    <meta name="Toevoegen gebruiker" content="index">
-    <meta name="author" content="The big 5">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--The viewport is the user's visible area of a web page.-->
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="/StudentServices/css/style.css">
-    <link rel="stylesheet" href="/StudentServices/css/Profiel.css">
-    <script type="text/javascript" src="/StudentServices/JS/bevestigenaccount.js"></script>
-    <script type="text/javascript" src="/StudentServices/JS/script.js">
-    </script>
-</head>
+
+    <?php
+    include($_SERVER['DOCUMENT_ROOT'] . "/StudentServices/Includes/header.php");?>
 <body>
 <div class="header">
     <nav id="page-nav">
