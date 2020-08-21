@@ -90,6 +90,7 @@ if (isset($_POST["upload"]) && !empty($_FILES)){
                     if (empty($_Post) && !isset($_Post["actie"])){
                         $schoolcontroller = new SchoolController();
 
+
                         foreach ($schoolcontroller->GetScholen() as $school){
                             echo "<tr> <td> <input type=\"submit\" value=\"" . $school->getSchoolnaam() .
                                 "\" formaction='Edit.php?ID=" . $school->getSchoolID() .
